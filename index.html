@@ -1,72 +1,153 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>我的主页</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>株式会社スマートアイズ</title>
   <style>
-    * {
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Hiragino Kaku Gothic ProN", "Microsoft YaHei", sans-serif;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
-      background: linear-gradient(135deg, #e0f7ff, #f0f0ff);
+      background: #f7f9fc;
       color: #333;
-      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      animation: fadeIn 1.2s ease;
+      min-height: 100vh;
     }
 
-    .card {
+    .container {
       background: #fff;
-      padding: 40px;
-      border-radius: 16px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      width: 90%;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
       text-align: center;
-      max-width: 400px;
+    }
+
+    .logo {
+      height: 60px;
+      margin-bottom: 20px;
     }
 
     h1 {
-      font-size: 28px;
-      color: #007acc;
-      margin-bottom: 12px;
+      color: #005bac;
+      margin-bottom: 20px;
+      font-size: 1.8em;
     }
 
     p {
-      font-size: 16px;
-      margin-bottom: 24px;
+      margin: 0.6em 0;
+      font-size: 1em;
     }
 
-    a.button {
-      display: inline-block;
-      padding: 10px 20px;
-      background-color: #007acc;
-      color: #fff;
-      border-radius: 8px;
-      text-decoration: none;
-      transition: background-color 0.3s ease;
+    .lang-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
     }
 
-    a.button:hover {
-      background-color: #005fa3;
+    .lang-buttons button {
+      padding: 6px 14px;
+      border: none;
+      border-radius: 6px;
+      background-color: #e0e0e0;
+      cursor: pointer;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    .lang-buttons button.active {
+      background-color: #005bac;
+      color: white;
+    }
+
+    .wechat {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .wechat img {
+      height: 24px;
+    }
+
+    .footer {
+      font-size: 0.9em;
+      color: #666;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>你好，世界！</h1>
-    <p>欢迎来到我的个人主页，这是用 Git + Vercel 自动部署的。</p>
-    <a class="button" href="mailto:yourname@example.com">联系我</a>
+  <div class="container">
+    <img src="logo.png" alt="Company Logo" class="logo" />
+
+    <div class="lang-buttons">
+      <button onclick="setLang('ja')" class="active">日本語</button>
+      <button onclick="setLang('zh')">中文</button>
+      <button onclick="setLang('en')">English</button>
+    </div>
+
+    <h1 id="company-name">株式会社スマートアイズ</h1>
+
+    <p id="address">〒160-0023 東京都新宿区西新宿7-3-10山京ビル401</p>
+    <p id="tel">TEL: 03-5358-9289　FAX: 03-5358-9296</p>
+    <p id="email">E-mail: smarteyes@pk2.so-net.ne.jp</p>
+
+    <div class="wechat">
+      <img src="wechat.png" alt="WeChat" />
+      <span style="font-size: 0.95em;">微信联系</span>
+    </div>
+
+    <p id="license">宅地建物取引業許可番号：東京都知事(1)第112700号</p>
+
+    <div class="footer" id="footer-text">このページは現在準備中です。</div>
   </div>
+
+  <script>
+    const texts = {
+      ja: {
+        company: "株式会社スマートアイズ",
+        address: "〒160-0023 東京都新宿区西新宿7-3-10山京ビル401",
+        tel: "TEL: 03-5358-9289　FAX: 03-5358-9296",
+        email: "E-mail: smarteyes@pk2.so-net.ne.jp",
+        license: "宅地建物取引業許可番号：東京都知事(1)第112700号",
+        footer: "このページは現在準備中です。"
+      },
+      zh: {
+        company: "株式会社 SMART EYES",
+        address: "邮编160-0023 东京都新宿区西新宿7-3-10 山京大楼401室",
+        tel: "电话：03-5358-9289　传真：03-5358-9296",
+        email: "邮箱：smarteyes@pk2.so-net.ne.jp",
+        license: "房地产经营许可编号：东京都知事(1)第112700号",
+        footer: "本页面正在建设中，敬请期待。"
+      },
+      en: {
+        company: "Smart Eyes Co., Ltd.",
+        address: "Yamakyō Bldg. 401, 7-3-10 Nishi-Shinjuku, Shinjuku-ku, Tokyo 160-0023, Japan",
+        tel: "TEL: +81-3-5358-9289　FAX: +81-3-5358-9296",
+        email: "Email: smarteyes@pk2.so-net.ne.jp",
+        license: "Real Estate License No.: Tokyo Governor (1) #112700",
+        footer: "This site is currently under construction."
+      }
+    };
+
+    function setLang(lang) {
+      const t = texts[lang];
+      document.getElementById("company-name").textContent = t.company;
+      document.getElementById("address").textContent = t.address;
+      document.getElementById("tel").textContent = t.tel;
+      document.getElementById("email").textContent = t.email;
+      document.getElementById("license").textContent = t.license;
+      document.getElementById("footer-text").textContent = t.footer;
+
+      document.querySelectorAll(".lang-buttons button").forEach(btn => btn.classList.remove("active"));
+      document.querySelector(`.lang-buttons button[onclick="setLang('${lang}')"]`).classList.add("active");
+    }
+  </script>
 </body>
 </html>
