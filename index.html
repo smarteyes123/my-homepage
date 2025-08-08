@@ -11,43 +11,24 @@
       padding: 0;
       background: #f7f9fc;
       color: #333;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
     }
 
-    .container {
-      background: #fff;
-      max-width: 600px;
-      width: 90%;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-      text-align: center;
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 30px;
+      background-color: #fff;
+      border-bottom: 1px solid #e0e0e0;
     }
 
     .logo {
-      height: 60px;
-      margin-bottom: 20px;
-    }
-
-    h1 {
-      color: #005bac;
-      margin-bottom: 20px;
-      font-size: 1.8em;
-    }
-
-    p {
-      margin: 0.6em 0;
-      font-size: 1em;
+      height: 40px;
     }
 
     .lang-buttons {
       display: flex;
-      justify-content: center;
       gap: 10px;
-      margin-bottom: 20px;
     }
 
     .lang-buttons button {
@@ -63,16 +44,33 @@
       color: white;
     }
 
-    .wechat {
-      margin-top: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
+    .container {
+      background: #fff;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      text-align: center;
     }
 
-    .wechat img {
-      height: 24px;
+    h1 {
+      color: #005bac;
+      margin-bottom: 20px;
+      font-size: 1.8em;
+    }
+
+    p {
+      margin: 0.6em 0;
+      font-size: 1em;
+    }
+
+    .wechat-large {
+      margin: 20px 0;
+    }
+
+    .wechat-large img {
+      height: 120px;
     }
 
     .footer {
@@ -80,32 +78,44 @@
       color: #666;
       margin-top: 20px;
     }
+
+    .copyright {
+      text-align: center;
+      font-size: 0.8em;
+      color: #aaa;
+      margin: 30px 0;
+    }
   </style>
 </head>
 <body>
-  <div class="container">
+  <header class="header">
     <img src="logo.png" alt="Company Logo" class="logo" />
-
     <div class="lang-buttons">
       <button onclick="setLang('ja')" class="active">日本語</button>
       <button onclick="setLang('zh')">中文</button>
       <button onclick="setLang('en')">English</button>
     </div>
+  </header>
 
+  <div class="container">
     <h1 id="company-name">株式会社スマートアイズ</h1>
 
     <p id="address">〒160-0023 東京都新宿区西新宿7-3-10山京ビル401</p>
     <p id="tel">TEL: 03-5358-9289　FAX: 03-5358-9296</p>
     <p id="email">E-mail: smarteyes@pk2.so-net.ne.jp</p>
 
-    <div class="wechat">
-      <img src="wechat.png" alt="WeChat" />
-      <span style="font-size: 0.95em;">微信联系</span>
+    <div class="wechat-large">
+      <img src="wechat.png" alt="WeChat QR" />
+      <div style="margin-top: 8px; font-size: 0.95em;">微信联系请扫码</div>
     </div>
 
     <p id="license">宅地建物取引業許可番号：東京都知事(1)第112700号</p>
 
     <div class="footer" id="footer-text">このページは現在準備中です。</div>
+  </div>
+
+  <div class="copyright">
+    © 2025 株式会社スマートアイズ All rights reserved.
   </div>
 
   <script>
