@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "title": "Smart Eyes Co., Ltd. | Real Estate Consulting",
+    "description": "Real estate sales, leasing & investment consulting in Shinjuku. Multilingual support for overseas investors and foreign residents in Japan."
+  },
+  "header": {
+    "companyName": "SMART EYES"
+  },
+  "hero": {
+    "eyebrow": "REAL ESTATE • TOKYO",
+    "headline": "Premium Real Estate Advisory from Shinjuku",
+    "tagline": "Buy • Rent • Invest | Multilingual one-stop service",
+    "ctaTalk": "Talk to us"
+  },
+  "services": {
+    "title": "What we do",
+    "description": "Serving individuals and enterprises across Greater Tokyo.",
+    "svc1Badge": "SALE",
+    "svc1Title": "Transactions & Due Diligence",
+    "svc1Desc": "Viewings, price negotiation, contract review, fund flow control.",
+    "svc2Badge": "RENT",
+    "svc2Title": "Leasing & Management",
+    "svc2Desc": "For students, expats and corporates, multilingual support.",
+    "svc3Badge": "INVEST",
+    "svc3Title": "Investment & Allocation",
+    "svc3Desc": "Return modeling, cashflow analysis, exit strategies."
+  },
+  "advantages": {
+    "title": "Why Smart Eyes",
+    "description": "Trusted • Professional • Efficient.",
+    "adv1Title": "Core Shinjuku Location",
+    "adv1Desc": "Fast access and reception.",
+    "adv2Title": "Multilingual Team",
+    "adv2Desc": "JA / ZH / EN / KO / VI / NE.",
+    "adv3Title": "Compliance First",
+    "adv3Desc": "Tokyo Governor (1) #112700.",
+    "adv4Title": "Research-driven",
+    "adv4Desc": "Data and models inform advice."
+  },
+  "contact": {
+    "title": "Contact",
+    "company": "Smart Eyes Co., Ltd.",
+    "address": "Yamakyō Bldg. 401, 7-3-10 Nishi-Shinjuku, Shinjuku-ku, Tokyo 160-0023",
+    "license": "Real Estate License: Tokyo Governor (1) #112700",
+    "wechatHint": "Scan to contact via WeChat"
+  }
+}

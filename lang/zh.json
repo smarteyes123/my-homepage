@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "title": "株式会社SMART EYES | 不动产咨询",
+    "description": "新宿区不动产买卖·租赁·投资咨询。多语言支持，为海外投资者·在日外国人提供专业服务。"
+  },
+  "header": {
+    "companyName": "SMART EYES"
+  },
+  "hero": {
+    "eyebrow": "REAL ESTATE • TOKYO",
+    "headline": "来自新宿的高端不动产服务",
+    "tagline": "买卖 · 租赁 · 投资 | 多语言团队一站式服务",
+    "ctaTalk": "立即咨询"
+  },
+  "services": {
+    "title": "我们的服务",
+    "description": "面向个人与法人，覆盖东京及周边区域。",
+    "svc1Badge": "SALE",
+    "svc1Title": "买卖成交与尽调",
+    "svc1Desc": "陪同看房、价格谈判、合同审核与资金流程把控。",
+    "svc2Badge": "RENT",
+    "svc2Title": "租赁与管理",
+    "svc2Desc": "留学生、国际人才与法人租赁，多语种支持。",
+    "svc3Badge": "INVEST",
+    "svc3Title": "投资与资产配置",
+    "svc3Desc": "回报建模、现金流测算、并提供退出建议。"
+  },
+  "advantages": {
+    "title": "为什么选择我们",
+    "description": "可信、专业、高效，是我们的承诺。",
+    "adv1Title": "新宿核心地段",
+    "adv1Desc": "交通便捷，接待安排迅速。",
+    "adv2Title": "多语言支持",
+    "adv2Desc": "日/中/英/韩/越/尼泊尔文。",
+    "adv3Title": "严格合规",
+    "adv3Desc": "东京都知事(1)第112700号。",
+    "adv4Title": "投研驱动",
+    "adv4Desc": "以数据与模型为基础，平衡风险与收益。"
+  },
+  "contact": {
+    "title": "联系我们",
+    "company": "株式会社SMART EYES",
+    "address": "邮编160-0023 东京都新宿区西新宿7-3-10 山京大楼401室",
+    "license": "房地产经营许可编号：东京都知事(1)第112700号",
+    "wechatHint": "微信联系请扫码"
+  }
+}

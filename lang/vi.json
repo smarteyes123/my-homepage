@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "title": "Smart Eyes Co., Ltd. | Tư vấn bất động sản",
+    "description": "Tư vấn mua bán, cho thuê & đầu tư bất động sản tại Shinjuku. Hỗ trợ đa ngôn ngữ cho nhà đầu tư nước ngoài và người nước ngoài tại Nhật."
+  },
+  "header": {
+    "companyName": "SMART EYES"
+  },
+  "hero": {
+    "eyebrow": "REAL ESTATE • TOKYO",
+    "headline": "Dịch vụ bất động sản cao cấp từ Shinjuku",
+    "tagline": "Mua • Thuê • Đầu tư | Hỗ trợ đa ngôn ngữ một cửa",
+    "ctaTalk": "Liên hệ ngay"
+  },
+  "services": {
+    "title": "Dịch vụ của chúng tôi",
+    "description": "Phục vụ cá nhân và doanh nghiệp tại khu vực Tokyo lớn.",
+    "svc1Badge": "SALE",
+    "svc1Title": "Giao dịch & Thẩm định",
+    "svc1Desc": "Xem nhà, đàm phán giá, rà soát hợp đồng, kiểm soát dòng tiền.",
+    "svc2Badge": "RENT",
+    "svc2Title": "Cho thuê & Quản lý",
+    "svc2Desc": "Hỗ trợ du học sinh, người nước ngoài và doanh nghiệp.",
+    "svc3Badge": "INVEST",
+    "svc3Title": "Đầu tư & Phân bổ",
+    "svc3Desc": "Mô hình hoá lợi nhuận, phân tích dòng tiền, chiến lược thoái vốn."
+  },
+  "advantages": {
+    "title": "Vì sao chọn Smart Eyes",
+    "description": "Đáng tin cậy • Chuyên nghiệp • Hiệu quả.",
+    "adv1Title": "Vị trí trung tâm Shinjuku",
+    "adv1Desc": "Tiếp cận và đón tiếp nhanh chóng.",
+    "adv2Title": "Đội ngũ đa ngôn ngữ",
+    "adv2Desc": "JA / ZH / EN / KO / VI / NE.",
+    "adv3Title": "Tuân thủ pháp lý",
+    "adv3Desc": "Tokyo (1) #112700.",
+    "adv4Title": "Dựa trên nghiên cứu",
+    "adv4Desc": "Dữ liệu và mô hình định hướng tư vấn."
+  },
+  "contact": {
+    "title": "Liên hệ",
+    "company": "Smart Eyes Co., Ltd.",
+    "address": "Tầng 4, Tòa Yamakyō, 7-3-10 Nishi-Shinjuku, Shinjuku, Tokyo 160-0023",
+    "license": "Giấy phép BĐS: Tokyo (1) #112700",
+    "wechatHint": "Quét QR để liên hệ qua WeChat"
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "title": "주식회사 스마트아이즈 | 부동산 컨설팅",
+    "description": "신주쿠구 부동산 매매·임대·투자 컨설팅. 다국어 지원으로 해외 투자자·재일 외국인 여러분을 서포트합니다."
+  },
+  "header": {
+    "companyName": "SMART EYES"
+  },
+  "hero": {
+    "eyebrow": "REAL ESTATE • TOKYO",
+    "headline": "신주쿠에서 제공하는 프리미엄 부동산 서비스",
+    "tagline": "매매 · 임대 · 투자 | 다국어 팀의 원스톱 서비스",
+    "ctaTalk": "상담하기"
+  },
+  "services": {
+    "title": "서비스",
+    "description": "개인·법인 대상, 도쿄 지역 중심 대응.",
+    "svc1Badge": "SALE",
+    "svc1Title": "매매 거래 & 실사",
+    "svc1Desc": "현장 동행, 가격 협상, 계약 검토 및 자금 프로세스 관리.",
+    "svc2Badge": "RENT",
+    "svc2Title": "임대 & 관리",
+    "svc2Desc": "유학생, 국제 인재, 법인 임대까지 다국어 지원.",
+    "svc3Badge": "INVEST",
+    "svc3Title": "투자 & 자산 배치",
+    "svc3Desc": "수익 모델링, 현금흐름 산정, M&A/Exit 자문."
+  },
+  "advantages": {
+    "title": "선택받는 이유",
+    "description": "신뢰할 수 있고, 전문적이며, 신속합니다.",
+    "adv1Title": "신주쿠 핵심 위치",
+    "adv1Desc": "주요 노선 접근성 우수.",
+    "adv2Title": "다국어 지원",
+    "adv2Desc": "일/중/영/한/베/네팔어 대응.",
+    "adv3Title": "엄격한 컴플라이언스",
+    "adv3Desc": "도쿄도지사(1)제112700호.",
+    "adv4Title": "리서치 기반",
+    "adv4Desc": "데이터와 모델에 기반한 자문."
+  },
+  "contact": {
+    "title": "문의하기",
+    "company": "주식회사 스마트아이즈",
+    "address": "우편번호 160-0023 도쿄도 신주쿠구 니시신주쿠 7-3-10 야마쿄빌딩 401호",
+    "license": "부동산 거래업 허가번호：도쿄도지사(1)제112700호",
+    "wechatHint": "WeChat으로 문의하기"
+  }
+}
