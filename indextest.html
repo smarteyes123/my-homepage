@@ -46,8 +46,7 @@
       border-radius:50%;animation:spin 1s linear infinite;z-index:9999;
     }
     @keyframes spin{0%{transform:translate(-50%,-50%) rotate(0deg)}100%{transform:translate(-50%,-50%) rotate(360deg)}}
-    .page-fade-in{opacity:0;animation:pageLoad 0.8s ease forwards}
-    @keyframes pageLoad{to{opacity:1}}
+
 
     /* ===== Header ===== */
     .site-header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);border-bottom:1px solid #e2e8f0;transition:var(--transition)}
@@ -231,8 +230,7 @@
     .fade-up{opacity:0;transform:translateY(20px);animation:fadeUp .8s ease forwards}
     @keyframes fadeUp{to{opacity:1;transform:none}}
     
-    .scale-in{transform:scale(0.9);opacity:0;animation:scaleIn 0.6s ease forwards}
-    @keyframes scaleIn{to{transform:scale(1);opacity:1}}
+
 
     /* ===== Focus styles ===== */
     *:focus{outline:2px solid var(--brand);outline-offset:2px}
@@ -241,7 +239,7 @@
     /* ===== Touch device support ===== */
     .touch-device .btn{min-height:48px;min-width:48px}
     .touch-device .lang-current{min-height:48px;min-width:48px}
-    .touch-active{transform:scale(0.98);opacity:0.8}
+
   </style>
 </head>
 <body>
@@ -255,7 +253,7 @@
       <div class="lang-dropdown" id="langDropdown">
         <button class="lang-current" id="langCurrent" aria-haspopup="true" aria-expanded="false">
           <span class="lang-icon">🌐</span>
-          <span class="lang-text">Japanese</span>
+          <span class="lang-text">日本語</span>
           <span class="lang-arrow">▼</span>
         </button>
         <div class="lang-menu" id="langMenu" role="menu">
@@ -269,12 +267,12 @@
   <section class="hero" id="hero">
     <div class="hero-content">
       <div class="hero-card fade-up">
-        <div class="eyebrow" data-i18n="hero.eyebrow">REAL ESTATE • TOKYO</div>
-        <h1 class="hero-title" data-i18n="hero.headline">Professional Real Estate Services from Shinjuku</h1>
-        <p class="hero-sub" data-i18n="hero.tagline">Sales • Rental • Investment | Multilingual team provides one-stop consulting.</p>
+        <div class="eyebrow" data-i18n="hero.eyebrow">不動産 • 東京</div>
+        <h1 class="hero-title" data-i18n="hero.headline">新宿からの専門不動産サービス</h1>
+        <p class="hero-sub" data-i18n="hero.tagline">売買・賃貸・投資 | 多言語チームがワンストップコンサルティングを提供</p>
         <div class="cta">
           <a class="btn btn-primary" href="mailto:contact@smarteyes.co.jp">contact@smarteyes.co.jp</a>
-          <a class="btn btn-outline" href="#contact" data-i18n="hero.ctaTalk">Contact Us</a>
+          <a class="btn btn-outline" href="#contact" data-i18n="hero.ctaTalk">お問い合わせ</a>
         </div>
       </div>
     </div>
@@ -283,23 +281,23 @@
   <!-- Services -->
   <section>
     <div class="container">
-      <h2 class="sec-title" data-i18n="services.title">Our Services</h2>
-      <p class="sec-desc" data-i18n="services.description">For individuals and corporations, covering Tokyo and surrounding areas.</p>
+      <h2 class="sec-title" data-i18n="services.title">サービス内容</h2>
+      <p class="sec-desc" data-i18n="services.description">個人・法人様向け、東京都内及び近郊エリア対応</p>
       <div class="cards">
         <div class="card fade-up" style="animation-delay:.05s">
-          <div class="badge" data-i18n="services.svc1Badge">SALE</div>
-          <h3 data-i18n="services.svc1Title">Sales & Due Diligence</h3>
-          <p data-i18n="services.svc1Desc">Property viewing, price negotiation, contract review and funding process control.</p>
+          <div class="badge" data-i18n="services.svc1Badge">売買</div>
+          <h3 data-i18n="services.svc1Title">売買・デューデリジェンス</h3>
+          <p data-i18n="services.svc1Desc">物件見学、価格交渉、契約書査・融資手続きまで一貫対応</p>
         </div>
         <div class="card fade-up" style="animation-delay:.1s">
-          <div class="badge" data-i18n="services.svc2Badge">RENT</div>
-          <h3 data-i18n="services.svc2Title">Rental & Management</h3>
-          <p data-i18n="services.svc2Desc">International students, global talent and corporate rentals with multilingual support.</p>
+          <div class="badge" data-i18n="services.svc2Badge">賃貸</div>
+          <h3 data-i18n="services.svc2Title">賃貸・管理</h3>
+          <p data-i18n="services.svc2Desc">留学生・外国人人材・法人賃貸まで多言語サポート</p>
         </div>
         <div class="card fade-up" style="animation-delay:.15s">
-          <div class="badge" data-i18n="services.svc3Badge">INVEST</div>
-          <h3 data-i18n="services.svc3Title">Investment & Asset Allocation</h3>
-          <p data-i18n="services.svc3Desc">Return modeling, cash flow analysis, and M&A and exit recommendations.</p>
+          <div class="badge" data-i18n="services.svc3Badge">投資</div>
+          <h3 data-i18n="services.svc3Title">投資・資産配分</h3>
+          <p data-i18n="services.svc3Desc">利回りシミュレーション、キャッシュフロー分析、M&A・出口戦略提案</p>
         </div>
       </div>
     </div>
@@ -308,623 +306,9 @@
   <!-- Advantages -->
   <section>
     <div class="container">
-      <h2 class="sec-title" data-i18n="advantages.title">Why Choose Us</h2>
-      <p class="sec-desc" data-i18n="advantages.description">Trustworthy, professional, and efficient - our commitment to every client.</p>
+      <h2 class="sec-title" data-i18n="advantages.title">選ばれる理由</h2>
+      <p class="sec-desc" data-i18n="advantages.description">信頼・専門性・効率性 - 全てのお客様への約束</p>
       <div class="adv">
         <div class="item fade-up">
-          <h4 data-i18n="advantages.adv1Title">Shinjuku Core Location</h4>
-          <p data-i18n="advantages.adv1Desc">Convenient subway access, quick meeting arrangements.</p>
-        </div>
-        <div class="item fade-up" style="animation-delay:.05s">
-          <h4 data-i18n="advantages.adv2Title">Multilingual Support</h4>
-          <p data-i18n="advantages.adv2Desc">Japanese/Chinese/English/Vietnamese/Nepali - seamless communication.</p>
-        </div>
-        <div class="item fade-up" style="animation-delay:.1s">
-          <h4 data-i18n="advantages.adv3Title">Strict Compliance</h4>
-          <p data-i18n="advantages.adv3Desc">Tokyo Governor License (1) No.112700, transparent and traceable procedures.</p>
-        </div>
-        <div class="item fade-up" style="animation-delay:.15s">
-          <h4 data-i18n="advantages.adv4Title">Research-Driven</h4>
-          <p data-i18n="advantages.adv4Desc">Data and model-based approach, balancing risk and return.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact -->
-  <section id="contact" class="contact">
-    <div class="container">
-      <div class="panel">
-        <div>
-          <h2 class="sec-title" data-i18n="contact.title">Contact Us</h2>
-          <p class="line"><strong data-i18n="contact.company">Smart Eyes Co., Ltd.</strong></p>
-          <p class="line" data-i18n="contact.address">〒160-0023 Tokyo, Shinjuku-ku, Nishi-Shinjuku 7-3-10 Sankyo Building 401</p>
-          <p class="line">TEL: <a href="tel:+81353589289">03-5358-9289</a>　FAX: 03-5358-9296</p>
-          <p class="line">E-mail: <a href="mailto:contact@smarteyes.co.jp">contact@smarteyes.co.jp</a></p>
-          <p class="line" data-i18n="contact.license">Real Estate License: Tokyo Governor (1) No.112700</p>
-        </div>
-        <div class="wechat">
-          <img src="wechat.png" alt="WeChat QR" />
-          <div data-i18n="contact.wechatHint">Scan QR for WeChat</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <div class="container">© 2025 Smart Eyes Co., Ltd. All rights reserved.</div>
-  </footer>
-
-  <script>
-    // ===== Loading State Management =====
-    let imagesLoaded = 0;
-    let totalImages = 0;
-    
-    function showLoadingSpinner() {
-      const spinner = document.createElement('div');
-      spinner.className = 'loading-spinner';
-      spinner.id = 'loadingSpinner';
-      document.body.appendChild(spinner);
-    }
-    
-    function hideLoadingSpinner() {
-      const spinner = document.getElementById('loadingSpinner');
-      if (spinner) {
-        spinner.remove();
-        document.body.classList.add('page-fade-in');
-      }
-    }
-
-    // ===== Hero Images =====
-    function generateRandomImages() {
-      const totalImagesCount = 40;
-      const displayCount = 6;
-      const allNumbers = Array.from({length: totalImagesCount}, (_, i) => i + 1);
-      
-      for (let i = allNumbers.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [allNumbers[i], allNumbers[j]] = [allNumbers[j], allNumbers[i]];
-      }
-      
-      return allNumbers.slice(0, displayCount).map(num => `img/${num}.JPEG`);
-    }
-
-    function loadHeroImages() {
-      showLoadingSpinner();
-      
-      const heroImages = generateRandomImages();
-      const heroEl = document.getElementById('hero');
-      totalImages = heroImages.length;
-      
-      heroImages.forEach((src, index) => {
-        const tile = document.createElement('div');
-        tile.className = 'tile';
-        const img = document.createElement('img');
-        img.loading = 'lazy';
-        img.src = src;
-        img.alt = `Smart Eyes Hero Image ${index + 1}`;
-        
-        img.onload = function() {
-          imagesLoaded++;
-          tile.classList.add('loaded');
-          if (imagesLoaded >= totalImages) {
-            setTimeout(hideLoadingSpinner, 300);
-          }
-        };
-        
-        img.onerror = function() {
-          console.warn(`Failed to load image: ${src}`);
-          img.src = `data:image/svg+xml;base64,${btoa(`
-            <svg width="300" height="400" xmlns="http://www.w3.org/2000/svg">
-              <rect width="100%" height="100%" fill="#f8fafc"/>
-              <text x="50%" y="50%" text-anchor="middle" dy=".35em" fill="#64748b" font-family="Arial" font-size="14">
-                Smart Eyes
-              </text>
-            </svg>
-          `)}`;
-          imagesLoaded++;
-          tile.classList.add('loaded');
-          if (imagesLoaded >= totalImages) {
-            setTimeout(hideLoadingSpinner, 300);
-          }
-        };
-        
-        tile.appendChild(img);
-        heroEl.insertBefore(tile, heroEl.firstChild);
-      });
-      
-      setTimeout(() => {
-        if (document.getElementById('loadingSpinner')) {
-          hideLoadingSpinner();
-        }
-      }, 5000);
-    }
-
-    // ===== Interactions =====
-    function enhanceInteractions() {
-      const ctaButton = document.querySelector('[href="#contact"]');
-      if (ctaButton) {
-        ctaButton.addEventListener('click', function(e) {
-          e.preventDefault();
-          const contactSection = document.getElementById('contact');
-          if (contactSection) {
-            contactSection.scrollIntoView({ 
-              behavior: 'smooth',
-              block: 'start'
-            });
-          }
-        });
-      }
-      
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Tab') {
-          document.body.classList.add('keyboard-navigation');
-        }
-      });
-      
-      document.addEventListener('mousedown', function() {
-        document.body.classList.remove('keyboard-navigation');
-      });
-      
-      document.querySelectorAll('.card, .adv .item').forEach(card => {
-        card.setAttribute('tabindex', '0');
-        card.addEventListener('keydown', function(e) {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            card.click();
-          }
-        });
-      });
-    }
-
-    // ===== Intersection Observer =====
-    function initIntersectionObserver() {
-      const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-      };
-      
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.style.animationPlayState = 'running';
-            observer.unobserve(entry.target);
-          }
-        });
-      }, observerOptions);
-      
-      document.querySelectorAll('.fade-up, .scale-in').forEach(el => {
-        el.style.animationPlayState = 'paused';
-        observer.observe(el);
-      });
-    }
-
-    // ===== I18n Manager =====
-    class I18nManager {
-      constructor() {
-        this.currentLang = 'ja';
-        this.loadedLanguages = {};
-        this.languages = {
-          ja: '日本語',
-          ko: '한국어',
-          zh: '简体中文',
-          'zh-Hant': '繁體中文',
-          en: 'English',
-          vi: 'Tiếng Việt',
-          ne: 'नेपाली'
-        };
-        this.fallbackLang = 'ja';
-      }
-
-      async loadLanguage(lang) {
-        if (this.loadedLanguages[lang]) {
-          return this.loadedLanguages[lang];
-        }
-
-        try {
-          const response = await fetch(`lang/${lang}.json`);
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-          const data = await response.json();
-          this.loadedLanguages[lang] = data;
-          
-          try {
-            localStorage.setItem(`smarteyes_lang_${lang}`, JSON.stringify(data));
-            localStorage.setItem(`smarteyes_lang_${lang}_timestamp`, Date.now().toString());
-          } catch (e) {
-            console.warn('Could not cache language data:', e);
-          }
-          
-          return data;
-        } catch (error) {
-          console.warn(`Failed to load language ${lang}:`, error);
-          
-          try {
-            const cached = localStorage.getItem(`smarteyes_lang_${lang}`);
-            if (cached) {
-              const data = JSON.parse(cached);
-              this.loadedLanguages[lang] = data;
-              return data;
-            }
-          } catch (e) {
-            console.warn('Could not load from cache:', e);
-          }
-          
-          if (lang !== this.fallbackLang) {
-            return this.loadLanguage(this.fallbackLang);
-          }
-          
-          throw error;
-        }
-      }
-
-      detectLanguage() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const urlLang = urlParams.get('lang');
-        if (urlLang && this.languages[urlLang]) {
-          return urlLang;
-        }
-
-        try {
-          const savedLang = localStorage.getItem('smarteyes_preferred_lang');
-          if (savedLang && this.languages[savedLang]) {
-            return savedLang;
-          }
-        } catch (e) {
-          console.warn('Could not read from localStorage:', e);
-        }
-
-        const navLangs = navigator.languages || [navigator.language || navigator.userLanguage];
-        for (const navLang of navLangs) {
-          const code = navLang.toLowerCase();
-          if (code.startsWith('zh-tw') || code.includes('hant')) return 'zh-Hant';
-          if (code.startsWith('zh')) return 'zh';
-          if (code.startsWith('ja')) return 'ja';
-          if (code.startsWith('ko')) return 'ko';
-          if (code.startsWith('vi')) return 'vi';
-          if (code.startsWith('ne')) return 'ne';
-          if (code.startsWith('en')) return 'en';
-        }
-
-        return this.fallbackLang;
-      }
-
-      getValue(path, data) {
-        const keys = path.split('.');
-        let value = data;
-        for (const key of keys) {
-          value = value && value[key];
-          if (value === undefined) break;
-        }
-        return value;
-      }
-
-      async applyLanguage(lang) {
-        try {
-          const data = await this.loadLanguage(lang);
-          
-          document.querySelectorAll('[data-i18n]').forEach(el => {
-            const key = el.getAttribute('data-i18n');
-            const value = this.getValue(key, data);
-            if (value !== undefined) {
-              el.textContent = value;
-            }
-          });
-
-          if (data.meta) {
-            if (data.meta.title) {
-              document.title = data.meta.title;
-            }
-            if (data.meta.description) {
-              const metaDesc = document.querySelector('meta[name="description"]');
-              if (metaDesc) {
-                metaDesc.setAttribute('content', data.meta.description);
-              }
-            }
-          }
-
-          document.documentElement.lang = lang;
-          
-          try {
-            localStorage.setItem('smarteyes_preferred_lang', lang);
-          } catch (e) {
-            console.warn('Could not save language preference:', e);
-          }
-
-          this.currentLang = lang;
-          this.updateDropdown();
-          
-          console.log(`Language switched to: ${lang}`);
-        } catch (error) {
-          console.error('Failed to apply language:', error);
-          
-          if (lang !== this.fallbackLang) {
-            console.log(`Falling back to ${this.fallbackLang}`);
-            return this.applyLanguage(this.fallbackLang);
-          }
-        }
-      }
-
-      updateDropdown() {
-        const currentButton = document.getElementById('langCurrent');
-        const currentText = currentButton.querySelector('.lang-text');
-        if (currentText) {
-          currentText.textContent = this.languages[this.currentLang];
-        }
-
-        document.querySelectorAll('.lang-option').forEach(option => {
-          const isActive = option.dataset.lang === this.currentLang;
-          option.classList.toggle('active', isActive);
-          const check = option.querySelector('.lang-check');
-          if (check) {
-            check.textContent = isActive ? '✓' : '';
-          }
-        });
-      }
-
-      buildDropdown() {
-        const currentButton = document.getElementById('langCurrent');
-        const menu = document.getElementById('langMenu');
-        
-        Object.entries(this.languages).forEach(([code, name]) => {
-          const option = document.createElement('button');
-          option.className = 'lang-option';
-          option.dataset.lang = code;
-          option.setAttribute('role', 'menuitem');
-          option.innerHTML = `
-            <span class="lang-check"></span>
-            <span>${name}</span>
-          `;
-          
-          option.addEventListener('click', () => {
-            this.applyLanguage(code);
-            this.hideDropdown();
-          });
-          
-          menu.appendChild(option);
-        });
-
-        currentButton.addEventListener('click', (e) => {
-          e.stopPropagation();
-          this.toggleDropdown();
-        });
-
-        currentButton.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowDown') {
-            e.preventDefault();
-            this.showDropdown();
-            const firstOption = menu.querySelector('.lang-option');
-            if (firstOption) firstOption.focus();
-          }
-        });
-
-        menu.addEventListener('keydown', (e) => {
-          const options = menu.querySelectorAll('.lang-option');
-          const currentIndex = Array.from(options).indexOf(document.activeElement);
-          
-          switch (e.key) {
-            case 'ArrowDown':
-              e.preventDefault();
-              const nextIndex = currentIndex < options.length - 1 ? currentIndex + 1 : 0;
-              options[nextIndex].focus();
-              break;
-            case 'ArrowUp':
-              e.preventDefault();
-              const prevIndex = currentIndex > 0 ? currentIndex - 1 : options.length - 1;
-              options[prevIndex].focus();
-              break;
-            case 'Escape':
-              this.hideDropdown();
-              currentButton.focus();
-              break;
-          }
-        });
-
-        document.addEventListener('click', () => {
-          this.hideDropdown();
-        });
-      }
-
-      toggleDropdown() {
-        const menu = document.getElementById('langMenu');
-        const isShown = menu.classList.contains('show');
-        if (isShown) {
-          this.hideDropdown();
-        } else {
-          this.showDropdown();
-        }
-      }
-
-      showDropdown() {
-        const currentButton = document.getElementById('langCurrent');
-        const menu = document.getElementById('langMenu');
-        
-        currentButton.setAttribute('aria-expanded', 'true');
-        menu.classList.add('show');
-      }
-
-      hideDropdown() {
-        const currentButton = document.getElementById('langCurrent');
-        const menu = document.getElementById('langMenu');
-        
-        currentButton.setAttribute('aria-expanded', 'false');
-        menu.classList.remove('show');
-      }
-    }
-
-    // ===== Performance Optimization =====
-    function optimizePerformance() {
-      function debounce(func, wait) {
-        let timeout;
-        return function executedFunction(...args) {
-          const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-          };
-          clearTimeout(timeout);
-          timeout = setTimeout(later, wait);
-        };
-      }
-      
-      function throttle(func, limit) {
-        let inThrottle;
-        return function() {
-          const args = arguments;
-          const context = this;
-          if (!inThrottle) {
-            func.apply(context, args);
-            inThrottle = true;
-            setTimeout(() => inThrottle = false, limit);
-          }
-        };
-      }
-      
-      const handleScroll = throttle(() => {
-        const header = document.querySelector('.site-header');
-        if (window.scrollY > 100) {
-          header.style.background = 'rgba(255,255,255,0.98)';
-          header.style.boxShadow = '0 4px 20px rgba(30, 64, 175, 0.1)';
-        } else {
-          header.style.background = 'rgba(255,255,255,0.95)';
-          header.style.boxShadow = 'none';
-        }
-      }, 16);
-      
-      window.addEventListener('scroll', handleScroll, { passive: true });
-      
-      const preloadLinks = ['logo.png', 'wechat.png'];
-      preloadLinks.forEach(href => {
-        const link = document.createElement('link');
-        link.rel = 'preload';
-        link.as = 'image';
-        link.href = href;
-        document.head.appendChild(link);
-      });
-    }
-
-    // ===== Error Handling =====
-    function initErrorHandling() {
-      window.addEventListener('error', function(e) {
-        console.warn('Page error caught:', e.error);
-      });
-      
-      document.addEventListener('error', function(e) {
-        if (e.target.tagName === 'IMG') {
-          e.target.style.display = 'none';
-          console.warn('Image failed to load:', e.target.src);
-        }
-      }, true);
-      
-      setTimeout(() => {
-        if (document.getElementById('loadingSpinner')) {
-          hideLoadingSpinner();
-        }
-      }, 8000);
-    }
-
-    // ===== Accessibility =====
-    function enhanceAccessibility() {
-      document.querySelectorAll('.card').forEach((card, index) => {
-        card.setAttribute('role', 'button');
-        card.setAttribute('aria-label', `Service card ${index + 1}`);
-      });
-      
-      document.querySelectorAll('.adv .item').forEach((item, index) => {
-        item.setAttribute('role', 'button');
-        item.setAttribute('aria-label', `Advantage ${index + 1}`);
-      });
-      
-      const skipLink = document.createElement('a');
-      skipLink.href = '#main-content';
-      skipLink.textContent = 'Skip to main content';
-      skipLink.className = 'skip-link';
-      skipLink.style.cssText = `
-        position: absolute;
-        top: -40px;
-        left: 6px;
-        background: var(--brand);
-        color: white;
-        padding: 8px;
-        text-decoration: none;
-        border-radius: 4px;
-        z-index: 1000;
-        transition: top 0.3s;
-      `;
-      skipLink.addEventListener('focus', () => {
-        skipLink.style.top = '6px';
-      });
-      skipLink.addEventListener('blur', () => {
-        skipLink.style.top = '-40px';
-      });
-      document.body.insertBefore(skipLink, document.body.firstChild);
-      
-      const mainContent = document.querySelector('section');
-      if (mainContent) {
-        mainContent.id = 'main-content';
-      }
-    }
-
-    // ===== Mobile Optimization =====
-    function optimizeMobile() {
-      const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-      
-      if (isTouchDevice) {
-        document.body.classList.add('touch-device');
-        
-        document.querySelectorAll('.card, .adv .item').forEach(element => {
-          element.addEventListener('touchstart', function() {
-            this.classList.add('touch-active');
-          }, { passive: true });
-          
-          element.addEventListener('touchend', function() {
-            setTimeout(() => {
-              this.classList.remove('touch-active');
-            }, 150);
-          }, { passive: true });
-        });
-      }
-      
-      function handleOrientationChange() {
-        const hero = document.querySelector('.hero');
-        if (window.orientation === 90 || window.orientation === -90) {
-          hero.style.minHeight = '100vh';
-        } else {
-          hero.style.minHeight = '100vh';
-        }
-      }
-      
-      window.addEventListener('orientationchange', handleOrientationChange);
-    }
-
-    // ===== Main Initialization =====
-    const i18n = new I18nManager();
-
-    async function init() {
-      i18n.buildDropdown();
-      
-      const detectedLang = i18n.detectLanguage();
-      await i18n.applyLanguage(detectedLang);
-      
-      loadHeroImages();
-      enhanceInteractions();
-      optimizePerformance();
-      initErrorHandling();
-      enhanceAccessibility();
-      optimizeMobile();
-      
-      setTimeout(() => {
-        initIntersectionObserver();
-      }, 1000);
-      
-      console.log('Smart Eyes website initialized successfully');
-    }
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', init);
-    } else {
-      init();
-    }
-  </script>
-</body>
-</html>
+          <h4 data-i18n="advantages.adv1Title">新宿中心立地</h4>
+          <p data-i18n="advantages.adv1Desc">地下鉄アクセス良好、迅速な打
