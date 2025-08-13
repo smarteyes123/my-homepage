@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "주식회사 스마트아이즈 | 부동산 컨설팅",
-    "description": "신주쿠구 부동산 매매·임대·투자 컨설팅. 다국어 지원으로 해외 투자자·재일 외국인 여러분을 서포트합니다."
+    "title": "주식회사 SMART EYES | 부동산 상담",
+    "description": "신주쿠구 부동산 매매·임대·투자 상담. 다국어 지원으로 해외 투자자와 일본 거주 외국인에게 전문 서비스를 제공합니다."
   },
   "header": {
     "companyName": "SMART EYES"
@@ -10,38 +10,123 @@
     "eyebrow": "REAL ESTATE • TOKYO",
     "headline": "신주쿠에서 제공하는 프리미엄 부동산 서비스",
     "tagline": "매매 · 임대 · 투자 | 다국어 팀의 원스톱 서비스",
-    "ctaTalk": "상담하기"
+    "ctaTalk": "지금 상담하기"
   },
   "services": {
-    "title": "서비스",
-    "description": "개인·법인 대상, 도쿄 지역 중심 대응.",
+    "title": "저희 서비스",
+    "description": "개인 및 법인을 대상으로 도쿄 및 주변 지역을 커버합니다.",
     "svc1Badge": "SALE",
-    "svc1Title": "매매 거래 & 실사",
-    "svc1Desc": "현장 동행, 가격 협상, 계약 검토 및 자금 프로세스 관리.",
+    "svc1Title": "매매 거래 및 실사",
+    "svc1Desc": "집 보기 동행, 가격 협상, 계약 검토 및 자금 절차 관리.",
     "svc2Badge": "RENT",
-    "svc2Title": "임대 & 관리",
-    "svc2Desc": "유학생, 국제 인재, 법인 임대까지 다국어 지원.",
+    "svc2Title": "임대 및 관리",
+    "svc2Desc": "유학생, 국제 인재 및 법인 임대, 다국어 지원.",
     "svc3Badge": "INVEST",
-    "svc3Title": "투자 & 자산 배치",
-    "svc3Desc": "수익 모델링, 현금흐름 산정, M&A/Exit 자문."
+    "svc3Title": "투자 및 자산 배분",
+    "svc3Desc": "수익 모델링, 현금 흐름 계산 및 출구 전략 제안."
   },
   "advantages": {
-    "title": "선택받는 이유",
-    "description": "신뢰할 수 있고, 전문적이며, 신속합니다.",
+    "title": "왜 저희를 선택해야 하나요",
+    "description": "신뢰, 전문성, 효율성은 저희의 약속입니다.",
     "adv1Title": "신주쿠 핵심 위치",
-    "adv1Desc": "주요 노선 접근성 우수.",
+    "adv1Desc": "교통이 편리하고 빠른 응대 가능.",
     "adv2Title": "다국어 지원",
-    "adv2Desc": "일/중/영/한/베/네팔어 대응.",
-    "adv3Title": "엄격한 컴플라이언스",
-    "adv3Desc": "도쿄도지사(1)제112700호.",
+    "adv2Desc": "일/중/영/한/베트남어/네팔어.",
+    "adv3Title": "엄격한 법규 준수",
+    "adv3Desc": "도쿄도지사(1) 제112700호.",
     "adv4Title": "리서치 기반",
-    "adv4Desc": "데이터와 모델에 기반한 자문."
+    "adv4Desc": "데이터와 모델을 기반으로 위험과 수익을 균형 있게 관리."
   },
   "contact": {
     "title": "문의하기",
-    "company": "주식회사 스마트아이즈",
+    "company": "주식회사 SMART EYES",
     "address": "우편번호 160-0023 도쿄도 신주쿠구 니시신주쿠 7-3-10-401",
-    "license": "부동산 거래업 허가번호：도쿄도지사(1)제112700호",
-    "wechatHint": "WeChat으로 문의하기"
+    "license": "부동산 영업 허가 번호: 도쿄도지사(1) 제112700호",
+    "wechatHint": "위챗 문의는 QR코드를 스캔하세요"
+  },
+  "survey": {
+    "meta": {
+      "title": "부동산 상담 설문"
+    },
+    "header": {
+      "title": "부동산 상담",
+      "tagline": "가장 적합한 해결책을 제공합니다"
+    },
+    "ui": {
+      "progressText": "{total}단계 중 {current}단계",
+      "prevBtn": "← 이전",
+      "nextBtn": "다음 →",
+      "submitBtn": "제출"
+    },
+    "steps": {
+      "step1": {
+        "title": "어떤 서비스를 원하시나요?",
+        "option1": {
+          "title": "매입",
+          "desc": "부동산 매입을 고려하는 고객"
+        },
+        "option2": {
+          "title": "임대",
+          "desc": "임대 부동산을 찾는 고객"
+        },
+        "option3": {
+          "title": "투자",
+          "desc": "부동산 투자를 고려하는 고객"
+        }
+      },
+      "step2": {
+        "title": "예산 범위는?",
+        "buy": {
+          "option1": "~500만 엔",
+          "option2": "500만~1000만 엔",
+          "option3": "1000만 엔 이상"
+        },
+        "rent": {
+          "option1": "~월 10만 엔",
+          "option2": "월 10만~20만 엔",
+          "option3": "월 20만 엔 이상"
+        },
+        "invest": {
+          "option1": "~1000만 엔",
+          "option2": "1000만~5000만 엔",
+          "option3": "5000만 엔 이상"
+        }
+      },
+      "step3": {
+        "title": "선호 위치는?",
+        "option1": "도쿄",
+        "option2": "오사카",
+        "option3": "기타"
+      },
+      "step4": {
+        "title": "계획 시기는?",
+        "option1": "1개월 이내",
+        "option2": "3개월 이내",
+        "option3": "6개월 이상"
+      },
+      "step5": {
+        "title": "연락처",
+        "emailLabel": "이메일 주소 *",
+        "phoneLabel": "전화번호",
+        "wechatLabel": "위챗 ID",
+        "languageLabel": "희망 서비스 언어",
+        "messageLabel": "메모",
+        "messagePlaceholder": "원하시는 구체적인 조건, 희망 평형, 특수 요구사항 등을 알려주세요...",
+        "privacyLabel": "개인정보 보호정책에 동의"
+      }
+    },
+    "validation": {
+      "pleaseSelect": "옵션을 선택하세요",
+      "pleaseEnterEmail": "이메일 주소를 입력하세요",
+      "pleaseEnterValidEmail": "유효한 이메일 주소를 입력하세요",
+      "pleaseAgreePrivacy": "개인정보 보호정책에 동의하세요"
+    },
+    "status": {
+      "loadingText": "제출 중...",
+      "loadingDesc": "잠시만 기다려주세요",
+      "successTitle": "제출 완료!",
+      "successDesc": "문의해 주셔서 감사합니다. 담당자가 곧 연락드리겠습니다.",
+      "submitError": "제출 실패, 잠시 후 다시 시도해주세요"
+    }
   }
 }
