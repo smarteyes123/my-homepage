@@ -611,10 +611,10 @@ class I18nManager {
     this.fallbackLang = 'ja';
   }
 
-  async loadLanguage(lang) {
-    if (lang === 'ja') {
-      return {}; // Japanese is hardcoded in HTML
-    }
+async loadLanguage(lang) {
+  return await import(`./locales/${lang}.js`);
+}
+
 
     if (this.loadedLanguages[lang]) {
       return this.loadedLanguages[lang];
