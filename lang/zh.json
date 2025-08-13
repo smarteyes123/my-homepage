@@ -43,5 +43,90 @@
     "address": "邮编160-0023 东京都新宿区西新宿7-3-10-401",
     "license": "房地产经营许可编号：东京都知事(1)第112700号",
     "wechatHint": "微信联系请扫码"
+  },
+  "survey": {
+    "meta": {
+      "title": "不动产咨询问卷"
+    },
+    "header": {
+      "title": "不动产咨询",
+      "tagline": "为您提供最适合的解决方案"
+    },
+    "ui": {
+      "progressText": "第 {current} 步 / 共 {total} 步",
+      "prevBtn": "← 上一步",
+      "nextBtn": "下一步 →",
+      "submitBtn": "提交"
+    },
+    "steps": {
+      "step1": {
+        "title": "您需要什么服务？",
+        "option1": {
+          "title": "买房",
+          "desc": "考虑购买房产的客户"
+        },
+        "option2": {
+          "title": "租房",
+          "desc": "寻找租赁房产的客户"
+        },
+        "option3": {
+          "title": "投资",
+          "desc": "考虑房地产投资的客户"
+        }
+      },
+      "step2": {
+        "title": "预算范围？",
+        "buy": {
+          "option1": "~500万日元",
+          "option2": "500万~1000万日元",
+          "option3": "1000万日元以上"
+        },
+        "rent": {
+          "option1": "~10万日元/月",
+          "option2": "10万~20万日元/月",
+          "option3": "20万日元以上/月"
+        },
+        "invest": {
+          "option1": "~1000万日元",
+          "option2": "1000万~5000万日元",
+          "option3": "5000万日元以上"
+        }
+      },
+      "step3": {
+        "title": "位置偏好？",
+        "option1": "东京",
+        "option2": "大阪",
+        "option3": "其他"
+      },
+      "step4": {
+        "title": "计划时间？",
+        "option1": "1个月内",
+        "option2": "3个月内",
+        "option3": "半年以上"
+      },
+      "step5": {
+        "title": "联系方式",
+        "emailLabel": "邮箱地址 *",
+        "phoneLabel": "电话号码",
+        "wechatLabel": "微信号",
+        "languageLabel": "希望的服务语言",
+        "messageLabel": "备注留言",
+        "messagePlaceholder": "请告诉我们您的具体需求、希望的户型、特殊要求等...",
+        "privacyLabel": "同意隐私政策"
+      }
+    },
+    "validation": {
+      "pleaseSelect": "请选择一个选项",
+      "pleaseEnterEmail": "请输入邮箱地址",
+      "pleaseEnterValidEmail": "请输入有效的邮箱地址",
+      "pleaseAgreePrivacy": "请同意隐私政策"
+    },
+    "status": {
+      "loadingText": "提交中...",
+      "loadingDesc": "请稍候",
+      "successTitle": "提交成功！",
+      "successDesc": "感谢您的咨询，我们的工作人员会尽快与您联系。",
+      "submitError": "提交失败，请稍后重试"
+    }
   }
 }
