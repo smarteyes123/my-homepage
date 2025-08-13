@@ -613,7 +613,7 @@ class I18nManager {
 
   async loadLanguage(lang) {
     if (lang === 'ja') {
-      return {}; // Japanese is hardcoded in HTML
+      return {ja}; // Japanese is hardcoded in HTML
     }
 
     if (this.loadedLanguages[lang]) {
