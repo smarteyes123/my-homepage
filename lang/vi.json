@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "Smart Eyes Co., Ltd. | Tư vấn bất động sản",
-    "description": "Tư vấn mua bán, cho thuê & đầu tư bất động sản tại Shinjuku. Hỗ trợ đa ngôn ngữ cho nhà đầu tư nước ngoài và người nước ngoài tại Nhật."
+    "title": "Công ty TNHH SMART EYES | Tư vấn bất động sản",
+    "description": "Tư vấn mua bán, cho thuê và đầu tư bất động sản tại quận Shinjuku. Hỗ trợ đa ngôn ngữ cho nhà đầu tư nước ngoài và người nước ngoài đang sống tại Nhật."
   },
   "header": {
     "companyName": "SMART EYES"
@@ -9,39 +9,124 @@
   "hero": {
     "eyebrow": "REAL ESTATE • TOKYO",
     "headline": "Dịch vụ bất động sản cao cấp từ Shinjuku",
-    "tagline": "Mua • Thuê • Đầu tư | Hỗ trợ đa ngôn ngữ một cửa",
+    "tagline": "Mua bán · Cho thuê · Đầu tư | Dịch vụ trọn gói bởi đội ngũ đa ngôn ngữ",
     "ctaTalk": "Liên hệ ngay"
   },
   "services": {
     "title": "Dịch vụ của chúng tôi",
-    "description": "Phục vụ cá nhân và doanh nghiệp tại khu vực Tokyo lớn.",
+    "description": "Dành cho cá nhân và doanh nghiệp, bao phủ Tokyo và khu vực lân cận.",
     "svc1Badge": "SALE",
-    "svc1Title": "Giao dịch & Thẩm định",
-    "svc1Desc": "Xem nhà, đàm phán giá, rà soát hợp đồng, kiểm soát dòng tiền.",
+    "svc1Title": "Giao dịch mua bán & Thẩm định",
+    "svc1Desc": "Đi xem nhà, đàm phán giá, xem xét hợp đồng và quản lý dòng tiền.",
     "svc2Badge": "RENT",
     "svc2Title": "Cho thuê & Quản lý",
-    "svc2Desc": "Hỗ trợ du học sinh, người nước ngoài và doanh nghiệp.",
+    "svc2Desc": "Hỗ trợ sinh viên, chuyên gia quốc tế và thuê doanh nghiệp với nhiều ngôn ngữ.",
     "svc3Badge": "INVEST",
-    "svc3Title": "Đầu tư & Phân bổ",
-    "svc3Desc": "Mô hình hoá lợi nhuận, phân tích dòng tiền, chiến lược thoái vốn."
+    "svc3Title": "Đầu tư & Phân bổ tài sản",
+    "svc3Desc": "Mô hình hóa lợi nhuận, tính toán dòng tiền và tư vấn chiến lược thoái vốn."
   },
   "advantages": {
-    "title": "Vì sao chọn Smart Eyes",
-    "description": "Đáng tin cậy • Chuyên nghiệp • Hiệu quả.",
+    "title": "Tại sao chọn chúng tôi",
+    "description": "Uy tín, chuyên nghiệp và hiệu quả — cam kết của chúng tôi.",
     "adv1Title": "Vị trí trung tâm Shinjuku",
-    "adv1Desc": "Tiếp cận và đón tiếp nhanh chóng.",
-    "adv2Title": "Đội ngũ đa ngôn ngữ",
-    "adv2Desc": "JA / ZH / EN / KO / VI / NE.",
-    "adv3Title": "Tuân thủ pháp lý",
-    "adv3Desc": "Tokyo (1) #112700.",
+    "adv1Desc": "Giao thông thuận tiện, sắp xếp tiếp đón nhanh chóng.",
+    "adv2Title": "Hỗ trợ đa ngôn ngữ",
+    "adv2Desc": "Tiếng Nhật / Tiếng Trung / Tiếng Anh / Tiếng Hàn / Tiếng Việt / Tiếng Nepal.",
+    "adv3Title": "Tuân thủ nghiêm ngặt",
+    "adv3Desc": "Giấy phép số 112700 do Thống đốc Tokyo cấp (1).",
     "adv4Title": "Dựa trên nghiên cứu",
-    "adv4Desc": "Dữ liệu và mô hình định hướng tư vấn."
+    "adv4Desc": "Cân bằng rủi ro và lợi nhuận dựa trên dữ liệu và mô hình."
   },
   "contact": {
-    "title": "Liên hệ",
-    "company": "Smart Eyes Co., Ltd.",
-    "address": "Tầng 4, Tòa Yamakyō, 7-3-10 Nishi-Shinjuku, Shinjuku, Tokyo 160-0023",
-    "license": "Giấy phép BĐS: Tokyo (1) #112700",
-    "wechatHint": "Quét QR để liên hệ qua WeChat"
+    "title": "Liên hệ với chúng tôi",
+    "company": "Công ty TNHH SMART EYES",
+    "address": "7-3-10-401 Nishi-Shinjuku, quận Shinjuku, Tokyo 160-0023, Nhật Bản",
+    "license": "Giấy phép bất động sản: Thống đốc Tokyo (1) số 112700",
+    "wechatHint": "Quét mã QR để kết nối qua WeChat"
+  },
+  "survey": {
+    "meta": {
+      "title": "Khảo sát tư vấn bất động sản"
+    },
+    "header": {
+      "title": "Tư vấn bất động sản",
+      "tagline": "Chúng tôi cung cấp giải pháp phù hợp nhất cho bạn"
+    },
+    "ui": {
+      "progressText": "Bước {current} / Tổng {total} bước",
+      "prevBtn": "← Trước",
+      "nextBtn": "Tiếp →",
+      "submitBtn": "Gửi"
+    },
+    "steps": {
+      "step1": {
+        "title": "Bạn cần dịch vụ gì?",
+        "option1": {
+          "title": "Mua",
+          "desc": "Khách hàng muốn mua bất động sản"
+        },
+        "option2": {
+          "title": "Thuê",
+          "desc": "Khách hàng muốn thuê bất động sản"
+        },
+        "option3": {
+          "title": "Đầu tư",
+          "desc": "Khách hàng muốn đầu tư bất động sản"
+        }
+      },
+      "step2": {
+        "title": "Khoảng ngân sách?",
+        "buy": {
+          "option1": "Dưới 5 triệu yên",
+          "option2": "5 triệu – 10 triệu yên",
+          "option3": "Trên 10 triệu yên"
+        },
+        "rent": {
+          "option1": "Dưới 100.000 yên/tháng",
+          "option2": "100.000 – 200.000 yên/tháng",
+          "option3": "Trên 200.000 yên/tháng"
+        },
+        "invest": {
+          "option1": "Dưới 10 triệu yên",
+          "option2": "10 triệu – 50 triệu yên",
+          "option3": "Trên 50 triệu yên"
+        }
+      },
+      "step3": {
+        "title": "Khu vực ưa thích?",
+        "option1": "Tokyo",
+        "option2": "Osaka",
+        "option3": "Khác"
+      },
+      "step4": {
+        "title": "Thời gian dự kiến?",
+        "option1": "Trong vòng 1 tháng",
+        "option2": "Trong vòng 3 tháng",
+        "option3": "Hơn 6 tháng"
+      },
+      "step5": {
+        "title": "Thông tin liên hệ",
+        "emailLabel": "Địa chỉ email *",
+        "phoneLabel": "Số điện thoại",
+        "wechatLabel": "WeChat ID",
+        "languageLabel": "Ngôn ngữ dịch vụ mong muốn",
+        "messageLabel": "Ghi chú",
+        "messagePlaceholder": "Vui lòng cho chúng tôi biết yêu cầu cụ thể, kiểu căn hộ mong muốn, yêu cầu đặc biệt, v.v...",
+        "privacyLabel": "Tôi đồng ý với Chính sách bảo mật"
+      }
+    },
+    "validation": {
+      "pleaseSelect": "Vui lòng chọn một tùy chọn",
+      "pleaseEnterEmail": "Vui lòng nhập địa chỉ email",
+      "pleaseEnterValidEmail": "Vui lòng nhập địa chỉ email hợp lệ",
+      "pleaseAgreePrivacy": "Vui lòng đồng ý với Chính sách bảo mật"
+    },
+    "status": {
+      "loadingText": "Đang gửi...",
+      "loadingDesc": "Vui lòng chờ",
+      "successTitle": "Gửi thành công!",
+      "successDesc": "Cảm ơn bạn đã liên hệ. Nhân viên của chúng tôi sẽ sớm liên lạc với bạn.",
+      "submitError": "Gửi thất bại, vui lòng thử lại sau"
+    }
   }
 }

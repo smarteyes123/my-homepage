@@ -1,47 +1,132 @@
 {
   "meta": {
-    "title": "Smart Eyes Co., Ltd. | Real Estate Consulting",
-    "description": "Real estate sales, leasing & investment consulting in Shinjuku. Multilingual support for overseas investors and foreign residents in Japan."
+    "title": "SMART EYES Co., Ltd. | Real Estate Consulting",
+    "description": "Real estate sales, rental, and investment consulting in Shinjuku. Multilingual support for overseas investors and foreign residents in Japan."
   },
   "header": {
     "companyName": "SMART EYES"
   },
   "hero": {
     "eyebrow": "REAL ESTATE • TOKYO",
-    "headline": "Premium Real Estate Advisory from Shinjuku",
-    "tagline": "Buy • Rent • Invest | Multilingual one-stop service",
-    "ctaTalk": "Talk to us"
+    "headline": "Premium Real Estate Services from Shinjuku",
+    "tagline": "Sales · Rentals · Investments | One-Stop Service by a Multilingual Team",
+    "ctaTalk": "Contact Us Now"
   },
   "services": {
-    "title": "What we do",
-    "description": "Serving individuals and enterprises across Greater Tokyo.",
+    "title": "Our Services",
+    "description": "For individuals and corporations, covering Tokyo and surrounding areas.",
     "svc1Badge": "SALE",
-    "svc1Title": "Transactions & Due Diligence",
-    "svc1Desc": "Viewings, price negotiation, contract review, fund flow control.",
+    "svc1Title": "Sales Transactions & Due Diligence",
+    "svc1Desc": "Property viewings, price negotiation, contract review, and fund flow management.",
     "svc2Badge": "RENT",
-    "svc2Title": "Leasing & Management",
-    "svc2Desc": "For students, expats and corporates, multilingual support.",
+    "svc2Title": "Leasing & Property Management",
+    "svc2Desc": "Support for students, expatriates, and corporate rentals in multiple languages.",
     "svc3Badge": "INVEST",
-    "svc3Title": "Investment & Allocation",
-    "svc3Desc": "Return modeling, cashflow analysis, exit strategies."
+    "svc3Title": "Investment & Asset Allocation",
+    "svc3Desc": "Return modeling, cash flow analysis, and exit strategy advice."
   },
   "advantages": {
-    "title": "Why Smart Eyes",
-    "description": "Trusted • Professional • Efficient.",
-    "adv1Title": "Core Shinjuku Location",
-    "adv1Desc": "Fast access and reception.",
-    "adv2Title": "Multilingual Team",
-    "adv2Desc": "JA / ZH / EN / KO / VI / NE.",
-    "adv3Title": "Compliance First",
-    "adv3Desc": "Tokyo Governor (1) #112700.",
-    "adv4Title": "Research-driven",
-    "adv4Desc": "Data and models inform advice."
+    "title": "Why Choose Us",
+    "description": "Trustworthy, professional, and efficient — our promise to you.",
+    "adv1Title": "Prime Shinjuku Location",
+    "adv1Desc": "Convenient transportation and quick appointments.",
+    "adv2Title": "Multilingual Support",
+    "adv2Desc": "Japanese / Chinese / English / Korean / Vietnamese / Nepali.",
+    "adv3Title": "Strict Compliance",
+    "adv3Desc": "Licensed by the Governor of Tokyo (1) No. 112700.",
+    "adv4Title": "Research-Driven",
+    "adv4Desc": "Balancing risk and return based on data and models."
   },
   "contact": {
-    "title": "Contact",
-    "company": "Smart Eyes Co., Ltd.",
-    "address": "21Yamakyō Bldg. 401, 7-3-10 Nishi-Shinjuku, Shinjuku-ku, Tokyo 160-0023",
-    "license": "Real Estate License: Tokyo Governor (1) #112700",
-    "wechatHint": "Scan to contact via WeChat"
+    "title": "Contact Us",
+    "company": "SMART EYES Co., Ltd.",
+    "address": "7-3-10-401 Nishi-Shinjuku, Shinjuku-ku, Tokyo 160-0023, Japan",
+    "license": "Real Estate License: Governor of Tokyo (1) No. 112700",
+    "wechatHint": "Scan the QR code to connect via WeChat"
+  },
+  "survey": {
+    "meta": {
+      "title": "Real Estate Consultation Survey"
+    },
+    "header": {
+      "title": "Real Estate Consultation",
+      "tagline": "We provide the most suitable solution for you"
+    },
+    "ui": {
+      "progressText": "Step {current} of {total}",
+      "prevBtn": "← Previous",
+      "nextBtn": "Next →",
+      "submitBtn": "Submit"
+    },
+    "steps": {
+      "step1": {
+        "title": "What service do you need?",
+        "option1": {
+          "title": "Buy",
+          "desc": "For clients considering purchasing property"
+        },
+        "option2": {
+          "title": "Rent",
+          "desc": "For clients looking for rental property"
+        },
+        "option3": {
+          "title": "Invest",
+          "desc": "For clients considering real estate investment"
+        }
+      },
+      "step2": {
+        "title": "What is your budget range?",
+        "buy": {
+          "option1": "Up to ¥5 million",
+          "option2": "¥5 million – ¥10 million",
+          "option3": "Over ¥10 million"
+        },
+        "rent": {
+          "option1": "Up to ¥100,000/month",
+          "option2": "¥100,000 – ¥200,000/month",
+          "option3": "Over ¥200,000/month"
+        },
+        "invest": {
+          "option1": "Up to ¥10 million",
+          "option2": "¥10 million – ¥50 million",
+          "option3": "Over ¥50 million"
+        }
+      },
+      "step3": {
+        "title": "Preferred location?",
+        "option1": "Tokyo",
+        "option2": "Osaka",
+        "option3": "Other"
+      },
+      "step4": {
+        "title": "Planned timeline?",
+        "option1": "Within 1 month",
+        "option2": "Within 3 months",
+        "option3": "More than 6 months"
+      },
+      "step5": {
+        "title": "Contact Information",
+        "emailLabel": "Email Address *",
+        "phoneLabel": "Phone Number",
+        "wechatLabel": "WeChat ID",
+        "languageLabel": "Preferred Service Language",
+        "messageLabel": "Remarks",
+        "messagePlaceholder": "Please tell us your specific requirements, preferred layout, special requests, etc...",
+        "privacyLabel": "I agree to the Privacy Policy"
+      }
+    },
+    "validation": {
+      "pleaseSelect": "Please select an option",
+      "pleaseEnterEmail": "Please enter your email address",
+      "pleaseEnterValidEmail": "Please enter a valid email address",
+      "pleaseAgreePrivacy": "Please agree to the Privacy Policy"
+    },
+    "status": {
+      "loadingText": "Submitting...",
+      "loadingDesc": "Please wait",
+      "successTitle": "Submission Successful!",
+      "successDesc": "Thank you for your inquiry. Our staff will contact you shortly.",
+      "submitError": "Submission failed, please try again later"
+    }
   }
 }
