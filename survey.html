@@ -612,7 +612,11 @@ class I18nManager {
   }
 
 async loadLanguage(lang) {
-  return await import(`./locales/${lang}.js`);
+  if (lang === 'ja') {
+    return return await import(`./locales/${lang}.js`);
+  } else {
+    return await import(`./locales/${lang}.js`);
+  }
 }
 
 
