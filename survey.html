@@ -612,17 +612,8 @@ class I18nManager {
   }
 
 async loadLanguage(lang) {
-  if (lang === 'ja') {
-    return return await import(`./locales/${lang}.js`);
-  } else {
-    return await import(`./locales/${lang}.js`);
-  }
+  return await import(`./locales/${lang}.js`);
 }
-
-
-    if (this.loadedLanguages[lang]) {
-      return this.loadedLanguages[lang];
-    }
 
     try {
       const response = await fetch(`lang/${lang}.json`);
@@ -1073,3 +1064,4 @@ if (document.readyState === 'loading') {
 
 </body>
 </html>
+有个问题，其他语言切换正常，但是从日语切出去之后，就无法切回日语了。看看什么原因
