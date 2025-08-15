@@ -1,0 +1,132 @@
+{
+  "meta": {
+    "title": "株式會社SMART EYES | 不動產諮詢",
+    "description": "新宿區不動產買賣·租賃·投資諮詢。多語言支援，為海外投資者及在日外國人提供專業服務。"
+  },
+  "header": {
+    "companyName": "SMART EYES"
+  },
+  "hero": {
+    "eyebrow": "REAL ESTATE • TOKYO",
+    "headline": "來自新宿的高端不動產服務",
+    "tagline": "買賣 · 租賃 · 投資 | 多語言團隊一站式服務",
+    "ctaTalk": "立即諮詢"
+  },
+  "services": {
+    "title": "我們的服務",
+    "description": "面向個人與法人，涵蓋東京及周邊地區。",
+    "svc1Badge": "SALE",
+    "svc1Title": "買賣成交與盡調",
+    "svc1Desc": "陪同看房、價格談判、合約審閱與資金流程把控。",
+    "svc2Badge": "RENT",
+    "svc2Title": "租賃與管理",
+    "svc2Desc": "留學生、國際人才與法人租賃，多語種支援。",
+    "svc3Badge": "INVEST",
+    "svc3Title": "投資與資產配置",
+    "svc3Desc": "報酬建模、現金流測算，並提供退出建議。"
+  },
+  "advantages": {
+    "title": "為什麼選擇我們",
+    "description": "可信、專業、高效，是我們的承諾。",
+    "adv1Title": "新宿核心地段",
+    "adv1Desc": "交通便利，接待安排迅速。",
+    "adv2Title": "多語言支援",
+    "adv2Desc": "日/中/英/韓/越/尼泊爾文。",
+    "adv3Title": "嚴格合規",
+    "adv3Desc": "東京都知事(1)第112700號。",
+    "adv4Title": "投研驅動",
+    "adv4Desc": "以數據與模型為基礎，平衡風險與收益。"
+  },
+  "contact": {
+    "title": "聯絡我們",
+    "company": "株式會社SMART EYES",
+    "address": "郵遞區號160-0023 東京都新宿區西新宿7-3-10-401",
+    "license": "不動產經營許可編號：東京都知事(1)第112700號",
+    "wechatHint": "微信聯繫請掃碼"
+  },
+  "survey": {
+    "meta": {
+      "title": "不動產諮詢問卷"
+    },
+    "header": {
+      "title": "不動產諮詢",
+      "tagline": "為您提供最合適的解決方案"
+    },
+    "ui": {
+      "progressText": "第 {current} 步 / 共 {total} 步",
+      "prevBtn": "← 上一步",
+      "nextBtn": "下一步 →",
+      "submitBtn": "提交"
+    },
+    "steps": {
+      "step1": {
+        "title": "您需要什麼服務？",
+        "option1": {
+          "title": "買房",
+          "desc": "考慮購買房產的客戶"
+        },
+        "option2": {
+          "title": "租房",
+          "desc": "尋找租賃房產的客戶"
+        },
+        "option3": {
+          "title": "投資",
+          "desc": "考慮不動產投資的客戶"
+        }
+      },
+      "step2": {
+        "title": "預算範圍？",
+        "buy": {
+          "option1": "~500萬日圓",
+          "option2": "500萬~1000萬日圓",
+          "option3": "1000萬日圓以上"
+        },
+        "rent": {
+          "option1": "~10萬日圓/月",
+          "option2": "10萬~20萬日圓/月",
+          "option3": "20萬日圓以上/月"
+        },
+        "invest": {
+          "option1": "~1000萬日圓",
+          "option2": "1000萬~5000萬日圓",
+          "option3": "5000萬日圓以上"
+        }
+      },
+      "step3": {
+        "title": "位置偏好？",
+        "option1": "東京",
+        "option2": "大阪",
+        "option3": "其他"
+      },
+      "step4": {
+        "title": "計劃時間？",
+        "option1": "1個月內",
+        "option2": "3個月內",
+        "option3": "半年以上"
+      },
+      "step5": {
+        "title": "聯絡方式",
+        "emailLabel": "電子郵件地址 *",
+        "phoneLabel": "電話號碼",
+        "wechatLabel": "微信號",
+        "languageLabel": "希望的服務語言",
+        "messageLabel": "備註留言",
+        "messagePlaceholder": "請告訴我們您的具體需求、希望的戶型、特殊要求等...",
+        "privacyLabel": "同意隱私政策"
+      }
+    },
+    "validation": {
+      "pleaseSelect": "請選擇一個選項",
+      "pleaseEnterEmail": "請輸入電子郵件地址",
+      "pleaseEnterValidEmail": "請輸入有效的電子郵件地址",
+      "pleaseAgreePrivacy": "請同意隱私政策"
+    },
+    "status": {
+      "loadingText": "提交中...",
+      "loadingDesc": "請稍候",
+      "successTitle": "提交成功！",
+      "successDesc": "感謝您的諮詢，我們的工作人員會盡快與您聯繫。",
+      "submitError": "提交失敗，請稍後重試"
+    }
+  }
+}

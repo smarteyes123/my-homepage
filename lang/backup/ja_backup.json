@@ -1,0 +1,132 @@
+{
+  "meta": {
+    "title": "株式会社SMART EYES | 不動産コンサルティング",
+    "description": "新宿区における不動産売買・賃貸・投資コンサルティング。多言語対応で、海外投資家や在日外国人のお客様へ専門的なサービスを提供します。"
+  },
+  "header": {
+    "companyName": "SMART EYES"
+  },
+  "hero": {
+    "eyebrow": "REAL ESTATE • TOKYO",
+    "headline": "新宿から提供するハイエンド不動産サービス",
+    "tagline": "売買 · 賃貸 · 投資 | 多言語チームによるワンストップサービス",
+    "ctaTalk": "今すぐお問い合わせ"
+  },
+  "services": {
+    "title": "当社のサービス",
+    "description": "個人・法人を対象に、東京および周辺エリアをカバーしています。",
+    "svc1Badge": "SALE",
+    "svc1Title": "売買取引・デューデリジェンス",
+    "svc1Desc": "物件見学同行、価格交渉、契約書確認、資金フロー管理。",
+    "svc2Badge": "RENT",
+    "svc2Title": "賃貸・管理",
+    "svc2Desc": "留学生、外国人専門職、法人賃貸への多言語サポート。",
+    "svc3Badge": "INVEST",
+    "svc3Title": "投資・資産配分",
+    "svc3Desc": "収益モデル作成、キャッシュフロー計算、出口戦略の提案。"
+  },
+  "advantages": {
+    "title": "当社を選ぶ理由",
+    "description": "信頼性・専門性・効率性が私たちの約束です。",
+    "adv1Title": "新宿の好立地",
+    "adv1Desc": "交通の便が良く、迅速な対応が可能。",
+    "adv2Title": "多言語対応",
+    "adv2Desc": "日／中／英／韓／ベトナム／ネパール語。",
+    "adv3Title": "厳格なコンプライアンス",
+    "adv3Desc": "東京都知事(1)第112700号。",
+    "adv4Title": "リサーチ主導",
+    "adv4Desc": "データとモデルに基づき、リスクとリターンをバランス。"
+  },
+  "contact": {
+    "title": "お問い合わせ",
+    "company": "株式会社SMART EYES",
+    "address": "〒160-0023 東京都新宿区西新宿7-3-10-401",
+    "license": "宅地建物取引業免許番号：東京都知事(1)第112700号",
+    "wechatHint": "WeChatでのご連絡はQRコードをスキャンしてください"
+  },
+  "survey": {
+    "meta": {
+      "title": "不動産相談アンケート"
+    },
+    "header": {
+      "title": "不動産相談",
+      "tagline": "お客様に最適な解決策をご提案します"
+    },
+    "ui": {
+      "progressText": "{total}ステップ中 {current}ステップ目",
+      "prevBtn": "← 前へ",
+      "nextBtn": "次へ →",
+      "submitBtn": "送信"
+    },
+    "steps": {
+      "step1": {
+        "title": "ご希望のサービスは？",
+        "option1": {
+          "title": "購入",
+          "desc": "不動産の購入を検討しているお客様"
+        },
+        "option2": {
+          "title": "賃貸",
+          "desc": "賃貸物件をお探しのお客様"
+        },
+        "option3": {
+          "title": "投資",
+          "desc": "不動産投資を検討しているお客様"
+        }
+      },
+      "step2": {
+        "title": "予算範囲は？",
+        "buy": {
+          "option1": "〜500万円",
+          "option2": "500万〜1000万円",
+          "option3": "1000万円以上"
+        },
+        "rent": {
+          "option1": "〜月10万円",
+          "option2": "月10万〜20万円",
+          "option3": "月20万円以上"
+        },
+        "invest": {
+          "option1": "〜1000万円",
+          "option2": "1000万〜5000万円",
+          "option3": "5000万円以上"
+        }
+      },
+      "step3": {
+        "title": "希望エリアは？",
+        "option1": "東京",
+        "option2": "大阪",
+        "option3": "その他"
+      },
+      "step4": {
+        "title": "予定時期は？",
+        "option1": "1か月以内",
+        "option2": "3か月以内",
+        "option3": "半年以上"
+      },
+      "step5": {
+        "title": "連絡先",
+        "emailLabel": "メールアドレス *",
+        "phoneLabel": "電話番号",
+        "wechatLabel": "WeChat ID",
+        "languageLabel": "希望する対応言語",
+        "messageLabel": "備考",
+        "messagePlaceholder": "具体的なご要望、希望間取り、特別な条件などをご記入ください...",
+        "privacyLabel": "プライバシーポリシーに同意する"
+      }
+    },
+    "validation": {
+      "pleaseSelect": "オプションを選択してください",
+      "pleaseEnterEmail": "メールアドレスを入力してください",
+      "pleaseEnterValidEmail": "有効なメールアドレスを入力してください",
+      "pleaseAgreePrivacy": "プライバシーポリシーに同意してください"
+    },
+    "status": {
+      "loadingText": "送信中...",
+      "loadingDesc": "しばらくお待ちください",
+      "successTitle": "送信成功！",
+      "successDesc": "お問い合わせありがとうございます。担当者より折り返しご連絡いたします。",
+      "submitError": "送信に失敗しました。しばらくしてから再度お試しください"
+    }
+  }
+}
