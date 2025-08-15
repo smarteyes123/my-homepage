@@ -998,11 +998,28 @@
       }
 
       async simulateSubmission() {
-        // Simulate network delay
-        return new Promise((resolve) => {
-          setTimeout(resolve, 1500);
-        });
-      }
+  const scriptUrl = 'https://script.google.com/macros/s/AKfycbzxi3jIKzy5mWRXJH_12397PrEUq0lnQZDTfpYn2-B4Oszl1g7RFUh0CgpH9D_dEuwyVw/exec';
+  
+  const formData = {
+    lastName: document.getElementById('lastName').value,
+    firstName: document.getElementById('firstName').value,
+    email: document.getElementById('email').value,
+    phone: document.getElementById('phone').value,
+    inquiryType: document.getElementById('inquiryType').value,
+    budget: document.getElementById('budget').value,
+    language: document.getElementById('language').value,
+    message: document.getElementById('message').value,
+    timestamp: new Date().toISOString(),
+    source: 'contact_form'
+  };
+  
+  await fetch(scriptUrl, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(formData)
+  });
+}
 
       showMessage(message, type) {
         this.messageContainer.innerHTML = `
