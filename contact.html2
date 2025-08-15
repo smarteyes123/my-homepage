@@ -511,7 +511,7 @@
         <!-- Language Dropdown -->
         <div class="lang-dropdown" id="langDropdown">
           <button class="lang-current" id="langCurrent" aria-haspopup="true" aria-expanded="false">
-            <span class="lang-icon">🌐</span>
+            <span class="lang-icon">🌍</span>
             <span class="lang-text">Japanese</span>
             <span class="lang-arrow">▼</span>
           </button>
@@ -982,8 +982,8 @@
         this.submitButton.textContent = '送信中...';
 
         try {
-          // Updated script URL
-          await this.submitToGoogleScript();
+          // Simulate form submission - replace with actual endpoint
+          await this.simulateSubmission();
           
           this.showMessage('お問い合わせありがとうございます。2営業日以内にご返信いたします。', 'success');
           this.form.reset();
@@ -997,29 +997,29 @@
         }
       }
 
-      async submitToGoogleScript() {
-        const scriptUrl = 'https://script.google.com/macros/s/AKfycbzMWtKd26r5GJrrdYeVWazLOWIdUzpFynCg9VeVDwtxEbEO6z6EcLy7TJjhRAXSpqgtTw/exec';
-        
-        const formData = {
-          lastName: document.getElementById('lastName').value,
-          firstName: document.getElementById('firstName').value,
-          email: document.getElementById('email').value,
-          phone: document.getElementById('phone').value,
-          inquiryType: document.getElementById('inquiryType').value,
-          budget: document.getElementById('budget').value,
-          language: document.getElementById('language').value,
-          message: document.getElementById('message').value,
-          timestamp: new Date().toISOString(),
-          source: 'contact_form'
-        };
-        
-        await fetch(scriptUrl, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
-        });
-      }
+      async simulateSubmission() {
+  const scriptUrl = 'https://script.google.com/macros/s/AKfycbzxi3jIKzy5mWRXJH_12397PrEUq0lnQZDTfpYn2-B4Oszl1g7RFUh0CgpH9D_dEuwyVw/exec';
+  
+  const formData = {
+    lastName: document.getElementById('lastName').value,
+    firstName: document.getElementById('firstName').value,
+    email: document.getElementById('email').value,
+    phone: document.getElementById('phone').value,
+    inquiryType: document.getElementById('inquiryType').value,
+    budget: document.getElementById('budget').value,
+    language: document.getElementById('language').value,
+    message: document.getElementById('message').value,
+    timestamp: new Date().toISOString(),
+    source: 'contact_form'
+  };
+  
+  await fetch(scriptUrl, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(formData)
+  });
+}
 
       showMessage(message, type) {
         this.messageContainer.innerHTML = `
@@ -1179,3 +1179,170 @@
 
           this.currentLang = lang;
           this.updateDropdown();
+          
+          console.log(`Language switched to: ${lang}`);
+        } catch (error) {
+          console.error('Failed to apply language:', error);
+          
+          if (lang !== this.fallbackLang) {
+            console.log(`Falling back to ${this.fallbackLang}`);
+            return this.applyLanguage(this.fallbackLang);
+          }
+        }
+      }
+
+      updateDropdown() {
+        const currentButton = document.getElementById('langCurrent');
+        const currentText = currentButton.querySelector('.lang-text');
+        if (currentText) {
+          currentText.textContent = this.languages[this.currentLang];
+        }
+
+        document.querySelectorAll('.lang-option').forEach(option => {
+          const isActive = option.dataset.lang === this.currentLang;
+          option.classList.toggle('active', isActive);
+          const check = option.querySelector('.lang-check');
+          if (check) {
+            check.textContent = isActive ? '✓' : '';
+          }
+        });
+      }
+
+      buildDropdown() {
+        const currentButton = document.getElementById('langCurrent');
+        const menu = document.getElementById('langMenu');
+        
+        Object.entries(this.languages).forEach(([code, name]) => {
+          const option = document.createElement('button');
+          option.className = 'lang-option';
+          option.dataset.lang = code;
+          option.setAttribute('role', 'menuitem');
+          option.innerHTML = `
+            <span class="lang-check"></span>
+            <span>${name}</span>
+          `;
+          
+          option.addEventListener('click', () => {
+            this.applyLanguage(code);
+            this.hideDropdown();
+          });
+          
+          menu.appendChild(option);
+        });
+
+        currentButton.addEventListener('click', (e) => {
+          e.stopPropagation();
+          this.toggleDropdown();
+        });
+
+        document.addEventListener('click', () => {
+          this.hideDropdown();
+        });
+      }
+
+      toggleDropdown() {
+        const menu = document.getElementById('langMenu');
+        const isShown = menu.classList.contains('show');
+        if (isShown) {
+          this.hideDropdown();
+        } else {
+          this.showDropdown();
+        }
+      }
+
+      showDropdown() {
+        const currentButton = document.getElementById('langCurrent');
+        const menu = document.getElementById('langMenu');
+        
+        currentButton.setAttribute('aria-expanded', 'true');
+        menu.classList.add('show');
+      }
+
+      hideDropdown() {
+        const currentButton = document.getElementById('langCurrent');
+        const menu = document.getElementById('langMenu');
+        
+        currentButton.setAttribute('aria-expanded', 'false');
+        menu.classList.remove('show');
+      }
+    }
+
+    // ===== Intersection Observer =====
+    function initIntersectionObserver() {
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.animationPlayState = 'running';
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+      
+      document.querySelectorAll('.fade-up, .fade-in').forEach(el => {
+        el.style.animationPlayState = 'paused';
+        observer.observe(el);
+      });
+    }
+
+    // ===== Performance Optimization =====
+    function optimizePerformance() {
+      function throttle(func, limit) {
+        let inThrottle;
+        return function() {
+          const args = arguments;
+          const context = this;
+          if (!inThrottle) {
+            func.apply(context, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+          }
+        };
+      }
+      
+      const handleScroll = throttle(() => {
+        const header = document.querySelector('.site-header');
+        if (window.scrollY > 100) {
+          header.style.background = 'rgba(255,255,255,0.98)';
+          header.style.boxShadow = '0 4px 20px rgba(30, 64, 175, 0.1)';
+        } else {
+          header.style.background = 'rgba(255,255,255,0.95)';
+          header.style.boxShadow = 'none';
+        }
+      }, 16);
+      
+      window.addEventListener('scroll', handleScroll, { passive: true });
+    }
+
+    // ===== Main Initialization =====
+    const i18n = new I18nManager();
+    const navigation = new NavigationManager();
+    const contactForm = new ContactFormManager();
+
+    async function init() {
+      i18n.buildDropdown();
+      
+      const detectedLang = i18n.detectLanguage();
+      await i18n.applyLanguage(detectedLang);
+      
+      optimizePerformance();
+      
+      setTimeout(() => {
+        initIntersectionObserver();
+      }, 500);
+      
+      console.log('Smart Eyes contact page initialized successfully');
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  </script>
+</body>
+</html>
