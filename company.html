@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>会社概要 | 株式会社スマートアイズ</title>
+  <meta name="description" content="株式会社スマートアイズの会社概要。代表挨拶、企業理念、会社沿革、チーム紹介をご覧いただけます。" />
+  <meta property="og:title" content="会社概要 | 株式会社スマートアイズ" />
+  <meta property="og:description" content="株式会社スマートアイズの会社概要。代表挨拶、企業理念、会社沿革、チーム紹介をご覧いただけます。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.smarteyes.co.jp/company.html" />
+  <link rel="icon" href="logo.png" />
+  <style>
+    /* ===== Enhanced Color Palette ===== */
+    :root{
+      --brand:#1e40af;
+      --brand-light:#3b82f6;
+      --brand-ink:#0f172a;
+      --gold:#f59e0b;
+      --gold-light:#fbbf24;
+      --ink:#0f172a;
+      --ink-light:#334155;
+      --muted:#64748b;
+      --muted-light:#94a3b8;
+      --bg:linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+      --bg-solid:#f8fafc;
+      --card:#ffffff;
+      --card-hover:#fefefe;
+      --accent:#06b6d4;
+      --accent-light:#67e8f9;
+      --success:#10b981;
+      --warning:#f59e0b;
+      --error:#ef4444;
+      --radius:16px;
+      --shadow:0 4px 20px rgba(30, 64, 175, 0.08);
+      --shadow-hover:0 10px 40px rgba(30, 64, 175, 0.15);
+      --transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    html,body{margin:0;padding:0;background:var(--bg-solid);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP","Microsoft YaHei",sans-serif;}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    .container{max-width:1200px;margin:0 auto;padding:0 20px}
+
+    /* ===== Header & Navigation ===== */
+    .site-header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);border-bottom:1px solid #e2e8f0;transition:var(--transition)}
+    .site-header .row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;gap:12px}
+    .brand{display:flex;align-items:center;gap:12px;transition:var(--transition)}
+    .brand:hover{transform:translateY(-1px)}
+    .brand img{height:48px;transition:var(--transition)}
+    .brand .name{font-weight:700;letter-spacing:.2px;color:var(--brand-ink);background:linear-gradient(135deg, var(--brand), var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+    /* ===== Main Navigation ===== */
+    .nav-container{display:flex;align-items:center;gap:24px}
+    .main-nav{display:flex;align-items:center}
+    .nav-links{display:flex;align-items:center;gap:20px;list-style:none;margin:0;padding:0}
+    .nav-links li{position:relative}
+    .nav-links a{
+      padding:8px 16px;border-radius:8px;font-weight:500;font-size:14px;
+      transition:var(--transition);position:relative;overflow:hidden;
+      color:var(--ink-light);
+    }
+    .nav-links a::before{
+      content:"";position:absolute;top:0;left:-100%;width:100%;height:100%;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);
+      transition:left 0.5s ease;
+    }
+    .nav-links a:hover::before{left:100%}
+    .nav-links a:hover{
+      background:linear-gradient(135deg, var(--brand), var(--brand-light));
+      color:#fff;transform:translateY(-1px);
+      box-shadow:0 4px 12px rgba(30, 64, 175, 0.3);
+    }
+    .nav-links a.active{
+      background:linear-gradient(135deg, var(--gold), var(--gold-light));
+      color:#fff;box-shadow:0 4px 12px rgba(245, 158, 11, 0.3);
+    }
+
+    /* ===== Mobile Navigation ===== */
+    .mobile-nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:8px;border-radius:8px;transition:var(--transition)}
+    .mobile-nav-toggle:hover{background:var(--bg-solid)}
+    .mobile-nav-toggle span{display:block;width:24px;height:3px;background:var(--brand);margin:4px 0;transition:var(--transition);border-radius:2px}
+    .mobile-nav-toggle.active span:nth-child(1){transform:rotate(45deg) translate(5px, 5px)}
+    .mobile-nav-toggle.active span:nth-child(2){opacity:0}
+    .mobile-nav-toggle.active span:nth-child(3){transform:rotate(-45deg) translate(7px, -6px)}
+
+    .mobile-nav{
+      display:none;position:absolute;top:100%;left:0;right:0;
+      background:rgba(255,255,255,0.98);backdrop-filter:blur(10px);
+      border-top:1px solid #e2e8f0;box-shadow:var(--shadow);
+      opacity:0;visibility:hidden;transform:translateY(-10px);
+      transition:all 0.3s ease;
+    }
+    .mobile-nav.show{opacity:1;visibility:visible;transform:translateY(0)}
+    .mobile-nav .nav-links{flex-direction:column;align-items:stretch;padding:20px}
+    .mobile-nav .nav-links a{padding:12px 20px;margin:4px 0;border-radius:12px}
+
+    /* ===== Language Dropdown ===== */
+    .lang-dropdown{position:relative;display:inline-block}
+    .lang-current{
+      display:flex;align-items:center;gap:6px;
+      border:1px solid #e2e8f0;background:linear-gradient(135deg, #ffffff, #f8fafc);
+      padding:6px 10px;border-radius:8px;font-size:12px;
+      cursor:pointer;transition:var(--transition);
+      min-width:80px;min-height:36px;
+      box-shadow:0 2px 8px rgba(30, 64, 175, 0.05);
+    }
+    .lang-current:hover{border-color:var(--brand-light);box-shadow:0 4px 12px rgba(30, 64, 175, 0.15);background:linear-gradient(135deg, #ffffff, #f1f5f9)}
+    .lang-current:focus{outline:2px solid var(--brand);outline-offset:2px}
+    .lang-current[aria-expanded="true"]{border-color:var(--brand);box-shadow:0 4px 12px rgba(30, 64, 175, 0.2)}
+    .lang-current[aria-expanded="true"] .lang-arrow{transform:rotate(180deg)}
+    .lang-icon{font-size:14px}
+    .lang-text{flex:1;text-align:left;font-size:12px;color:var(--ink-light)}
+    .lang-arrow{transition:transform 0.2s ease;font-size:8px;color:var(--muted)}
+    .lang-menu{
+      position:absolute;top:100%;left:0;right:0;
+      background:linear-gradient(135deg, #ffffff, #f8fafc);border:1px solid #e2e8f0;border-radius:8px;
+      box-shadow:0 8px 32px rgba(30, 64, 175, 0.15);
+      opacity:0;visibility:hidden;transform:translateY(-10px);
+      transition:all 0.2s ease;z-index:1000;
+      margin-top:2px;min-width:120px;
+    }
+    .lang-menu.show{opacity:1;visibility:visible;transform:translateY(0)}
+    .lang-option{
+      display:flex;align-items:center;gap:6px;
+      padding:8px 10px;cursor:pointer;transition:var(--transition);
+      border:none;background:none;width:100%;text-align:left;
+      font-size:12px;color:var(--ink-light);
+    }
+    .lang-option:hover{background:linear-gradient(135deg, #f1f5f9, #e2e8f0)}
+    .lang-option:focus{outline:none;background:linear-gradient(135deg, var(--brand), var(--brand-light));color:#fff}
+    .lang-option.active{background:linear-gradient(135deg, #eff6ff, #dbeafe);color:var(--brand);font-weight:600}
+    .lang-option:first-child{border-radius:7px 7px 0 0}
+    .lang-option:last-child{border-radius:0 0 7px 7px}
+    .lang-option:only-child{border-radius:7px}
+    .lang-check{width:14px;height:14px;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--brand)}
+
+    /* ===== Page Header ===== */
+    .page-header{
+      position:relative;min-height:60vh;display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(135deg, #dbeafe 0%, #f0f9ff 50%, #fef3c7 100%);
+      overflow:hidden;
+    }
+    .page-header::before{
+      content:"";position:absolute;inset:0;
+      background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="%23ffffff" opacity="0.1"/><circle cx="80" cy="40" r="0.5" fill="%23ffffff" opacity="0.1"/><circle cx="40" cy="80" r="1.5" fill="%23ffffff" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    }
+    .page-header-content{
+      position:relative;z-index:2;text-align:center;max-width:800px;padding:0 20px;
+    }
+    .page-title{
+      font-size:48px;font-weight:800;margin:0 0 16px;
+      background:linear-gradient(135deg, var(--brand-ink), var(--brand));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+    }
+    .page-subtitle{color:var(--ink-light);font-size:18px;line-height:1.6;margin:0}
+
+    /* ===== Sections ===== */
+    section{padding:80px 0}
+    section:nth-child(even){background:linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #f8fafc 100%)}
+    section:nth-child(odd){background:linear-gradient(135deg, #fefce8 0%, #fef3c7 30%, #f8fafc 70%, #f1f5f9 100%)}
+    h2.sec-title{font-size:32px;margin:0 0 24px;color:var(--brand-ink);position:relative;background:linear-gradient(135deg, var(--brand-ink), var(--brand));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    h2.sec-title::after{content:"";position:absolute;bottom:-8px;left:0;width:60px;height:4px;background:linear-gradient(135deg, var(--gold), var(--gold-light));border-radius:2px}
+    p.sec-desc{margin:0 0 32px;color:var(--muted);font-size:16px;line-height:1.7}
+
+    /* ===== President Message ===== */
+    .president-section{
+      display:grid;grid-template-columns:1fr 2fr;gap:60px;align-items:center;
+    }
+    .president-photo{
+      position:relative;
+    }
+    .president-photo img{
+      width:100%;border-radius:20px;box-shadow:var(--shadow-hover);
+      transition:var(--transition);
+    }
+    .president-photo:hover img{transform:translateY(-8px);box-shadow:0 20px 60px rgba(30, 64, 175, 0.2)}
+    .president-photo::before{
+      content:"";position:absolute;top:20px;left:20px;right:-20px;bottom:-20px;
+      background:linear-gradient(135deg, var(--brand), var(--accent));
+      border-radius:20px;opacity:0.1;z-index:-1;
+    }
+    .president-content h3{
+      font-size:24px;margin:0 0 16px;color:var(--brand-ink);
+    }
+    .president-content .title{
+      color:var(--gold);font-weight:600;margin-bottom:24px;font-size:16px;
+    }
+    .president-content p{
+      color:var(--ink-light);line-height:1.8;margin-bottom:20px;font-size:15px;
+    }
+    .president-signature{
+      margin-top:32px;text-align:right;
+    }
+    .president-signature .name{
+      font-size:18px;font-weight:700;color:var(--brand-ink);
+    }
+    .president-signature .position{
+      color:var(--muted);font-size:14px;margin-top:4px;
+    }
+
+    /* ===== Company Philosophy ===== */
+    .philosophy-grid{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:32px;
+    }
+    .philosophy-item{
+      background:linear-gradient(135deg, #ffffff, #fefefe);
+      border-radius:var(--radius);box-shadow:var(--shadow);padding:32px;
+      transition:var(--transition);border:1px solid rgba(226, 232, 240, 0.6);
+      position:relative;overflow:hidden;text-align:center;
+    }
+    .philosophy-item::before{
+      content:"";position:absolute;top:0;left:0;right:0;height:4px;
+      background:linear-gradient(90deg, var(--brand), var(--accent), var(--gold));
+      opacity:0;transition:opacity 0.3s ease;
+    }
+    .philosophy-item:hover::before{opacity:1}
+    .philosophy-item:hover{
+      transform:translateY(-8px);box-shadow:0 20px 40px rgba(30, 64, 175, 0.15);
+      border-color:rgba(59, 130, 246, 0.4);
+    }
+    .philosophy-icon{
+      font-size:48px;margin-bottom:20px;display:block;
+    }
+    .philosophy-item h4{
+      font-size:20px;margin:0 0 16px;color:var(--brand-ink);
+    }
+    .philosophy-item p{
+      color:var(--ink-light);line-height:1.7;margin:0;
+    }
+
+    /* ===== Company History ===== */
+    .history-timeline{
+      position:relative;max-width:800px;margin:0 auto;
+    }
+    .history-timeline::before{
+      content:"";position:absolute;left:30px;top:0;bottom:0;width:3px;
+      background:linear-gradient(to bottom, var(--brand), var(--accent), var(--gold));
+      border-radius:2px;
+    }
+    .history-item{
+      position:relative;margin-bottom:48px;padding-left:80px;
+    }
+    .history-item::before{
+      content:"";position:absolute;left:18px;top:8px;width:24px;height:24px;
+      background:linear-gradient(135deg, var(--brand), var(--brand-light));
+      border-radius:50%;border:4px solid #fff;box-shadow:var(--shadow);
+    }
+    .history-year{
+      font-size:18px;font-weight:700;color:var(--brand);margin-bottom:8px;
+    }
+    .history-content{
+      background:linear-gradient(135deg, #ffffff, #f8fafc);
+      border-radius:12px;padding:20px;box-shadow:var(--shadow);
+      border:1px solid rgba(226, 232, 240, 0.6);transition:var(--transition);
+    }
+    .history-content:hover{
+      transform:translateX(8px);box-shadow:var(--shadow-hover);
+    }
+    .history-content h5{
+      margin:0 0 8px;color:var(--brand-ink);font-size:16px;
+    }
+    .history-content p{
+      margin:0;color:var(--ink-light);font-size:14px;line-height:1.6;
+    }
+
+    /* ===== Team Section ===== */
+    .team-grid{
+      display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:32px;
+    }
+    .team-member{
+      background:linear-gradient(135deg, #ffffff, #fefefe);
+      border-radius:var(--radius);box-shadow:var(--shadow);padding:32px;
+      transition:var(--transition);border:1px solid rgba(226, 232, 240, 0.6);
+      text-align:center;position:relative;overflow:hidden;
+    }
+    .team-member::before{
+      content:"";position:absolute;top:0;left:0;right:0;height:4px;
+      background:linear-gradient(90deg, var(--accent), var(--brand), var(--gold));
+      opacity:0;transition:opacity 0.3s ease;
+    }
+    .team-member:hover::before{opacity:1}
+    .team-member:hover{
+      transform:translateY(-8px);box-shadow:0 20px 40px rgba(30, 64, 175, 0.15);
+    }
+    .team-avatar{
+      width:100px;height:100px;border-radius:50%;margin:0 auto 20px;
+      background:linear-gradient(135deg, var(--brand), var(--accent));
+      display:flex;align-items:center;justify-content:center;
+      font-size:36px;color:#fff;font-weight:700;
+      box-shadow:var(--shadow);
+    }
+    .team-name{
+      font-size:20px;font-weight:700;margin:0 0 8px;color:var(--brand-ink);
+    }
+    .team-position{
+      color:var(--gold);font-weight:600;margin-bottom:16px;font-size:14px;
+    }
+    .team-languages{
+      color:var(--ink-light);font-size:13px;
+    }
+
+    /* ===== Company Info ===== */
+    .company-info{
+      background:linear-gradient(135deg, #ffffff, #f8fafc);
+      border-radius:20px;box-shadow:var(--shadow-hover);padding:48px;
+      border:1px solid rgba(226, 232, 240, 0.8);position:relative;overflow:hidden;
+    }
+    .company-info::before{
+      content:"";position:absolute;top:0;left:0;right:0;height:5px;
+      background:linear-gradient(90deg, var(--brand), var(--accent), var(--gold));
+      opacity:0.8;
+    }
+    .info-grid{
+      display:grid;grid-template-columns:repeat(2,1fr);gap:32px;
+    }
+    .info-item{
+      padding:24px;background:linear-gradient(135deg, #f8fafc, #f1f5f9);
+      border-radius:12px;border:1px solid rgba(226, 232, 240, 0.6);
+    }
+    .info-label{
+      font-weight:700;color:var(--brand);margin-bottom:8px;font-size:14px;
+    }
+    .info-value{
+      color:var(--ink-light);font-size:15px;line-height:1.6;
+    }
+
+    /* ===== Footer ===== */
+    footer{padding:32px 0;color:var(--muted-light);font-size:13px;text-align:center;border-top:1px solid #e2e8f0;background:linear-gradient(135deg, #0f172a, #1e293b);color:#94a3b8}
+
+    /* ===== Responsive ===== */
+    @media (max-width: 1024px){
+      .main-nav{display:none}
+      .mobile-nav-toggle{display:block}
+      .mobile-nav{display:block}
+      .president-section{grid-template-columns:1fr;gap:40px;text-align:center}
+      .philosophy-grid{grid-template-columns:1fr}
+      .team-grid{grid-template-columns:repeat(2,1fr)}
+      .info-grid{grid-template-columns:1fr}
+    }
+    @media (max-width: 640px){
+      .page-title{font-size:36px}
+      .president-section{gap:32px}
+      .philosophy-grid{gap:24px}
+      .team-grid{grid-template-columns:1fr}
+      .history-item{padding-left:60px}
+      .lang-current{min-width:70px;padding:4px 8px;font-size:11px;min-height:32px}
+      .lang-text{font-size:11px}
+      .lang-icon{font-size:12px}
+      .lang-arrow{font-size:7px}
+      .site-header .row{padding:10px 0}
+      .brand .name{font-size:14px}
+      .brand img{height:36px}
+      .lang-menu{min-width:100px}
+      .lang-option{padding:6px 8px;font-size:11px}
+    }
+
+    /* ===== Animations ===== */
+    .fade-up{opacity:0;transform:translateY(20px);animation:fadeUp .8s ease forwards}
+    @keyframes fadeUp{to{opacity:1;transform:none}}
+    
+    .fade-in{opacity:0;animation:fadeIn 0.8s ease forwards}
+    @keyframes fadeIn{to{opacity:1}}
+
+    /* ===== Accessibility ===== */
+    @media (prefers-reduced-motion: reduce){
+      *{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important}
+      html{scroll-behavior:auto}
+    }
+    
+    @media (prefers-contrast: high){
+      :root{--shadow:0 4px 16px rgba(0,0,0,.4)}
+      .philosophy-item, .team-member, .company-info{border:2px solid var(--muted)}
+    }
+
+    /* ===== Focus styles ===== */
+    *:focus{outline:2px solid var(--brand);outline-offset:2px}
+    .philosophy-item:focus, .team-member:focus{outline:none;box-shadow:0 0 0 3px rgba(30, 64, 175, 0.3)}
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container row">
+      <a href="index.html" class="brand">
+        <img src="logo.png" alt="Smart Eyes" />
+        <div class="name">SMART EYES</div>
+      </a>
+      
+      <div class="nav-container">
+        <!-- Desktop Navigation -->
+        <nav class="main-nav">
+          <ul class="nav-links">
+            <li><a href="index.html" data-i18n="nav.top">TOP</a></li>
+            <li><a href="company.html" class="active" data-i18n="nav.company">会社概要</a></li>
+            <li><a href="properties.html" data-i18n="nav.properties">物件紹介</a></li>
+            <li><a href="contact.html" data-i18n="nav.contact">お問い合わせ</a></li>
+          </ul>
+        </nav>
+
+        <!-- Language Dropdown -->
+        <div class="lang-dropdown" id="langDropdown">
+          <button class="lang-current" id="langCurrent" aria-haspopup="true" aria-expanded="false">
+            <span class="lang-icon">🌍</span>
+            <span class="lang-text">Japanese</span>
+            <span class="lang-arrow">▼</span>
+          </button>
+          <div class="lang-menu" id="langMenu" role="menu">
+            <!-- Language options will be dynamically generated by JS -->
+          </div>
+        </div>
+
+        <!-- Mobile Navigation Toggle -->
+        <button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Toggle navigation">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Menu -->
+    <nav class="mobile-nav" id="mobileNav">
+      <ul class="nav-links">
+        <li><a href="index.html" data-i18n="nav.top">TOP</a></li>
+        <li><a href="company.html" class="active" data-i18n="nav.company">会社概要</a></li>
+        <li><a href="properties.html" data-i18n="nav.properties">物件紹介</a></li>
+        <li><a href="contact.html" data-i18n="nav.contact">お問い合わせ</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Page Header -->
+  <section class="page-header">
+    <div class="page-header-content fade-in">
+      <h1 class="page-title" data-i18n="company.pageTitle">会社概要</h1>
+      <p class="page-subtitle" data-i18n="company.pageSubtitle">Smart Eyesの企業理念、沿革、チーム紹介</p>
+    </div>
+  </section>
+
+  <!-- President Message -->
+  <section>
+    <div class="container">
+      <h2 class="sec-title" data-i18n="company.presidentTitle">代表挨拶</h2>
+      <div class="president-section fade-up">
+        <div class="president-photo">
+          <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjUwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJsaW5lYXItZ3JhZGllbnQoMTM1ZGVnLCAjZGJlYWZlLCAjZjBmOWZmKSIvPgogIDx0ZXh0IHg9IjUwJSIgeT0iNTAlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjM1ZW0iIGZpbGw9IiMxZTQwYWYiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyNCIgZm9udC13ZWlnaHQ9ImJvbGQiPgogICAgU21hcnQgRXllcwogIDwvdGV4dD4KICA8dGV4dCB4PSI1MCUiIHk9IjYwJSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zNWVtIiBmaWxsPSIjNjQ3NDhiIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTYiPgogICAgUHJlc2lkZW50IFBob3RvCiAgPC90ZXh0Pgo8L3N2Zz4K" alt="代表取締役" />
+        </div>
+        <div class="president-content">
+          <h3 data-i18n="company.presidentName">代表取締役</h3>
+          <div class="title" data-i18n="company.presidentPosition">株式会社スマートアイズ</div>
+          <p data-i18n="company.presidentMessage1">
+            スマートアイズをご愛顧いただき、誠にありがとうございます。
+            弊社は2021年の設立以来、「お客様第一主義」を貫き、東京都心部を中心とした不動産事業を展開してまいりました。
+          </p>
+          <p data-i18n="company.presidentMessage2">
+            グローバル化が進む現代において、多様なバックグラウンドを持つお客様のニーズにお応えするため、
+            多言語対応と専門的な知識を兼ね備えたチームを構築いたしました。
+          </p>
+          <p data-i18n="company.presidentMessage3">
+            不動産は人生における最も重要な決断の一つです。
+            私たちは、その決断をサポートする責任の重さを自覚し、
+            常にお客様の立場に立ったサービスの提供に努めております。
+          </p>
+          <div class="president-signature">
+            <div class="name" data-i18n="company.presidentSignatureName">代表取締役</div>
+            <div class="position" data-i18n="company.presidentSignatureTitle">株式会社スマートアイズ</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Company Philosophy -->
+  <section>
+    <div class="container">
+      <h2 class="sec-title" data-i18n="company.philosophyTitle">企業理念</h2>
+      <p class="sec-desc" data-i18n="company.philosophyDescription">私たちが大切にしている価値観と行動指針</p>
+      <div class="philosophy-grid">
+        <div class="philosophy-item fade-up" style="animation-delay:.1s">
+          <span class="philosophy-icon">🎯</span>
+          <h4 data-i18n="company.mission">ミッション</h4>
+          <p data-i18n="company.missionDesc">
+            多様なお客様のニーズに応える専門的なサービスを提供し、
+            不動産を通じてより良い生活と投資環境を創造します。
+          </p>
+        </div>
+        <div class="philosophy-item fade-up" style="animation-delay:.2s">
+          <span class="philosophy-icon">👁️</span>
+          <h4 data-i18n="company.vision">ビジョン</h4>
+          <p data-i18n="company.visionDesc">
+            東京における多言語対応不動産サービスのリーディングカンパニーとして、
+            国境を越えた不動産取引の架け橋となります。
+          </p>
+        </div>
+        <div class="philosophy-item fade-up" style="animation-delay:.3s">
+          <span class="philosophy-icon">⭐</span>
+          <h4 data-i18n="company.values">バリュー</h4>
+          <p data-i18n="company.valuesDesc">
+            透明性、専門性、迅速性を基本とし、
+            お客様との信頼関係を最も重要な資産として大切にします。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Company History -->
+  <section>
+    <div class="container">
+      <h2 class="sec-title" data-i18n="company.historyTitle">会社沿革</h2>
+      <p class="sec-desc" data-i18n="company.historyDescription">Smart Eyesの成長の軌跡</p>
+      <div class="history-timeline fade-up">
+        <div class="history-item">
+          <div class="history-year">2021年</div>
+          <div class="history-content">
+            <h5 data-i18n="company.history2021Title">会社設立</h5>
+            <p data-i18n="company.history2021Desc">東京都新宿区に株式会社スマートアイズを設立。不動産仲介業務を開始。</p>
+          </div>
+        </div>
+        <div class="history-item">
+          <div class="history-year">2022年</div>
+          <div class="history-content">
+            <h5 data-i18n="company.history2022Title">多言語サービス開始</h5>
+            <p data-i18n="company.history2022Desc">中国語、英語、ベトナム語、ネパール語対応スタッフを増員し、多言語サービスを本格化。</p>
+          </div>
+        </div>
+        <div class="history-item">
+          <div class="history-year">2023年</div>
+          <div class="history-content">
+            <h5 data-i18n="company.history2023Title">投資コンサルティング開始</h5>
+            <p data-i18n="company.history2023Desc">不動産投資コンサルティング業務を開始。海外投資家向けサービスを強化。</p>
+          </div>
+        </div>
+        <div class="history-item">
+          <div class="history-year">2024年</div>
+          <div class="history-content">
+            <h5 data-i18n="company.history2024Title">デジタル化推進</h5>
+            <p data-i18n="company.history2024Desc">オンライン相談システムの導入と、データ分析を活用した物件提案サービスを開始。</p>
+          </div>
+        </div>
+        <div class="history-item">
+          <div class="history-year">2025年</div>
+          <div class="history-content">
+            <h5 data-i18n="company.history2025Title">事業拡大</h5>
+            <p data-i18n="company.history2025Desc">新サービスの開発と、お客様満足度向上への取り組みを継続。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section>
+    <div class="container">
+      <h2 class="sec-title" data-i18n="company.teamTitle">チーム紹介</h2>
+      <p class="sec-desc" data-i18n="company.teamDescription">多様な専門性を持つプロフェッショナル集団</p>
+      <div class="team-grid">
+        <div class="team-member fade-up" style="animation-delay:.1s">
+          <div class="team-avatar">SE</div>
+          <h4 class="team-name" data-i18n="company.teamCeo">代表取締役</h4>
+          <div class="team-position" data-i18n="company.teamCeoTitle">CEO & Founder</div>
+          <div class="team-languages" data-i18n="company.teamCeoLang">日本語 / 中国語 / 英語</div>
+        </div>
+        <div class="team-member fade-up" style="animation-delay:.2s">
+          <div class="team-avatar">AM</div>
+          <h4 class="team-name" data-i18n="company.teamAm">アカウントマネージャー</h4>
+          <div class="team-position" data-i18n="company.teamAmTitle">Account Manager</div>
+          <div class="team-languages" data-i18n="company.teamAmLang">日本語 / 英語 / ベトナム語</div>
+        </div>
+        <div class="team-member fade-up" style="animation-delay:.3s">
+          <div class="team-avatar">CS</div>
+          <h4 class="team-name" data-i18n="company.teamCs">コンサルタント</h4>
+          <div class="team-position" data-i18n="company.teamCsTitle">Investment Consultant</div>
+          <div class="team-languages" data-i18n="company.teamCsLang">日本語 / 中国語 / 韓国語</div>
+        </div>
+        <div class="team-member fade-up" style="animation-delay:.4s">
+          <div class="team-avatar">SA</div>
+          <h4 class="team-name" data-i18n="company.teamSa">サポートスタッフ</h4>
+          <div class="team-position" data-i18n="company.teamSaTitle">Support Assistant</div>
+          <div class="team-languages" data-i18n="company.teamSaLang">日本語 / ネパール語 / 英語</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Company Information -->
+  <section>
+    <div class="container">
+      <h2 class="sec-title" data-i18n="company.infoTitle">会社情報</h2>
+      <div class="company-info fade-up">
+        <div class="info-grid">
+          <div class="info-item">
+            <div class="info-label" data-i18n="company.infoCompanyName">会社名</div>
+            <div class="info-value">株式会社スマートアイズ</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label" data-i18n="company.infoEstablished">設立年月日</div>
+            <div class="info-value">2021年4月1日</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label" data-i18n="company.infoCapital">資本金</div>
+            <div class="info-value">500万円</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label" data-i18n="company.infoBusiness">事業内容</div>
+            <div class="info-value" data-i18n="company.infoBusinessValue">不動産売買仲介・賃貸仲介・投資コンサルティング</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label" data-i18n="company.infoLicense">免許番号</div>
+            <div class="info-value">東京都知事(1)第112700号</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label" data-i18n="company.infoAddress">所在地</div>
+            <div class="info-value">〒160-0023<br>東京都新宿区西新宿7-3-10<br>三京ビル401</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">© 2025 Smart Eyes Co., Ltd. All rights reserved.</div>
+  </footer>
+
+  <script>
+    // ===== Navigation Management =====
+    class NavigationManager {
+      constructor() {
+        this.mobileToggle = document.getElementById('mobileNavToggle');
+        this.mobileNav = document.getElementById('mobileNav');
+        this.init();
+      }
+
+      init() {
+        this.mobileToggle.addEventListener('click', () => {
+          this.toggleMobileNav();
+        });
+
+        document.querySelectorAll('.mobile-nav .nav-links a').forEach(link => {
+          link.addEventListener('click', () => {
+            this.closeMobileNav();
+          });
+        });
+
+        document.addEventListener('click', (e) => {
+          if (!e.target.closest('.mobile-nav') && !e.target.closest('.mobile-nav-toggle')) {
+            this.closeMobileNav();
+          }
+        });
+
+        window.addEventListener('resize', () => {
+          if (window.innerWidth > 1024) {
+            this.closeMobileNav();
+          }
+        });
+      }
+
+      toggleMobileNav() {
+        const isOpen = this.mobileNav.classList.contains('show');
+        if (isOpen) {
+          this.closeMobileNav();
+        } else {
+          this.openMobileNav();
+        }
+      }
+
+      openMobileNav() {
+        this.mobileToggle.classList.add('active');
+        this.mobileNav.classList.add('show');
+        document.body.style.overflow = 'hidden';
+      }
+
+      closeMobileNav() {
+        this.mobileToggle.classList.remove('active');
+        this.mobileNav.classList.remove('show');
+        document.body.style.overflow = '';
+      }
+    }
+
+    // ===== I18n Manager =====
+    class I18nManager {
+      constructor() {
+        this.currentLang = 'ja';
+        this.loadedLanguages = {};
+        this.languages = {
+          ja: '日本語',
+          ko: '한국어',
+          zh: '简体中文',
+          'zh-Hant': '繁體中文',
+          en: 'English',
+          vi: 'Tiếng Việt',
+          ne: 'नेपाली'
+        };
+        this.fallbackLang = 'ja';
+      }
+
+      async loadLanguage(lang) {
+        if (this.loadedLanguages[lang]) {
+          return this.loadedLanguages[lang];
+        }
+
+        try {
+          const response = await fetch(`lang/${lang}.json`);
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          const data = await response.json();
+          this.loadedLanguages[lang] = data;
+          
+          try {
+            localStorage.setItem(`smarteyes_lang_${lang}`, JSON.stringify(data));
+            localStorage.setItem(`smarteyes_lang_${lang}_timestamp`, Date.now().toString());
+          } catch (e) {
+            console.warn('Could not cache language data:', e);
+          }
+          
+          return data;
+        } catch (error) {
+          console.warn(`Failed to load language ${lang}:`, error);
+          
+          try {
+            const cached = localStorage.getItem(`smarteyes_lang_${lang}`);
+            if (cached) {
+              const data = JSON.parse(cached);
+              this.loadedLanguages[lang] = data;
+              return data;
+            }
+          } catch (e) {
+            console.warn('Could not load from cache:', e);
+          }
+          
+          if (lang !== this.fallbackLang) {
+            return this.loadLanguage(this.fallbackLang);
+          }
+          
+          throw error;
+        }
+      }
+
+      detectLanguage() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlLang = urlParams.get('lang');
+        if (urlLang && this.languages[urlLang]) {
+          return urlLang;
+        }
+
+        try {
+          const savedLang = localStorage.getItem('smarteyes_preferred_lang');
+          if (savedLang && this.languages[savedLang]) {
+            return savedLang;
+          }
+        } catch (e) {
+          console.warn('Could not read from localStorage:', e);
+        }
+
+        const navLangs = navigator.languages || [navigator.language || navigator.userLanguage];
+        for (const navLang of navLangs) {
+          const code = navLang.toLowerCase();
+          if (code.startsWith('zh-tw') || code.includes('hant')) return 'zh-Hant';
+          if (code.startsWith('zh')) return 'zh';
+          if (code.startsWith('ja')) return 'ja';
+          if (code.startsWith('ko')) return 'ko';
+          if (code.startsWith('vi')) return 'vi';
+          if (code.startsWith('ne')) return 'ne';
+          if (code.startsWith('en')) return 'en';
+        }
+
+        return this.fallbackLang;
+      }
+
+      getValue(path, data) {
+        const keys = path.split('.');
+        let value = data;
+        for (const key of keys) {
+          value = value && value[key];
+          if (value === undefined) break;
+        }
+        return value;
+      }
+
+      async applyLanguage(lang) {
+        try {
+          const data = await this.loadLanguage(lang);
+          
+          document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            const value = this.getValue(key, data);
+            if (value !== undefined) {
+              el.innerHTML = value;
+            }
+          });
+
+          if (data.meta && data.meta.companyTitle) {
+            document.title = data.meta.companyTitle;
+          }
+          if (data.meta && data.meta.companyDescription) {
+            const metaDesc = document.querySelector('meta[name="description"]');
+            if (metaDesc) {
+              metaDesc.setAttribute('content', data.meta.companyDescription);
+            }
+          }
+
+          document.documentElement.lang = lang;
+          
+          try {
+            localStorage.setItem('smarteyes_preferred_lang', lang);
+          } catch (e) {
+            console.warn('Could not save language preference:', e);
+          }
+
+          this.currentLang = lang;
+          this.updateDropdown();
+          
+          console.log(`Language switched to: ${lang}`);
+        } catch (error) {
+          console.error('Failed to apply language:', error);
+          
+          if (lang !== this.fallbackLang) {
+            console.log(`Falling back to ${this.fallbackLang}`);
+            return this.applyLanguage(this.fallbackLang);
+          }
+        }
+      }
+
+      updateDropdown() {
+        const currentButton = document.getElementById('langCurrent');
+        const currentText = currentButton.querySelector('.lang-text');
+        if (currentText) {
+          currentText.textContent = this.languages[this.currentLang];
+        }
+
+        document.querySelectorAll('.lang-option').forEach(option => {
+          const isActive = option.dataset.lang === this.currentLang;
+          option.classList.toggle('active', isActive);
+          const check = option.querySelector('.lang-check');
+          if (check) {
+            check.textContent = isActive ? '✓' : '';
+          }
+        });
+      }
+
+      buildDropdown() {
+        const currentButton = document.getElementById('langCurrent');
+        const menu = document.getElementById('langMenu');
+        
+        Object.entries(this.languages).forEach(([code, name]) => {
+          const option = document.createElement('button');
+          option.className = 'lang-option';
+          option.dataset.lang = code;
+          option.setAttribute('role', 'menuitem');
+          option.innerHTML = `
+            <span class="lang-check"></span>
+            <span>${name}</span>
+          `;
+          
+          option.addEventListener('click', () => {
+            this.applyLanguage(code);
+            this.hideDropdown();
+          });
+          
+          menu.appendChild(option);
+        });
+
+        currentButton.addEventListener('click', (e) => {
+          e.stopPropagation();
+          this.toggleDropdown();
+        });
+
+        document.addEventListener('click', () => {
+          this.hideDropdown();
+        });
+      }
+
+      toggleDropdown() {
+        const menu = document.getElementById('langMenu');
+        const isShown = menu.classList.contains('show');
+        if (isShown) {
+          this.hideDropdown();
+        } else {
+          this.showDropdown();
+        }
+      }
+
+      showDropdown() {
+        const currentButton = document.getElementById('langCurrent');
+        const menu = document.getElementById('langMenu');
+        
+        currentButton.setAttribute('aria-expanded', 'true');
+        menu.classList.add('show');
+      }
+
+      hideDropdown() {
+        const currentButton = document.getElementById('langCurrent');
+        const menu = document.getElementById('langMenu');
+        
+        currentButton.setAttribute('aria-expanded', 'false');
+        menu.classList.remove('show');
+      }
+    }
+
+    // ===== Intersection Observer =====
+    function initIntersectionObserver() {
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.animationPlayState = 'running';
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+      
+      document.querySelectorAll('.fade-up, .fade-in').forEach(el => {
+        el.style.animationPlayState = 'paused';
+        observer.observe(el);
+      });
+    }
+
+    // ===== Performance Optimization =====
+    function optimizePerformance() {
+      function throttle(func, limit) {
+        let inThrottle;
+        return function() {
+          const args = arguments;
+          const context = this;
+          if (!inThrottle) {
+            func.apply(context, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+          }
+        };
+      }
+      
+      const handleScroll = throttle(() => {
+        const header = document.querySelector('.site-header');
+        if (window.scrollY > 100) {
+          header.style.background = 'rgba(255,255,255,0.98)';
+          header.style.boxShadow = '0 4px 20px rgba(30, 64, 175, 0.1)';
+        } else {
+          header.style.background = 'rgba(255,255,255,0.95)';
+          header.style.boxShadow = 'none';
+        }
+      }, 16);
+      
+      window.addEventListener('scroll', handleScroll, { passive: true });
+    }
+
+    // ===== Main Initialization =====
+    const i18n = new I18nManager();
+    const navigation = new NavigationManager();
+
+    async function init() {
+      i18n.buildDropdown();
+      
+      const detectedLang = i18n.detectLanguage();
+      await i18n.applyLanguage(detectedLang);
+      
+      optimizePerformance();
+      
+      setTimeout(() => {
+        initIntersectionObserver();
+      }, 500);
+      
+      console.log('Smart Eyes company page initialized successfully');
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  </script>
+</body>
+</html>

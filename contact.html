@@ -1,1071 +1,1336 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title id="pageTitle" data-i18n="survey.meta.title">不動産コンサルティング問卷</title>
-<style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    min-height: 100vh;
-    color: #333;
-    line-height: 1.6;
-  }
-  
-  .container {
-    max-width: 600px;
-    margin: 2rem auto;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border-radius: 20px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-  }
-  
-  .header {
-    background: linear-gradient(45deg, #667eea, #764ba2);
-    color: white;
-    padding: 2rem;
-    text-align: center;
-    position: relative;
-  }
-  
-  .header h1 {
-    font-size: 1.8rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-  }
-  
-  .header .tagline {
-    opacity: 0.9;
-    font-size: 0.95rem;
-  }
-  
-  .language-selector {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    z-index: 100;
-  }
-  
-  .lang-dropdown {
-    position: relative;
-    display: inline-block;
-  }
-  
-  .lang-current {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    background: rgba(255, 255, 255, 0.2);
-    padding: 6px 10px;
-    border-radius: 8px;
-    font-size: 12px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    min-width: 80px;
-    min-height: 36px;
-    color: white;
-  }
-  
-  .lang-current:hover {
-    border-color: rgba(255, 255, 255, 0.5);
-    background: rgba(255, 255, 255, 0.3);
-  }
-  
-  .lang-current:focus {
-    outline: 2px solid white;
-    outline-offset: 2px;
-  }
-  
-  .lang-current[aria-expanded="true"] {
-    border-color: rgba(255, 255, 255, 0.6);
-    background: rgba(255, 255, 255, 0.3);
-  }
-  
-  .lang-current[aria-expanded="true"] .lang-arrow {
-    transform: rotate(180deg);
-  }
-  
-  .lang-icon {
-    font-size: 14px;
-  }
-  
-  .lang-text {
-    flex: 1;
-    text-align: left;
-    font-size: 12px;
-  }
-  
-  .lang-arrow {
-    transition: transform 0.2s ease;
-    font-size: 8px;
-    opacity: 0.8;
-  }
-  
-  .lang-menu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: white;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-10px);
-    transition: all 0.2s ease;
-    z-index: 1000;
-    margin-top: 2px;
-    min-width: 120px;
-  }
-  
-  .lang-menu.show {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-  }
-  
-  .lang-option {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 10px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: none;
-    background: none;
-    width: 100%;
-    text-align: left;
-    font-size: 12px;
-    color: #333;
-  }
-  
-  .lang-option:hover {
-    background: #f8f9ff;
-  }
-  
-  .lang-option:focus {
-    outline: none;
-    background: #667eea;
-    color: #fff;
-  }
-  
-  .lang-option.active {
-    background: #eff6ff;
-    color: #667eea;
-    font-weight: 600;
-  }
-  
-  .lang-option:first-child {
-    border-radius: 7px 7px 0 0;
-  }
-  
-  .lang-option:last-child {
-    border-radius: 0 0 7px 7px;
-  }
-  
-  .lang-option:only-child {
-    border-radius: 7px;
-  }
-  
-  .lang-check {
-    width: 14px;
-    height: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 10px;
-    color: #667eea;
-  }
-  
-  .progress-container {
-    padding: 2rem 2rem 0;
-  }
-  
-  .progress-bar {
-    width: 100%;
-    height: 6px;
-    background: #f0f0f0;
-    border-radius: 3px;
-    overflow: hidden;
-    margin-bottom: 1rem;
-  }
-  
-  .progress-fill {
-    height: 100%;
-    background: linear-gradient(45deg, #667eea, #764ba2);
-    width: 0;
-    transition: width 0.4s ease;
-    border-radius: 3px;
-  }
-  
-  .progress-text {
-    text-align: center;
-    font-size: 0.9rem;
-    color: #666;
-    margin-bottom: 1.5rem;
-  }
-  
-  .content {
-    padding: 0 2rem 2rem;
-  }
-  
-  .step {
-    display: none;
-    animation: fadeIn 0.4s ease;
-  }
-  
-  .step.active {
-    display: block;
-  }
-  
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  
-  .step h3 {
-    font-size: 1.4rem;
-    margin-bottom: 1.5rem;
-    color: #333;
-    font-weight: 600;
-  }
-  
-  .option {
-    border: 2px solid #e0e0e0;
-    padding: 1rem 1.5rem;
-    margin: 0.75rem 0;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    background: white;
-    position: relative;
-  }
-  
-  .option:hover {
-    border-color: #667eea;
-    background: #f8f9ff;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
-  }
-  
-  .option.selected {
-    background: linear-gradient(45deg, #667eea, #764ba2);
-    color: white;
-    border-color: transparent;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
-  }
-  
-  .option.selected::after {
-    content: '✓';
-    position: absolute;
-    right: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
-    font-weight: bold;
-  }
-  
-  .form-group {
-    margin-bottom: 1.5rem;
-  }
-  
-  .form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-    color: #555;
-  }
-  
-  .form-group input,
-  .form-group select,
-  .form-group textarea {
-    width: 100%;
-    padding: 1rem;
-    border: 2px solid #e0e0e0;
-    border-radius: 10px;
-    font-size: 1rem;
-    transition: border-color 0.3s ease;
-    background: white;
-    font-family: inherit;
-  }
-  
-  .form-group textarea {
-    resize: vertical;
-    min-height: 100px;
-  }
-  
-  .form-group input:focus,
-  .form-group select:focus,
-  .form-group textarea:focus {
-    outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-  }
-  
-  .form-group input.error {
-    border-color: #e74c3c;
-    background: #fdf2f2;
-  }
-  
-  .checkbox-group {
-    display: flex;
-    align-items: center;
-    margin-top: 1rem;
-  }
-  
-  .checkbox-group input[type="checkbox"] {
-    width: auto;
-    margin-right: 0.5rem;
-    transform: scale(1.2);
-  }
-  
-  .nav-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 2rem;
-    gap: 1rem;
-  }
-  
-  .btn {
-    padding: 1rem 2rem;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    flex: 1;
-    max-width: 200px;
-  }
-  
-  .btn-primary {
-    background: linear-gradient(45deg, #667eea, #764ba2);
-    color: white;
-  }
-  
-  .btn-primary:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
-  }
-  
-  .btn-secondary {
-    background: #f8f9fa;
-    color: #666;
-    border: 2px solid #e0e0e0;
-  }
-  
-  .btn-secondary:hover:not(:disabled) {
-    background: #e9ecef;
-  }
-  
-  .btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-  
-  #loadingState {
-    display: none;
-    text-align: center;
-    padding: 3rem 2rem;
-  }
-  
-  #loadingState.show {
-    display: block;
-  }
-  
-  .spinner {
-    width: 40px;
-    height: 40px;
-    border: 4px solid #f3f3f3;
-    border-top: 4px solid #667eea;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    margin: 0 auto 1rem;
-  }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-  
-  #successStep {
-    display: none;
-    text-align: center;
-    padding: 3rem 2rem;
-  }
-  
-  .success-icon {
-    width: 80px;
-    height: 80px;
-    background: linear-gradient(45deg, #667eea, #764ba2);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 1.5rem;
-    color: white;
-    font-size: 2rem;
-  }
-  
-  @media (max-width: 768px) {
-    .container {
-      margin: 1rem;
-      border-radius: 15px;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>お問い合わせ | 株式会社スマートアイズ</title>
+  <meta name="description" content="株式会社スマートアイズへのお問い合わせはこちら。不動産に関するご相談、物件のお問い合わせなど、お気軽にご連絡ください。" />
+  <meta property="og:title" content="お問い合わせ | 株式会社スマートアイズ" />
+  <meta property="og:description" content="株式会社スマートアイズへのお問い合わせはこちら。不動産に関するご相談、物件のお問い合わせなど、お気軽にご連絡ください。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.smarteyes.co.jp/contact.html" />
+  <link rel="icon" href="logo.png" />
+  <style>
+    /* ===== Enhanced Color Palette ===== */
+    :root{
+      --brand:#1e40af;
+      --brand-light:#3b82f6;
+      --brand-ink:#0f172a;
+      --gold:#f59e0b;
+      --gold-light:#fbbf24;
+      --ink:#0f172a;
+      --ink-light:#334155;
+      --muted:#64748b;
+      --muted-light:#94a3b8;
+      --bg:linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+      --bg-solid:#f8fafc;
+      --card:#ffffff;
+      --card-hover:#fefefe;
+      --accent:#06b6d4;
+      --accent-light:#67e8f9;
+      --success:#10b981;
+      --warning:#f59e0b;
+      --error:#ef4444;
+      --radius:16px;
+      --shadow:0 4px 20px rgba(30, 64, 175, 0.08);
+      --shadow-hover:0 10px 40px rgba(30, 64, 175, 0.15);
+      --transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    html,body{margin:0;padding:0;background:var(--bg-solid);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP","Microsoft YaHei",sans-serif;}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    .container{max-width:1200px;margin:0 auto;padding:0 20px}
+
+    /* ===== Header & Navigation ===== */
+    .site-header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);border-bottom:1px solid #e2e8f0;transition:var(--transition)}
+    .site-header .row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;gap:12px}
+    .brand{display:flex;align-items:center;gap:12px;transition:var(--transition)}
+    .brand:hover{transform:translateY(-1px)}
+    .brand img{height:48px;transition:var(--transition)}
+    .brand .name{font-weight:700;letter-spacing:.2px;color:var(--brand-ink);background:linear-gradient(135deg, var(--brand), var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+    /* ===== Main Navigation ===== */
+    .nav-container{display:flex;align-items:center;gap:24px}
+    .main-nav{display:flex;align-items:center}
+    .nav-links{display:flex;align-items:center;gap:20px;list-style:none;margin:0;padding:0}
+    .nav-links li{position:relative}
+    .nav-links a{
+      padding:8px 16px;border-radius:8px;font-weight:500;font-size:14px;
+      transition:var(--transition);position:relative;overflow:hidden;
+      color:var(--ink-light);
+    }
+    .nav-links a::before{
+      content:"";position:absolute;top:0;left:-100%;width:100%;height:100%;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);
+      transition:left 0.5s ease;
+    }
+    .nav-links a:hover::before{left:100%}
+    .nav-links a:hover{
+      background:linear-gradient(135deg, var(--brand), var(--brand-light));
+      color:#fff;transform:translateY(-1px);
+      box-shadow:0 4px 12px rgba(30, 64, 175, 0.3);
+    }
+    .nav-links a.active{
+      background:linear-gradient(135deg, var(--gold), var(--gold-light));
+      color:#fff;box-shadow:0 4px 12px rgba(245, 158, 11, 0.3);
+    }
+
+    /* ===== Mobile Navigation ===== */
+    .mobile-nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:8px;border-radius:8px;transition:var(--transition)}
+    .mobile-nav-toggle:hover{background:var(--bg-solid)}
+    .mobile-nav-toggle span{display:block;width:24px;height:3px;background:var(--brand);margin:4px 0;transition:var(--transition);border-radius:2px}
+    .mobile-nav-toggle.active span:nth-child(1){transform:rotate(45deg) translate(5px, 5px)}
+    .mobile-nav-toggle.active span:nth-child(2){opacity:0}
+    .mobile-nav-toggle.active span:nth-child(3){transform:rotate(-45deg) translate(7px, -6px)}
+
+    .mobile-nav{
+      display:none;position:absolute;top:100%;left:0;right:0;
+      background:rgba(255,255,255,0.98);backdrop-filter:blur(10px);
+      border-top:1px solid #e2e8f0;box-shadow:var(--shadow);
+      opacity:0;visibility:hidden;transform:translateY(-10px);
+      transition:all 0.3s ease;
+    }
+    .mobile-nav.show{opacity:1;visibility:visible;transform:translateY(0)}
+    .mobile-nav .nav-links{flex-direction:column;align-items:stretch;padding:20px}
+    .mobile-nav .nav-links a{padding:12px 20px;margin:4px 0;border-radius:12px}
+
+    /* ===== Language Dropdown ===== */
+    .lang-dropdown{position:relative;display:inline-block}
+    .lang-current{
+      display:flex;align-items:center;gap:6px;
+      border:1px solid #e2e8f0;background:linear-gradient(135deg, #ffffff, #f8fafc);
+      padding:6px 10px;border-radius:8px;font-size:12px;
+      cursor:pointer;transition:var(--transition);
+      min-width:80px;min-height:36px;
+      box-shadow:0 2px 8px rgba(30, 64, 175, 0.05);
+    }
+    .lang-current:hover{border-color:var(--brand-light);box-shadow:0 4px 12px rgba(30, 64, 175, 0.15);background:linear-gradient(135deg, #ffffff, #f1f5f9)}
+    .lang-current:focus{outline:2px solid var(--brand);outline-offset:2px}
+    .lang-current[aria-expanded="true"]{border-color:var(--brand);box-shadow:0 4px 12px rgba(30, 64, 175, 0.2)}
+    .lang-current[aria-expanded="true"] .lang-arrow{transform:rotate(180deg)}
+    .lang-icon{font-size:14px}
+    .lang-text{flex:1;text-align:left;font-size:12px;color:var(--ink-light)}
+    .lang-arrow{transition:transform 0.2s ease;font-size:8px;color:var(--muted)}
+    .lang-menu{
+      position:absolute;top:100%;left:0;right:0;
+      background:linear-gradient(135deg, #ffffff, #f8fafc);border:1px solid #e2e8f0;border-radius:8px;
+      box-shadow:0 8px 32px rgba(30, 64, 175, 0.15);
+      opacity:0;visibility:hidden;transform:translateY(-10px);
+      transition:all 0.2s ease;z-index:1000;
+      margin-top:2px;min-width:120px;
+    }
+    .lang-menu.show{opacity:1;visibility:visible;transform:translateY(0)}
+    .lang-option{
+      display:flex;align-items:center;gap:6px;
+      padding:8px 10px;cursor:pointer;transition:var(--transition);
+      border:none;background:none;width:100%;text-align:left;
+      font-size:12px;color:var(--ink-light);
+    }
+    .lang-option:hover{background:linear-gradient(135deg, #f1f5f9, #e2e8f0)}
+    .lang-option:focus{outline:none;background:linear-gradient(135deg, var(--brand), var(--brand-light));color:#fff}
+    .lang-option.active{background:linear-gradient(135deg, #eff6ff, #dbeafe);color:var(--brand);font-weight:600}
+    .lang-option:first-child{border-radius:7px 7px 0 0}
+    .lang-option:last-child{border-radius:0 0 7px 7px}
+    .lang-option:only-child{border-radius:7px}
+    .lang-check{width:14px;height:14px;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--brand)}
+
+    /* ===== Page Header ===== */
+    .page-header{
+      position:relative;min-height:60vh;display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(135deg, #dbeafe 0%, #f0f9ff 50%, #fef3c7 100%);
+      overflow:hidden;
+    }
+    .page-header::before{
+      content:"";position:absolute;inset:0;
+      background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="%23ffffff" opacity="0.1"/><circle cx="80" cy="40" r="0.5" fill="%23ffffff" opacity="0.1"/><circle cx="40" cy="80" r="1.5" fill="%23ffffff" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    }
+    .page-header-content{
+      position:relative;z-index:2;text-align:center;max-width:800px;padding:0 20px;
+    }
+    .page-title{
+      font-size:48px;font-weight:800;margin:0 0 16px;
+      background:linear-gradient(135deg, var(--brand-ink), var(--brand));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+    }
+    .page-subtitle{color:var(--ink-light);font-size:18px;line-height:1.6;margin:0}
+
+    /* ===== Contact Methods ===== */
+    .contact-methods{
+      padding:80px 0;
+      background:linear-gradient(135deg, #fefce8 0%, #fef3c7 30%, #f8fafc 70%, #f1f5f9 100%);
+    }
+    .methods-grid{
+      display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:32px;
+      margin-bottom:60px;
+    }
+    .method-card{
+      background:linear-gradient(135deg, #ffffff, #fefefe);
+      border-radius:var(--radius);box-shadow:var(--shadow);padding:32px;
+      transition:var(--transition);border:1px solid rgba(226, 232, 240, 0.6);
+      position:relative;overflow:hidden;text-align:center;
+    }
+    .method-card::before{
+      content:"";position:absolute;top:0;left:0;right:0;height:4px;
+      background:linear-gradient(90deg, var(--brand), var(--accent), var(--gold));
+      opacity:0;transition:opacity 0.3s ease;
+    }
+    .method-card:hover::before{opacity:1}
+    .method-card:hover{
+      transform:translateY(-8px);box-shadow:0 20px 40px rgba(30, 64, 175, 0.15);
+      border-color:rgba(59, 130, 246, 0.4);
+    }
+    .method-icon{
+      font-size:48px;margin-bottom:20px;display:block;
+    }
+    .method-title{
+      font-size:20px;font-weight:700;margin:0 0 12px;color:var(--brand-ink);
+    }
+    .method-desc{
+      color:var(--ink-light);font-size:14px;line-height:1.6;margin:0 0 20px;
+    }
+    .method-action{
+      background:linear-gradient(135deg, var(--brand), var(--brand-light));
+      color:#fff;padding:12px 24px;border-radius:8px;
+      font-weight:600;transition:var(--transition);
+      display:inline-block;text-decoration:none;
+    }
+    .method-action:hover{
+      background:linear-gradient(135deg, #1e3a8a, var(--brand));
+      transform:translateY(-2px);
+    }
+
+    /* ===== Contact Form ===== */
+    .contact-form-section{
+      padding:80px 0;
+      background:linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #f8fafc 100%);
+    }
+    .form-container{
+      max-width:800px;margin:0 auto;
+      background:linear-gradient(135deg, #ffffff, #f8fafc);
+      border-radius:20px;box-shadow:var(--shadow-hover);padding:48px;
+      border:1px solid rgba(226, 232, 240, 0.8);position:relative;overflow:hidden;
+    }
+    .form-container::before{
+      content:"";position:absolute;top:0;left:0;right:0;height:5px;
+      background:linear-gradient(90deg, var(--brand), var(--accent), var(--gold));
+      opacity:0.8;
+    }
+    .form-header{
+      text-align:center;margin-bottom:40px;
+    }
+    .form-title{
+      font-size:28px;font-weight:700;margin:0 0 16px;
+      color:var(--brand-ink);
+    }
+    .form-desc{
+      color:var(--ink-light);font-size:16px;line-height:1.6;margin:0;
+    }
+    .contact-form{
+      display:grid;gap:24px;
+    }
+    .form-group{
+      display:flex;flex-direction:column;gap:8px;
+    }
+    .form-row{
+      display:grid;grid-template-columns:1fr 1fr;gap:24px;
+    }
+    .form-label{
+      font-weight:600;color:var(--brand-ink);font-size:14px;
+      display:flex;align-items:center;gap:4px;
+    }
+    .required{
+      color:var(--error);font-size:12px;
+    }
+    .form-input, .form-select, .form-textarea{
+      padding:16px;border:1px solid #e2e8f0;border-radius:8px;
+      background:linear-gradient(135deg, #ffffff, #f8fafc);
+      transition:var(--transition);font-size:14px;font-family:inherit;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus{
+      outline:none;border-color:var(--brand);
+      box-shadow:0 0 0 3px rgba(30, 64, 175, 0.1);
+      background:#ffffff;
+    }
+    .form-textarea{
+      resize:vertical;min-height:120px;
+    }
+    .form-submit{
+      background:linear-gradient(135deg, var(--brand), var(--brand-light));
+      color:#fff;border:none;padding:16px 32px;border-radius:12px;
+      font-weight:600;font-size:16px;cursor:pointer;
+      transition:var(--transition);position:relative;overflow:hidden;
+    }
+    .form-submit::before{
+      content:"";position:absolute;top:0;left:-100%;width:100%;height:100%;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);
+      transition:left 0.5s ease;
+    }
+    .form-submit:hover::before{left:100%}
+    .form-submit:hover{
+      background:linear-gradient(135deg, #1e3a8a, var(--brand));
+      transform:translateY(-2px);box-shadow:0 8px 32px rgba(30, 64, 175, 0.4);
+    }
+    .form-submit:disabled{
+      opacity:0.6;cursor:not-allowed;transform:none;
+    }
+
+    /* ===== Office Info ===== */
+    .office-info{
+      padding:80px 0;
+      background:linear-gradient(135deg, #fefce8 0%, #fef3c7 30%, #f8fafc 70%, #f1f5f9 100%);
+    }
+    .office-container{
+      display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;
+    }
+    .office-details{
+      background:linear-gradient(135deg, #ffffff, #f8fafc);
+      border-radius:20px;box-shadow:var(--shadow-hover);padding:40px;
+      border:1px solid rgba(226, 232, 240, 0.8);position:relative;overflow:hidden;
+    }
+    .office-details::before{
+      content:"";position:absolute;top:0;left:0;right:0;height:4px;
+      background:linear-gradient(90deg, var(--brand), var(--accent), var(--gold));
+      opacity:0.8;
+    }
+    .office-title{
+      font-size:24px;font-weight:700;margin:0 0 24px;color:var(--brand-ink);
+    }
+    .info-item{
+      margin-bottom:20px;padding:16px;
+      background:linear-gradient(135deg, #f8fafc, #f1f5f9);
+      border-radius:12px;border:1px solid rgba(226, 232, 240, 0.6);
+    }
+    .info-label{
+      font-weight:600;color:var(--brand);margin-bottom:6px;font-size:14px;
+    }
+    .info-value{
+      color:var(--ink-light);font-size:15px;line-height:1.6;
+    }
+    .info-value a{
+      color:var(--brand);transition:var(--transition);font-weight:500;
+    }
+    .info-value a:hover{
+      color:var(--brand-light);text-decoration:underline;
+    }
+    .wechat-section{
+      text-align:center;
+      background:linear-gradient(135deg, #f0fdf4, #dcfce7);
+      border-radius:16px;padding:32px;
+      border:1px solid rgba(34, 197, 94, 0.2);
+    }
+    .wechat-title{
+      font-size:18px;font-weight:700;margin:0 0 16px;color:var(--success);
+    }
+    .wechat-qr{
+      width:160px;height:160px;margin:0 auto 16px;
+      border-radius:12px;box-shadow:0 8px 24px rgba(30, 64, 175, 0.15);
+      border:3px solid rgba(255,255,255,0.9);
+    }
+    .wechat-hint{
+      color:var(--success);font-weight:600;font-size:14px;
+    }
+
+    /* ===== Map Section ===== */
+    .map-section{
+      padding:80px 0;
+      background:linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #f8fafc 100%);
+    }
+    .map-container{
+      background:linear-gradient(135deg, #ffffff, #f8fafc);
+      border-radius:20px;box-shadow:var(--shadow-hover);padding:48px;
+      border:1px solid rgba(226, 232, 240, 0.8);position:relative;overflow:hidden;
+      text-align:center;
+    }
+    .map-container::before{
+      content:"";position:absolute;top:0;left:0;right:0;height:4px;
+      background:linear-gradient(90deg, var(--brand), var(--accent), var(--gold));
+      opacity:0.8;
+    }
+    .map-title{
+      font-size:24px;font-weight:700;margin:0 0 16px;color:var(--brand-ink);
+    }
+    .map-desc{
+      color:var(--ink-light);margin:0 0 32px;font-size:16px;line-height:1.6;
+    }
+    .map-placeholder{
+      height:400px;background:linear-gradient(135deg, #f1f5f9, #e2e8f0);
+      border-radius:12px;display:flex;align-items:center;justify-content:center;
+      border:2px dashed #cbd5e1;margin-bottom:24px;
+    }
+    .map-placeholder-text{
+      color:var(--muted);font-size:16px;text-align:center;
+    }
+    .directions-info{
+      display:grid;grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));gap:16px;
+      text-align:left;
+    }
+    .direction-item{
+      background:linear-gradient(135deg, #f8fafc, #f1f5f9);
+      padding:16px;border-radius:8px;border:1px solid rgba(226, 232, 240, 0.6);
+    }
+    .direction-station{
+      font-weight:600;color:var(--brand);margin-bottom:4px;
+    }
+    .direction-detail{
+      color:var(--ink-light);font-size:14px;
+    }
+
+    /* ===== Business Hours ===== */
+    .hours-section{
+      padding:60px 0;
+      background:linear-gradient(135deg, #0f172a, #1e293b);
+      color:#fff;
+    }
+    .hours-container{
+      max-width:600px;margin:0 auto;text-align:center;
+    }
+    .hours-title{
+      font-size:24px;font-weight:700;margin:0 0 24px;
+      background:linear-gradient(135deg, #ffffff, #f1f5f9);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+    }
+    .hours-grid{
+      display:grid;grid-template-columns:repeat(2,1fr);gap:16px;
+    }
+    .hours-item{
+      background:rgba(255,255,255,0.1);
+      border-radius:8px;padding:16px;
+      backdrop-filter:blur(10px);
+    }
+    .hours-day{
+      font-weight:600;margin-bottom:4px;color:#f1f5f9;
+    }
+    .hours-time{
+      color:#94a3b8;font-size:14px;
+    }
+
+    /* ===== Sections ===== */
+    section{padding:80px 0}
+    .sec-title{
+      font-size:32px;margin:0 0 16px;color:var(--brand-ink);position:relative;
+      background:linear-gradient(135deg, var(--brand-ink), var(--brand));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+      text-align:center;
+    }
+    .sec-title::after{
+      content:"";position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);
+      width:60px;height:4px;background:linear-gradient(135deg, var(--gold), var(--gold-light));
+      border-radius:2px;
+    }
+    .sec-desc{
+      margin:0 0 48px;color:var(--muted);font-size:16px;line-height:1.7;text-align:center;
+    }
+
+    /* ===== Footer ===== */
+    footer{padding:32px 0;color:var(--muted-light);font-size:13px;text-align:center;border-top:1px solid #e2e8f0;background:linear-gradient(135deg, #0f172a, #1e293b);color:#94a3b8}
+
+    /* ===== Responsive ===== */
+    @media (max-width: 1024px){
+      .main-nav{display:none}
+      .mobile-nav-toggle{display:block}
+      .mobile-nav{display:block}
+      .methods-grid{grid-template-columns:1fr}
+      .office-container{grid-template-columns:1fr;gap:40px}
+      .form-row{grid-template-columns:1fr}
+      .directions-info{grid-template-columns:1fr}
+      .hours-grid{grid-template-columns:1fr}
+    }
+    @media (max-width: 640px){
+      .page-title{font-size:36px}
+      .form-container{padding:32px}
+      .office-details{padding:32px}
+      .map-container{padding:32px}
+      .lang-current{min-width:70px;padding:4px 8px;font-size:11px;min-height:32px}
+      .lang-text{font-size:11px}
+      .lang-icon{font-size:12px}
+      .lang-arrow{font-size:7px}
+      .site-header .row{padding:10px 0}
+      .brand .name{font-size:14px}
+      .brand img{height:36px}
+      .lang-menu{min-width:100px}
+      .lang-option{padding:6px 8px;font-size:11px}
+    }
+
+    /* ===== Animations ===== */
+    .fade-up{opacity:0;transform:translateY(20px);animation:fadeUp .8s ease forwards}
+    @keyframes fadeUp{to{opacity:1;transform:none}}
+    
+    .fade-in{opacity:0;animation:fadeIn 0.8s ease forwards}
+    @keyframes fadeIn{to{opacity:1}}
+
+    /* ===== Accessibility ===== */
+    @media (prefers-reduced-motion: reduce){
+      *{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important}
+      html{scroll-behavior:auto}
     }
     
-    .header {
-      padding: 1.5rem;
+    @media (prefers-contrast: high){
+      :root{--shadow:0 4px 16px rgba(0,0,0,.4)}
+      .method-card, .form-container, .office-details{border:2px solid var(--muted)}
     }
-    
-    .header h1 {
-      font-size: 1.5rem;
+
+    /* ===== Focus styles ===== */
+    *:focus{outline:2px solid var(--brand);outline-offset:2px}
+    .method-card:focus{outline:none;box-shadow:0 0 0 3px rgba(30, 64, 175, 0.3)}
+
+    /* ===== Success/Error States ===== */
+    .form-success{
+      background:linear-gradient(135deg, #f0fdf4, #dcfce7);
+      border:1px solid rgba(34, 197, 94, 0.3);
+      border-radius:8px;padding:16px;margin-bottom:24px;
+      color:var(--success);text-align:center;font-weight:600;
     }
-    
-    .content {
-      padding: 0 1.5rem 1.5rem;
+    .form-error{
+      background:linear-gradient(135deg, #fef2f2, #fee2e2);
+      border:1px solid rgba(239, 68, 68, 0.3);
+      border-radius:8px;padding:16px;margin-bottom:24px;
+      color:var(--error);text-align:center;font-weight:600;
     }
-    
-    .nav-buttons {
-      flex-direction: column;
+    .field-error{
+      color:var(--error);font-size:12px;margin-top:4px;
     }
-    
-    .btn {
-      max-width: none;
-    }
-    
-    .lang-current {
-      min-width: 70px;
-      padding: 4px 8px;
-      font-size: 11px;
-      min-height: 32px;
-    }
-    
-    .lang-text {
-      font-size: 11px;
-    }
-    
-    .lang-icon {
-      font-size: 12px;
-    }
-    
-    .lang-arrow {
-      font-size: 7px;
-    }
-    
-    .lang-menu {
-      min-width: 100px;
-    }
-    
-    .lang-option {
-      padding: 6px 8px;
-      font-size: 11px;
-    }
-  }
-</style>
+  </style>
 </head>
 <body>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container row">
+      <a href="index.html" class="brand">
+        <img src="logo.png" alt="Smart Eyes" />
+        <div class="name">SMART EYES</div>
+      </a>
+      
+      <div class="nav-container">
+        <!-- Desktop Navigation -->
+        <nav class="main-nav">
+          <ul class="nav-links">
+            <li><a href="index.html" data-i18n="nav.top">TOP</a></li>
+            <li><a href="company.html" data-i18n="nav.company">会社概要</a></li>
+            <li><a href="properties.html" data-i18n="nav.properties">物件紹介</a></li>
+            <li><a href="contact.html" class="active" data-i18n="nav.contact">お問い合わせ</a></li>
+          </ul>
+        </nav>
 
-<div class="container" id="surveyContainer">
-  <div class="header">
-    <div class="language-selector">
-      <div class="lang-dropdown" id="langDropdown">
-        <button class="lang-current" id="langCurrent" aria-haspopup="true" aria-expanded="false">
-          <span class="lang-icon">🌐</span>
-          <span class="lang-text">日本語</span>
-          <span class="lang-arrow">▼</span>
+        <!-- Language Dropdown -->
+        <div class="lang-dropdown" id="langDropdown">
+          <button class="lang-current" id="langCurrent" aria-haspopup="true" aria-expanded="false">
+            <span class="lang-icon">🌍</span>
+            <span class="lang-text">Japanese</span>
+            <span class="lang-arrow">▼</span>
+          </button>
+          <div class="lang-menu" id="langMenu" role="menu">
+            <!-- Language options will be dynamically generated by JS -->
+          </div>
+        </div>
+
+        <!-- Mobile Navigation Toggle -->
+        <button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Toggle navigation">
+          <span></span>
+          <span></span>
+          <span></span>
         </button>
-        <div class="lang-menu" id="langMenu" role="menu">
-          <!-- Language options will be dynamically generated by JS -->
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Menu -->
+    <nav class="mobile-nav" id="mobileNav">
+      <ul class="nav-links">
+        <li><a href="index.html" data-i18n="nav.top">TOP</a></li>
+        <li><a href="company.html" data-i18n="nav.company">会社概要</a></li>
+        <li><a href="properties.html" data-i18n="nav.properties">物件紹介</a></li>
+        <li><a href="contact.html" class="active" data-i18n="nav.contact">お問い合わせ</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Page Header -->
+  <section class="page-header">
+    <div class="page-header-content fade-in">
+      <h1 class="page-title" data-i18n="contact.pageTitle">お問い合わせ</h1>
+      <p class="page-subtitle" data-i18n="contact.pageSubtitle">お気軽にご相談ください</p>
+    </div>
+  </section>
+
+  <!-- Contact Methods -->
+  <section class="contact-methods">
+    <div class="container">
+      <h2 class="sec-title" data-i18n="contact.methodsTitle">お問い合わせ方法</h2>
+      <p class="sec-desc" data-i18n="contact.methodsDescription">お客様のご都合に合わせて、様々な方法でお問い合わせいただけます</p>
+      <div class="methods-grid">
+        <div class="method-card fade-up" style="animation-delay:.1s">
+          <span class="method-icon">📞</span>
+          <h3 class="method-title" data-i18n="contact.methodPhoneTitle">お電話でのお問い合わせ</h3>
+          <p class="method-desc" data-i18n="contact.methodPhoneDesc">
+            お急ぎの場合や直接ご相談したい場合は、
+            お電話でお気軽にお問い合わせください。
+          </p>
+          <a href="tel:+81353589289" class="method-action">03-5358-9289</a>
+        </div>
+        <div class="method-card fade-up" style="animation-delay:.2s">
+          <span class="method-icon">✉️</span>
+          <h3 class="method-title" data-i18n="contact.methodEmailTitle">メールでのお問い合わせ</h3>
+          <p class="method-desc" data-i18n="contact.methodEmailDesc">
+            詳細な資料添付や記録を残したい場合は、
+            メールでのお問い合わせがおすすめです。
+          </p>
+          <a href="mailto:contact@smarteyes.co.jp" class="method-action">contact@smarteyes.co.jp</a>
+        </div>
+        <div class="method-card fade-up" style="animation-delay:.3s">
+          <span class="method-icon">💬</span>
+          <h3 class="method-title" data-i18n="contact.methodWechatTitle">WeChatでのお問い合わせ</h3>
+          <p class="method-desc" data-i18n="contact.methodWechatDesc">
+            中国語でのご相談はWeChatが便利です。
+            QRコードをスキャンして友達追加してください。
+          </p>
+          <a href="#wechat" class="method-action" data-i18n="contact.methodWechatAction">QRコードを見る</a>
+        </div>
+        <div class="method-card fade-up" style="animation-delay:.4s">
+          <span class="method-icon">📝</span>
+          <h3 class="method-title" data-i18n="contact.methodFormTitle">お問い合わせフォーム</h3>
+          <p class="method-desc" data-i18n="contact.methodFormDesc">
+            24時間受付のお問い合わせフォームです。
+            詳細な内容をじっくりお書きいただけます。
+          </p>
+          <a href="#contact-form" class="method-action" data-i18n="contact.methodFormAction">フォームに入力</a>
         </div>
       </div>
     </div>
-    <h1 id="headerTitle" data-i18n="survey.header.title">不動産コンサルティング</h1>
-    <div class="tagline" id="headerTagline" data-i18n="survey.header.tagline">お客様のニーズに最適なソリューションを提供</div>
-  </div>
-  
-  <div class="progress-container">
-    <div class="progress-bar">
-      <div id="progressFill" class="progress-fill"></div>
+  </section>
+
+  <!-- Contact Form -->
+  <section class="contact-form-section" id="contact-form">
+    <div class="container">
+      <div class="form-container fade-up">
+        <div class="form-header">
+          <h2 class="form-title" data-i18n="contact.formTitle">お問い合わせフォーム</h2>
+          <p class="form-desc" data-i18n="contact.formDescription">
+            下記フォームにご入力いただき、送信ボタンをクリックしてください。
+            2営業日以内にご返信いたします。
+          </p>
+        </div>
+        
+        <div id="formMessage"></div>
+        
+        <form class="contact-form" id="contactForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="lastName">
+                <span data-i18n="contact.formLastName">姓</span>
+                <span class="required">*</span>
+              </label>
+              <input type="text" id="lastName" name="lastName" class="form-input" required>
+              <div class="field-error" id="lastNameError"></div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="firstName">
+                <span data-i18n="contact.formFirstName">名</span>
+                <span class="required">*</span>
+              </label>
+              <input type="text" id="firstName" name="firstName" class="form-input" required>
+              <div class="field-error" id="firstNameError"></div>
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="email">
+                <span data-i18n="contact.formEmail">メールアドレス</span>
+                <span class="required">*</span>
+              </label>
+              <input type="email" id="email" name="email" class="form-input" required>
+              <div class="field-error" id="emailError"></div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="phone" data-i18n="contact.formPhone">電話番号</label>
+              <input type="tel" id="phone" name="phone" class="form-input">
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label" for="inquiryType">
+              <span data-i18n="contact.formInquiryType">お問い合わせ種別</span>
+              <span class="required">*</span>
+            </label>
+            <select id="inquiryType" name="inquiryType" class="form-select" required>
+              <option value="" data-i18n="contact.formInquiryTypeSelect">選択してください</option>
+              <option value="sale" data-i18n="contact.formInquiryTypeSale">売買に関するお問い合わせ</option>
+              <option value="rent" data-i18n="contact.formInquiryTypeRent">賃貸に関するお問い合わせ</option>
+              <option value="investment" data-i18n="contact.formInquiryTypeInvestment">投資に関するお問い合わせ</option>
+              <option value="management" data-i18n="contact.formInquiryTypeManagement">管理に関するお問い合わせ</option>
+              <option value="other" data-i18n="contact.formInquiryTypeOther">その他</option>
+            </select>
+            <div class="field-error" id="inquiryTypeError"></div>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label" for="budget" data-i18n="contact.formBudget">ご予算</label>
+            <select id="budget" name="budget" class="form-select">
+              <option value="" data-i18n="contact.formBudgetSelect">選択してください</option>
+              <option value="under50" data-i18n="contact.formBudgetUnder50">5,000万円未満</option>
+              <option value="50to100" data-i18n="contact.formBudget50to100">5,000万円〜1億円</option>
+              <option value="100to200" data-i18n="contact.formBudget100to200">1億円〜2億円</option>
+              <option value="over200" data-i18n="contact.formBudgetOver200">2億円以上</option>
+              <option value="rental" data-i18n="contact.formBudgetRental">賃貸（月額）</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label" for="language" data-i18n="contact.formLanguage">ご希望の対応言語</label>
+            <select id="language" name="language" class="form-select">
+              <option value="ja" data-i18n="contact.formLanguageJa">日本語</option>
+              <option value="zh" data-i18n="contact.formLanguageZh">中国語（簡体字）</option>
+              <option value="zh-Hant" data-i18n="contact.formLanguageZhHant">中国語（繁体字）</option>
+              <option value="en" data-i18n="contact.formLanguageEn">英語</option>
+              <option value="ko" data-i18n="contact.formLanguageKo">韓国語</option>
+              <option value="vi" data-i18n="contact.formLanguageVi">ベトナム語</option>
+              <option value="ne" data-i18n="contact.formLanguageNe">ネパール語</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label" for="message">
+              <span data-i18n="contact.formMessage">お問い合わせ内容</span>
+              <span class="required">*</span>
+            </label>
+            <textarea id="message" name="message" class="form-textarea" 
+                      data-i18n="contact.formMessagePlaceholder" 
+                      placeholder="お問い合わせ内容をご記入ください" required></textarea>
+            <div class="field-error" id="messageError"></div>
+          </div>
+          
+          <button type="submit" class="form-submit" id="submitButton">
+            <span data-i18n="contact.formSubmit">送信する</span>
+          </button>
+        </form>
+      </div>
     </div>
-    <div class="progress-text" id="progressText">ステップ 1 / 5</div>
-  </div>
+  </section>
 
-  <div class="content">
-    <div class="step active" data-step="1">
-      <h3 id="step1Title" data-i18n="survey.steps.step1.title">どのようなサービスをお探しですか？</h3>
-      <div class="option" data-value="buy" id="option1_1">
-        <div data-i18n="survey.steps.step1.option1.title">売買</div>
-        <small data-i18n="survey.steps.step1.option1.desc">物件の購入をお考えの方</small>
-      </div>
-      <div class="option" data-value="rent" id="option1_2">
-        <div data-i18n="survey.steps.step1.option2.title">賃貸</div>
-        <small data-i18n="survey.steps.step1.option2.desc">賃貸物件をお探しの方</small>
-      </div>
-      <div class="option" data-value="invest" id="option1_3">
-        <div data-i18n="survey.steps.step1.option3.title">投資</div>
-        <small data-i18n="survey.steps.step1.option3.desc">不動産投資をお考えの方</small>
-      </div>
-    </div>
-
-    <div class="step" data-step="2">
-      <h3 id="step2Title" data-i18n="survey.steps.step2.title">ご予算の範囲はいかがですか？</h3>
-      <div class="option" data-value="~5M" id="option2_1">~500万円</div>
-      <div class="option" data-value="5M-10M" id="option2_2">500万円~1000万円</div>
-      <div class="option" data-value="10M+" id="option2_3">1000万円以上</div>
-    </div>
-
-    <div class="step" data-step="3">
-      <h3 id="step3Title" data-i18n="survey.steps.step3.title">ご希望のエリアはどちらですか？</h3>
-      <div class="option" data-value="tokyo" data-i18n="survey.steps.step3.option1">東京</div>
-      <div class="option" data-value="osaka" data-i18n="survey.steps.step3.option2">大阪</div>
-      <div class="option" data-value="other" data-i18n="survey.steps.step3.option3">その他</div>
-    </div>
-
-    <div class="step" data-step="4">
-      <h3 id="step4Title" data-i18n="survey.steps.step4.title">ご希望の時期はいつ頃ですか？</h3>
-      <div class="option" data-value="1month" data-i18n="survey.steps.step4.option1">1ヶ月以内</div>
-      <div class="option" data-value="3months" data-i18n="survey.steps.step4.option2">3ヶ月以内</div>
-      <div class="option" data-value="6months+" data-i18n="survey.steps.step4.option3">半年以上先</div>
-    </div>
-
-    <div class="step" data-step="5">
-      <h3 id="step5Title" data-i18n="survey.steps.step5.title">お客様の連絡先情報</h3>
-      <div class="form-group">
-        <label for="email" data-i18n="survey.steps.step5.emailLabel">メールアドレス *</label>
-        <input type="email" id="email" placeholder="">
-      </div>
-      <div class="form-group">
-        <label for="phone" data-i18n="survey.steps.step5.phoneLabel">電話番号</label>
-        <input type="text" id="phone" placeholder="">
-      </div>
-      <div class="form-group">
-        <label for="wechat" data-i18n="survey.steps.step5.wechatLabel">WeChat ID</label>
-        <input type="text" id="wechat" placeholder="">
-      </div>
-      <div class="form-group">
-        <label for="message" data-i18n="survey.steps.step5.messageLabel">備考・ご要望</label>
-        <textarea id="message" rows="4" placeholder="ご希望の間取り、特別なご要求、その他ご質問などをお聞かせください..."></textarea>
-      </div>
-      <div class="form-group">
-        <label for="language" data-i18n="survey.steps.step5.languageLabel">ご希望の対応言語</label>
-        <select id="language">
-          <option value="ja">日本語</option>
-          <option value="zh">中文</option>
-          <option value="en">English</option>
-          <option value="ko">한국어</option>
-          <option value="vi">Tiếng Việt</option>
-          <option value="ne">नेपाली</option>
-        </select>
-      </div>
-      <div class="checkbox-group">
-        <input type="checkbox" id="privacy">
-        <label for="privacy" data-i18n="survey.steps.step5.privacyLabel">プライバシーポリシーに同意します</label>
+  <!-- Office Information -->
+  <section class="office-info">
+    <div class="container">
+      <h2 class="sec-title" data-i18n="contact.officeTitle">会社情報・アクセス</h2>
+      <div class="office-container">
+        <div class="office-details fade-up">
+          <h3 class="office-title" data-i18n="contact.officeDetailsTitle">株式会社スマートアイズ</h3>
+          <div class="info-item">
+            <div class="info-label" data-i18n="contact.officeAddress">住所</div>
+            <div class="info-value">
+              〒160-0023<br>
+              東京都新宿区西新宿7-3-10<br>
+              三京ビル401
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-label" data-i18n="contact.officePhone">電話番号</div>
+            <div class="info-value">
+              <a href="tel:+81353589289">03-5358-9289</a>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-label" data-i18n="contact.officeFax">FAX番号</div>
+            <div class="info-value">03-5358-9296</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label" data-i18n="contact.officeEmail">メールアドレス</div>
+            <div class="info-value">
+              <a href="mailto:contact@smarteyes.co.jp">contact@smarteyes.co.jp</a>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-label" data-i18n="contact.officeLicense">免許番号</div>
+            <div class="info-value">東京都知事(1)第112700号</div>
+          </div>
+        </div>
+        
+        <div class="wechat-section fade-up" id="wechat">
+          <h3 class="wechat-title" data-i18n="contact.wechatTitle">WeChat でお問い合わせ</h3>
+          <img src="wechat.png" alt="WeChat QR Code" class="wechat-qr" />
+          <div class="wechat-hint" data-i18n="contact.wechatHint">QRコードをスキャンして友達追加</div>
+        </div>
       </div>
     </div>
+  </section>
 
-    <div class="nav-buttons" id="navButtons">
-      <button class="btn btn-secondary" id="prevBtn">← 前へ</button>
-      <button class="btn btn-primary" id="nextBtn">次へ →</button>
+  <!-- Map Section -->
+  <section class="map-section">
+    <div class="container">
+      <div class="map-container fade-up">
+        <h2 class="map-title" data-i18n="contact.mapTitle">アクセスマップ</h2>
+        <p class="map-desc" data-i18n="contact.mapDescription">
+          新宿駅から徒歩圏内、複数路線からアクセス可能な好立地です
+        </p>
+        <div class="map-placeholder">
+          <div class="map-placeholder-text" data-i18n="contact.mapPlaceholder">
+            🗺️ 地図エリア<br>
+            〒160-0023 東京都新宿区西新宿7-3-10 三京ビル401
+          </div>
+        </div>
+        <div class="directions-info">
+          <div class="direction-item">
+            <div class="direction-station" data-i18n="contact.directionJr">JR新宿駅</div>
+            <div class="direction-detail" data-i18n="contact.directionJrDetail">西口より徒歩8分</div>
+          </div>
+          <div class="direction-item">
+            <div class="direction-station" data-i18n="contact.directionMetro">都営大江戸線</div>
+            <div class="direction-detail" data-i18n="contact.directionMetroDetail">新宿西口駅より徒歩5分</div>
+          </div>
+          <div class="direction-item">
+            <div class="direction-station" data-i18n="contact.directionSubway">東京メトロ丸ノ内線</div>
+            <div class="direction-detail" data-i18n="contact.directionSubwayDetail">西新宿駅より徒歩3分</div>
+          </div>
+          <div class="direction-item">
+            <div class="direction-station" data-i18n="contact.directionOther">その他</div>
+            <div class="direction-detail" data-i18n="contact.directionOtherDetail">お車でお越しの場合は近隣の有料駐車場をご利用ください</div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
+  </section>
 
-<div id="loadingState">
-  <div class="spinner"></div>
-  <h3 id="loadingText" data-i18n="survey.status.loadingText">送信中です...</h3>
-  <p id="loadingDesc" data-i18n="survey.status.loadingDesc">少々お待ちください</p>
-</div>
+  <!-- Business Hours -->
+  <section class="hours-section">
+    <div class="container">
+      <div class="hours-container">
+        <h2 class="hours-title" data-i18n="contact.hoursTitle">営業時間</h2>
+        <div class="hours-grid">
+          <div class="hours-item">
+            <div class="hours-day" data-i18n="contact.hoursWeekdays">平日</div>
+            <div class="hours-time">9:00 - 18:00</div>
+          </div>
+          <div class="hours-item">
+            <div class="hours-day" data-i18n="contact.hoursSaturday">土曜日</div>
+            <div class="hours-time">10:00 - 17:00</div>
+          </div>
+          <div class="hours-item">
+            <div class="hours-day" data-i18n="contact.hoursSunday">日曜・祝日</div>
+            <div class="hours-time" data-i18n="contact.hoursClosed">定休日</div>
+          </div>
+          <div class="hours-item">
+            <div class="hours-day" data-i18n="contact.hoursNote">備考</div>
+            <div class="hours-time" data-i18n="contact.hoursNoteDetail">事前予約で時間外対応可</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<div id="successStep">
-  <div class="success-icon">✓</div>
-  <h2 id="successTitle" data-i18n="survey.status.successTitle">送信完了！</h2>
-  <p id="successDesc" data-i18n="survey.status.successDesc">お問い合わせありがとうございます。担当者よりご連絡させていただきます。</p>
-</div>
+  <footer>
+    <div class="container">© 2025 Smart Eyes Co., Ltd. All rights reserved.</div>
+  </footer>
 
-<script>
-// ===== I18n Manager =====
-class I18nManager {
-  constructor() {
-    this.currentLang = 'ja';
-    this.loadedLanguages = {};
-    this.languages = {
-      ja: '日本語',
-      ko: '한국어',
-      zh: '简体中文',
-      'zh-Hant': '繁體中文',
-      en: 'English',
-      vi: 'Tiếng Việt',
-      ne: 'नेपाली'
-    };
-    this.fallbackLang = 'ja';
-  }
-
-  async loadLanguage(lang) {
-    if (lang === 'ja') {
-      return {}; // Japanese is hardcoded in HTML
-    }
-
-    if (this.loadedLanguages[lang]) {
-      return this.loadedLanguages[lang];
-    }
-
-    try {
-      const response = await fetch(`lang/${lang}.json`);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+  <script>
+    // ===== Navigation Management =====
+    class NavigationManager {
+      constructor() {
+        this.mobileToggle = document.getElementById('mobileNavToggle');
+        this.mobileNav = document.getElementById('mobileNav');
+        this.init();
       }
-      const data = await response.json();
-      this.loadedLanguages[lang] = data;
-      return data;
-    } catch (error) {
-      console.warn(`Failed to load language ${lang}:`, error);
-      throw error;
-    }
-  }
 
-  detectLanguage() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const urlLang = urlParams.get('lang');
-    if (urlLang && this.languages[urlLang]) {
-      return urlLang;
-    }
+      init() {
+        this.mobileToggle.addEventListener('click', () => {
+          this.toggleMobileNav();
+        });
 
-    try {
-      const savedLang = localStorage.getItem('smarteyes_survey_preferred_lang');
-      if (savedLang && this.languages[savedLang]) {
-        return savedLang;
-      }
-    } catch (e) {
-      console.warn('Could not read from localStorage:', e);
-    }
+        document.querySelectorAll('.mobile-nav .nav-links a').forEach(link => {
+          link.addEventListener('click', () => {
+            this.closeMobileNav();
+          });
+        });
 
-    const navLangs = navigator.languages || [navigator.language || navigator.userLanguage];
-    for (const navLang of navLangs) {
-      const code = navLang.toLowerCase();
-      if (code.startsWith('zh-tw') || code.includes('hant')) return 'zh-Hant';
-      if (code.startsWith('zh')) return 'zh';
-      if (code.startsWith('ja')) return 'ja';
-      if (code.startsWith('ko')) return 'ko';
-      if (code.startsWith('vi')) return 'vi';
-      if (code.startsWith('ne')) return 'ne';
-      if (code.startsWith('en')) return 'en';
-    }
-
-    return this.fallbackLang;
-  }
-
-  getValue(path, data) {
-    const keys = path.split('.');
-    let value = data;
-    for (const key of keys) {
-      value = value && value[key];
-      if (value === undefined) break;
-    }
-    return value;
-  }
-
-  async applyLanguage(lang) {
-    try {
-      const data = await this.loadLanguage(lang);
-      
-      if (lang !== 'ja') {
-        document.querySelectorAll('[data-i18n]').forEach(el => {
-          const key = el.getAttribute('data-i18n');
-          const value = this.getValue(key, data);
-          if (value !== undefined) {
-            el.textContent = value;
+        document.addEventListener('click', (e) => {
+          if (!e.target.closest('.mobile-nav') && !e.target.closest('.mobile-nav-toggle')) {
+            this.closeMobileNav();
           }
         });
 
-        // Update placeholder for message textarea
-        const messageTextarea = document.getElementById('message');
-        if (messageTextarea && data.survey && data.survey.steps && data.survey.steps.step5 && data.survey.steps.step5.messagePlaceholder) {
-          messageTextarea.placeholder = data.survey.steps.step5.messagePlaceholder;
-        }
+        window.addEventListener('resize', () => {
+          if (window.innerWidth > 1024) {
+            this.closeMobileNav();
+          }
+        });
+      }
 
-        if (data.survey && data.survey.meta && data.survey.meta.title) {
-          document.title = data.survey.meta.title;
+      toggleMobileNav() {
+        const isOpen = this.mobileNav.classList.contains('show');
+        if (isOpen) {
+          this.closeMobileNav();
+        } else {
+          this.openMobileNav();
         }
       }
 
-      document.documentElement.lang = lang;
-      
-      try {
-        localStorage.setItem('smarteyes_survey_preferred_lang', lang);
-      } catch (e) {
-        console.warn('Could not save language preference:', e);
+      openMobileNav() {
+        this.mobileToggle.classList.add('active');
+        this.mobileNav.classList.add('show');
+        document.body.style.overflow = 'hidden';
       }
 
-      this.currentLang = lang;
-      this.updateDropdown();
-      updateNavigation();
-      updateProgress();
-      
-    } catch (error) {
-      console.error('Failed to apply language:', error);
-      if (lang !== this.fallbackLang) {
-        return this.applyLanguage(this.fallbackLang);
+      closeMobileNav() {
+        this.mobileToggle.classList.remove('active');
+        this.mobileNav.classList.remove('show');
+        document.body.style.overflow = '';
       }
     }
-  }
 
-  updateDropdown() {
-    const currentButton = document.getElementById('langCurrent');
-    const currentText = currentButton.querySelector('.lang-text');
-    if (currentText) {
-      currentText.textContent = this.languages[this.currentLang];
+    // ===== Contact Form Manager =====
+    class ContactFormManager {
+      constructor() {
+        this.form = document.getElementById('contactForm');
+        this.submitButton = document.getElementById('submitButton');
+        this.messageContainer = document.getElementById('formMessage');
+        this.init();
+      }
+
+      init() {
+        if (this.form) {
+          this.form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            this.handleSubmit();
+          });
+
+          // Real-time validation
+          this.form.querySelectorAll('input, select, textarea').forEach(field => {
+            field.addEventListener('blur', () => {
+              this.validateField(field);
+            });
+            field.addEventListener('input', () => {
+              this.clearFieldError(field);
+            });
+          });
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(link => {
+          link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const target = document.querySelector(link.getAttribute('href'));
+            if (target) {
+              target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          });
+        });
+      }
+
+      validateField(field) {
+        const value = field.value.trim();
+        const fieldName = field.name;
+        let isValid = true;
+        let errorMessage = '';
+
+        // Clear previous error
+        this.clearFieldError(field);
+
+        if (field.hasAttribute('required') && !value) {
+          isValid = false;
+          errorMessage = '必須項目です';
+        } else if (fieldName === 'email' && value) {
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(value)) {
+            isValid = false;
+            errorMessage = '有効なメールアドレスを入力してください';
+          }
+        } else if (fieldName === 'phone' && value) {
+          const phoneRegex = /^[\d\-\+\(\)\s]+$/;
+          if (!phoneRegex.test(value)) {
+            isValid = false;
+            errorMessage = '有効な電話番号を入力してください';
+          }
+        }
+
+        if (!isValid) {
+          this.showFieldError(field, errorMessage);
+        }
+
+        return isValid;
+      }
+
+      showFieldError(field, message) {
+        const errorElement = document.getElementById(field.name + 'Error');
+        if (errorElement) {
+          errorElement.textContent = message;
+          field.style.borderColor = 'var(--error)';
+        }
+      }
+
+      clearFieldError(field) {
+        const errorElement = document.getElementById(field.name + 'Error');
+        if (errorElement) {
+          errorElement.textContent = '';
+          field.style.borderColor = '';
+        }
+      }
+
+      validateForm() {
+        let isValid = true;
+        const requiredFields = this.form.querySelectorAll('[required]');
+        
+        requiredFields.forEach(field => {
+          if (!this.validateField(field)) {
+            isValid = false;
+          }
+        });
+
+        return isValid;
+      }
+
+      async handleSubmit() {
+        if (!this.validateForm()) {
+          this.showMessage('入力内容に誤りがあります。赤字のエラーをご確認ください。', 'error');
+          return;
+        }
+
+        this.submitButton.disabled = true;
+        this.submitButton.textContent = '送信中...';
+
+        try {
+          // Simulate form submission - replace with actual endpoint
+          await this.simulateSubmission();
+          
+          this.showMessage('お問い合わせありがとうございます。2営業日以内にご返信いたします。', 'success');
+          this.form.reset();
+          
+        } catch (error) {
+          console.error('Form submission error:', error);
+          this.showMessage('送信に失敗しました。お手数ですが、もう一度お試しください。', 'error');
+        } finally {
+          this.submitButton.disabled = false;
+          this.submitButton.textContent = '送信する';
+        }
+      }
+
+      async simulateSubmission() {
+        // Simulate network delay
+        return new Promise((resolve) => {
+          setTimeout(resolve, 1500);
+        });
+      }
+
+      showMessage(message, type) {
+        this.messageContainer.innerHTML = `
+          <div class="form-${type}">
+            ${message}
+          </div>
+        `;
+        
+        // Auto-hide after 5 seconds
+        setTimeout(() => {
+          this.messageContainer.innerHTML = '';
+        }, 5000);
+
+        // Scroll to message
+        this.messageContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
     }
 
-    document.querySelectorAll('.lang-option').forEach(option => {
-      const isActive = option.dataset.lang === this.currentLang;
-      option.classList.toggle('active', isActive);
-      const check = option.querySelector('.lang-check');
-      if (check) {
-        check.textContent = isActive ? '✓' : '';
+    // ===== I18n Manager =====
+    class I18nManager {
+      constructor() {
+        this.currentLang = 'ja';
+        this.loadedLanguages = {};
+        this.languages = {
+          ja: '日本語',
+          ko: '한국어',
+          zh: '简体中文',
+          'zh-Hant': '繁體中文',
+          en: 'English',
+          vi: 'Tiếng Việt',
+          ne: 'नेपाली'
+        };
+        this.fallbackLang = 'ja';
       }
-    });
-  }
 
-  buildDropdown() {
-    const currentButton = document.getElementById('langCurrent');
-    const menu = document.getElementById('langMenu');
-    
-    Object.entries(this.languages).forEach(([code, name]) => {
-      const option = document.createElement('button');
-      option.className = 'lang-option';
-      option.dataset.lang = code;
-      option.setAttribute('role', 'menuitem');
-      option.innerHTML = `
-        <span class="lang-check"></span>
-        <span>${name}</span>
-      `;
+      async loadLanguage(lang) {
+        if (this.loadedLanguages[lang]) {
+          return this.loadedLanguages[lang];
+        }
+
+        try {
+          const response = await fetch(`lang/${lang}.json`);
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          const data = await response.json();
+          this.loadedLanguages[lang] = data;
+          
+          try {
+            localStorage.setItem(`smarteyes_lang_${lang}`, JSON.stringify(data));
+            localStorage.setItem(`smarteyes_lang_${lang}_timestamp`, Date.now().toString());
+          } catch (e) {
+            console.warn('Could not cache language data:', e);
+          }
+          
+          return data;
+        } catch (error) {
+          console.warn(`Failed to load language ${lang}:`, error);
+          
+          try {
+            const cached = localStorage.getItem(`smarteyes_lang_${lang}`);
+            if (cached) {
+              const data = JSON.parse(cached);
+              this.loadedLanguages[lang] = data;
+              return data;
+            }
+          } catch (e) {
+            console.warn('Could not load from cache:', e);
+          }
+          
+          if (lang !== this.fallbackLang) {
+            return this.loadLanguage(this.fallbackLang);
+          }
+          
+          throw error;
+        }
+      }
+
+      detectLanguage() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlLang = urlParams.get('lang');
+        if (urlLang && this.languages[urlLang]) {
+          return urlLang;
+        }
+
+        try {
+          const savedLang = localStorage.getItem('smarteyes_preferred_lang');
+          if (savedLang && this.languages[savedLang]) {
+            return savedLang;
+          }
+        } catch (e) {
+          console.warn('Could not read from localStorage:', e);
+        }
+
+        const navLangs = navigator.languages || [navigator.language || navigator.userLanguage];
+        for (const navLang of navLangs) {
+          const code = navLang.toLowerCase();
+          if (code.startsWith('zh-tw') || code.includes('hant')) return 'zh-Hant';
+          if (code.startsWith('zh')) return 'zh';
+          if (code.startsWith('ja')) return 'ja';
+          if (code.startsWith('ko')) return 'ko';
+          if (code.startsWith('vi')) return 'vi';
+          if (code.startsWith('ne')) return 'ne';
+          if (code.startsWith('en')) return 'en';
+        }
+
+        return this.fallbackLang;
+      }
+
+      getValue(path, data) {
+        const keys = path.split('.');
+        let value = data;
+        for (const key of keys) {
+          value = value && value[key];
+          if (value === undefined) break;
+        }
+        return value;
+      }
+
+      async applyLanguage(lang) {
+        try {
+          const data = await this.loadLanguage(lang);
+          
+          document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            const value = this.getValue(key, data);
+            if (value !== undefined) {
+              if (el.tagName === 'INPUT' && el.type === 'submit') {
+                el.value = value;
+              } else if (el.tagName === 'OPTION') {
+                el.textContent = value;
+              } else if (el.hasAttribute('placeholder')) {
+                el.placeholder = value;
+              } else {
+                el.innerHTML = value;
+              }
+            }
+          });
+
+          if (data.meta && data.meta.contactTitle) {
+            document.title = data.meta.contactTitle;
+          }
+          if (data.meta && data.meta.contactDescription) {
+            const metaDesc = document.querySelector('meta[name="description"]');
+            if (metaDesc) {
+              metaDesc.setAttribute('content', data.meta.contactDescription);
+            }
+          }
+
+          document.documentElement.lang = lang;
+          
+          try {
+            localStorage.setItem('smarteyes_preferred_lang', lang);
+          } catch (e) {
+            console.warn('Could not save language preference:', e);
+          }
+
+          this.currentLang = lang;
+          this.updateDropdown();
+          
+          console.log(`Language switched to: ${lang}`);
+        } catch (error) {
+          console.error('Failed to apply language:', error);
+          
+          if (lang !== this.fallbackLang) {
+            console.log(`Falling back to ${this.fallbackLang}`);
+            return this.applyLanguage(this.fallbackLang);
+          }
+        }
+      }
+
+      updateDropdown() {
+        const currentButton = document.getElementById('langCurrent');
+        const currentText = currentButton.querySelector('.lang-text');
+        if (currentText) {
+          currentText.textContent = this.languages[this.currentLang];
+        }
+
+        document.querySelectorAll('.lang-option').forEach(option => {
+          const isActive = option.dataset.lang === this.currentLang;
+          option.classList.toggle('active', isActive);
+          const check = option.querySelector('.lang-check');
+          if (check) {
+            check.textContent = isActive ? '✓' : '';
+          }
+        });
+      }
+
+      buildDropdown() {
+        const currentButton = document.getElementById('langCurrent');
+        const menu = document.getElementById('langMenu');
+        
+        Object.entries(this.languages).forEach(([code, name]) => {
+          const option = document.createElement('button');
+          option.className = 'lang-option';
+          option.dataset.lang = code;
+          option.setAttribute('role', 'menuitem');
+          option.innerHTML = `
+            <span class="lang-check"></span>
+            <span>${name}</span>
+          `;
+          
+          option.addEventListener('click', () => {
+            this.applyLanguage(code);
+            this.hideDropdown();
+          });
+          
+          menu.appendChild(option);
+        });
+
+        currentButton.addEventListener('click', (e) => {
+          e.stopPropagation();
+          this.toggleDropdown();
+        });
+
+        document.addEventListener('click', () => {
+          this.hideDropdown();
+        });
+      }
+
+      toggleDropdown() {
+        const menu = document.getElementById('langMenu');
+        const isShown = menu.classList.contains('show');
+        if (isShown) {
+          this.hideDropdown();
+        } else {
+          this.showDropdown();
+        }
+      }
+
+      showDropdown() {
+        const currentButton = document.getElementById('langCurrent');
+        const menu = document.getElementById('langMenu');
+        
+        currentButton.setAttribute('aria-expanded', 'true');
+        menu.classList.add('show');
+      }
+
+      hideDropdown() {
+        const currentButton = document.getElementById('langCurrent');
+        const menu = document.getElementById('langMenu');
+        
+        currentButton.setAttribute('aria-expanded', 'false');
+        menu.classList.remove('show');
+      }
+    }
+
+    // ===== Intersection Observer =====
+    function initIntersectionObserver() {
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
       
-      option.addEventListener('click', () => {
-        this.applyLanguage(code);
-        this.hideDropdown();
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.animationPlayState = 'running';
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+      
+      document.querySelectorAll('.fade-up, .fade-in').forEach(el => {
+        el.style.animationPlayState = 'paused';
+        observer.observe(el);
       });
+    }
+
+    // ===== Performance Optimization =====
+    function optimizePerformance() {
+      function throttle(func, limit) {
+        let inThrottle;
+        return function() {
+          const args = arguments;
+          const context = this;
+          if (!inThrottle) {
+            func.apply(context, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+          }
+        };
+      }
       
-      menu.appendChild(option);
-    });
+      const handleScroll = throttle(() => {
+        const header = document.querySelector('.site-header');
+        if (window.scrollY > 100) {
+          header.style.background = 'rgba(255,255,255,0.98)';
+          header.style.boxShadow = '0 4px 20px rgba(30, 64, 175, 0.1)';
+        } else {
+          header.style.background = 'rgba(255,255,255,0.95)';
+          header.style.boxShadow = 'none';
+        }
+      }, 16);
+      
+      window.addEventListener('scroll', handleScroll, { passive: true });
+    }
 
-    currentButton.addEventListener('click', (e) => {
-      e.stopPropagation();
-      this.toggleDropdown();
-    });
+    // ===== Main Initialization =====
+    const i18n = new I18nManager();
+    const navigation = new NavigationManager();
+    const contactForm = new ContactFormManager();
 
-    document.addEventListener('click', () => {
-      this.hideDropdown();
-    });
-  }
+    async function init() {
+      i18n.buildDropdown();
+      
+      const detectedLang = i18n.detectLanguage();
+      await i18n.applyLanguage(detectedLang);
+      
+      optimizePerformance();
+      
+      setTimeout(() => {
+        initIntersectionObserver();
+      }, 500);
+      
+      console.log('Smart Eyes contact page initialized successfully');
+    }
 
-  toggleDropdown() {
-    const menu = document.getElementById('langMenu');
-    const isShown = menu.classList.contains('show');
-    if (isShown) {
-      this.hideDropdown();
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
     } else {
-      this.showDropdown();
+      init();
     }
-  }
-
-  showDropdown() {
-    const currentButton = document.getElementById('langCurrent');
-    const menu = document.getElementById('langMenu');
-    
-    currentButton.setAttribute('aria-expanded', 'true');
-    menu.classList.add('show');
-  }
-
-  hideDropdown() {
-    const currentButton = document.getElementById('langCurrent');
-    const menu = document.getElementById('langMenu');
-    
-    currentButton.setAttribute('aria-expanded', 'false');
-    menu.classList.remove('show');
-  }
-}
-
-// 全局变量
-const surveyData = {
-  serviceType: '',
-  budget: '',
-  location: '',
-  timeframe: '',
-  email: '',
-  phone: '',
-  language: 'ja',
-  wechat: '',
-  message: '',
-  privacy: false,
-  timestamp: null,
-  userAgent: navigator.userAgent,
-  language_detected: navigator.language
-};
-
-let currentStep = 1;
-const totalSteps = 5;
-let currentLanguage = 'ja';
-const i18n = new I18nManager();
-
-// 语言检测和设置
-function detectAndSetLanguage() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const urlLang = urlParams.get('lang');
-  const browserLang = navigator.language.toLowerCase();
-  
-  if (urlLang && i18n.languages[urlLang]) {
-    currentLanguage = urlLang;
-  } else if (browserLang.startsWith('zh')) {
-    currentLanguage = 'zh';
-  } else if (browserLang.startsWith('en')) {
-    currentLanguage = 'en';
-  } else {
-    currentLanguage = 'ja';
-  }
-  
-  document.getElementById('langCurrent').querySelector('.lang-text').textContent = i18n.languages[currentLanguage];
-}
-
-// 进度更新
-function updateProgress() {
-  const progress = (currentStep / totalSteps) * 100;
-  document.getElementById('progressFill').style.width = progress + '%';
-  
-  const progressText = document.getElementById('progressText');
-  if (currentLanguage === 'ja') {
-    progressText.textContent = `ステップ ${currentStep} / ${totalSteps}`;
-  } else if (currentLanguage === 'zh') {
-    progressText.textContent = `第 ${currentStep} 步 / 共 ${totalSteps} 步`;
-  } else {
-    progressText.textContent = `Step ${currentStep} / ${totalSteps}`;
-  }
-}
-
-// 显示步骤
-function showStep(step) {
-  document.querySelectorAll('.step').forEach(el => {
-    el.classList.remove('active');
-    if (parseInt(el.dataset.step) === step) {
-      el.classList.add('active');
-    }
-  });
-  currentStep = step;
-  updateProgress();
-  updateNavigation();
-}
-
-// 更新导航
-function updateNavigation() {
-  const prevBtn = document.getElementById('prevBtn');
-  const nextBtn = document.getElementById('nextBtn');
-  prevBtn.disabled = currentStep === 1;
-  
-  if (currentStep === totalSteps) {
-    if (currentLanguage === 'ja') {
-      nextBtn.textContent = '送信';
-    } else if (currentLanguage === 'zh') {
-      nextBtn.textContent = '提交';
-    } else {
-      nextBtn.textContent = 'Submit';
-    }
-  } else {
-    if (currentLanguage === 'ja') {
-      nextBtn.textContent = '次へ →';
-    } else if (currentLanguage === 'zh') {
-      nextBtn.textContent = '下一步 →';
-    } else {
-      nextBtn.textContent = 'Next →';
-    }
-  }
-  
-  if (document.getElementById('successStep').style.display === 'block') {
-    navButtons.style.display = 'none';
-  } else {
-    navButtons.style.display = 'flex';
-  }
-}
-
-// 下一步
-function nextStep() {
-  if (validateCurrentStep()) {
-    if (currentStep < totalSteps) {
-      showStep(currentStep + 1);
-    } else {
-      submitForm();
-    }
-  }
-}
-
-// 上一步
-function prevStep() {
-  if (currentStep > 1) {
-    showStep(currentStep - 1);
-  }
-}
-
-// 验证当前步骤
-function validateCurrentStep() {
-  const currentStepEl = document.querySelector(`.step[data-step="${currentStep}"]`);
-  
-  if (currentStep <= 4) {
-    const selectedOption = currentStepEl.querySelector('.option.selected');
-    if (!selectedOption) {
-      let message = '選択してください';
-      if (currentLanguage === 'zh') message = '请选择一个选项';
-      if (currentLanguage === 'en') message = 'Please select an option';
-      alert(message);
-      return false;
-    }
-    const value = selectedOption.dataset.value;
-    if (currentStep === 1) surveyData.serviceType = value;
-    if (currentStep === 2) surveyData.budget = value;
-    if (currentStep === 3) surveyData.location = value;
-    if (currentStep === 4) surveyData.timeframe = value;
-  } else if (currentStep === 5) {
-    const email = document.getElementById('email').value.trim();
-    const privacy = document.getElementById('privacy').checked;
-    
-    if (!email) {
-      document.getElementById('email').classList.add('error');
-      let message = 'メールアドレスを入力してください';
-      if (currentLanguage === 'zh') message = '请输入邮箱地址';
-      if (currentLanguage === 'en') message = 'Please enter email address';
-      alert(message);
-      return false;
-    }
-    if (!isValidEmail(email)) {
-      document.getElementById('email').classList.add('error');
-      let message = '有効なメールアドレスを入力してください';
-      if (currentLanguage === 'zh') message = '请输入有效的邮箱地址';
-      if (currentLanguage === 'en') message = 'Please enter a valid email address';
-      alert(message);
-      return false;
-    }
-    if (!privacy) {
-      let message = 'プライバシーポリシーに同意してください';
-      if (currentLanguage === 'zh') message = '请同意隐私政策';
-      if (currentLanguage === 'en') message = 'Please agree to the privacy policy';
-      alert(message);
-      return false;
-    }
-    
-    surveyData.email = email;
-    surveyData.phone = document.getElementById('phone').value.trim();
-    surveyData.language = document.getElementById('language').value;
-    surveyData.wechat = document.getElementById('wechat').value.trim();
-    surveyData.message = document.getElementById('message').value.trim();
-    surveyData.privacy = privacy;
-  }
-  return true;
-}
-
-// 邮箱验证
-function isValidEmail(email) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
-
-// 提交表单
-async function submitForm() {
-  document.getElementById('surveyContainer').style.display = 'none';
-  document.getElementById('loadingState').classList.add('show');
-  surveyData.timestamp = new Date().toISOString();
-  surveyData.survey_language = currentLanguage;
-  
-  try {
-    await submitToGoogleScript();
-    showSuccess();
-  } catch (e) {
-    let message = '送信に失敗しました。しばらく後に再試行してください';
-    if (currentLanguage === 'zh') message = '提交失败，请稍后重试';
-    if (currentLanguage === 'en') message = 'Submission failed, please try again later';
-    alert(message);
-    document.getElementById('surveyContainer').style.display = 'block';
-    document.getElementById('loadingState').classList.remove('show');
-  }
-}
-
-// 提交到Google Script
-async function submitToGoogleScript() {
-  const scriptUrl = 'https://script.google.com/macros/s/AKfycbzxi3jIKzy5mWRXJH_12397PrEUq0lnQZDTfpYn2-B4Oszl1g7RFUh0CgpH9D_dEuwyVw/exec';
-  await fetch(scriptUrl, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(surveyData)
-  });
-}
-
-// 显示成功页面
-function showSuccess() {
-  document.getElementById('loadingState').classList.remove('show');
-  document.getElementById('successStep').style.display = 'block';
-  updateNavigation();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-// 初始化事件处理器
-function initEventHandlers() {
-  // 选项点击事件
-  document.addEventListener('click', function (e) {
-    const option = e.target.closest('.option');
-    if (option) {
-      const step = option.closest('.step');
-      if (!step.classList.contains('active')) return;
-      step.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
-      option.classList.add('selected');
-    }
-  });
-  
-  // 导航按钮事件
-  document.getElementById('prevBtn').addEventListener('click', function (e) {
-    e.preventDefault();
-    prevStep();
-  });
-  
-  document.getElementById('nextBtn').addEventListener('click', function (e) {
-    e.preventDefault();
-    nextStep();
-  });
-  
-  // 邮箱输入事件
-  document.getElementById('email').addEventListener('input', function () {
-    this.classList.remove('error');
-  });
-}
-
-// 初始化
-async function init() {
-  i18n.buildDropdown();
-  
-  const detectedLang = i18n.detectLanguage();
-  currentLanguage = detectedLang;
-  await i18n.applyLanguage(detectedLang);
-  
-  updateProgress();
-  updateNavigation();
-  initEventHandlers();
-  
-  console.log('Survey initialized successfully');
-}
-
-// 页面加载完成后初始化
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', init);
-} else {
-  init();
-}
-</script>
-
+  </script>
 </body>
 </html>

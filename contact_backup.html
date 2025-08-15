@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="pageTitle" data-i18n="survey.meta.title">不動産コンサルティング問卷</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
+    line-height: 1.6;
+  }
+  
+  .container {
+    max-width: 600px;
+    margin: 2rem auto;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  .header {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+    padding: 2rem;
+    text-align: center;
+    position: relative;
+  }
+  
+  .header h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  
+  .header .tagline {
+    opacity: 0.9;
+    font-size: 0.95rem;
+  }
+  
+  .language-selector {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 100;
+  }
+  
+  .lang-dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .lang-current {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.2);
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 80px;
+    min-height: 36px;
+    color: white;
+  }
+  
+  .lang-current:hover {
+    border-color: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.3);
+  }
+  
+  .lang-current:focus {
+    outline: 2px solid white;
+    outline-offset: 2px;
+  }
+  
+  .lang-current[aria-expanded="true"] {
+    border-color: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.3);
+  }
+  
+  .lang-current[aria-expanded="true"] .lang-arrow {
+    transform: rotate(180deg);
+  }
+  
+  .lang-icon {
+    font-size: 14px;
+  }
+  
+  .lang-text {
+    flex: 1;
+    text-align: left;
+    font-size: 12px;
+  }
+  
+  .lang-arrow {
+    transition: transform 0.2s ease;
+    font-size: 8px;
+    opacity: 0.8;
+  }
+  
+  .lang-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.2s ease;
+    z-index: 1000;
+    margin-top: 2px;
+    min-width: 120px;
+  }
+  
+  .lang-menu.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  
+  .lang-option {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    font-size: 12px;
+    color: #333;
+  }
+  
+  .lang-option:hover {
+    background: #f8f9ff;
+  }
+  
+  .lang-option:focus {
+    outline: none;
+    background: #667eea;
+    color: #fff;
+  }
+  
+  .lang-option.active {
+    background: #eff6ff;
+    color: #667eea;
+    font-weight: 600;
+  }
+  
+  .lang-option:first-child {
+    border-radius: 7px 7px 0 0;
+  }
+  
+  .lang-option:last-child {
+    border-radius: 0 0 7px 7px;
+  }
+  
+  .lang-option:only-child {
+    border-radius: 7px;
+  }
+  
+  .lang-check {
+    width: 14px;
+    height: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: #667eea;
+  }
+  
+  .progress-container {
+    padding: 2rem 2rem 0;
+  }
+  
+  .progress-bar {
+    width: 100%;
+    height: 6px;
+    background: #f0f0f0;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+  }
+  
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    width: 0;
+    transition: width 0.4s ease;
+    border-radius: 3px;
+  }
+  
+  .progress-text {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 1.5rem;
+  }
+  
+  .content {
+    padding: 0 2rem 2rem;
+  }
+  
+  .step {
+    display: none;
+    animation: fadeIn 0.4s ease;
+  }
+  
+  .step.active {
+    display: block;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .step h3 {
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+    color: #333;
+    font-weight: 600;
+  }
+  
+  .option {
+    border: 2px solid #e0e0e0;
+    padding: 1rem 1.5rem;
+    margin: 0.75rem 0;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: white;
+    position: relative;
+  }
+  
+  .option:hover {
+    border-color: #667eea;
+    background: #f8f9ff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+  }
+  
+  .option.selected {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+    border-color: transparent;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+  }
+  
+  .option.selected::after {
+    content: '✓';
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-weight: bold;
+  }
+  
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #555;
+  }
+  
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+    background: white;
+    font-family: inherit;
+  }
+  
+  .form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+  
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  }
+  
+  .form-group input.error {
+    border-color: #e74c3c;
+    background: #fdf2f2;
+  }
+  
+  .checkbox-group {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+  }
+  
+  .checkbox-group input[type="checkbox"] {
+    width: auto;
+    margin-right: 0.5rem;
+    transform: scale(1.2);
+  }
+  
+  .nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    gap: 1rem;
+  }
+  
+  .btn {
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    flex: 1;
+    max-width: 200px;
+  }
+  
+  .btn-primary {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+  }
+  
+  .btn-primary:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+  }
+  
+  .btn-secondary {
+    background: #f8f9fa;
+    color: #666;
+    border: 2px solid #e0e0e0;
+  }
+  
+  .btn-secondary:hover:not(:disabled) {
+    background: #e9ecef;
+  }
+  
+  .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  #loadingState {
+    display: none;
+    text-align: center;
+    padding: 3rem 2rem;
+  }
+  
+  #loadingState.show {
+    display: block;
+  }
+  
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 1rem;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  #successStep {
+    display: none;
+    text-align: center;
+    padding: 3rem 2rem;
+  }
+  
+  .success-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    color: white;
+    font-size: 2rem;
+  }
+  
+  @media (max-width: 768px) {
+    .container {
+      margin: 1rem;
+      border-radius: 15px;
+    }
+    
+    .header {
+      padding: 1.5rem;
+    }
+    
+    .header h1 {
+      font-size: 1.5rem;
+    }
+    
+    .content {
+      padding: 0 1.5rem 1.5rem;
+    }
+    
+    .nav-buttons {
+      flex-direction: column;
+    }
+    
+    .btn {
+      max-width: none;
+    }
+    
+    .lang-current {
+      min-width: 70px;
+      padding: 4px 8px;
+      font-size: 11px;
+      min-height: 32px;
+    }
+    
+    .lang-text {
+      font-size: 11px;
+    }
+    
+    .lang-icon {
+      font-size: 12px;
+    }
+    
+    .lang-arrow {
+      font-size: 7px;
+    }
+    
+    .lang-menu {
+      min-width: 100px;
+    }
+    
+    .lang-option {
+      padding: 6px 8px;
+      font-size: 11px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="container" id="surveyContainer">
+  <div class="header">
+    <div class="language-selector">
+      <div class="lang-dropdown" id="langDropdown">
+        <button class="lang-current" id="langCurrent" aria-haspopup="true" aria-expanded="false">
+          <span class="lang-icon">🌐</span>
+          <span class="lang-text">日本語</span>
+          <span class="lang-arrow">▼</span>
+        </button>
+        <div class="lang-menu" id="langMenu" role="menu">
+          <!-- Language options will be dynamically generated by JS -->
+        </div>
+      </div>
+    </div>
+    <h1 id="headerTitle" data-i18n="survey.header.title">不動産コンサルティング</h1>
+    <div class="tagline" id="headerTagline" data-i18n="survey.header.tagline">お客様のニーズに最適なソリューションを提供</div>
+  </div>
+  
+  <div class="progress-container">
+    <div class="progress-bar">
+      <div id="progressFill" class="progress-fill"></div>
+    </div>
+    <div class="progress-text" id="progressText">ステップ 1 / 5</div>
+  </div>
+
+  <div class="content">
+    <div class="step active" data-step="1">
+      <h3 id="step1Title" data-i18n="survey.steps.step1.title">どのようなサービスをお探しですか？</h3>
+      <div class="option" data-value="buy" id="option1_1">
+        <div data-i18n="survey.steps.step1.option1.title">売買</div>
+        <small data-i18n="survey.steps.step1.option1.desc">物件の購入をお考えの方</small>
+      </div>
+      <div class="option" data-value="rent" id="option1_2">
+        <div data-i18n="survey.steps.step1.option2.title">賃貸</div>
+        <small data-i18n="survey.steps.step1.option2.desc">賃貸物件をお探しの方</small>
+      </div>
+      <div class="option" data-value="invest" id="option1_3">
+        <div data-i18n="survey.steps.step1.option3.title">投資</div>
+        <small data-i18n="survey.steps.step1.option3.desc">不動産投資をお考えの方</small>
+      </div>
+    </div>
+
+    <div class="step" data-step="2">
+      <h3 id="step2Title" data-i18n="survey.steps.step2.title">ご予算の範囲はいかがですか？</h3>
+      <div class="option" data-value="~5M" id="option2_1">~500万円</div>
+      <div class="option" data-value="5M-10M" id="option2_2">500万円~1000万円</div>
+      <div class="option" data-value="10M+" id="option2_3">1000万円以上</div>
+    </div>
+
+    <div class="step" data-step="3">
+      <h3 id="step3Title" data-i18n="survey.steps.step3.title">ご希望のエリアはどちらですか？</h3>
+      <div class="option" data-value="tokyo" data-i18n="survey.steps.step3.option1">東京</div>
+      <div class="option" data-value="osaka" data-i18n="survey.steps.step3.option2">大阪</div>
+      <div class="option" data-value="other" data-i18n="survey.steps.step3.option3">その他</div>
+    </div>
+
+    <div class="step" data-step="4">
+      <h3 id="step4Title" data-i18n="survey.steps.step4.title">ご希望の時期はいつ頃ですか？</h3>
+      <div class="option" data-value="1month" data-i18n="survey.steps.step4.option1">1ヶ月以内</div>
+      <div class="option" data-value="3months" data-i18n="survey.steps.step4.option2">3ヶ月以内</div>
+      <div class="option" data-value="6months+" data-i18n="survey.steps.step4.option3">半年以上先</div>
+    </div>
+
+    <div class="step" data-step="5">
+      <h3 id="step5Title" data-i18n="survey.steps.step5.title">お客様の連絡先情報</h3>
+      <div class="form-group">
+        <label for="email" data-i18n="survey.steps.step5.emailLabel">メールアドレス *</label>
+        <input type="email" id="email" placeholder="">
+      </div>
+      <div class="form-group">
+        <label for="phone" data-i18n="survey.steps.step5.phoneLabel">電話番号</label>
+        <input type="text" id="phone" placeholder="">
+      </div>
+      <div class="form-group">
+        <label for="wechat" data-i18n="survey.steps.step5.wechatLabel">WeChat ID</label>
+        <input type="text" id="wechat" placeholder="">
+      </div>
+      <div class="form-group">
+        <label for="message" data-i18n="survey.steps.step5.messageLabel">備考・ご要望</label>
+        <textarea id="message" rows="4" placeholder="ご希望の間取り、特別なご要求、その他ご質問などをお聞かせください..."></textarea>
+      </div>
+      <div class="form-group">
+        <label for="language" data-i18n="survey.steps.step5.languageLabel">ご希望の対応言語</label>
+        <select id="language">
+          <option value="ja">日本語</option>
+          <option value="zh">中文</option>
+          <option value="en">English</option>
+          <option value="ko">한국어</option>
+          <option value="vi">Tiếng Việt</option>
+          <option value="ne">नेपाली</option>
+        </select>
+      </div>
+      <div class="checkbox-group">
+        <input type="checkbox" id="privacy">
+        <label for="privacy" data-i18n="survey.steps.step5.privacyLabel">プライバシーポリシーに同意します</label>
+      </div>
+    </div>
+
+    <div class="nav-buttons" id="navButtons">
+      <button class="btn btn-secondary" id="prevBtn">← 前へ</button>
+      <button class="btn btn-primary" id="nextBtn">次へ →</button>
+    </div>
+  </div>
+</div>
+
+<div id="loadingState">
+  <div class="spinner"></div>
+  <h3 id="loadingText" data-i18n="survey.status.loadingText">送信中です...</h3>
+  <p id="loadingDesc" data-i18n="survey.status.loadingDesc">少々お待ちください</p>
+</div>
+
+<div id="successStep">
+  <div class="success-icon">✓</div>
+  <h2 id="successTitle" data-i18n="survey.status.successTitle">送信完了！</h2>
+  <p id="successDesc" data-i18n="survey.status.successDesc">お問い合わせありがとうございます。担当者よりご連絡させていただきます。</p>
+</div>
+
+<script>
+// ===== I18n Manager =====
+class I18nManager {
+  constructor() {
+    this.currentLang = 'ja';
+    this.loadedLanguages = {};
+    this.languages = {
+      ja: '日本語',
+      ko: '한국어',
+      zh: '简体中文',
+      'zh-Hant': '繁體中文',
+      en: 'English',
+      vi: 'Tiếng Việt',
+      ne: 'नेपाली'
+    };
+    this.fallbackLang = 'ja';
+  }
+
+  async loadLanguage(lang) {
+    if (lang === 'ja') {
+      return {}; // Japanese is hardcoded in HTML
+    }
+
+    if (this.loadedLanguages[lang]) {
+      return this.loadedLanguages[lang];
+    }
+
+    try {
+      const response = await fetch(`lang/${lang}.json`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      this.loadedLanguages[lang] = data;
+      return data;
+    } catch (error) {
+      console.warn(`Failed to load language ${lang}:`, error);
+      throw error;
+    }
+  }
+
+  detectLanguage() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlLang = urlParams.get('lang');
+    if (urlLang && this.languages[urlLang]) {
+      return urlLang;
+    }
+
+    try {
+      const savedLang = localStorage.getItem('smarteyes_survey_preferred_lang');
+      if (savedLang && this.languages[savedLang]) {
+        return savedLang;
+      }
+    } catch (e) {
+      console.warn('Could not read from localStorage:', e);
+    }
+
+    const navLangs = navigator.languages || [navigator.language || navigator.userLanguage];
+    for (const navLang of navLangs) {
+      const code = navLang.toLowerCase();
+      if (code.startsWith('zh-tw') || code.includes('hant')) return 'zh-Hant';
+      if (code.startsWith('zh')) return 'zh';
+      if (code.startsWith('ja')) return 'ja';
+      if (code.startsWith('ko')) return 'ko';
+      if (code.startsWith('vi')) return 'vi';
+      if (code.startsWith('ne')) return 'ne';
+      if (code.startsWith('en')) return 'en';
+    }
+
+    return this.fallbackLang;
+  }
+
+  getValue(path, data) {
+    const keys = path.split('.');
+    let value = data;
+    for (const key of keys) {
+      value = value && value[key];
+      if (value === undefined) break;
+    }
+    return value;
+  }
+
+  async applyLanguage(lang) {
+    try {
+      const data = await this.loadLanguage(lang);
+      
+      if (lang !== 'ja') {
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+          const key = el.getAttribute('data-i18n');
+          const value = this.getValue(key, data);
+          if (value !== undefined) {
+            el.textContent = value;
+          }
+        });
+
+        // Update placeholder for message textarea
+        const messageTextarea = document.getElementById('message');
+        if (messageTextarea && data.survey && data.survey.steps && data.survey.steps.step5 && data.survey.steps.step5.messagePlaceholder) {
+          messageTextarea.placeholder = data.survey.steps.step5.messagePlaceholder;
+        }
+
+        if (data.survey && data.survey.meta && data.survey.meta.title) {
+          document.title = data.survey.meta.title;
+        }
+      }
+
+      document.documentElement.lang = lang;
+      
+      try {
+        localStorage.setItem('smarteyes_survey_preferred_lang', lang);
+      } catch (e) {
+        console.warn('Could not save language preference:', e);
+      }
+
+      this.currentLang = lang;
+      this.updateDropdown();
+      updateNavigation();
+      updateProgress();
+      
+    } catch (error) {
+      console.error('Failed to apply language:', error);
+      if (lang !== this.fallbackLang) {
+        return this.applyLanguage(this.fallbackLang);
+      }
+    }
+  }
+
+  updateDropdown() {
+    const currentButton = document.getElementById('langCurrent');
+    const currentText = currentButton.querySelector('.lang-text');
+    if (currentText) {
+      currentText.textContent = this.languages[this.currentLang];
+    }
+
+    document.querySelectorAll('.lang-option').forEach(option => {
+      const isActive = option.dataset.lang === this.currentLang;
+      option.classList.toggle('active', isActive);
+      const check = option.querySelector('.lang-check');
+      if (check) {
+        check.textContent = isActive ? '✓' : '';
+      }
+    });
+  }
+
+  buildDropdown() {
+    const currentButton = document.getElementById('langCurrent');
+    const menu = document.getElementById('langMenu');
+    
+    Object.entries(this.languages).forEach(([code, name]) => {
+      const option = document.createElement('button');
+      option.className = 'lang-option';
+      option.dataset.lang = code;
+      option.setAttribute('role', 'menuitem');
+      option.innerHTML = `
+        <span class="lang-check"></span>
+        <span>${name}</span>
+      `;
+      
+      option.addEventListener('click', () => {
+        this.applyLanguage(code);
+        this.hideDropdown();
+      });
+      
+      menu.appendChild(option);
+    });
+
+    currentButton.addEventListener('click', (e) => {
+      e.stopPropagation();
+      this.toggleDropdown();
+    });
+
+    document.addEventListener('click', () => {
+      this.hideDropdown();
+    });
+  }
+
+  toggleDropdown() {
+    const menu = document.getElementById('langMenu');
+    const isShown = menu.classList.contains('show');
+    if (isShown) {
+      this.hideDropdown();
+    } else {
+      this.showDropdown();
+    }
+  }
+
+  showDropdown() {
+    const currentButton = document.getElementById('langCurrent');
+    const menu = document.getElementById('langMenu');
+    
+    currentButton.setAttribute('aria-expanded', 'true');
+    menu.classList.add('show');
+  }
+
+  hideDropdown() {
+    const currentButton = document.getElementById('langCurrent');
+    const menu = document.getElementById('langMenu');
+    
+    currentButton.setAttribute('aria-expanded', 'false');
+    menu.classList.remove('show');
+  }
+}
+
+// 全局变量
+const surveyData = {
+  serviceType: '',
+  budget: '',
+  location: '',
+  timeframe: '',
+  email: '',
+  phone: '',
+  language: 'ja',
+  wechat: '',
+  message: '',
+  privacy: false,
+  timestamp: null,
+  userAgent: navigator.userAgent,
+  language_detected: navigator.language
+};
+
+let currentStep = 1;
+const totalSteps = 5;
+let currentLanguage = 'ja';
+const i18n = new I18nManager();
+
+// 语言检测和设置
+function detectAndSetLanguage() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const urlLang = urlParams.get('lang');
+  const browserLang = navigator.language.toLowerCase();
+  
+  if (urlLang && i18n.languages[urlLang]) {
+    currentLanguage = urlLang;
+  } else if (browserLang.startsWith('zh')) {
+    currentLanguage = 'zh';
+  } else if (browserLang.startsWith('en')) {
+    currentLanguage = 'en';
+  } else {
+    currentLanguage = 'ja';
+  }
+  
+  document.getElementById('langCurrent').querySelector('.lang-text').textContent = i18n.languages[currentLanguage];
+}
+
+// 进度更新
+function updateProgress() {
+  const progress = (currentStep / totalSteps) * 100;
+  document.getElementById('progressFill').style.width = progress + '%';
+  
+  const progressText = document.getElementById('progressText');
+  if (currentLanguage === 'ja') {
+    progressText.textContent = `ステップ ${currentStep} / ${totalSteps}`;
+  } else if (currentLanguage === 'zh') {
+    progressText.textContent = `第 ${currentStep} 步 / 共 ${totalSteps} 步`;
+  } else {
+    progressText.textContent = `Step ${currentStep} / ${totalSteps}`;
+  }
+}
+
+// 显示步骤
+function showStep(step) {
+  document.querySelectorAll('.step').forEach(el => {
+    el.classList.remove('active');
+    if (parseInt(el.dataset.step) === step) {
+      el.classList.add('active');
+    }
+  });
+  currentStep = step;
+  updateProgress();
+  updateNavigation();
+}
+
+// 更新导航
+function updateNavigation() {
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  prevBtn.disabled = currentStep === 1;
+  
+  if (currentStep === totalSteps) {
+    if (currentLanguage === 'ja') {
+      nextBtn.textContent = '送信';
+    } else if (currentLanguage === 'zh') {
+      nextBtn.textContent = '提交';
+    } else {
+      nextBtn.textContent = 'Submit';
+    }
+  } else {
+    if (currentLanguage === 'ja') {
+      nextBtn.textContent = '次へ →';
+    } else if (currentLanguage === 'zh') {
+      nextBtn.textContent = '下一步 →';
+    } else {
+      nextBtn.textContent = 'Next →';
+    }
+  }
+  
+  if (document.getElementById('successStep').style.display === 'block') {
+    navButtons.style.display = 'none';
+  } else {
+    navButtons.style.display = 'flex';
+  }
+}
+
+// 下一步
+function nextStep() {
+  if (validateCurrentStep()) {
+    if (currentStep < totalSteps) {
+      showStep(currentStep + 1);
+    } else {
+      submitForm();
+    }
+  }
+}
+
+// 上一步
+function prevStep() {
+  if (currentStep > 1) {
+    showStep(currentStep - 1);
+  }
+}
+
+// 验证当前步骤
+function validateCurrentStep() {
+  const currentStepEl = document.querySelector(`.step[data-step="${currentStep}"]`);
+  
+  if (currentStep <= 4) {
+    const selectedOption = currentStepEl.querySelector('.option.selected');
+    if (!selectedOption) {
+      let message = '選択してください';
+      if (currentLanguage === 'zh') message = '请选择一个选项';
+      if (currentLanguage === 'en') message = 'Please select an option';
+      alert(message);
+      return false;
+    }
+    const value = selectedOption.dataset.value;
+    if (currentStep === 1) surveyData.serviceType = value;
+    if (currentStep === 2) surveyData.budget = value;
+    if (currentStep === 3) surveyData.location = value;
+    if (currentStep === 4) surveyData.timeframe = value;
+  } else if (currentStep === 5) {
+    const email = document.getElementById('email').value.trim();
+    const privacy = document.getElementById('privacy').checked;
+    
+    if (!email) {
+      document.getElementById('email').classList.add('error');
+      let message = 'メールアドレスを入力してください';
+      if (currentLanguage === 'zh') message = '请输入邮箱地址';
+      if (currentLanguage === 'en') message = 'Please enter email address';
+      alert(message);
+      return false;
+    }
+    if (!isValidEmail(email)) {
+      document.getElementById('email').classList.add('error');
+      let message = '有効なメールアドレスを入力してください';
+      if (currentLanguage === 'zh') message = '请输入有效的邮箱地址';
+      if (currentLanguage === 'en') message = 'Please enter a valid email address';
+      alert(message);
+      return false;
+    }
+    if (!privacy) {
+      let message = 'プライバシーポリシーに同意してください';
+      if (currentLanguage === 'zh') message = '请同意隐私政策';
+      if (currentLanguage === 'en') message = 'Please agree to the privacy policy';
+      alert(message);
+      return false;
+    }
+    
+    surveyData.email = email;
+    surveyData.phone = document.getElementById('phone').value.trim();
+    surveyData.language = document.getElementById('language').value;
+    surveyData.wechat = document.getElementById('wechat').value.trim();
+    surveyData.message = document.getElementById('message').value.trim();
+    surveyData.privacy = privacy;
+  }
+  return true;
+}
+
+// 邮箱验证
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+// 提交表单
+async function submitForm() {
+  document.getElementById('surveyContainer').style.display = 'none';
+  document.getElementById('loadingState').classList.add('show');
+  surveyData.timestamp = new Date().toISOString();
+  surveyData.survey_language = currentLanguage;
+  
+  try {
+    await submitToGoogleScript();
+    showSuccess();
+  } catch (e) {
+    let message = '送信に失敗しました。しばらく後に再試行してください';
+    if (currentLanguage === 'zh') message = '提交失败，请稍后重试';
+    if (currentLanguage === 'en') message = 'Submission failed, please try again later';
+    alert(message);
+    document.getElementById('surveyContainer').style.display = 'block';
+    document.getElementById('loadingState').classList.remove('show');
+  }
+}
+
+// 提交到Google Script
+async function submitToGoogleScript() {
+  const scriptUrl = 'https://script.google.com/macros/s/AKfycbzxi3jIKzy5mWRXJH_12397PrEUq0lnQZDTfpYn2-B4Oszl1g7RFUh0CgpH9D_dEuwyVw/exec';
+  await fetch(scriptUrl, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(surveyData)
+  });
+}
+
+// 显示成功页面
+function showSuccess() {
+  document.getElementById('loadingState').classList.remove('show');
+  document.getElementById('successStep').style.display = 'block';
+  updateNavigation();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// 初始化事件处理器
+function initEventHandlers() {
+  // 选项点击事件
+  document.addEventListener('click', function (e) {
+    const option = e.target.closest('.option');
+    if (option) {
+      const step = option.closest('.step');
+      if (!step.classList.contains('active')) return;
+      step.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+      option.classList.add('selected');
+    }
+  });
+  
+  // 导航按钮事件
+  document.getElementById('prevBtn').addEventListener('click', function (e) {
+    e.preventDefault();
+    prevStep();
+  });
+  
+  document.getElementById('nextBtn').addEventListener('click', function (e) {
+    e.preventDefault();
+    nextStep();
+  });
+  
+  // 邮箱输入事件
+  document.getElementById('email').addEventListener('input', function () {
+    this.classList.remove('error');
+  });
+}
+
+// 初始化
+async function init() {
+  i18n.buildDropdown();
+  
+  const detectedLang = i18n.detectLanguage();
+  currentLanguage = detectedLang;
+  await i18n.applyLanguage(detectedLang);
+  
+  updateProgress();
+  updateNavigation();
+  initEventHandlers();
+  
+  console.log('Survey initialized successfully');
+}
+
+// 页面加载完成后初始化
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
+</script>
+
+</body>
+</html>
