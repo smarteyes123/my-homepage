@@ -50,8 +50,15 @@
     "title": "Contact Us",
     "company": "Smart Eyes Co., Ltd.",
     "address": "〒160-0023 Tokyo, Shinjuku-ku, Nishi-Shinjuku 7-3-10 Sankyo Building 401",
+    "phoneLabel": "TEL:",
+    "phone": "03-5358-9289",
+    "faxLabel": "FAX:",
+    "fax": "03-5358-9296",
+    "emailLabel": "E-mail:",
+    "email": "contact@smarteyes.co.jp",
     "license": "Real Estate License Number: Tokyo Governor (1) No. 112700",
     "wechatHint": "Scan QR code on WeChat"
+  }
   },
   "company": {
     "pageTitle": "Company Overview",
