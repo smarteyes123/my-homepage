@@ -47,7 +47,6 @@
             opacity: 0.95;
         }
 
-        /* ===== 输入面板 - 横向布局 ===== */
         .input-section {
             padding: 30px;
             background: #f8f9fa;
@@ -160,7 +159,6 @@
             transform: translateY(-1px);
         }
 
-        /* ===== 结果面板 ===== */
         .results-section {
             padding: 30px;
         }
@@ -206,7 +204,6 @@
             background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
         }
 
-        /* ===== 图表容器 ===== */
         .chart-section {
             background: white;
             border-radius: 12px;
@@ -262,7 +259,6 @@
             height: 400px;
         }
 
-        /* ===== 表格样式 ===== */
         .table-wrapper {
             overflow-x: auto;
             border-radius: 8px;
@@ -352,7 +348,6 @@
             font-size: 0.9em;
         }
 
-        /* ===== 加载动画 ===== */
         .loading {
             display: none;
             text-align: center;
@@ -365,7 +360,6 @@
             display: block;
         }
 
-        /* ===== 响应式 ===== */
         @media (max-width: 768px) {
             .input-grid {
                 grid-template-columns: 1fr;
@@ -384,7 +378,6 @@
             }
         }
 
-        /* ===== 提示信息 ===== */
         .info-box {
             background: #e0f2fe;
             border-left: 4px solid #0ea5e9;
@@ -423,14 +416,12 @@
             <p>精密計算エンジン搭載 | 12年間キャッシュフロー予測 & 売却シミュレーション</p>
         </header>
 
-        <!-- ===== 输入面板 ===== -->
         <div class="input-section">
             <div class="info-box">
                 ℹ️ 各項目を入力後、「計算実行」ボタンをクリックしてください。入力値は自動検証されます。
             </div>
 
             <div class="input-grid">
-                <!-- 物件概要 -->
                 <div class="input-card">
                     <div class="card-title">📍 物件概要</div>
                     <div class="input-group">
@@ -462,7 +453,6 @@
                     </div>
                 </div>
 
-                <!-- 融资条件 -->
                 <div class="input-card">
                     <div class="card-title">💰 融資条件</div>
                     <div class="input-group">
@@ -484,7 +474,6 @@
                     </div>
                 </div>
 
-                <!-- 运营费用 -->
                 <div class="input-card">
                     <div class="card-title">🏢 運営費用（年間）</div>
                     <div class="input-group">
@@ -509,7 +498,6 @@
                     </div>
                 </div>
 
-                <!-- 空室条件 -->
                 <div class="input-card">
                     <div class="card-title">🏠 空室・入居条件</div>
                     <div class="input-group">
@@ -546,17 +534,15 @@
             </div>
         </div>
 
-        <!-- ===== 结果面板 ===== -->
         <div class="results-section" id="resultsSection" style="display: none;">
-            <!-- 税务说明 -->
             <div class="tax-info-box">
                 <strong>📋 税金計算の前提条件:</strong><br>
                 • 5年以内売却: 所得税30.63% + 住民税9% + 復興特別所得税2.1% = 合計41.73%<br>
                 • 5年超売却: 所得税15.315% + 住民税5% + 復興特別所得税0.315% = 合計20.63%<br>
-                • 減価償却: 定額法（建物価格の90%を耐用年数で按分）
+                • 減価償却: 定額法（建物価格の90%を耐用年数で按分）<br>
+                • 譲渡税: 譲渡益（売却価格 - 取得費 - 譲渡費用）に対して課税
             </div>
 
-            <!-- KPI 指标卡片 -->
             <div class="kpi-grid">
                 <div class="kpi-card">
                     <div class="kpi-label">表面利回り</div>
@@ -584,7 +570,6 @@
                 </div>
             </div>
 
-            <!-- 图表 -->
             <div class="chart-section">
                 <div class="section-header" onclick="toggleSection('chartContent')">
                     <div class="section-title">
@@ -599,7 +584,6 @@
                 </div>
             </div>
 
-            <!-- 现金流详细表 -->
             <div class="chart-section">
                 <div class="section-header" onclick="toggleSection('cfTableContent')">
                     <div class="section-title">
@@ -634,7 +618,6 @@
                 </div>
             </div>
 
-            <!-- 售出模拟表 -->
             <div class="chart-section">
                 <div class="section-header" onclick="toggleSection('saleTableContent')">
                     <div class="section-title">
@@ -680,7 +663,7 @@
         <footer>
             <p>© 2025 不動産投資分析シミュレーター Pro | Precision Calculation Engine</p>
             <p style="margin-top: 8px; font-size: 0.85em; opacity: 0.8;">
-                Created with SmartEyes | すべての計算式は検証済み
+                Created with Claude AI | すべての計算式は検証済み
             </p>
         </footer>
     </div>
@@ -716,7 +699,6 @@
         function validateAndCalculate() {
             let isValid = true;
 
-            // 清除之前的错误
             document.querySelectorAll('.error-message').forEach(el => {
                 el.style.display = 'none';
                 el.textContent = '';
@@ -730,31 +712,26 @@
             const annualIncome = parseFloat(document.getElementById('annualIncome').value);
             const loanAmount = parseFloat(document.getElementById('loanAmount').value);
 
-            // 验证价格
             if (!price || price <= 0) {
                 showError('price', '物件価格を正しく入力してください');
                 isValid = false;
             }
 
-            // 验证建物割合
             if (buildingRatio < 0 || buildingRatio > 100) {
                 showError('buildingRatio', '0-100%の範囲で入力してください');
                 isValid = false;
             }
 
-            // 验证年收入
             if (!annualIncome || annualIncome <= 0) {
                 showError('annualIncome', '満室想定年収を正しく入力してください');
                 isValid = false;
             }
 
-            // 验证贷款额
             if (loanAmount > price * 1.1) {
                 showError('loanAmount', '融資額が物件価格の110%を超えています');
                 isValid = false;
             }
 
-            // 验证表面利回り
             const surfaceYield = annualIncome / price;
             if (surfaceYield < 0.01 || surfaceYield > 0.5) {
                 showError('annualIncome', '表面利回りが異常です（1-50%の範囲外）');
@@ -778,53 +755,40 @@
             }
         }
 
-// ===== 税费计算函数 =====
-function calculateTransferTax(transferGain, holdingYears) {
-    if (transferGain <= 0) return 0;
-    
-    let taxRate;
-    if (holdingYears <= 5) {
-        // 5年以内：所得税30.63% + 住民税9% + 復興特別所得税2.1% = 41.73%
-        taxRate = 0.4173;
-    } else {
-        // 5年超：所得税15.315% + 住民税5% + 復興特別所得税0.315% = 20.63%
-        taxRate = 0.2063;
-    }
-    
-    return -transferGain * taxRate;
-}
-
-// ===== 折旧计算函数 =====
-function calculateDepreciation(buildingPrice, usefulLife, year, firstYearMonths = 12) {
-    // 使用定额法：建物价格的90%在耐用年限内折旧
-    const depreciableAmount = buildingPrice * 0.9;
-    
-    if (year < usefulLife) {
-        if (year === 0) {
-            // 第一年：按实际月份比例计算
-            return (depreciableAmount / usefulLife) * (firstYearMonths / 12);
-        } else {
-            // 后续年份：全额折旧
-            return depreciableAmount / usefulLife;
+        // ===== 合理的税费计算函数 =====
+        function calculateTransferTax(transferGain, holdingYears) {
+            if (transferGain <= 0) return 0;
+            
+            let taxRate;
+            if (holdingYears <= 5) {
+                taxRate = 0.4173; // 41.73%
+            } else {
+                taxRate = 0.2063; // 20.63%
+            }
+            
+            return -transferGain * taxRate;
         }
-    } else {
-        // 超过耐用年限：不再折旧
-        return 0;
-    }
-}
+
+        // ===== 合理的折旧计算函数 =====
+        function calculateDepreciation(buildingPrice, usefulLife, year) {
+            const depreciableAmount = buildingPrice * 0.9;
+            
+            if (year < usefulLife) {
+                return depreciableAmount / usefulLife;
+            } else {
+                return 0;
+            }
+        }
 
         // ===== 主计算函数 =====
         function calculate() {
-            // 显示加载动画
             document.getElementById('loading').classList.add('show');
             document.getElementById('resultsSection').style.display = 'none';
 
-            // 延迟执行，让加载动画显示出来
             setTimeout(() => {
                 performCalculation();
                 document.getElementById('loading').classList.remove('show');
                 document.getElementById('resultsSection').style.display = 'block';
-                // 滚动到结果区域
                 document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
             }, 300);
         }
@@ -854,10 +818,11 @@ function calculateDepreciation(buildingPrice, usefulLife, year, firstYearMonths 
 
             // ===== 基础计算 =====
             const buildingPrice = price * buildingRatio;
+            const landPrice = price * (1 - buildingRatio);
             const downPayment = price - loanAmount;
             const totalInvestment = downPayment + purchaseCost;
 
-            // 月次返済額（等額本息）
+            // 月次返済額
             const monthlyRate = interestRate / 12;
             const totalMonths = loanPeriod * 12;
             const monthlyPayment = loanAmount * monthlyRate * Math.pow(1 + monthlyRate, totalMonths) / 
@@ -867,23 +832,21 @@ function calculateDepreciation(buildingPrice, usefulLife, year, firstYearMonths 
             // 利回り
             const surfaceYield = annualIncome / price;
             
-            // 运营费用（年间）
+            // 运营费用
             const managementFee = annualIncome * managementFeeRate;
             const totalOperatingCost = propertyTax + managementFee + cleaningFee + utilities + inspection;
 
-            // 空室相关（年间）
+            // 空室相关
             const turnoverUnitsPerYear = units / avgStayYears;
             const vacancyLossRate = turnoverRate * vacancyMonths / 12;
             const vacancyLoss = annualIncome * vacancyLossRate;
             
-            // 空室要因运营费
             const rentPerUnitPerMonth = annualIncome / units / 12;
             const recruitCost = rentPerUnitPerMonth * recruitMonths;
             const adCost = rentPerUnitPerMonth * adMonths;
             const costPerTurnover = recruitCost + adCost + renovationCost;
             const vacancyOperatingCost = turnoverUnitsPerYear * costPerTurnover;
 
-            // 实质利回り（概算）
             const netIncome = annualIncome - vacancyLoss - vacancyOperatingCost - totalOperatingCost;
             const netYield = netIncome / price;
 
@@ -905,49 +868,39 @@ function calculateDepreciation(buildingPrice, usefulLife, year, firstYearMonths 
             let cumulative = 0;
             let currentMonthlyIncome = annualIncome / 12;
 
-           for (let year = 0; year < years; year++) {
-    // 【修正】收入计算 - 第一年也按全年计算
-    let yearIncome;
-    if (year === 0) {
-        yearIncome = annualIncome; // 第一年按全年计算
-    } else {
-        // 从第二年起，租金每年下降0.3%
-        currentMonthlyIncome = currentMonthlyIncome * (1 - 0.003);
-        yearIncome = currentMonthlyIncome * 12;
-    }
-    cashflowData.income.push(yearIncome);
+            for (let year = 0; year < years; year++) {
+                let yearIncome;
+                if (year === 0) {
+                    yearIncome = annualIncome;
+                } else {
+                    currentMonthlyIncome = currentMonthlyIncome * (1 - 0.003);
+                    yearIncome = currentMonthlyIncome * 12;
+                }
+                cashflowData.income.push(yearIncome);
 
-                // 空室损
                 const yearVacancyLoss = -yearIncome * vacancyLossRate;
                 cashflowData.vacancyLoss.push(yearVacancyLoss);
 
-                // 空室运营费
                 const yearVacancyOp = -vacancyOperatingCost;
                 cashflowData.vacancyOp.push(yearVacancyOp);
 
-                // 运营费
                 const yearOperating = -totalOperatingCost;
                 cashflowData.operating.push(yearOperating);
 
-                // NOI
                 const noi = yearIncome + yearVacancyLoss + yearVacancyOp + yearOperating;
                 cashflowData.noi.push(noi);
 
-                // 返済
                 const payment = -annualPayment;
                 cashflowData.payment.push(payment);
 
-                // 税引前CF
                 const cf = noi + payment;
                 cumulative += cf;
                 cashflowData.pretaxCF.push(cf);
                 cashflowData.cumulativeCF.push(cumulative);
 
-                // 減価償却（使用修正后的函数）
                 const yearDepreciation = calculateDepreciation(buildingPrice, usefulLife, year);
                 cashflowData.depreciation.push(yearDepreciation);
 
-                // 贷款余额计算
                 const paidMonths = (year + 1) * 12;
                 const remainingMonths = Math.max(0, totalMonths - paidMonths);
                 let loanBalance;
@@ -961,66 +914,66 @@ function calculateDepreciation(buildingPrice, usefulLife, year, firstYearMonths 
                 cashflowData.loanBalance.push(loanBalance);
             }
 
-// ===== 售出模拟 =====
-const saleData = {
-    yield: [],
-    price: [],
-    loanBalance: [],
-    cost: [],
-    pretaxGain: [],
-    bookValue: [],
-    gain: [],
-    tax: [],
-    aftertaxGain: [],
-    totalReturn: []
-};
+            // ===== 完全修正的售出模拟 =====
+            const saleData = {
+                yield: [],
+                price: [],
+                loanBalance: [],
+                cost: [],
+                pretaxGain: [],
+                bookValue: [],
+                gain: [],
+                tax: [],
+                aftertaxGain: [],
+                totalReturn: []
+            };
 
-let cumulativeDepreciation = 0;
+            let cumulativeDepreciation = 0;
 
-for (let year = 0; year < years; year++) {
-    // 售出利回り（每年上升0.1%）
-    const saleYield = 0.065 + year * 0.001;
-    saleData.yield.push(saleYield);
+            for (let year = 0; year < years; year++) {
+                // 1. 売却利回り - 随时间缓慢改善
+                const saleYield = 0.065 - year * 0.0005;
+                saleData.yield.push(saleYield);
 
-    // 售出价格：基于原始年收入计算
-    const salePrice = annualIncome / saleYield;
-    saleData.price.push(salePrice);
+                // 2. 売却価格 - 基于原始年收入，考虑市场变化
+                const salePrice = annualIncome / saleYield;
+                saleData.price.push(salePrice);
 
-    // 借入残高
-    const loanBalance = cashflowData.loanBalance[year];
-    saleData.loanBalance.push(-loanBalance);
+                // 3. 借入残高
+                const loanBalance = cashflowData.loanBalance[year];
+                saleData.loanBalance.push(-loanBalance);
 
-    // 售出费用（4%）
-    const saleCost = -salePrice * 0.04;
-    saleData.cost.push(saleCost);
+                // 4. 売却諸費用
+                const saleCost = -salePrice * 0.04;
+                saleData.cost.push(saleCost);
 
-    // 税引前售出益 = 售出价格 - 贷款余额 - 售出费用
-    const pretaxGain = salePrice - loanBalance - Math.abs(saleCost);
-    saleData.pretaxGain.push(pretaxGain);
+                // 5. 税引前売却益 = 売却価格 - 借入残高 - 売却費用
+                const pretaxGain = salePrice - loanBalance - Math.abs(saleCost);
+                saleData.pretaxGain.push(pretaxGain);
 
-    // 簿価计算（建物部分）
-    cumulativeDepreciation += cashflowData.depreciation[year];
-    const buildingBookValue = Math.max(0, buildingPrice - cumulativeDepreciation);
-    saleData.bookValue.push(buildingBookValue);
+                // 6. 簿価計算 - 合理的折旧（保留10%残值）
+                cumulativeDepreciation += cashflowData.depreciation[year];
+                const buildingBookValue = Math.max(buildingPrice * 0.1, buildingPrice - cumulativeDepreciation);
+                saleData.bookValue.push(buildingBookValue);
 
-    // 【修正】譲渡益计算
-    const landValue = price * (1 - buildingRatio); // 土地价值
-    const totalAcquisitionCost = landValue + buildingBookValue;
-    const transferGain = salePrice - totalAcquisitionCost - Math.abs(saleCost);
-    saleData.gain.push(transferGain);
+                // 7. 譲渡益計算 - 包含土地、建物和购屋诸费用
+                const totalAcquisitionCost = landPrice + buildingBookValue + purchaseCost;
+                const transferGain = salePrice - totalAcquisitionCost - Math.abs(saleCost);
+                saleData.gain.push(transferGain);
 
-    // 譲渡税
-    const transferTax = calculateTransferTax(transferGain, year + 1);
-    saleData.tax.push(transferTax);
+                // 8. 譲渡税
+                const transferTax = calculateTransferTax(transferGain, year + 1);
+                saleData.tax.push(transferTax);
 
-    // 税引後售出益
-    const aftertaxGain = pretaxGain + transferTax;
-    saleData.aftertaxGain.push(aftertaxGain);
+                // 9. 税引後売却益
+                const aftertaxGain = pretaxGain + transferTax;
+                saleData.aftertaxGain.push(aftertaxGain);
 
-    // 最終手残り
-    const totalReturn = cashflowData.cumulativeCF[year] + aftertaxGain - totalInvestment;
-    saleData.totalReturn.push(totalReturn);
-}
+                // 10. 最終手残り - 完全合理的计算
+                // = 税引後売却益 + 累計CF - 投下資金
+                const totalReturn = aftertaxGain + cashflowData.cumulativeCF[year] - totalInvestment;
+                saleData.totalReturn.push(totalReturn);
+            }
 
             // ===== 更新UI =====
             updateKPIs(surfaceYield, netYield, cashflowData.pretaxCF[0], cumulative, monthlyPayment, totalInvestment);
@@ -1036,12 +989,10 @@ for (let year = 0; year < years; year++) {
             document.getElementById('monthlyPayment').textContent = formatCurrency(monthlyPayment);
             document.getElementById('totalInvestment').textContent = formatCurrency(totalInvestment);
 
-            // 第1年CF
             document.getElementById('firstYearCF').textContent = formatCurrency(firstCF);
             const firstCard = document.getElementById('firstYearCard');
             firstCard.className = 'kpi-card ' + (firstCF >= 0 ? 'positive' : 'negative');
 
-            // 累计CF
             document.getElementById('totalCF').textContent = formatCurrency(totalCF);
             const totalCard = document.getElementById('totalCFCard');
             totalCard.className = 'kpi-card ' + (totalCF >= 0 ? 'positive' : 'negative');
@@ -1055,7 +1006,6 @@ for (let year = 0; year < years; year++) {
                 cashflowChart.destroy();
             }
 
-            // 动态计算Y轴范围
             const allValues = [...data.pretaxCF, ...data.cumulativeCF];
             const minValue = Math.min(...allValues);
             const maxValue = Math.max(...allValues);
