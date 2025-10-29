@@ -680,7 +680,7 @@
         <footer>
             <p>© 2025 不動産投資分析シミュレーター Pro | Precision Calculation Engine</p>
             <p style="margin-top: 8px; font-size: 0.85em; opacity: 0.8;">
-                Created with Claude AI | すべての計算式は検証済み
+                Created with SmartEyes | すべての計算式は検証済み
             </p>
         </footer>
     </div>
@@ -778,35 +778,40 @@
             }
         }
 
-        // ===== 税费计算函数 =====
-        function calculateTransferTax(transferGain, holdingYears) {
-            if (transferGain <= 0) return 0;
-            
-            let taxRate;
-            if (holdingYears <= 5) {
-                // 5年以内：所得税30.63% + 住民税9% + 復興特別所得税2.1% = 41.73%
-                taxRate = 0.4173;
-            } else {
-                // 5年超：所得税15.315% + 住民税5% + 復興特別所得税0.315% = 20.63%
-                taxRate = 0.2063;
-            }
-            
-            return -transferGain * taxRate;
-        }
+// ===== 税费计算函数 =====
+function calculateTransferTax(transferGain, holdingYears) {
+    if (transferGain <= 0) return 0;
+    
+    let taxRate;
+    if (holdingYears <= 5) {
+        // 5年以内：所得税30.63% + 住民税9% + 復興特別所得税2.1% = 41.73%
+        taxRate = 0.4173;
+    } else {
+        // 5年超：所得税15.315% + 住民税5% + 復興特別所得税0.315% = 20.63%
+        taxRate = 0.2063;
+    }
+    
+    return -transferGain * taxRate;
+}
 
-        // ===== 折旧计算函数 =====
-        function calculateDepreciation(buildingPrice, usefulLife, year, firstYearMonths = 12) {
-            if (year === 0) {
-                // 第一年：按实际月份比例计算
-                return (buildingPrice * 0.9 / usefulLife) * (firstYearMonths / 12);
-            } else if (year < usefulLife) {
-                // 后续年份：全额折旧
-                return buildingPrice * 0.9 / usefulLife;
-            } else {
-                // 超过耐用年限：不再折旧
-                return 0;
-            }
+// ===== 折旧计算函数 =====
+function calculateDepreciation(buildingPrice, usefulLife, year, firstYearMonths = 12) {
+    // 使用定额法：建物价格的90%在耐用年限内折旧
+    const depreciableAmount = buildingPrice * 0.9;
+    
+    if (year < usefulLife) {
+        if (year === 0) {
+            // 第一年：按实际月份比例计算
+            return (depreciableAmount / usefulLife) * (firstYearMonths / 12);
+        } else {
+            // 后续年份：全额折旧
+            return depreciableAmount / usefulLife;
         }
+    } else {
+        // 超过耐用年限：不再折旧
+        return 0;
+    }
+}
 
         // ===== 主计算函数 =====
         function calculate() {
@@ -900,17 +905,17 @@
             let cumulative = 0;
             let currentMonthlyIncome = annualIncome / 12;
 
-            for (let year = 0; year < years; year++) {
-                // 收入计算（考虑租金下降）
-                let yearIncome;
-                if (year === 0) {
-                    yearIncome = annualIncome; // 第一年按全年计算
-                } else {
-                    // 从第二年起，租金每年下降0.3%
-                    currentMonthlyIncome = currentMonthlyIncome * (1 - 0.003);
-                    yearIncome = currentMonthlyIncome * 12;
-                }
-                cashflowData.income.push(yearIncome);
+           for (let year = 0; year < years; year++) {
+    // 【修正】收入计算 - 第一年也按全年计算
+    let yearIncome;
+    if (year === 0) {
+        yearIncome = annualIncome; // 第一年按全年计算
+    } else {
+        // 从第二年起，租金每年下降0.3%
+        currentMonthlyIncome = currentMonthlyIncome * (1 - 0.003);
+        yearIncome = currentMonthlyIncome * 12;
+    }
+    cashflowData.income.push(yearIncome);
 
                 // 空室损
                 const yearVacancyLoss = -yearIncome * vacancyLossRate;
@@ -956,66 +961,64 @@
                 cashflowData.loanBalance.push(loanBalance);
             }
 
-            // ===== 售出模拟 =====
-            const saleData = {
-                yield: [],
-                price: [],
-                loanBalance: [],
-                cost: [],
-                pretaxGain: [],
-                bookValue: [],
-                gain: [],
-                tax: [],
-                aftertaxGain: [],
-                totalReturn: []
-            };
+// ===== 售出模拟 =====
+const saleData = {
+    yield: [],
+    price: [],
+    loanBalance: [],
+    cost: [],
+    pretaxGain: [],
+    bookValue: [],
+    gain: [],
+    tax: [],
+    aftertaxGain: [],
+    totalReturn: []
+};
 
-            let cumulativeDepreciation = 0;
+let cumulativeDepreciation = 0;
 
-            for (let year = 0; year < years; year++) {
-                // 售出利回り（每年上升0.1%）
-                const saleYield = 0.065 + year * 0.001;
-                saleData.yield.push(saleYield);
+for (let year = 0; year < years; year++) {
+    // 售出利回り（每年上升0.1%）
+    const saleYield = 0.065 + year * 0.001;
+    saleData.yield.push(saleYield);
 
-                // 售出价格：基于当年年化收入
-                const currentYearIncome = cashflowData.income[year];
-                const salePrice = currentYearIncome / saleYield;
-                saleData.price.push(salePrice);
+    // 【修正】售出价格：基于原始年收入计算，避免租金下降影响
+    const salePrice = annualIncome / saleYield;
+    saleData.price.push(salePrice);
 
-                // 借入残高
-                const loanBalance = cashflowData.loanBalance[year];
-                saleData.loanBalance.push(-loanBalance);
+    // 借入残高
+    const loanBalance = cashflowData.loanBalance[year];
+    saleData.loanBalance.push(-loanBalance);
 
-                // 售出费用（4%）
-                const saleCost = -salePrice * 0.04;
-                saleData.cost.push(saleCost);
+    // 售出费用（4%）
+    const saleCost = -salePrice * 0.04;
+    saleData.cost.push(saleCost);
 
-                // 税引前售出益
-                const pretaxGain = salePrice + loanBalance + saleCost; // loanBalance已经是负值
-                saleData.pretaxGain.push(pretaxGain);
+    // 【修正】税引前售出益 = 售出价格 - 贷款余额 + 售出费用（售出费用已经是负值）
+    const pretaxGain = salePrice - Math.abs(loanBalance) + saleCost;
+    saleData.pretaxGain.push(pretaxGain);
 
-                // 簿価计算
-                cumulativeDepreciation += cashflowData.depreciation[year];
-                const bookValue = Math.max(0, buildingPrice - cumulativeDepreciation);
-                saleData.bookValue.push(bookValue);
+    // 簿価计算
+    cumulativeDepreciation += cashflowData.depreciation[year];
+    const bookValue = Math.max(0, buildingPrice - cumulativeDepreciation);
+    saleData.bookValue.push(bookValue);
 
-                // 譲渡益
-                const transferGain = salePrice - bookValue;
-                saleData.gain.push(transferGain);
+    // 【修正】譲渡益 = 售出价格 - 簿価 - 售出费用（售出费用已经是负值，所以是减去绝对值）
+    const transferGain = salePrice - bookValue - Math.abs(saleCost);
+    saleData.gain.push(transferGain);
 
-                // 譲渡税（使用修正后的税费计算函数）
-                const transferTax = calculateTransferTax(transferGain, year + 1);
-                saleData.tax.push(transferTax);
+    // 譲渡税
+    const transferTax = calculateTransferTax(transferGain, year + 1);
+    saleData.tax.push(transferTax);
 
-                // 税引後售出益
-                const aftertaxGain = pretaxGain + transferTax;
-                saleData.aftertaxGain.push(aftertaxGain);
+    // 税引後售出益
+    const aftertaxGain = pretaxGain + transferTax;
+    saleData.aftertaxGain.push(aftertaxGain);
 
-                // 最終手残り = 累計CF + 税後售出益 - 投下资金
-                const totalReturn = cashflowData.cumulativeCF[year] + aftertaxGain - totalInvestment;
-                saleData.totalReturn.push(totalReturn);
-            }
-
+    // 【修正】最終手残り = 累计CF + 税后售出益 - 投入资金
+    const totalReturn = cashflowData.cumulativeCF[year] + aftertaxGain - totalInvestment;
+    saleData.totalReturn.push(totalReturn);
+}
             // ===== 更新UI =====
             updateKPIs(surfaceYield, netYield, cashflowData.pretaxCF[0], cumulative, monthlyPayment, totalInvestment);
             updateChart(cashflowData);
