@@ -982,7 +982,7 @@ for (let year = 0; year < years; year++) {
     const saleYield = 0.065 + year * 0.001;
     saleData.yield.push(saleYield);
 
-    // 【修正】售出价格：基于原始年收入计算，避免租金下降影响
+    // 售出价格：基于原始年收入计算
     const salePrice = annualIncome / saleYield;
     saleData.price.push(salePrice);
 
@@ -994,17 +994,19 @@ for (let year = 0; year < years; year++) {
     const saleCost = -salePrice * 0.04;
     saleData.cost.push(saleCost);
 
-    // 【修正】税引前售出益 = 售出价格 - 贷款余额 + 售出费用（售出费用已经是负值）
-    const pretaxGain = salePrice - Math.abs(loanBalance) + saleCost;
+    // 税引前售出益 = 售出价格 - 贷款余额 - 售出费用
+    const pretaxGain = salePrice - loanBalance - Math.abs(saleCost);
     saleData.pretaxGain.push(pretaxGain);
 
-    // 簿価计算
+    // 簿価计算（建物部分）
     cumulativeDepreciation += cashflowData.depreciation[year];
-    const bookValue = Math.max(0, buildingPrice - cumulativeDepreciation);
-    saleData.bookValue.push(bookValue);
+    const buildingBookValue = Math.max(0, buildingPrice - cumulativeDepreciation);
+    saleData.bookValue.push(buildingBookValue);
 
-    // 【修正】譲渡益 = 售出价格 - 簿価 - 售出费用（售出费用已经是负值，所以是减去绝对值）
-    const transferGain = salePrice - bookValue - Math.abs(saleCost);
+    // 【修正】譲渡益计算
+    const landValue = price * (1 - buildingRatio); // 土地价值
+    const totalAcquisitionCost = landValue + buildingBookValue;
+    const transferGain = salePrice - totalAcquisitionCost - Math.abs(saleCost);
     saleData.gain.push(transferGain);
 
     // 譲渡税
@@ -1015,10 +1017,11 @@ for (let year = 0; year < years; year++) {
     const aftertaxGain = pretaxGain + transferTax;
     saleData.aftertaxGain.push(aftertaxGain);
 
-    // 【修正】最終手残り = 累计CF + 税后售出益 - 投入资金
+    // 最終手残り
     const totalReturn = cashflowData.cumulativeCF[year] + aftertaxGain - totalInvestment;
     saleData.totalReturn.push(totalReturn);
 }
+
             // ===== 更新UI =====
             updateKPIs(surfaceYield, netYield, cashflowData.pretaxCF[0], cumulative, monthlyPayment, totalInvestment);
             updateChart(cashflowData);
