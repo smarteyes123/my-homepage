@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>賃貸物件お問い合わせ | 株式会社スマートアイズ</title>
+  <meta name="description" content="賃貸物件をお探しの方向けのお問い合わせフォーム。ご希望の条件をお聞かせください。" />
+  <meta property="og:title" content="賃貸物件お問い合わせ | 株式会社スマートアイズ" />
+  <meta property="og:description" content="賃貸物件をお探しの方向けのお問い合わせフォーム。ご希望の条件をお聞かせください。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.smarteyes.co.jp/rental-form.html" />
+  <link rel="icon" href="logo.png" />
+  <style>
+    /* ===== Enhanced Color Palette ===== */
+    :root{
+      --brand:#1e40af;
+      --brand-light:#3b82f6;
+      --brand-ink:#0f172a;
+      --gold:#f59e0b;
+      --gold-light:#fbbf24;
+      --ink:#0f172a;
+      --ink-light:#334155;
+      --muted:#64748b;
+      --muted-light:#94a3b8;
+      --bg:linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+      --bg-solid:#f8fafc;
+      --card:#ffffff;
+      --card-hover:#fefefe;
+      --accent:#06b6d4;
+      --accent-light:#67e8f9;
+      --success:#10b981;
+      --warning:#f59e0b;
+      --error:#ef4444;
+      --radius:16px;
+      --shadow:0 4px 20px rgba(30, 64, 175, 0.08);
+      --shadow-hover:0 10px 40px rgba(30, 64, 175, 0.15);
+      --transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    html,body{margin:0;padding:0;background:var(--bg-solid);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP","Microsoft YaHei",sans-serif;}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    .container{max-width:1200px;margin:0 auto;padding:0 20px}
+
+    /* ===== Header & Navigation ===== */
+    .site-header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);border-bottom:1px solid #e2e8f0;transition:var(--transition)}
+    .site-header .row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;gap:12px}
+    .brand{display:flex;align-items:center;gap:12px;transition:var(--transition)}
+    .brand:hover{transform:translateY(-1px)}
+    .brand img{height:48px;transition:var(--transition)}
+    .brand .name{font-weight:700;letter-spacing:.2px;color:var(--brand-ink);background:linear-gradient(135deg, var(--brand), var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+    /* ===== Language Dropdown ===== */
+    .lang-dropdown{position:relative;display:inline-block}
+    .lang-current{
+      display:flex;align-items:center;gap:6px;
+      border:1px solid #e2e8f0;background:linear-gradient(135deg, #ffffff, #f8fafc);
+      padding:6px 10px;border-radius:8px;font-size:12px;
+      cursor:pointer;transition:var(--transition);
+      min-width:80px;min-height:36px;
+      box-shadow:0 2px 8px rgba(30, 64, 175, 0.05);
+    }
+    .lang-current:hover{border-color:var(--brand-light);box-shadow:0 4px 12px rgba(30, 64, 175, 0.15);background:linear-gradient(135deg, #ffffff, #f1f5f9)}
+    .lang-current:focus{outline:2px solid var(--brand);outline-offset:2px}
+    .lang-current[aria-expanded="true"]{border-color:var(--brand);box-shadow:0 4px 12px rgba(30, 64, 175, 0.2)}
+    .lang-current[aria-expanded="true"] .lang-arrow{transform:rotate(180deg)}
+    .lang-icon{font-size:14px}
+    .lang-text{flex:1;text-align:left;font-size:12px;color:var(--ink-light)}
+    .lang-arrow{transition:transform 0.2s ease;font-size:8px;color:var(--muted)}
+    .lang-menu{
+      position:absolute;top:100%;left:0;right:0;
+      background:linear-gradient(135deg, #ffffff, #f8fafc);border:1px solid #e2e8f0;border-radius:8px;
+      box-shadow:0 8px 32px rgba(30, 64, 175, 0.15);
+      opacity:0;visibility:hidden;transform:translateY(-10px);
+      transition:all 0.2s ease;z-index:1000;
+      margin-top:2px;min-width:120px;
+    }
+    .lang-menu.show{opacity:1;visibility:visible;transform:translateY(0)}
+    .lang-option{
+      display:flex;align-items:center;gap:6px;
+      padding:8px 10px;cursor:pointer;transition:var(--transition);
+      border:none;background:none;width:100%;text-align:left;
+      font-size:12px;color:var(--ink-light);
+    }
+    .lang-option:hover{background:linear-gradient(135deg, #f1f5f9, #e2e8f0)}
+    .lang-option:focus{outline:none;background:linear-gradient(135deg, var(--brand), var(--brand-light));color:#fff}
+    .lang-option.active{background:linear-gradient(135deg, #eff6ff, #dbeafe);color:var(--brand);font-weight:600}
+    .lang-option:first-child{border-radius:7px 7px 0 0}
+    .lang-option:last-child{border-radius:0 0 7px 7px}
+    .lang-option:only-child{border-radius:7px}
+    .lang-check{width:14px;height:14px;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--brand)}
+
+    /* ===== Page Header ===== */
+    .page-header{
+      position:relative;min-height:60vh;display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(135deg, #dbeafe 0%, #f0f9ff 50%, #fef3c7 100%);
+      overflow:hidden;
+    }
+    .page-header::before{
+      content:"";position:absolute;inset:0;
+      background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="%23ffffff" opacity="0.1"/><circle cx="80" cy="40" r="0.5" fill="%23ffffff" opacity="0.1"/><circle cx="40" cy="80" r="1.5" fill="%23ffffff" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    }
+    .page-header-content{
+      position:relative;z-index:2;text-align:center;max-width:800px;padding:0 20px;
+    }
+    .page-title{
+      font-size:48px;font-weight:800;margin:0 0 16px;
+      background:linear-gradient(135deg, var(--brand-ink), var(--brand));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+    }
+    .page-subtitle{color:var(--ink-light);font-size:18px;line-height:1.6;margin:0}
+
+    /* ===== Contact Form ===== */
+    .contact-form-section{
+      padding:80px 0;
+      background:linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #f8fafc 100%);
+    }
+    .form-container{
+      max-width:900px;margin:0 auto;
+      background:linear-gradient(135deg, #ffffff, #f8fafc);
+      border-radius:20px;box-shadow:var(--shadow-hover);padding:48px;
+      border:1px solid rgba(226, 232, 240, 0.8);position:relative;overflow:hidden;
+    }
+    .form-container::before{
+      content:"";position:absolute;top:0;left:0;right:0;height:5px;
+      background:linear-gradient(90deg, var(--brand), var(--accent), var(--gold));
+      opacity:0.8;
+    }
+    .form-header{
+      text-align:center;margin-bottom:40px;
+    }
+    .form-title{
+      font-size:28px;font-weight:700;margin:0 0 16px;
+      color:var(--brand-ink);
+    }
+    .form-desc{
+      color:var(--ink-light);font-size:16px;line-height:1.6;margin:0;
+    }
+    .contact-form{
+      display:grid;gap:24px;
+    }
+    .form-group{
+      display:flex;flex-direction:column;gap:8px;
+    }
+    .form-row{
+      display:grid;grid-template-columns:1fr 1fr;gap:24px;
+    }
+    .form-label{
+      font-weight:600;color:var(--brand-ink);font-size:14px;
+      display:flex;align-items:center;gap:4px;
+    }
+    .required{
+      color:var(--error);font-size:12px;
+    }
+    .form-input, .form-select, .form-textarea{
+      padding:16px;border:1px solid #e2e8f0;border-radius:8px;
+      background:linear-gradient(135deg, #ffffff, #f8fafc);
+      transition:var(--transition);font-size:14px;font-family:inherit;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus{
+      outline:none;border-color:var(--brand);
+      box-shadow:0 0 0 3px rgba(30, 64, 175, 0.1);
+      background:#ffffff;
+    }
+    .form-textarea{
+      resize:vertical;min-height:120px;
+    }
+    .form-submit{
+      background:linear-gradient(135deg, var(--brand), var(--brand-light));
+      color:#fff;border:none;padding:16px 32px;border-radius:12px;
+      font-weight:600;font-size:16px;cursor:pointer;
+      transition:var(--transition);position:relative;overflow:hidden;
+    }
+    .form-submit::before{
+      content:"";position:absolute;top:0;left:-100%;width:100%;height:100%;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);
+      transition:left 0.5s ease;
+    }
+    .form-submit:hover::before{left:100%}
+    .form-submit:hover{
+      background:linear-gradient(135deg, #1e3a8a, var(--brand));
+      transform:translateY(-2px);box-shadow:0 8px 32px rgba(30, 64, 175, 0.4);
+    }
+    .form-submit:disabled{
+      opacity:0.6;cursor:not-allowed;transform:none;
+    }
+
+    /* ===== Success/Error States ===== */
+    .form-success{
+      background:linear-gradient(135deg, #f0fdf4, #dcfce7);
+      border:1px solid rgba(34, 197, 94, 0.3);
+      border-radius:8px;padding:16px;margin-bottom:24px;
+      color:var(--success);text-align:center;font-weight:600;
+    }
+    .form-error{
+      background:linear-gradient(135deg, #fef2f2, #fee2e2);
+      border:1px solid rgba(239, 68, 68, 0.3);
+      border-radius:8px;padding:16px;margin-bottom:24px;
+      color:var(--error);text-align:center;font-weight:600;
+    }
+    .field-error{
+      color:var(--error);font-size:12px;margin-top:4px;
+    }
+
+    /* ===== Footer ===== */
+    footer{padding:32px 0;color:var(--muted-light);font-size:13px;text-align:center;border-top:1px solid #e2e8f0;background:linear-gradient(135deg, #0f172a, #1e293b);color:#94a3b8}
+
+    /* ===== Responsive ===== */
+    @media (max-width: 1024px){
+      .form-row{grid-template-columns:1fr}
+    }
+    @media (max-width: 640px){
+      .page-title{font-size:36px}
+      .form-container{padding:32px}
+      .lang-current{min-width:70px;padding:4px 8px;font-size:11px;min-height:32px}
+      .lang-text{font-size:11px}
+      .lang-icon{font-size:12px}
+      .lang-arrow{font-size:7px}
+      .site-header .row{padding:10px 0}
+      .brand .name{font-size:14px}
+      .brand img{height:36px}
+      .lang-menu{min-width:100px}
+      .lang-option{padding:6px 8px;font-size:11px}
+    }
+
+    /* ===== Animations ===== */
+    .fade-up{opacity:0;transform:translateY(20px);animation:fadeUp .8s ease forwards}
+    @keyframes fadeUp{to{opacity:1;transform:none}}
+    
+    .fade-in{opacity:0;animation:fadeIn 0.8s ease forwards}
+    @keyframes fadeIn{to{opacity:1}}
+
+    /* ===== Accessibility ===== */
+    @media (prefers-reduced-motion: reduce){
+      *{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important}
+      html{scroll-behavior:auto}
+    }
+
+    /* ===== Focus styles ===== */
+    *:focus{outline:2px solid var(--brand);outline-offset:2px}
+
+    /* ===== Helper Text ===== */
+    .helper-text{
+      font-size:12px;color:var(--muted);margin-top:4px;line-height:1.4;
+    }
+
+    /* ===== Section Divider ===== */
+    .section-divider{
+      height:2px;background:linear-gradient(90deg, transparent, var(--brand-light), transparent);
+      margin:32px 0;opacity:0.3;
+    }
+
+    /* ===== Custom Checkbox ===== */
+    .checkbox-grid{
+      display:grid;grid-template-columns:repeat(auto-fill, minmax(200px, 1fr));gap:16px;
+      margin-top:12px;
+    }
+    .checkbox-item{
+      display:flex;align-items:center;gap:10px;cursor:pointer;
+      padding:12px 16px;border-radius:8px;
+      background:linear-gradient(135deg, #f8fafc, #f1f5f9);
+      border:1px solid #e2e8f0;transition:var(--transition);
+    }
+    .checkbox-item:hover{
+      background:linear-gradient(135deg, #f1f5f9, #e2e8f0);
+      border-color:var(--brand-light);
+    }
+    .checkbox-item input[type="checkbox"]{
+      width:20px;height:20px;cursor:pointer;
+      accent-color:var(--brand);
+    }
+    .checkbox-item label{
+      cursor:pointer;font-size:14px;color:var(--ink);margin:0;
+      user-select:none;
+    }
+    .checkbox-item input[type="checkbox"]:checked + label{
+      font-weight:600;color:var(--brand);
+    }
+
+    /* ===== Train Line Selection ===== */
+    .train-select-container{
+      display:grid;grid-template-columns:1fr 1fr;gap:16px;
+    }
+    .station-select{
+      display:none;
+    }
+    .station-select.show{
+      display:block;
+    }
+    .other-input-container{
+      display:none;
+    }
+    .other-input-container.show{
+      display:block;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container row">
+      <a href="#" class="brand">
+        <img src="logo.png" alt="Smart Eyes" onerror="this.style.display='none'" />
+        <div class="name">SMART EYES</div>
+      </a>
+      
+      <div class="nav-container">
+        <!-- Language Dropdown -->
+        <div class="lang-dropdown" id="langDropdown">
+          <button class="lang-current" id="langCurrent" aria-haspopup="true" aria-expanded="false">
+            <span class="lang-icon">🌐</span>
+            <span class="lang-text">日本語</span>
+            <span class="lang-arrow">▼</span>
+          </button>
+          <div class="lang-menu" id="langMenu" role="menu">
+            <!-- Language options will be dynamically generated by JS -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Header -->
+  <section class="page-header">
+    <div class="page-header-content fade-in">
+      <h1 class="page-title" data-i18n="rental.pageTitle">賃貸物件お問い合わせ</h1>
+      <p class="page-subtitle" data-i18n="rental.pageSubtitle">ご希望の条件をお聞かせください</p>
+    </div>
+  </section>
+
+  <!-- Rental Form -->
+  <section class="contact-form-section">
+    <div class="container">
+      <div class="form-container fade-up">
+        <div class="form-header">
+          <h2 class="form-title" data-i18n="rental.formTitle">賃貸物件お問い合わせフォーム</h2>
+          <p class="form-desc" data-i18n="rental.formDescription">
+            下記フォームにご入力いただき、送信ボタンをクリックしてください。
+            2営業日以内にご返信いたします。
+          </p>
+        </div>
+        
+        <div id="formMessage"></div>
+        
+        <form class="contact-form" id="rentalForm">
+          <!-- 基本情報 -->
+          <div class="form-group">
+            <label class="form-label" for="fullName">
+              <span data-i18n="rental.formFullName">お名前</span>
+              <span class="required">*</span>
+            </label>
+            <input type="text" id="fullName" name="fullName" class="form-input" required>
+            <div class="field-error" id="fullNameError"></div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="email">
+                <span data-i18n="rental.formEmail">メールアドレス</span>
+                <span class="required">*</span>
+              </label>
+              <input type="email" id="email" name="email" class="form-input" required>
+              <div class="field-error" id="emailError"></div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="phone">
+                <span data-i18n="rental.formPhone">電話番号</span>
+                <span class="required">*</span>
+              </label>
+              <input type="tel" id="phone" name="phone" class="form-input" required>
+              <div class="field-error" id="phoneError"></div>
+            </div>
+          </div>
+
+          <div class="section-divider"></div>
+
+          <!-- 賃貸物件の希望条件 -->
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="propertyType">
+                <span data-i18n="rental.formPropertyType">物件タイプ</span>
+                <span class="required">*</span>
+              </label>
+              <select id="propertyType" name="propertyType" class="form-select" required>
+                <option value="" data-i18n="rental.formPropertyTypeSelect">選択してください</option>
+                <option value="apartment" data-i18n="rental.formPropertyTypeApartment">マンション・アパート</option>
+                <option value="house" data-i18n="rental.formPropertyTypeHouse">一戸建て</option>
+                <option value="office" data-i18n="rental.formPropertyTypeOffice">オフィス・事務所</option>
+                <option value="store" data-i18n="rental.formPropertyTypeStore">店舗</option>
+                <option value="other" data-i18n="rental.formPropertyTypeOther">その他</option>
+              </select>
+              <div class="field-error" id="propertyTypeError"></div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="budget">
+                <span data-i18n="rental.formBudget">ご予算（月額）</span>
+                <span class="required">*</span>
+              </label>
+              <select id="budget" name="budget" class="form-select" required>
+                <option value="" data-i18n="rental.formBudgetSelect">選択してください</option>
+                <option value="~50000" data-i18n="rental.formBudget50">5万円以下</option>
+                <option value="50000-100000" data-i18n="rental.formBudget50to100">5万円〜10万円</option>
+                <option value="100000-150000" data-i18n="rental.formBudget100to150">10万円〜15万円</option>
+                <option value="150000-200000" data-i18n="rental.formBudget150to200">15万円〜20万円</option>
+                <option value="200000-300000" data-i18n="rental.formBudget200to300">20万円〜30万円</option>
+                <option value="300000+" data-i18n="rental.formBudget300">30万円以上</option>
+              </select>
+              <div class="field-error" id="budgetError"></div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="area">
+                <span data-i18n="rental.formArea">希望エリア</span>
+                <span class="required">*</span>
+              </label>
+              <select id="area" name="area" class="form-select" required>
+                <option value="" data-i18n="rental.formAreaSelect">選択してください</option>
+                <option value="shinjuku" data-i18n="rental.formAreaShinjuku">新宿区</option>
+                <option value="shibuya" data-i18n="rental.formAreaShibuya">渋谷区</option>
+                <option value="minato" data-i18n="rental.formAreaMinato">港区</option>
+                <option value="chiyoda" data-i18n="rental.formAreaChiyoda">千代田区</option>
+                <option value="chuo" data-i18n="rental.formAreaChuo">中央区</option>
+                <option value="meguro" data-i18n="rental.formAreaMeguro">目黒区</option>
+                <option value="setagaya" data-i18n="rental.formAreaSetagaya">世田谷区</option>
+                <option value="other-tokyo" data-i18n="rental.formAreaOtherTokyo">その他東京23区</option>
+                <option value="other" data-i18n="rental.formAreaOther">その他</option>
+              </select>
+              <div class="field-error" id="areaError"></div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="rooms">
+                <span data-i18n="rental.formRooms">間取り</span>
+                <span class="required">*</span>
+              </label>
+              <select id="rooms" name="rooms" class="form-select" required>
+                <option value="" data-i18n="rental.formRoomsSelect">選択してください</option>
+                <option value="1R" data-i18n="rental.formRooms1R">ワンルーム</option>
+                <option value="1K" data-i18n="rental.formRooms1K">1K</option>
+                <option value="1DK" data-i18n="rental.formRooms1DK">1DK</option>
+                <option value="1LDK" data-i18n="rental.formRooms1LDK">1LDK</option>
+                <option value="2K" data-i18n="rental.formRooms2K">2K</option>
+                <option value="2DK" data-i18n="rental.formRooms2DK">2DK</option>
+                <option value="2LDK" data-i18n="rental.formRooms2LDK">2LDK</option>
+                <option value="3LDK+" data-i18n="rental.formRooms3LDK">3LDK以上</option>
+                <option value="flexible" data-i18n="rental.formRoomsFlexible">相談可</option>
+              </select>
+              <div class="field-error" id="roomsError"></div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="moveInDate">
+                <span data-i18n="rental.formMoveInDate">入居希望時期</span>
+                <span class="required">*</span>
+              </label>
+              <select id="moveInDate" name="moveInDate" class="form-select" required>
+                <option value="" data-i18n="rental.formMoveInDateSelect">選択してください</option>
+                <option value="immediate" data-i18n="rental.formMoveInImmediate">すぐ</option>
+                <option value="1month" data-i18n="rental.formMoveIn1Month">1ヶ月以内</option>
+                <option value="2months" data-i18n="rental.formMoveIn2Months">2ヶ月以内</option>
+                <option value="3months" data-i18n="rental.formMoveIn3Months">3ヶ月以内</option>
+                <option value="flexible" data-i18n="rental.formMoveInFlexible">相談可</option>
+              </select>
+              <div class="field-error" id="moveInDateError"></div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="language">
+                <span data-i18n="rental.formLanguage">ご希望の対応言語</span>
+              </label>
+              <select id="language" name="language" class="form-select">
+                <option value="ja" data-i18n="rental.formLanguageJa">日本語</option>
+                <option value="zh" data-i18n="rental.formLanguageZh">中国語（簡体字）</option>
+                <option value="zh-Hant" data-i18n="rental.formLanguageZhHant">中国語（繁体字）</option>
+                <option value="en" data-i18n="rental.formLanguageEn">英語</option>
+                <option value="ko" data-i18n="rental.formLanguageKo">韓国語</option>
+                <option value="vi" data-i18n="rental.formLanguageVi">ベトナム語</option>
+                <option value="ne" data-i18n="rental.formLanguageNe">ネパール語</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="section-divider"></div>
+
+          <!-- 電車線路・駅 -->
+          <div class="form-group">
+            <label class="form-label">
+              <span data-i18n="rental.formTrainLine">最寄り駅（電車線路）</span>
+            </label>
+            <div class="train-select-container">
+              <div class="form-group" style="margin:0">
+                <select id="trainLine" name="trainLine" class="form-select">
+                  <option value="" data-i18n="rental.formTrainLineSelect">選択してください</option>
+                  <option value="yamanote" data-i18n="rental.formTrainLineYamanote">JR山手線</option>
+                  <option value="chuo" data-i18n="rental.formTrainLineChuo">JR中央線</option>
+                  <option value="sobu" data-i18n="rental.formTrainLineSobu">JR総武線</option>
+                  <option value="keio" data-i18n="rental.formTrainLineKeio">京王線</option>
+                  <option value="odakyu" data-i18n="rental.formTrainLineOdakyu">小田急線</option>
+                  <option value="tokyu" data-i18n="rental.formTrainLineTokyu">東急東横線</option>
+                  <option value="seibu" data-i18n="rental.formTrainLineSeibu">西武新宿線</option>
+                  <option value="marunouchi" data-i18n="rental.formTrainLineMarunouchi">丸ノ内線</option>
+                  <option value="tozai" data-i18n="rental.formTrainLineTozai">東西線</option>
+                  <option value="ginza" data-i18n="rental.formTrainLineGinza">銀座線</option>
+                  <option value="fukutoshin" data-i18n="rental.formTrainLineFukutoshin">副都心線</option>
+                  <option value="other" data-i18n="rental.formTrainLineOther">その他</option>
+                </select>
+              </div>
+              <div class="form-group station-select" id="stationSelectContainer" style="margin:0">
+                <select id="station" name="station" class="form-select">
+                  <option value="" data-i18n="rental.formStationSelect">まず線路を選択</option>
+                </select>
+              </div>
+            </div>
+            <div class="other-input-container" id="otherTrainContainer">
+              <input type="text" id="otherTrain" name="otherTrain" class="form-input" 
+                     placeholder="その他の線路・駅を入力してください"
+                     data-i18n="rental.formOtherTrainPlaceholder">
+            </div>
+            <div class="helper-text" data-i18n="rental.formTrainHelper">
+              ご希望の最寄り駅がある場合は線路と駅を選択してください
+            </div>
+          </div>
+
+          <div class="section-divider"></div>
+
+          <!-- 物件条件チェックボックス -->
+          <div class="form-group">
+            <label class="form-label">
+              <span data-i18n="rental.formConditions">物件の条件</span>
+            </label>
+            <div class="checkbox-grid">
+              <div class="checkbox-item">
+                <input type="checkbox" id="bathToiletSeparate" name="bathToiletSeparate" value="yes">
+                <label for="bathToiletSeparate" data-i18n="rental.conditionBathToilet">バス・トイレ別</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="parking" name="parking" value="yes">
+                <label for="parking" data-i18n="rental.conditionParking">駐車場</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="bikeParking" name="bikeParking" value="yes">
+                <label for="bikeParking" data-i18n="rental.conditionBikeParking">駐輪場</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="southFacing" name="southFacing" value="yes">
+                <label for="southFacing" data-i18n="rental.conditionSouthFacing">南向き</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="autoLock" name="autoLock" value="yes">
+                <label for="autoLock" data-i18n="rental.conditionAutoLock">オートロック</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="secondFloor" name="secondFloor" value="yes">
+                <label for="secondFloor" data-i18n="rental.conditionSecondFloor">2階以上</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="petFriendly" name="petFriendly" value="yes">
+                <label for="petFriendly" data-i18n="rental.conditionPetFriendly">ペット可</label>
+              </div>
+            </div>
+            <div class="helper-text" data-i18n="rental.formConditionsHelper">
+              ご希望の条件があれば選択してください（複数選択可）
+            </div>
+          </div>
+
+          <div class="section-divider"></div>
+
+          <!-- その他の要望 -->
+          <div class="form-group">
+            <label class="form-label" for="requirements">
+              <span data-i18n="rental.formRequirements">その他ご要望・条件</span>
+            </label>
+            <textarea id="requirements" name="requirements" class="form-textarea" 
+                      data-i18n="rental.formRequirementsPlaceholder" 
+                      placeholder="ペット可、楽器可、駐車場必須など、ご希望の条件をご記入ください"></textarea>
+            <div class="helper-text" data-i18n="rental.formRequirementsHelper">
+              例：ペット可、楽器可、バス・トイレ別、駐車場必須、オートロック、2階以上など
+            </div>
+          </div>
+          
+          <button type="submit" class="form-submit" id="submitButton">
+            <span data-i18n="rental.formSubmit">送信する</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p data-i18n="footer.copyright">&copy; 2024 株式会社スマートアイズ All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // ===== Train Line & Station Data =====
+    const TRAIN_STATIONS = {
+      yamanote: ['東京', '有楽町', '新橋', '浜松町', '田町', '品川', '大崎', '五反田', '目黒', '恵比寿', '渋谷', '原宿', '代々木', '新宿', '新大久保', '高田馬場', '目白', '池袋', '大塚', '巣鴨', '駒込', '田端', '西日暮里', '日暮里', '鶯谷', '上野', '御徒町', '秋葉原', '神田'],
+      chuo: ['東京', '神田', '御茶ノ水', '水道橋', '飯田橋', '市ヶ谷', '四ツ谷', '信濃町', '千駄ケ谷', '代々木', '新宿', '大久保', '東中野', '中野', '高円寺', '阿佐ケ谷', '荻窪', '西荻窪', '吉祥寺', '三鷹', '武蔵境', '東小金井', '武蔵小金井', '国分寺', '西国分寺', '国立', '立川'],
+      sobu: ['千葉', '西千葉', '稲毛', '新検見川', '幕張', '幕張本郷', '津田沼', '東船橋', '船橋', '西船橋', '下総中山', '本八幡', '市川', '小岩', '新小岩', '平井', '亀戸', '錦糸町', '両国', '浅草橋', '秋葉原', '御茶ノ水', '水道橋', '飯田橋', '市ヶ谷', '四ツ谷', '信濃町', '千駄ケ谷', '代々木', '新宿'],
+      keio: ['新宿', '初台', '幡ヶ谷', '笹塚', '代田橋', '明大前', '下高井戸', '桜上水', '上北沢', '八幡山', '芦花公園', '千歳烏山', '仙川', 'つつじヶ丘', '柴崎', '国領', '布田', '調布', '西調布', '飛田給', '武蔵野台', '多磨霊園', '東府中', '府中', '分倍河原', '中河原', '聖蹟桜ヶ丘', '百草園', '高幡不動'],
+      odakyu: ['新宿', '南新宿', '参宮橋', '代々木八幡', '代々木上原', '東北沢', '下北沢', '世田谷代田', '梅ヶ丘', '豪徳寺', '経堂', '千歳船橋', '祖師ヶ谷大蔵', '成城学園前', '喜多見', '狛江', '和泉多摩川', '登戸', '向ヶ丘遊園', '生田', '読売ランド前', '百合ヶ丘', '新百合ヶ丘', '柿生', '鶴川', '玉川学園前', '町田'],
+      tokyu: ['渋谷', '代官山', '中目黒', '祐天寺', '学芸大学', '都立大学', '自由が丘', '田園調布', '多摩川', '新丸子', '武蔵小杉', '元住吉', '日吉', '綱島', '大倉山', '菊名', '妙蓮寺', '白楽', '東白楽', '反町', '横浜'],
+      seibu: ['西武新宿', '高田馬場', '下落合', '中井', '新井薬師前', '沼袋', '野方', '都立家政', '鷺ノ宮', '下井草', '井荻', '上井草', '上石神井', '武蔵関', '東伏見', '西武柳沢', '田無', '花小金井', '小平', '久米川', '東村山'],
+      marunouchi: ['池袋', '新大塚', '茗荷谷', '後楽園', '本郷三丁目', '御茶ノ水', '淡路町', '大手町', '東京', '銀座', '霞ケ関', '国会議事堂前', '赤坂見附', '四ツ谷', '四谷三丁目', '新宿御苑前', '新宿三丁目', '新宿', '西新宿', '中野坂上', '新中野', '東高円寺', '新高円寺', '南阿佐ケ谷', '荻窪'],
+      tozai: ['中野', '落合', '高田馬場', '早稲田', '神楽坂', '飯田橋', '九段下', '竹橋', '大手町', '日本橋', '茅場町', '門前仲町', '木場', '東陽町', '南砂町', '西葛西', '葛西', '浦安', '南行徳', '行徳', '妙典', '原木中山', '西船橋'],
+      ginza: ['渋谷', '表参道', '外苑前', '青山一丁目', '赤坂見附', '溜池山王', '虎ノ門', '新橋', '銀座', '京橋', '日本橋', '三越前', '神田', '末広町', '上野広小路', '上野', '稲荷町', '田原町', '浅草'],
+      fukutoshin: ['和光市', '地下鉄成増', '地下鉄赤塚', '平和台', '氷川台', '小竹向原', '千川', '要町', '池袋', '雑司が谷', '西早稲田', '東新宿', '新宿三丁目', '北参道', '明治神宮前', '渋谷', '新宿'],
+    };
+
+    // ===== Rental Form Manager =====
+    class RentalFormManager {
+      constructor() {
+        this.form = document.getElementById('rentalForm');
+        this.submitButton = document.getElementById('submitButton');
+        this.messageContainer = document.getElementById('formMessage');
+        this.trainLineSelect = document.getElementById('trainLine');
+        this.stationSelect = document.getElementById('station');
+        this.stationContainer = document.getElementById('stationSelectContainer');
+        this.otherTrainContainer = document.getElementById('otherTrainContainer');
+        this.otherTrainInput = document.getElementById('otherTrain');
+        this.init();
+      }
+
+      init() {
+        this.form.addEventListener('submit', (e) => this.handleSubmit(e));
+        this.trainLineSelect.addEventListener('change', (e) => this.handleTrainLineChange(e));
+      }
+
+      handleTrainLineChange(e) {
+        const selectedLine = e.target.value;
+        
+        if (selectedLine === 'other') {
+          // Show other input, hide station select
+          this.stationContainer.classList.remove('show');
+          this.otherTrainContainer.classList.add('show');
+          this.otherTrainInput.required = false;
+        } else if (selectedLine && TRAIN_STATIONS[selectedLine]) {
+          // Show station select with options
+          this.stationContainer.classList.add('show');
+          this.otherTrainContainer.classList.remove('show');
+          this.populateStations(selectedLine);
+        } else {
+          // Hide both
+          this.stationContainer.classList.remove('show');
+          this.otherTrainContainer.classList.remove('show');
+        }
+      }
+
+      populateStations(line) {
+        const stations = TRAIN_STATIONS[line];
+        this.stationSelect.innerHTML = '<option value="">駅を選択してください</option>';
+        
+        stations.forEach(station => {
+          const option = document.createElement('option');
+          option.value = station;
+          option.textContent = station;
+          this.stationSelect.appendChild(option);
+        });
+      }
+
+      async handleSubmit(e) {
+        e.preventDefault();
+        
+        if (!this.validateForm()) {
+          return;
+        }
+
+        this.submitButton.disabled = true;
+        const originalText = this.submitButton.querySelector('span').textContent;
+        this.submitButton.querySelector('span').textContent = this.getTranslation('rental.formSubmitting', '送信中...');
+
+        try {
+          await this.submitForm();
+          
+          this.showMessage(
+            this.getTranslation('rental.formSuccessMessage', 'お問い合わせありがとうございます。2営業日以内にご返信いたします。'),
+            'success'
+          );
+          
+          this.form.reset();
+          this.stationContainer.classList.remove('show');
+          this.otherTrainContainer.classList.remove('show');
+        } catch (error) {
+          console.error('Form submission error:', error);
+          this.showMessage(
+            this.getTranslation('rental.formErrorMessage', '送信に失敗しました。お手数ですが、もう一度お試しください。'),
+            'error'
+          );
+        } finally {
+          this.submitButton.disabled = false;
+          this.submitButton.querySelector('span').textContent = originalText;
+        }
+      }
+
+      validateForm() {
+        let isValid = true;
+        const fields = ['fullName', 'email', 'phone', 'propertyType', 'budget', 'area', 'rooms', 'moveInDate'];
+        
+        fields.forEach(field => {
+          const input = document.getElementById(field);
+          const errorDiv = document.getElementById(`${field}Error`);
+          
+          if (input && input.hasAttribute('required') && !input.value.trim()) {
+            if (errorDiv) {
+              errorDiv.textContent = this.getTranslation('rental.fieldRequired', 'この項目は必須です');
+            }
+            isValid = false;
+          } else if (errorDiv) {
+            errorDiv.textContent = '';
+          }
+        });
+
+        // Email validation
+        const email = document.getElementById('email');
+        const emailError = document.getElementById('emailError');
+        if (email && email.value && !this.isValidEmail(email.value)) {
+          if (emailError) {
+            emailError.textContent = this.getTranslation('rental.invalidEmail', '有効なメールアドレスを入力してください');
+          }
+          isValid = false;
+        }
+
+        return isValid;
+      }
+
+      isValidEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      }
+
+      getCheckedConditions() {
+        const conditions = [];
+        const checkboxes = [
+          { id: 'bathToiletSeparate', label: 'バス・トイレ別' },
+          { id: 'parking', label: '駐車場' },
+          { id: 'bikeParking', label: '駐輪場' },
+          { id: 'southFacing', label: '南向き' },
+          { id: 'autoLock', label: 'オートロック' },
+          { id: 'secondFloor', label: '2階以上' },
+          { id: 'petFriendly', label: 'ペット可' }
+        ];
+
+        checkboxes.forEach(checkbox => {
+          const element = document.getElementById(checkbox.id);
+          if (element && element.checked) {
+            conditions.push(checkbox.label);
+          }
+        });
+
+        return conditions;
+      }
+
+      getTrainInfo() {
+        const trainLine = this.trainLineSelect;
+        const station = this.stationSelect;
+        const otherTrain = this.otherTrainInput;
+
+        if (trainLine.value === 'other' && otherTrain.value.trim()) {
+          return otherTrain.value.trim();
+        } else if (trainLine.value && station.value) {
+          const lineName = trainLine.options[trainLine.selectedIndex].text;
+          return `${lineName} - ${station.value}駅`;
+        } else if (trainLine.value) {
+          const lineName = trainLine.options[trainLine.selectedIndex].text;
+          return lineName;
+        }
+        return 'なし';
+      }
+
+      async submitForm() {
+        const scriptUrl = 'https://script.google.com/macros/s/AKfycbzMWtKd26r5GJrrdYeVWazLOWIdUzpFynCg9VeVDwtxEbEO6z6EcLy7TJjhRAXSpqgtTw/exec';
+        
+        const propertyType = document.getElementById('propertyType');
+        const budget = document.getElementById('budget');
+        const area = document.getElementById('area');
+        const rooms = document.getElementById('rooms');
+        const moveInDate = document.getElementById('moveInDate');
+        const requirements = document.getElementById('requirements');
+
+        const conditions = this.getCheckedConditions();
+        const trainInfo = this.getTrainInfo();
+
+        const rentalDetails = `
+【賃貸物件お問い合わせ】
+
+■ 物件タイプ: ${propertyType.options[propertyType.selectedIndex].text}
+■ ご予算: ${budget.options[budget.selectedIndex].text}
+■ 希望エリア: ${area.options[area.selectedIndex].text}
+■ 間取り: ${rooms.options[rooms.selectedIndex].text}
+■ 入居希望時期: ${moveInDate.options[moveInDate.selectedIndex].text}
+■ 最寄り駅: ${trainInfo}
+
+■ 物件の条件:
+${conditions.length > 0 ? conditions.join('、') : 'なし'}
+
+■ その他ご要望・条件:
+${requirements.value || 'なし'}
+        `.trim();
+
+        const fullName = document.getElementById('fullName').value;
+        const nameParts = fullName.split(/\s+/);
+        
+        const formData = {
+          lastName: nameParts.length > 1 ? nameParts[0] : fullName,
+          firstName: nameParts.length > 1 ? nameParts.slice(1).join(' ') : '',
+          email: document.getElementById('email').value,
+          phone: document.getElementById('phone').value,
+          inquiryType: 'rent',
+          budget: budget.value,
+          language: document.getElementById('language').value,
+          message: rentalDetails,
+          timestamp: new Date().toISOString(),
+          source: 'rental_form'
+        };
+        
+        await fetch(scriptUrl, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+      }
+
+      showMessage(message, type) {
+        this.messageContainer.innerHTML = `
+          <div class="form-${type}">
+            ${message}
+          </div>
+        `;
+        
+        setTimeout(() => {
+          this.messageContainer.innerHTML = '';
+        }, 5000);
+
+        this.messageContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+
+      getTranslation(key, fallback) {
+        return fallback;
+      }
+    }
+
+    // ===== I18n Manager =====
+    class I18nManager {
+      constructor() {
+        this.currentLang = 'ja';
+        this.loadedLanguages = {};
+        this.languages = {
+          ja: '日本語',
+          ko: '한국어',
+          zh: '简体中文',
+          'zh-Hant': '繁體中文',
+          en: 'English',
+          vi: 'Tiếng Việt',
+          ne: 'नेपाली'
+        };
+        this.fallbackLang = 'ja';
+        
+        // 租賃表單的翻譯數據（內嵌）
+        this.translations = {
+          ja: {
+            rental: {
+              pageTitle: '賃貸物件お問い合わせ',
+              pageSubtitle: 'ご希望の条件をお聞かせください',
+              formTitle: '賃貸物件お問い合わせフォーム',
+              formDescription: '下記フォームにご入力いただき、送信ボタンをクリックしてください。2営業日以内にご返信いたします。',
+              formFullName: 'お名前',
+              formEmail: 'メールアドレス',
+              formPhone: '電話番号',
+              formPropertyType: '物件タイプ',
+              formPropertyTypeSelect: '選択してください',
+              formPropertyTypeApartment: 'マンション・アパート',
+              formPropertyTypeHouse: '一戸建て',
+              formPropertyTypeOffice: 'オフィス・事務所',
+              formPropertyTypeStore: '店舗',
+              formPropertyTypeOther: 'その他',
+              formBudget: 'ご予算（月額）',
+              formBudgetSelect: '選択してください',
+              formBudget50: '5万円以下',
+              formBudget50to100: '5万円〜10万円',
+              formBudget100to150: '10万円〜15万円',
+              formBudget150to200: '15万円〜20万円',
+              formBudget200to300: '20万円〜30万円',
+              formBudget300: '30万円以上',
+              formArea: '希望エリア',
+              formAreaSelect: '選択してください',
+              formAreaShinjuku: '新宿区',
+              formAreaShibuya: '渋谷区',
+              formAreaMinato: '港区',
+              formAreaChiyoda: '千代田区',
+              formAreaChuo: '中央区',
+              formAreaMeguro: '目黒区',
+              formAreaSetagaya: '世田谷区',
+              formAreaOtherTokyo: 'その他東京23区',
+              formAreaOther: 'その他',
+              formRooms: '間取り',
+              formRoomsSelect: '選択してください',
+              formRooms1R: 'ワンルーム',
+              formRooms1K: '1K',
+              formRooms1DK: '1DK',
+              formRooms1LDK: '1LDK',
+              formRooms2K: '2K',
+              formRooms2DK: '2DK',
+              formRooms2LDK: '2LDK',
+              formRooms3LDK: '3LDK以上',
+              formRoomsFlexible: '相談可',
+              formMoveInDate: '入居希望時期',
+              formMoveInDateSelect: '選択してください',
+              formMoveInImmediate: 'すぐ',
+              formMoveIn1Month: '1ヶ月以内',
+              formMoveIn2Months: '2ヶ月以内',
+              formMoveIn3Months: '3ヶ月以内',
+              formMoveInFlexible: '相談可',
+              formLanguage: 'ご希望の対応言語',
+              formLanguageJa: '日本語',
+              formLanguageZh: '中国語（簡体字）',
+              formLanguageZhHant: '中国語（繁体字）',
+              formLanguageEn: '英語',
+              formLanguageKo: '韓国語',
+              formLanguageVi: 'ベトナム語',
+              formLanguageNe: 'ネパール語',
+              formTrainLine: '最寄り駅（電車線路）',
+              formTrainLineSelect: '選択してください',
+              formTrainLineYamanote: 'JR山手線',
+              formTrainLineChuo: 'JR中央線',
+              formTrainLineSobu: 'JR総武線',
+              formTrainLineKeio: '京王線',
+              formTrainLineOdakyu: '小田急線',
+              formTrainLineTokyu: '東急東横線',
+              formTrainLineSeibu: '西武新宿線',
+              formTrainLineMarunouchi: '丸ノ内線',
+              formTrainLineTozai: '東西線',
+              formTrainLineGinza: '銀座線',
+              formTrainLineFukutoshin: '副都心線',
+              formTrainLineOther: 'その他',
+              formStationSelect: 'まず線路を選択',
+              formOtherTrainPlaceholder: 'その他の線路・駅を入力してください',
+              formTrainHelper: 'ご希望の最寄り駅がある場合は線路と駅を選択してください',
+              formConditions: '物件の条件',
+              conditionBathToilet: 'バス・トイレ別',
+              conditionParking: '駐車場',
+              conditionBikeParking: '駐輪場',
+              conditionSouthFacing: '南向き',
+              conditionAutoLock: 'オートロック',
+              conditionSecondFloor: '2階以上',
+              conditionPetFriendly: 'ペット可',
+              formConditionsHelper: 'ご希望の条件があれば選択してください（複数選択可）',
+              formRequirements: 'その他ご要望・条件',
+              formRequirementsPlaceholder: 'その他ご希望があればご記入ください',
+              formRequirementsHelper: '例：楽器可、デザイナーズマンション、リノベーション物件など',
+              formSubmit: '送信する',
+              formSubmitting: '送信中...',
+              formSuccessMessage: 'お問い合わせありがとうございます。2営業日以内にご返信いたします。',
+              formErrorMessage: '送信に失敗しました。お手数ですが、もう一度お試しください。',
+              fieldRequired: 'この項目は必須です',
+              invalidEmail: '有効なメールアドレスを入力してください'
+            },
+            footer: {
+              copyright: '© 2024 株式会社スマートアイズ All Rights Reserved.'
+            }
+          },
+          zh: {
+            rental: {
+              pageTitle: '租赁房产咨询',
+              pageSubtitle: '请告诉我们您的需求',
+              formTitle: '租赁房产咨询表',
+              formDescription: '请填写以下表格并点击提交按钮。我们将在2个工作日内回复您。',
+              formFullName: '姓名',
+              formEmail: '电子邮箱',
+              formPhone: '电话号码',
+              formPropertyType: '房产类型',
+              formPropertyTypeSelect: '请选择',
+              formPropertyTypeApartment: '公寓',
+              formPropertyTypeHouse: '独栋房屋',
+              formPropertyTypeOffice: '办公室',
+              formPropertyTypeStore: '店铺',
+              formPropertyTypeOther: '其他',
+              formBudget: '预算（月租）',
+              formBudgetSelect: '请选择',
+              formBudget50: '5万日元以下',
+              formBudget50to100: '5万～10万日元',
+              formBudget100to150: '10万～15万日元',
+              formBudget150to200: '15万～20万日元',
+              formBudget200to300: '20万～30万日元',
+              formBudget300: '30万日元以上',
+              formArea: '希望区域',
+              formAreaSelect: '请选择',
+              formAreaShinjuku: '新宿区',
+              formAreaShibuya: '涩谷区',
+              formAreaMinato: '港区',
+              formAreaChiyoda: '千代田区',
+              formAreaChuo: '中央区',
+              formAreaMeguro: '目黒区',
+              formAreaSetagaya: '世田谷区',
+              formAreaOtherTokyo: '东京其他23区',
+              formAreaOther: '其他',
+              formRooms: '房型',
+              formRoomsSelect: '请选择',
+              formRooms1R: '单间',
+              formRooms1K: '1K',
+              formRooms1DK: '1DK',
+              formRooms1LDK: '1LDK',
+              formRooms2K: '2K',
+              formRooms2DK: '2DK',
+              formRooms2LDK: '2LDK',
+              formRooms3LDK: '3LDK以上',
+              formRoomsFlexible: '可商议',
+              formMoveInDate: '入住时间',
+              formMoveInDateSelect: '请选择',
+              formMoveInImmediate: '立即',
+              formMoveIn1Month: '1个月内',
+              formMoveIn2Months: '2个月内',
+              formMoveIn3Months: '3个月内',
+              formMoveInFlexible: '可商议',
+              formLanguage: '首选语言',
+              formLanguageJa: '日语',
+              formLanguageZh: '中文（简体）',
+              formLanguageZhHant: '中文（繁体）',
+              formLanguageEn: '英语',
+              formLanguageKo: '韩语',
+              formLanguageVi: '越南语',
+              formLanguageNe: '尼泊尔语',
+              formTrainLine: '最近车站（电车线路）',
+              formTrainLineSelect: '请选择',
+              formTrainLineYamanote: 'JR山手线',
+              formTrainLineChuo: 'JR中央线',
+              formTrainLineSobu: 'JR总武线',
+              formTrainLineKeio: '京王线',
+              formTrainLineOdakyu: '小田急线',
+              formTrainLineTokyu: '东急东横线',
+              formTrainLineSeibu: '西武新宿线',
+              formTrainLineMarunouchi: '丸之内线',
+              formTrainLineTozai: '东西线',
+              formTrainLineGinza: '银座线',
+              formTrainLineFukutoshin: '副都心线',
+              formTrainLineOther: '其他',
+              formStationSelect: '请先选择线路',
+              formOtherTrainPlaceholder: '请输入其他线路/车站',
+              formTrainHelper: '如有希望的最近车站，请选择线路和车站',
+              formConditions: '房产条件',
+              conditionBathToilet: '浴室厕所分离',
+              conditionParking: '停车场',
+              conditionBikeParking: '自行车停车场',
+              conditionSouthFacing: '朝南',
+              conditionAutoLock: '自动门锁',
+              conditionSecondFloor: '2楼以上',
+              conditionPetFriendly: '允许宠物',
+              formConditionsHelper: '如有希望条件请选择（可多选）',
+              formRequirements: '其他要求',
+              formRequirementsPlaceholder: '如有其他要求请填写',
+              formRequirementsHelper: '例如：允许乐器、设计师公寓、翻新房产等',
+              formSubmit: '提交',
+              formSubmitting: '提交中...',
+              formSuccessMessage: '感谢您的咨询。我们将在2个工作日内回复您。',
+              formErrorMessage: '提交失败。请稍后重试。',
+              fieldRequired: '此项为必填',
+              invalidEmail: '请输入有效的电子邮箱地址'
+            },
+            footer: {
+              copyright: '© 2024 株式会社Smart Eyes 版权所有'
+            }
+          },
+          en: {
+            rental: {
+              pageTitle: 'Rental Property Inquiry',
+              pageSubtitle: 'Tell us your requirements',
+              formTitle: 'Rental Property Inquiry Form',
+              formDescription: 'Please fill out the form below and click the submit button. We will reply within 2 business days.',
+              formFullName: 'Full Name',
+              formEmail: 'Email Address',
+              formPhone: 'Phone Number',
+              formPropertyType: 'Property Type',
+              formPropertyTypeSelect: 'Please select',
+              formPropertyTypeApartment: 'Apartment',
+              formPropertyTypeHouse: 'House',
+              formPropertyTypeOffice: 'Office',
+              formPropertyTypeStore: 'Store',
+              formPropertyTypeOther: 'Other',
+              formBudget: 'Budget (Monthly)',
+              formBudgetSelect: 'Please select',
+              formBudget50: 'Under ¥50,000',
+              formBudget50to100: '¥50,000 - ¥100,000',
+              formBudget100to150: '¥100,000 - ¥150,000',
+              formBudget150to200: '¥150,000 - ¥200,000',
+              formBudget200to300: '¥200,000 - ¥300,000',
+              formBudget300: 'Over ¥300,000',
+              formArea: 'Preferred Area',
+              formAreaSelect: 'Please select',
+              formAreaShinjuku: 'Shinjuku',
+              formAreaShibuya: 'Shibuya',
+              formAreaMinato: 'Minato',
+              formAreaChiyoda: 'Chiyoda',
+              formAreaChuo: 'Chuo',
+              formAreaMeguro: 'Meguro',
+              formAreaSetagaya: 'Setagaya',
+              formAreaOtherTokyo: 'Other Tokyo 23 Wards',
+              formAreaOther: 'Other',
+              formRooms: 'Layout',
+              formRoomsSelect: 'Please select',
+              formRooms1R: 'Studio',
+              formRooms1K: '1K',
+              formRooms1DK: '1DK',
+              formRooms1LDK: '1LDK',
+              formRooms2K: '2K',
+              formRooms2DK: '2DK',
+              formRooms2LDK: '2LDK',
+              formRooms3LDK: '3LDK+',
+              formRoomsFlexible: 'Flexible',
+              formMoveInDate: 'Move-in Date',
+              formMoveInDateSelect: 'Please select',
+              formMoveInImmediate: 'Immediately',
+              formMoveIn1Month: 'Within 1 month',
+              formMoveIn2Months: 'Within 2 months',
+              formMoveIn3Months: 'Within 3 months',
+              formMoveInFlexible: 'Flexible',
+              formLanguage: 'Preferred Language',
+              formLanguageJa: 'Japanese',
+              formLanguageZh: 'Chinese (Simplified)',
+              formLanguageZhHant: 'Chinese (Traditional)',
+              formLanguageEn: 'English',
+              formLanguageKo: 'Korean',
+              formLanguageVi: 'Vietnamese',
+              formLanguageNe: 'Nepali',
+              formTrainLine: 'Nearest Station (Train Line)',
+              formTrainLineSelect: 'Please select',
+              formTrainLineYamanote: 'JR Yamanote Line',
+              formTrainLineChuo: 'JR Chuo Line',
+              formTrainLineSobu: 'JR Sobu Line',
+              formTrainLineKeio: 'Keio Line',
+              formTrainLineOdakyu: 'Odakyu Line',
+              formTrainLineTokyu: 'Tokyu Toyoko Line',
+              formTrainLineSeibu: 'Seibu Shinjuku Line',
+              formTrainLineMarunouchi: 'Marunouchi Line',
+              formTrainLineTozai: 'Tozai Line',
+              formTrainLineGinza: 'Ginza Line',
+              formTrainLineFukutoshin: 'Fukutoshin Line',
+              formTrainLineOther: 'Other',
+              formStationSelect: 'Select line first',
+              formOtherTrainPlaceholder: 'Please enter other line/station',
+              formTrainHelper: 'If you have a preferred nearest station, please select the line and station',
+              formConditions: 'Property Conditions',
+              conditionBathToilet: 'Separate Bath/Toilet',
+              conditionParking: 'Parking Available',
+              conditionBikeParking: 'Bike Parking',
+              conditionSouthFacing: 'South-facing',
+              conditionAutoLock: 'Auto-lock',
+              conditionSecondFloor: '2nd Floor or Above',
+              conditionPetFriendly: 'Pet-friendly',
+              formConditionsHelper: 'Select your preferred conditions (multiple selections allowed)',
+              formRequirements: 'Other Requirements',
+              formRequirementsPlaceholder: 'Please specify any other requirements',
+              formRequirementsHelper: 'e.g., Musical instruments allowed, Designer apartment, Renovated property, etc.',
+              formSubmit: 'Submit',
+              formSubmitting: 'Submitting...',
+              formSuccessMessage: 'Thank you for your inquiry. We will reply within 2 business days.',
+              formErrorMessage: 'Submission failed. Please try again.',
+              fieldRequired: 'This field is required',
+              invalidEmail: 'Please enter a valid email address'
+            },
+            footer: {
+              copyright: '© 2024 Smart Eyes Co., Ltd. All Rights Reserved.'
+            }
+          }
+        };
+      }
+
+      detectLanguage() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlLang = urlParams.get('lang');
+        if (urlLang && this.languages[urlLang]) {
+          return urlLang;
+        }
+
+        try {
+          const savedLang = localStorage.getItem('smarteyes_preferred_lang');
+          if (savedLang && this.languages[savedLang]) {
+            return savedLang;
+          }
+        } catch (e) {
+          console.warn('Could not read from localStorage:', e);
+        }
+
+        const navLangs = navigator.languages || [navigator.language || navigator.userLanguage];
+        for (const navLang of navLangs) {
+          const code = navLang.toLowerCase();
+          if (code.startsWith('zh-tw') || code.includes('hant')) return 'zh-Hant';
+          if (code.startsWith('zh')) return 'zh';
+          if (code.startsWith('ja')) return 'ja';
+          if (code.startsWith('ko')) return 'ko';
+          if (code.startsWith('vi')) return 'vi';
+          if (code.startsWith('ne')) return 'ne';
+          if (code.startsWith('en')) return 'en';
+        }
+
+        return this.fallbackLang;
+      }
+
+      getValue(path, data) {
+        const keys = path.split('.');
+        let value = data;
+        for (const key of keys) {
+          value = value && value[key];
+          if (value === undefined) break;
+        }
+        return value;
+      }
+
+      applyLanguage(lang) {
+        const data = this.translations[lang] || this.translations[this.fallbackLang];
+        
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+          const key = el.getAttribute('data-i18n');
+          const value = this.getValue(key, data);
+          if (value !== undefined) {
+            if (el.tagName === 'INPUT' && el.type === 'submit') {
+              el.value = value;
+            } else if (el.tagName === 'OPTION') {
+              el.textContent = value;
+            } else if (el.hasAttribute('placeholder')) {
+              el.placeholder = value;
+            } else {
+              el.innerHTML = value;
+            }
+          }
+        });
+
+        document.documentElement.lang = lang;
+        
+        try {
+          localStorage.setItem('smarteyes_preferred_lang', lang);
+        } catch (e) {
+          console.warn('Could not save language preference:', e);
+        }
+
+        this.currentLang = lang;
+        this.updateDropdown();
+        
+        console.log(`Language switched to: ${lang}`);
+      }
+
+      updateDropdown() {
+        const currentButton = document.getElementById('langCurrent');
+        const currentText = currentButton.querySelector('.lang-text');
+        if (currentText) {
+          currentText.textContent = this.languages[this.currentLang];
+        }
+
+        document.querySelectorAll('.lang-option').forEach(option => {
+          const isActive = option.dataset.lang === this.currentLang;
+          option.classList.toggle('active', isActive);
+          const check = option.querySelector('.lang-check');
+          if (check) {
+            check.textContent = isActive ? '✓' : '';
+          }
+        });
+      }
+
+      buildDropdown() {
+        const currentButton = document.getElementById('langCurrent');
+        const menu = document.getElementById('langMenu');
+        
+        Object.entries(this.languages).forEach(([code, name]) => {
+          const option = document.createElement('button');
+          option.className = 'lang-option';
+          option.dataset.lang = code;
+          option.setAttribute('role', 'menuitem');
+          option.innerHTML = `
+            <span class="lang-check"></span>
+            <span>${name}</span>
+          `;
+          
+          option.addEventListener('click', () => {
+            this.applyLanguage(code);
+            this.hideDropdown();
+          });
+          
+          menu.appendChild(option);
+        });
+
+        currentButton.addEventListener('click', (e) => {
+          e.stopPropagation();
+          this.toggleDropdown();
+        });
+
+        document.addEventListener('click', () => {
+          this.hideDropdown();
+        });
+      }
+
+      toggleDropdown() {
+        const menu = document.getElementById('langMenu');
+        const isShown = menu.classList.contains('show');
+        if (isShown) {
+          this.hideDropdown();
+        } else {
+          this.showDropdown();
+        }
+      }
+
+      showDropdown() {
+        const currentButton = document.getElementById('langCurrent');
+        const menu = document.getElementById('langMenu');
+        
+        currentButton.setAttribute('aria-expanded', 'true');
+        menu.classList.add('show');
+      }
+
+      hideDropdown() {
+        const currentButton = document.getElementById('langCurrent');
+        const menu = document.getElementById('langMenu');
+        
+        currentButton.setAttribute('aria-expanded', 'false');
+        menu.classList.remove('show');
+      }
+    }
+
+    // ===== Performance Optimization =====
+    function optimizePerformance() {
+      function throttle(func, limit) {
+        let inThrottle;
+        return function() {
+          const args = arguments;
+          const context = this;
+          if (!inThrottle) {
+            func.apply(context, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+          }
+        };
+      }
+      
+      const handleScroll = throttle(() => {
+        const header = document.querySelector('.site-header');
+        if (window.scrollY > 100) {
+          header.style.background = 'rgba(255,255,255,0.98)';
+          header.style.boxShadow = '0 4px 20px rgba(30, 64, 175, 0.1)';
+        } else {
+          header.style.background = 'rgba(255,255,255,0.95)';
+          header.style.boxShadow = 'none';
+        }
+      }, 16);
+      
+      window.addEventListener('scroll', handleScroll, { passive: true });
+    }
+
+    // ===== Main Initialization =====
+    const i18n = new I18nManager();
+    const rentalForm = new RentalFormManager();
+
+    function init() {
+      i18n.buildDropdown();
+      
+      const detectedLang = i18n.detectLanguage();
+      i18n.applyLanguage(detectedLang);
+      
+      optimizePerformance();
+      
+      console.log('Smart Eyes rental form initialized successfully');
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  </script>
+</body>
+</html>
