@@ -113,8 +113,9 @@
 
     /* ===== Contact Form ===== */
     .contact-form-section{
-      padding:80px 0;
+      padding:100px 0 80px;
       background:linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #f8fafc 100%);
+      min-height:100vh;
     }
     .form-container{
       max-width:900px;margin:0 auto;
@@ -209,10 +210,23 @@
     /* ===== Responsive ===== */
     @media (max-width: 1024px){
       .form-row{grid-template-columns:1fr}
+      .train-line-select{grid-template-columns:1fr}
+      .checkbox-grid{grid-template-columns:repeat(auto-fill, minmax(160px, 1fr))}
+      .station-checkbox-grid{grid-template-columns:repeat(auto-fill, minmax(120px, 1fr))}
     }
     @media (max-width: 640px){
-      .page-title{font-size:36px}
-      .form-container{padding:32px}
+      .contact-form-section{padding:80px 0 60px}
+      .form-container{padding:32px 20px}
+      .form-title{font-size:24px}
+      .form-desc{font-size:14px}
+      .checkbox-grid{grid-template-columns:1fr;gap:12px}
+      .checkbox-item{padding:10px 14px}
+      .station-checkbox-grid{grid-template-columns:repeat(auto-fill, minmax(100px, 1fr));gap:8px}
+      .station-checkbox-item{padding:6px 10px}
+      .station-checkbox-item label{font-size:12px}
+      .station-checkbox-container{max-height:300px;padding:16px}
+      .selected-stations-list{gap:6px}
+      .selected-station-tag{padding:4px 8px;font-size:11px}
       .lang-current{min-width:70px;padding:4px 8px;font-size:11px;min-height:32px}
       .lang-text{font-size:11px}
       .lang-icon{font-size:12px}
@@ -222,6 +236,12 @@
       .brand img{height:36px}
       .lang-menu{min-width:100px}
       .lang-option{padding:6px 8px;font-size:11px}
+    }
+    @media (max-width: 480px){
+      .form-container{padding:24px 16px}
+      .form-title{font-size:20px}
+      .checkbox-item label{font-size:13px}
+      .form-submit{padding:14px 24px;font-size:15px}
     }
 
     /* ===== Animations ===== */
@@ -280,19 +300,88 @@
 
     /* ===== Train Line Selection ===== */
     .train-select-container{
+      display:grid;gap:16px;
+    }
+    .train-line-select{
       display:grid;grid-template-columns:1fr 1fr;gap:16px;
     }
-    .station-select{
+    .station-checkbox-container{
       display:none;
+      margin-top:16px;padding:20px;
+      background:linear-gradient(135deg, #f8fafc, #f1f5f9);
+      border-radius:12px;border:1px solid #e2e8f0;
+      max-height:400px;overflow-y:auto;
     }
-    .station-select.show{
+    .station-checkbox-container.show{
       display:block;
+    }
+    .station-checkbox-grid{
+      display:grid;grid-template-columns:repeat(auto-fill, minmax(140px, 1fr));gap:12px;
+    }
+    .station-checkbox-item{
+      display:flex;align-items:center;gap:8px;
+      padding:8px 12px;border-radius:6px;
+      background:#ffffff;border:1px solid #e2e8f0;
+      transition:var(--transition);cursor:pointer;
+    }
+    .station-checkbox-item:hover{
+      border-color:var(--brand-light);
+      background:linear-gradient(135deg, #ffffff, #f8fafc);
+    }
+    .station-checkbox-item input[type="checkbox"]{
+      width:18px;height:18px;cursor:pointer;
+      accent-color:var(--brand);
+    }
+    .station-checkbox-item label{
+      cursor:pointer;font-size:13px;color:var(--ink);margin:0;
+      user-select:none;flex:1;
+    }
+    .station-checkbox-item input[type="checkbox"]:checked + label{
+      font-weight:600;color:var(--brand);
+    }
+    .selected-stations-display{
+      display:none;
+      margin-top:16px;padding:16px;
+      background:linear-gradient(135deg, #eff6ff, #dbeafe);
+      border-radius:8px;border:1px solid rgba(59, 130, 246, 0.3);
+    }
+    .selected-stations-display.show{
+      display:block;
+    }
+    .selected-stations-title{
+      font-size:13px;font-weight:600;color:var(--brand);
+      margin:0 0 12px;
+    }
+    .selected-stations-list{
+      display:flex;flex-wrap:wrap;gap:8px;
+    }
+    .selected-station-tag{
+      display:inline-flex;align-items:center;gap:6px;
+      padding:6px 12px;background:#ffffff;border-radius:6px;
+      border:1px solid var(--brand-light);
+      font-size:12px;color:var(--brand-ink);
+    }
+    .selected-station-tag .remove-station{
+      cursor:pointer;color:var(--error);font-weight:700;
+      transition:var(--transition);
+    }
+    .selected-station-tag .remove-station:hover{
+      color:#dc2626;
     }
     .other-input-container{
       display:none;
+      margin-top:16px;
     }
     .other-input-container.show{
       display:block;
+    }
+    .line-category-title{
+      font-size:14px;font-weight:700;color:var(--brand-ink);
+      margin:20px 0 12px;padding-bottom:8px;
+      border-bottom:2px solid var(--brand-light);
+    }
+    .line-category-title:first-child{
+      margin-top:0;
     }
   </style>
 </head>
@@ -320,14 +409,6 @@
       </div>
     </div>
   </header>
-
-  <!-- Page Header -->
-  <section class="page-header">
-    <div class="page-header-content fade-in">
-      <h1 class="page-title" data-i18n="rental.pageTitle">賃貸物件お問い合わせ</h1>
-      <p class="page-subtitle" data-i18n="rental.pageSubtitle">ご希望の条件をお聞かせください</p>
-    </div>
-  </section>
 
   <!-- Rental Form -->
   <section class="contact-form-section">
@@ -491,36 +572,38 @@
               <span data-i18n="rental.formTrainLine">最寄り駅（電車線路）</span>
             </label>
             <div class="train-select-container">
-              <div class="form-group" style="margin:0">
-                <select id="trainLine" name="trainLine" class="form-select">
-                  <option value="" data-i18n="rental.formTrainLineSelect">選択してください</option>
-                  <option value="yamanote" data-i18n="rental.formTrainLineYamanote">JR山手線</option>
-                  <option value="chuo" data-i18n="rental.formTrainLineChuo">JR中央線</option>
-                  <option value="sobu" data-i18n="rental.formTrainLineSobu">JR総武線</option>
-                  <option value="keio" data-i18n="rental.formTrainLineKeio">京王線</option>
-                  <option value="odakyu" data-i18n="rental.formTrainLineOdakyu">小田急線</option>
-                  <option value="tokyu" data-i18n="rental.formTrainLineTokyu">東急東横線</option>
-                  <option value="seibu" data-i18n="rental.formTrainLineSeibu">西武新宿線</option>
-                  <option value="marunouchi" data-i18n="rental.formTrainLineMarunouchi">丸ノ内線</option>
-                  <option value="tozai" data-i18n="rental.formTrainLineTozai">東西線</option>
-                  <option value="ginza" data-i18n="rental.formTrainLineGinza">銀座線</option>
-                  <option value="fukutoshin" data-i18n="rental.formTrainLineFukutoshin">副都心線</option>
-                  <option value="other" data-i18n="rental.formTrainLineOther">その他</option>
-                </select>
+              <div class="train-line-select">
+                <div class="form-group" style="margin:0">
+                  <select id="trainLine" name="trainLine" class="form-select">
+                    <option value="" data-i18n="rental.formTrainLineSelect">選択してください</option>
+                    <option value="other" data-i18n="rental.formTrainLineOther">その他（手入力）</option>
+                  </select>
+                </div>
+                <div class="form-group" style="margin:0">
+                  <button type="button" id="clearStations" class="form-submit" style="padding:12px 20px;font-size:14px;display:none">
+                    <span data-i18n="rental.clearStations">選択をクリア</span>
+                  </button>
+                </div>
               </div>
-              <div class="form-group station-select" id="stationSelectContainer" style="margin:0">
-                <select id="station" name="station" class="form-select">
-                  <option value="" data-i18n="rental.formStationSelect">まず線路を選択</option>
-                </select>
+              
+              <!-- 車站複選框區域 -->
+              <div class="station-checkbox-container" id="stationCheckboxContainer"></div>
+              
+              <!-- 已選車站顯示 -->
+              <div class="selected-stations-display" id="selectedStationsDisplay">
+                <div class="selected-stations-title" data-i18n="rental.selectedStations">選択した駅：</div>
+                <div class="selected-stations-list" id="selectedStationsList"></div>
               </div>
-            </div>
-            <div class="other-input-container" id="otherTrainContainer">
-              <input type="text" id="otherTrain" name="otherTrain" class="form-input" 
-                     placeholder="その他の線路・駅を入力してください"
-                     data-i18n="rental.formOtherTrainPlaceholder">
+              
+              <!-- 其他線路手工填寫 -->
+              <div class="other-input-container" id="otherTrainContainer">
+                <input type="text" id="otherTrain" name="otherTrain" class="form-input" 
+                       placeholder="線路・駅を入力してください（例：東急池上線-旗の台駅）"
+                       data-i18n="rental.formOtherTrainPlaceholder">
+              </div>
             </div>
             <div class="helper-text" data-i18n="rental.formTrainHelper">
-              ご希望の最寄り駅がある場合は線路と駅を選択してください
+              ご希望の最寄り駅がある場合は線路を選択してから駅にチェックを入れてください（複数選択可）
             </div>
           </div>
 
@@ -597,20 +680,34 @@
   </footer>
 
   <script>
-    // ===== Train Line & Station Data =====
-    const TRAIN_STATIONS = {
-      yamanote: ['東京', '有楽町', '新橋', '浜松町', '田町', '品川', '大崎', '五反田', '目黒', '恵比寿', '渋谷', '原宿', '代々木', '新宿', '新大久保', '高田馬場', '目白', '池袋', '大塚', '巣鴨', '駒込', '田端', '西日暮里', '日暮里', '鶯谷', '上野', '御徒町', '秋葉原', '神田'],
-      chuo: ['東京', '神田', '御茶ノ水', '水道橋', '飯田橋', '市ヶ谷', '四ツ谷', '信濃町', '千駄ケ谷', '代々木', '新宿', '大久保', '東中野', '中野', '高円寺', '阿佐ケ谷', '荻窪', '西荻窪', '吉祥寺', '三鷹', '武蔵境', '東小金井', '武蔵小金井', '国分寺', '西国分寺', '国立', '立川'],
-      sobu: ['千葉', '西千葉', '稲毛', '新検見川', '幕張', '幕張本郷', '津田沼', '東船橋', '船橋', '西船橋', '下総中山', '本八幡', '市川', '小岩', '新小岩', '平井', '亀戸', '錦糸町', '両国', '浅草橋', '秋葉原', '御茶ノ水', '水道橋', '飯田橋', '市ヶ谷', '四ツ谷', '信濃町', '千駄ケ谷', '代々木', '新宿'],
-      keio: ['新宿', '初台', '幡ヶ谷', '笹塚', '代田橋', '明大前', '下高井戸', '桜上水', '上北沢', '八幡山', '芦花公園', '千歳烏山', '仙川', 'つつじヶ丘', '柴崎', '国領', '布田', '調布', '西調布', '飛田給', '武蔵野台', '多磨霊園', '東府中', '府中', '分倍河原', '中河原', '聖蹟桜ヶ丘', '百草園', '高幡不動'],
-      odakyu: ['新宿', '南新宿', '参宮橋', '代々木八幡', '代々木上原', '東北沢', '下北沢', '世田谷代田', '梅ヶ丘', '豪徳寺', '経堂', '千歳船橋', '祖師ヶ谷大蔵', '成城学園前', '喜多見', '狛江', '和泉多摩川', '登戸', '向ヶ丘遊園', '生田', '読売ランド前', '百合ヶ丘', '新百合ヶ丘', '柿生', '鶴川', '玉川学園前', '町田'],
-      tokyu: ['渋谷', '代官山', '中目黒', '祐天寺', '学芸大学', '都立大学', '自由が丘', '田園調布', '多摩川', '新丸子', '武蔵小杉', '元住吉', '日吉', '綱島', '大倉山', '菊名', '妙蓮寺', '白楽', '東白楽', '反町', '横浜'],
-      seibu: ['西武新宿', '高田馬場', '下落合', '中井', '新井薬師前', '沼袋', '野方', '都立家政', '鷺ノ宮', '下井草', '井荻', '上井草', '上石神井', '武蔵関', '東伏見', '西武柳沢', '田無', '花小金井', '小平', '久米川', '東村山'],
-      marunouchi: ['池袋', '新大塚', '茗荷谷', '後楽園', '本郷三丁目', '御茶ノ水', '淡路町', '大手町', '東京', '銀座', '霞ケ関', '国会議事堂前', '赤坂見附', '四ツ谷', '四谷三丁目', '新宿御苑前', '新宿三丁目', '新宿', '西新宿', '中野坂上', '新中野', '東高円寺', '新高円寺', '南阿佐ケ谷', '荻窪'],
-      tozai: ['中野', '落合', '高田馬場', '早稲田', '神楽坂', '飯田橋', '九段下', '竹橋', '大手町', '日本橋', '茅場町', '門前仲町', '木場', '東陽町', '南砂町', '西葛西', '葛西', '浦安', '南行徳', '行徳', '妙典', '原木中山', '西船橋'],
-      ginza: ['渋谷', '表参道', '外苑前', '青山一丁目', '赤坂見附', '溜池山王', '虎ノ門', '新橋', '銀座', '京橋', '日本橋', '三越前', '神田', '末広町', '上野広小路', '上野', '稲荷町', '田原町', '浅草'],
-      fukutoshin: ['和光市', '地下鉄成増', '地下鉄赤塚', '平和台', '氷川台', '小竹向原', '千川', '要町', '池袋', '雑司が谷', '西早稲田', '東新宿', '新宿三丁目', '北参道', '明治神宮前', '渋谷', '新宿'],
-    };
+    // ===== Global Train Data =====
+    let TRAIN_DATA = null;
+    let selectedStations = new Map(); // Map<lineKey, Set<stationName>>
+
+    // ===== Load Train Stations Data =====
+    async function loadTrainData() {
+      try {
+        const response = await fetch('train-stations.json');
+        if (!response.ok) throw new Error('Failed to load train data');
+        TRAIN_DATA = await response.json();
+        console.log('Train data loaded successfully');
+        return true;
+      } catch (error) {
+        console.error('Error loading train data:', error);
+        // Fallback to basic data if JSON fails
+        TRAIN_DATA = {
+          tokyo_jr: {
+            yamanote: {
+              name: "JR山手線",
+              name_zh: "JR山手线",
+              name_en: "JR Yamanote Line",
+              stations: ["東京", "新宿", "渋谷", "品川", "池袋", "上野"]
+            }
+          }
+        };
+        return false;
+      }
+    }
 
     // ===== Rental Form Manager =====
     class RentalFormManager {
@@ -619,47 +716,188 @@
         this.submitButton = document.getElementById('submitButton');
         this.messageContainer = document.getElementById('formMessage');
         this.trainLineSelect = document.getElementById('trainLine');
-        this.stationSelect = document.getElementById('station');
-        this.stationContainer = document.getElementById('stationSelectContainer');
+        this.stationCheckboxContainer = document.getElementById('stationCheckboxContainer');
+        this.selectedStationsDisplay = document.getElementById('selectedStationsDisplay');
+        this.selectedStationsList = document.getElementById('selectedStationsList');
         this.otherTrainContainer = document.getElementById('otherTrainContainer');
         this.otherTrainInput = document.getElementById('otherTrain');
-        this.init();
+        this.clearButton = document.getElementById('clearStations');
       }
 
-      init() {
+      async init() {
+        await loadTrainData();
+        this.buildTrainLineOptions();
         this.form.addEventListener('submit', (e) => this.handleSubmit(e));
         this.trainLineSelect.addEventListener('change', (e) => this.handleTrainLineChange(e));
+        this.clearButton.addEventListener('click', () => this.clearAllStations());
+      }
+
+      buildTrainLineOptions() {
+        if (!TRAIN_DATA) return;
+
+        const categories = {
+          'tokyo_jr': { title: '東京JR線', title_zh: '东京JR线', title_en: 'Tokyo JR Lines' },
+          'tokyo_metro': { title: '東京メトロ', title_zh: '东京地铁', title_en: 'Tokyo Metro' },
+          'tokyo_private': { title: '東京私鉄', title_zh: '东京私铁', title_en: 'Tokyo Private Railways' },
+          'kanagawa': { title: '神奈川県', title_zh: '神奈川县', title_en: 'Kanagawa' },
+          'saitama': { title: '埼玉県', title_zh: '埼玉县', title_en: 'Saitama' },
+          'chiba': { title: '千葉県', title_zh: '千叶县', title_en: 'Chiba' }
+        };
+
+        Object.entries(categories).forEach(([categoryKey, categoryInfo]) => {
+          if (TRAIN_DATA[categoryKey]) {
+            const optgroup = document.createElement('optgroup');
+            optgroup.label = categoryInfo.title;
+            
+            Object.entries(TRAIN_DATA[categoryKey]).forEach(([lineKey, lineInfo]) => {
+              const option = document.createElement('option');
+              option.value = `${categoryKey}.${lineKey}`;
+              option.textContent = lineInfo.name;
+              optgroup.appendChild(option);
+            });
+            
+            this.trainLineSelect.appendChild(optgroup);
+          }
+        });
       }
 
       handleTrainLineChange(e) {
-        const selectedLine = e.target.value;
+        const selectedValue = e.target.value;
         
-        if (selectedLine === 'other') {
-          // Show other input, hide station select
-          this.stationContainer.classList.remove('show');
+        if (selectedValue === 'other') {
+          this.stationCheckboxContainer.classList.remove('show');
           this.otherTrainContainer.classList.add('show');
-          this.otherTrainInput.required = false;
-        } else if (selectedLine && TRAIN_STATIONS[selectedLine]) {
-          // Show station select with options
-          this.stationContainer.classList.add('show');
+          this.clearButton.style.display = 'none';
+        } else if (selectedValue) {
           this.otherTrainContainer.classList.remove('show');
-          this.populateStations(selectedLine);
+          this.displayStationCheckboxes(selectedValue);
+          this.clearButton.style.display = 'block';
         } else {
-          // Hide both
-          this.stationContainer.classList.remove('show');
+          this.stationCheckboxContainer.classList.remove('show');
           this.otherTrainContainer.classList.remove('show');
+          this.clearButton.style.display = 'none';
         }
       }
 
-      populateStations(line) {
-        const stations = TRAIN_STATIONS[line];
-        this.stationSelect.innerHTML = '<option value="">駅を選択してください</option>';
+      displayStationCheckboxes(lineValue) {
+        const [category, lineKey] = lineValue.split('.');
+        const lineData = TRAIN_DATA[category][lineKey];
         
-        stations.forEach(station => {
-          const option = document.createElement('option');
-          option.value = station;
-          option.textContent = station;
-          this.stationSelect.appendChild(option);
+        if (!lineData || !lineData.stations) return;
+
+        this.stationCheckboxContainer.innerHTML = '';
+        const grid = document.createElement('div');
+        grid.className = 'station-checkbox-grid';
+
+        lineData.stations.forEach((station, index) => {
+          const item = document.createElement('div');
+          item.className = 'station-checkbox-item';
+          
+          const checkbox = document.createElement('input');
+          checkbox.type = 'checkbox';
+          checkbox.id = `station_${lineValue}_${index}`;
+          checkbox.value = station;
+          checkbox.dataset.line = lineValue;
+          checkbox.dataset.lineName = lineData.name;
+          
+          // Check if already selected
+          if (selectedStations.has(lineValue) && selectedStations.get(lineValue).has(station)) {
+            checkbox.checked = true;
+          }
+          
+          checkbox.addEventListener('change', (e) => this.handleStationChange(e));
+          
+          const label = document.createElement('label');
+          label.htmlFor = checkbox.id;
+          label.textContent = station;
+          
+          item.appendChild(checkbox);
+          item.appendChild(label);
+          grid.appendChild(item);
+        });
+
+        this.stationCheckboxContainer.appendChild(grid);
+        this.stationCheckboxContainer.classList.add('show');
+      }
+
+      handleStationChange(e) {
+        const checkbox = e.target;
+        const lineValue = checkbox.dataset.line;
+        const lineName = checkbox.dataset.lineName;
+        const stationName = checkbox.value;
+
+        if (checkbox.checked) {
+          // Add to selected stations
+          if (!selectedStations.has(lineValue)) {
+            selectedStations.set(lineValue, new Set());
+          }
+          selectedStations.get(lineValue).add(stationName);
+        } else {
+          // Remove from selected stations
+          if (selectedStations.has(lineValue)) {
+            selectedStations.get(lineValue).delete(stationName);
+            if (selectedStations.get(lineValue).size === 0) {
+              selectedStations.delete(lineValue);
+            }
+          }
+        }
+
+        this.updateSelectedStationsDisplay();
+      }
+
+      updateSelectedStationsDisplay() {
+        this.selectedStationsList.innerHTML = '';
+        
+        if (selectedStations.size === 0) {
+          this.selectedStationsDisplay.classList.remove('show');
+          return;
+        }
+
+        this.selectedStationsDisplay.classList.add('show');
+
+        selectedStations.forEach((stations, lineValue) => {
+          const [category, lineKey] = lineValue.split('.');
+          const lineData = TRAIN_DATA[category][lineKey];
+          
+          stations.forEach(stationName => {
+            const tag = document.createElement('div');
+            tag.className = 'selected-station-tag';
+            tag.innerHTML = `
+              <span>${lineData.name} - ${stationName}</span>
+              <span class="remove-station" data-line="${lineValue}" data-station="${stationName}">×</span>
+            `;
+            
+            tag.querySelector('.remove-station').addEventListener('click', (e) => {
+              this.removeStation(e.target.dataset.line, e.target.dataset.station);
+            });
+            
+            this.selectedStationsList.appendChild(tag);
+          });
+        });
+      }
+
+      removeStation(lineValue, stationName) {
+        if (selectedStations.has(lineValue)) {
+          selectedStations.get(lineValue).delete(stationName);
+          if (selectedStations.get(lineValue).size === 0) {
+            selectedStations.delete(lineValue);
+          }
+        }
+
+        // Uncheck the checkbox
+        const checkbox = document.querySelector(`input[data-line="${lineValue}"][value="${stationName}"]`);
+        if (checkbox) checkbox.checked = false;
+
+        this.updateSelectedStationsDisplay();
+      }
+
+      clearAllStations() {
+        selectedStations.clear();
+        this.updateSelectedStationsDisplay();
+        
+        // Uncheck all checkboxes
+        this.stationCheckboxContainer.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+          cb.checked = false;
         });
       }
 
@@ -672,23 +910,27 @@
 
         this.submitButton.disabled = true;
         const originalText = this.submitButton.querySelector('span').textContent;
-        this.submitButton.querySelector('span').textContent = this.getTranslation('rental.formSubmitting', '送信中...');
+        this.submitButton.querySelector('span').textContent = '送信中...';
 
         try {
           await this.submitForm();
           
           this.showMessage(
-            this.getTranslation('rental.formSuccessMessage', 'お問い合わせありがとうございます。2営業日以内にご返信いたします。'),
+            'お問い合わせありがとうございます。2営業日以内にご返信いたします。',
             'success'
           );
           
-          this.form.reset();
-          this.stationContainer.classList.remove('show');
-          this.otherTrainContainer.classList.remove('show');
+          // Do NOT reset form - keep user's input visible
+          // this.form.reset();
+          // Instead just clear the stations
+          // selectedStations.clear();
+          // this.updateSelectedStationsDisplay();
+          // this.stationCheckboxContainer.classList.remove('show');
+          // this.otherTrainContainer.classList.remove('show');
         } catch (error) {
           console.error('Form submission error:', error);
           this.showMessage(
-            this.getTranslation('rental.formErrorMessage', '送信に失敗しました。お手数ですが、もう一度お試しください。'),
+            '送信に失敗しました。お手数ですが、もう一度お試しください。',
             'error'
           );
         } finally {
@@ -707,7 +949,7 @@
           
           if (input && input.hasAttribute('required') && !input.value.trim()) {
             if (errorDiv) {
-              errorDiv.textContent = this.getTranslation('rental.fieldRequired', 'この項目は必須です');
+              errorDiv.textContent = 'この項目は必須です';
             }
             isValid = false;
           } else if (errorDiv) {
@@ -715,12 +957,11 @@
           }
         });
 
-        // Email validation
         const email = document.getElementById('email');
         const emailError = document.getElementById('emailError');
         if (email && email.value && !this.isValidEmail(email.value)) {
           if (emailError) {
-            emailError.textContent = this.getTranslation('rental.invalidEmail', '有効なメールアドレスを入力してください');
+            emailError.textContent = '有効なメールアドレスを入力してください';
           }
           isValid = false;
         }
@@ -756,17 +997,19 @@
 
       getTrainInfo() {
         const trainLine = this.trainLineSelect;
-        const station = this.stationSelect;
         const otherTrain = this.otherTrainInput;
 
         if (trainLine.value === 'other' && otherTrain.value.trim()) {
           return otherTrain.value.trim();
-        } else if (trainLine.value && station.value) {
-          const lineName = trainLine.options[trainLine.selectedIndex].text;
-          return `${lineName} - ${station.value}駅`;
-        } else if (trainLine.value) {
-          const lineName = trainLine.options[trainLine.selectedIndex].text;
-          return lineName;
+        } else if (selectedStations.size > 0) {
+          const stationList = [];
+          selectedStations.forEach((stations, lineValue) => {
+            const [category, lineKey] = lineValue.split('.');
+            const lineData = TRAIN_DATA[category][lineKey];
+            const stationsArray = Array.from(stations);
+            stationList.push(`${lineData.name}: ${stationsArray.join('、')}`);
+          });
+          return stationList.join('\n');
         }
         return 'なし';
       }
@@ -792,7 +1035,9 @@
 ■ 希望エリア: ${area.options[area.selectedIndex].text}
 ■ 間取り: ${rooms.options[rooms.selectedIndex].text}
 ■ 入居希望時期: ${moveInDate.options[moveInDate.selectedIndex].text}
-■ 最寄り駅: ${trainInfo}
+
+■ 最寄り駅:
+${trainInfo}
 
 ■ 物件の条件:
 ${conditions.length > 0 ? conditions.join('、') : 'なし'}
@@ -832,15 +1077,15 @@ ${requirements.value || 'なし'}
           </div>
         `;
         
-        setTimeout(() => {
-          this.messageContainer.innerHTML = '';
-        }, 5000);
-
-        this.messageContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }
-
-      getTranslation(key, fallback) {
-        return fallback;
+        // Scroll to top to show message
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        
+        // Don't auto-hide success messages
+        if (type === 'error') {
+          setTimeout(() => {
+            this.messageContainer.innerHTML = '';
+          }, 5000);
+        }
       }
     }
 
@@ -925,21 +1170,11 @@ ${requirements.value || 'なし'}
               formLanguageNe: 'ネパール語',
               formTrainLine: '最寄り駅（電車線路）',
               formTrainLineSelect: '選択してください',
-              formTrainLineYamanote: 'JR山手線',
-              formTrainLineChuo: 'JR中央線',
-              formTrainLineSobu: 'JR総武線',
-              formTrainLineKeio: '京王線',
-              formTrainLineOdakyu: '小田急線',
-              formTrainLineTokyu: '東急東横線',
-              formTrainLineSeibu: '西武新宿線',
-              formTrainLineMarunouchi: '丸ノ内線',
-              formTrainLineTozai: '東西線',
-              formTrainLineGinza: '銀座線',
-              formTrainLineFukutoshin: '副都心線',
-              formTrainLineOther: 'その他',
-              formStationSelect: 'まず線路を選択',
-              formOtherTrainPlaceholder: 'その他の線路・駅を入力してください',
-              formTrainHelper: 'ご希望の最寄り駅がある場合は線路と駅を選択してください',
+              formTrainLineOther: 'その他（手入力）',
+              formOtherTrainPlaceholder: '線路・駅を入力してください（例：東急池上線-旗の台駅）',
+              formTrainHelper: 'ご希望の最寄り駅がある場合は線路を選択してから駅にチェックを入れてください（複数選択可）',
+              clearStations: '選択をクリア',
+              selectedStations: '選択した駅：',
               formConditions: '物件の条件',
               conditionBathToilet: 'バス・トイレ別',
               conditionParking: '駐車場',
@@ -1026,21 +1261,11 @@ ${requirements.value || 'なし'}
               formLanguageNe: '尼泊尔语',
               formTrainLine: '最近车站（电车线路）',
               formTrainLineSelect: '请选择',
-              formTrainLineYamanote: 'JR山手线',
-              formTrainLineChuo: 'JR中央线',
-              formTrainLineSobu: 'JR总武线',
-              formTrainLineKeio: '京王线',
-              formTrainLineOdakyu: '小田急线',
-              formTrainLineTokyu: '东急东横线',
-              formTrainLineSeibu: '西武新宿线',
-              formTrainLineMarunouchi: '丸之内线',
-              formTrainLineTozai: '东西线',
-              formTrainLineGinza: '银座线',
-              formTrainLineFukutoshin: '副都心线',
-              formTrainLineOther: '其他',
-              formStationSelect: '请先选择线路',
-              formOtherTrainPlaceholder: '请输入其他线路/车站',
-              formTrainHelper: '如有希望的最近车站，请选择线路和车站',
+              formTrainLineOther: '其他（手动输入）',
+              formOtherTrainPlaceholder: '请输入线路·车站（例：东急池上线-旗之台站）',
+              formTrainHelper: '如有希望的最近车站，请先选择线路，然后勾选车站（可多选）',
+              clearStations: '清除选择',
+              selectedStations: '已选车站：',
               formConditions: '房产条件',
               conditionBathToilet: '浴室厕所分离',
               conditionParking: '停车场',
@@ -1127,21 +1352,11 @@ ${requirements.value || 'なし'}
               formLanguageNe: 'Nepali',
               formTrainLine: 'Nearest Station (Train Line)',
               formTrainLineSelect: 'Please select',
-              formTrainLineYamanote: 'JR Yamanote Line',
-              formTrainLineChuo: 'JR Chuo Line',
-              formTrainLineSobu: 'JR Sobu Line',
-              formTrainLineKeio: 'Keio Line',
-              formTrainLineOdakyu: 'Odakyu Line',
-              formTrainLineTokyu: 'Tokyu Toyoko Line',
-              formTrainLineSeibu: 'Seibu Shinjuku Line',
-              formTrainLineMarunouchi: 'Marunouchi Line',
-              formTrainLineTozai: 'Tozai Line',
-              formTrainLineGinza: 'Ginza Line',
-              formTrainLineFukutoshin: 'Fukutoshin Line',
-              formTrainLineOther: 'Other',
-              formStationSelect: 'Select line first',
-              formOtherTrainPlaceholder: 'Please enter other line/station',
-              formTrainHelper: 'If you have a preferred nearest station, please select the line and station',
+              formTrainLineOther: 'Other (Manual Input)',
+              formOtherTrainPlaceholder: 'Please enter line and station (e.g., Tokyu Ikegami Line - Hatanodai)',
+              formTrainHelper: 'If you have a preferred nearest station, please select the line first, then check the stations (multiple selections allowed)',
+              clearStations: 'Clear Selection',
+              selectedStations: 'Selected Stations:',
               formConditions: 'Property Conditions',
               conditionBathToilet: 'Separate Bath/Toilet',
               conditionParking: 'Parking Available',
@@ -1351,11 +1566,13 @@ ${requirements.value || 'なし'}
     const i18n = new I18nManager();
     const rentalForm = new RentalFormManager();
 
-    function init() {
+    async function init() {
       i18n.buildDropdown();
       
       const detectedLang = i18n.detectLanguage();
       i18n.applyLanguage(detectedLang);
+      
+      await rentalForm.init();
       
       optimizePerformance();
       
