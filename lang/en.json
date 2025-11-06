@@ -16,9 +16,9 @@
     "contact": "Contact"
   },
   "hero": {
-    "eyebrow": "Real Estate • Tokyo",
+    "eyebrow": "Real Estate â€¢ Tokyo",
     "headline": "Professional Real Estate Services Starting from Shinjuku",
-    "tagline": "Sales • Rental • Investment | One-stop consulting with multilingual support",
+    "tagline": "Sales â€¢ Rental â€¢ Investment | One-stop consulting with multilingual support",
     "ctaTalk": "Contact Us"
   },
   "services": {
@@ -45,20 +45,6 @@
     "adv3Desc": "Tokyo Governor License (1) No. 112700, transparent and traceable procedures.",
     "adv4Title": "Research-Driven",
     "adv4Desc": "Data and model-based approach, balanced risk and return."
-  },
-  "contact": {
-    "title": "Contact Us",
-    "company": "Smart Eyes Co., Ltd.",
-    "address": "〒160-0023 Tokyo, Shinjuku-ku, Nishi-Shinjuku 7-3-10 Sankyo Building 401",
-    "phoneLabel": "TEL:",
-    "phone": "03-5358-9289",
-    "faxLabel": "FAX:",
-    "fax": "03-5358-9296",
-    "emailLabel": "E-mail:",
-    "email": "contact@smarteyes.co.jp",
-    "license": "Real Estate License Number: Tokyo Governor (1) No. 112700",
-    "wechatHint": "Scan QR code on WeChat"
-  }
   },
   "company": {
     "pageTitle": "Company Overview",
@@ -171,6 +157,17 @@
     "ctaEmail": "Email Consultation"
   },
   "contact": {
+    "title": "Contact Us",
+    "company": "Smart Eyes Co., Ltd.",
+    "address": "〒160-0023 Tokyo, Shinjuku-ku, Nishi-Shinjuku 7-3-10 Sankyo Building 401",
+    "phoneLabel": "TEL:",
+    "phone": "03-5358-9289",
+    "faxLabel": "FAX:",
+    "fax": "03-5358-9296",
+    "emailLabel": "E-mail:",
+    "email": "contact@smarteyes.co.jp",
+    "license": "Real Estate License Number: Tokyo Governor (1) No. 112700",
+    "wechatHint": "Scan QR code on WeChat",
     "pageTitle": "Contact Us",
     "pageSubtitle": "Please feel free to consult with us",
     "methodsTitle": "Contact Methods",
@@ -227,7 +224,7 @@
     "wechatHint": "Scan QR code to add as friend",
     "mapTitle": "Access Map",
     "mapDescription": "Prime location within walking distance from Shinjuku Station, accessible from multiple train lines",
-    "mapPlaceholder": "🗺️ Map Area<br>〒160-0023 Tokyo, Shinjuku-ku, Nishi-Shinjuku 7-3-10 Sankyo Building 401",
+    "mapPlaceholder": "ðŸ—ºï¸ Map Area<br>ã€’160-0023 Tokyo, Shinjuku-ku, Nishi-Shinjuku 7-3-10 Sankyo Building 401",
     "directionJr": "JR Shinjuku Station",
     "directionJrDetail": "8 minutes walk from West Exit",
     "directionMetro": "Toei Oedo Line",
