@@ -1104,283 +1104,49 @@ ${requirements.value || 'なし'}
           ne: 'नेपाली'
         };
         this.fallbackLang = 'ja';
-        
-        // 租賃表單的翻譯數據（內嵌）
-        this.translations = {
-          ja: {
-            rental: {
-              pageTitle: '賃貸物件お問い合わせ',
-              pageSubtitle: 'ご希望の条件をお聞かせください',
-              formTitle: '賃貸物件お問い合わせフォーム',
-              formDescription: '下記フォームにご入力いただき、送信ボタンをクリックしてください。2営業日以内にご返信いたします。',
-              formFullName: 'お名前',
-              formEmail: 'メールアドレス',
-              formPhone: '電話番号',
-              formPropertyType: '物件タイプ',
-              formPropertyTypeSelect: '選択してください',
-              formPropertyTypeApartment: 'マンション・アパート',
-              formPropertyTypeHouse: '一戸建て',
-              formPropertyTypeOffice: 'オフィス・事務所',
-              formPropertyTypeStore: '店舗',
-              formPropertyTypeOther: 'その他',
-              formBudget: 'ご予算（月額）',
-              formBudgetSelect: '選択してください',
-              formBudget50: '5万円以下',
-              formBudget50to100: '5万円〜10万円',
-              formBudget100to150: '10万円〜15万円',
-              formBudget150to200: '15万円〜20万円',
-              formBudget200to300: '20万円〜30万円',
-              formBudget300: '30万円以上',
-              formArea: '希望エリア',
-              formAreaSelect: '選択してください',
-              formAreaShinjuku: '新宿区',
-              formAreaShibuya: '渋谷区',
-              formAreaMinato: '港区',
-              formAreaChiyoda: '千代田区',
-              formAreaChuo: '中央区',
-              formAreaMeguro: '目黒区',
-              formAreaSetagaya: '世田谷区',
-              formAreaOtherTokyo: 'その他東京23区',
-              formAreaOther: 'その他',
-              formRooms: '間取り',
-              formRoomsSelect: '選択してください',
-              formRooms1R: 'ワンルーム',
-              formRooms1K: '1K',
-              formRooms1DK: '1DK',
-              formRooms1LDK: '1LDK',
-              formRooms2K: '2K',
-              formRooms2DK: '2DK',
-              formRooms2LDK: '2LDK',
-              formRooms3LDK: '3LDK以上',
-              formRoomsFlexible: '相談可',
-              formMoveInDate: '入居希望時期',
-              formMoveInDateSelect: '選択してください',
-              formMoveInImmediate: 'すぐ',
-              formMoveIn1Month: '1ヶ月以内',
-              formMoveIn2Months: '2ヶ月以内',
-              formMoveIn3Months: '3ヶ月以内',
-              formMoveInFlexible: '相談可',
-              formLanguage: 'ご希望の対応言語',
-              formLanguageJa: '日本語',
-              formLanguageZh: '中国語（簡体字）',
-              formLanguageZhHant: '中国語（繁体字）',
-              formLanguageEn: '英語',
-              formLanguageKo: '韓国語',
-              formLanguageVi: 'ベトナム語',
-              formLanguageNe: 'ネパール語',
-              formTrainLine: '最寄り駅（電車線路）',
-              formTrainLineSelect: '選択してください',
-              formTrainLineOther: 'その他（手入力）',
-              formOtherTrainPlaceholder: '線路・駅を入力してください（例：東急池上線-旗の台駅）',
-              formTrainHelper: 'ご希望の最寄り駅がある場合は線路を選択してから駅にチェックを入れてください（複数選択可）',
-              clearStations: '選択をクリア',
-              selectedStations: '選択した駅：',
-              formConditions: '物件の条件',
-              conditionBathToilet: 'バス・トイレ別',
-              conditionParking: '駐車場',
-              conditionBikeParking: '駐輪場',
-              conditionSouthFacing: '南向き',
-              conditionAutoLock: 'オートロック',
-              conditionSecondFloor: '2階以上',
-              conditionPetFriendly: 'ペット可',
-              formConditionsHelper: 'ご希望の条件があれば選択してください（複数選択可）',
-              formRequirements: 'その他ご要望・条件',
-              formRequirementsPlaceholder: 'その他ご希望があればご記入ください',
-              formRequirementsHelper: '例：楽器可、デザイナーズマンション、リノベーション物件など',
-              formSubmit: '送信する',
-              formSubmitting: '送信中...',
-              formSuccessMessage: 'お問い合わせありがとうございます。2営業日以内にご返信いたします。',
-              formErrorMessage: '送信に失敗しました。お手数ですが、もう一度お試しください。',
-              fieldRequired: 'この項目は必須です',
-              invalidEmail: '有効なメールアドレスを入力してください'
-            },
-            footer: {
-              copyright: '© 2024 株式会社スマートアイズ All Rights Reserved.'
-            }
-          },
-          zh: {
-            rental: {
-              pageTitle: '租赁房产咨询',
-              pageSubtitle: '请告诉我们您的需求',
-              formTitle: '租赁房产咨询表',
-              formDescription: '请填写以下表格并点击提交按钮。我们将在2个工作日内回复您。',
-              formFullName: '姓名',
-              formEmail: '电子邮箱',
-              formPhone: '电话号码',
-              formPropertyType: '房产类型',
-              formPropertyTypeSelect: '请选择',
-              formPropertyTypeApartment: '公寓',
-              formPropertyTypeHouse: '独栋房屋',
-              formPropertyTypeOffice: '办公室',
-              formPropertyTypeStore: '店铺',
-              formPropertyTypeOther: '其他',
-              formBudget: '预算（月租）',
-              formBudgetSelect: '请选择',
-              formBudget50: '5万日元以下',
-              formBudget50to100: '5万～10万日元',
-              formBudget100to150: '10万～15万日元',
-              formBudget150to200: '15万～20万日元',
-              formBudget200to300: '20万～30万日元',
-              formBudget300: '30万日元以上',
-              formArea: '希望区域',
-              formAreaSelect: '请选择',
-              formAreaShinjuku: '新宿区',
-              formAreaShibuya: '涩谷区',
-              formAreaMinato: '港区',
-              formAreaChiyoda: '千代田区',
-              formAreaChuo: '中央区',
-              formAreaMeguro: '目黒区',
-              formAreaSetagaya: '世田谷区',
-              formAreaOtherTokyo: '东京其他23区',
-              formAreaOther: '其他',
-              formRooms: '房型',
-              formRoomsSelect: '请选择',
-              formRooms1R: '单间',
-              formRooms1K: '1K',
-              formRooms1DK: '1DK',
-              formRooms1LDK: '1LDK',
-              formRooms2K: '2K',
-              formRooms2DK: '2DK',
-              formRooms2LDK: '2LDK',
-              formRooms3LDK: '3LDK以上',
-              formRoomsFlexible: '可商议',
-              formMoveInDate: '入住时间',
-              formMoveInDateSelect: '请选择',
-              formMoveInImmediate: '立即',
-              formMoveIn1Month: '1个月内',
-              formMoveIn2Months: '2个月内',
-              formMoveIn3Months: '3个月内',
-              formMoveInFlexible: '可商议',
-              formLanguage: '首选语言',
-              formLanguageJa: '日语',
-              formLanguageZh: '中文（简体）',
-              formLanguageZhHant: '中文（繁体）',
-              formLanguageEn: '英语',
-              formLanguageKo: '韩语',
-              formLanguageVi: '越南语',
-              formLanguageNe: '尼泊尔语',
-              formTrainLine: '最近车站（电车线路）',
-              formTrainLineSelect: '请选择',
-              formTrainLineOther: '其他（手动输入）',
-              formOtherTrainPlaceholder: '请输入线路·车站（例：东急池上线-旗之台站）',
-              formTrainHelper: '如有希望的最近车站，请先选择线路，然后勾选车站（可多选）',
-              clearStations: '清除选择',
-              selectedStations: '已选车站：',
-              formConditions: '房产条件',
-              conditionBathToilet: '浴室厕所分离',
-              conditionParking: '停车场',
-              conditionBikeParking: '自行车停车场',
-              conditionSouthFacing: '朝南',
-              conditionAutoLock: '自动门锁',
-              conditionSecondFloor: '2楼以上',
-              conditionPetFriendly: '允许宠物',
-              formConditionsHelper: '如有希望条件请选择（可多选）',
-              formRequirements: '其他要求',
-              formRequirementsPlaceholder: '如有其他要求请填写',
-              formRequirementsHelper: '例如：允许乐器、设计师公寓、翻新房产等',
-              formSubmit: '提交',
-              formSubmitting: '提交中...',
-              formSuccessMessage: '感谢您的咨询。我们将在2个工作日内回复您。',
-              formErrorMessage: '提交失败。请稍后重试。',
-              fieldRequired: '此项为必填',
-              invalidEmail: '请输入有效的电子邮箱地址'
-            },
-            footer: {
-              copyright: '© 2024 株式会社Smart Eyes 版权所有'
-            }
-          },
-          en: {
-            rental: {
-              pageTitle: 'Rental Property Inquiry',
-              pageSubtitle: 'Tell us your requirements',
-              formTitle: 'Rental Property Inquiry Form',
-              formDescription: 'Please fill out the form below and click the submit button. We will reply within 2 business days.',
-              formFullName: 'Full Name',
-              formEmail: 'Email Address',
-              formPhone: 'Phone Number',
-              formPropertyType: 'Property Type',
-              formPropertyTypeSelect: 'Please select',
-              formPropertyTypeApartment: 'Apartment',
-              formPropertyTypeHouse: 'House',
-              formPropertyTypeOffice: 'Office',
-              formPropertyTypeStore: 'Store',
-              formPropertyTypeOther: 'Other',
-              formBudget: 'Budget (Monthly)',
-              formBudgetSelect: 'Please select',
-              formBudget50: 'Under ¥50,000',
-              formBudget50to100: '¥50,000 - ¥100,000',
-              formBudget100to150: '¥100,000 - ¥150,000',
-              formBudget150to200: '¥150,000 - ¥200,000',
-              formBudget200to300: '¥200,000 - ¥300,000',
-              formBudget300: 'Over ¥300,000',
-              formArea: 'Preferred Area',
-              formAreaSelect: 'Please select',
-              formAreaShinjuku: 'Shinjuku',
-              formAreaShibuya: 'Shibuya',
-              formAreaMinato: 'Minato',
-              formAreaChiyoda: 'Chiyoda',
-              formAreaChuo: 'Chuo',
-              formAreaMeguro: 'Meguro',
-              formAreaSetagaya: 'Setagaya',
-              formAreaOtherTokyo: 'Other Tokyo 23 Wards',
-              formAreaOther: 'Other',
-              formRooms: 'Layout',
-              formRoomsSelect: 'Please select',
-              formRooms1R: 'Studio',
-              formRooms1K: '1K',
-              formRooms1DK: '1DK',
-              formRooms1LDK: '1LDK',
-              formRooms2K: '2K',
-              formRooms2DK: '2DK',
-              formRooms2LDK: '2LDK',
-              formRooms3LDK: '3LDK+',
-              formRoomsFlexible: 'Flexible',
-              formMoveInDate: 'Move-in Date',
-              formMoveInDateSelect: 'Please select',
-              formMoveInImmediate: 'Immediately',
-              formMoveIn1Month: 'Within 1 month',
-              formMoveIn2Months: 'Within 2 months',
-              formMoveIn3Months: 'Within 3 months',
-              formMoveInFlexible: 'Flexible',
-              formLanguage: 'Preferred Language',
-              formLanguageJa: 'Japanese',
-              formLanguageZh: 'Chinese (Simplified)',
-              formLanguageZhHant: 'Chinese (Traditional)',
-              formLanguageEn: 'English',
-              formLanguageKo: 'Korean',
-              formLanguageVi: 'Vietnamese',
-              formLanguageNe: 'Nepali',
-              formTrainLine: 'Nearest Station (Train Line)',
-              formTrainLineSelect: 'Please select',
-              formTrainLineOther: 'Other (Manual Input)',
-              formOtherTrainPlaceholder: 'Please enter line and station (e.g., Tokyu Ikegami Line - Hatanodai)',
-              formTrainHelper: 'If you have a preferred nearest station, please select the line first, then check the stations (multiple selections allowed)',
-              clearStations: 'Clear Selection',
-              selectedStations: 'Selected Stations:',
-              formConditions: 'Property Conditions',
-              conditionBathToilet: 'Separate Bath/Toilet',
-              conditionParking: 'Parking Available',
-              conditionBikeParking: 'Bike Parking',
-              conditionSouthFacing: 'South-facing',
-              conditionAutoLock: 'Auto-lock',
-              conditionSecondFloor: '2nd Floor or Above',
-              conditionPetFriendly: 'Pet-friendly',
-              formConditionsHelper: 'Select your preferred conditions (multiple selections allowed)',
-              formRequirements: 'Other Requirements',
-              formRequirementsPlaceholder: 'Please specify any other requirements',
-              formRequirementsHelper: 'e.g., Musical instruments allowed, Designer apartment, Renovated property, etc.',
-              formSubmit: 'Submit',
-              formSubmitting: 'Submitting...',
-              formSuccessMessage: 'Thank you for your inquiry. We will reply within 2 business days.',
-              formErrorMessage: 'Submission failed. Please try again.',
-              fieldRequired: 'This field is required',
-              invalidEmail: 'Please enter a valid email address'
-            },
-            footer: {
-              copyright: '© 2024 Smart Eyes Co., Ltd. All Rights Reserved.'
-            }
+      }
+
+      async loadLanguage(lang) {
+        if (this.loadedLanguages[lang]) {
+          return this.loadedLanguages[lang];
+        }
+
+        try {
+          const response = await fetch(`rental-form-${lang}.json`);
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
           }
-        };
+          const data = await response.json();
+          this.loadedLanguages[lang] = data;
+          
+          try {
+            localStorage.setItem(`smarteyes_rental_lang_${lang}`, JSON.stringify(data));
+            localStorage.setItem(`smarteyes_rental_lang_${lang}_timestamp`, Date.now().toString());
+          } catch (e) {
+            console.warn('Could not cache language data:', e);
+          }
+          
+          return data;
+        } catch (error) {
+          console.warn(`Failed to load language ${lang}:`, error);
+          
+          try {
+            const cached = localStorage.getItem(`smarteyes_rental_lang_${lang}`);
+            if (cached) {
+              const data = JSON.parse(cached);
+              this.loadedLanguages[lang] = data;
+              return data;
+            }
+          } catch (e) {
+            console.warn('Could not load from cache:', e);
+          }
+          
+          if (lang !== this.fallbackLang) {
+            return this.loadLanguage(this.fallbackLang);
+          }
+          
+          throw error;
+        }
       }
 
       detectLanguage() {
@@ -1424,37 +1190,56 @@ ${requirements.value || 'なし'}
         return value;
       }
 
-      applyLanguage(lang) {
-        const data = this.translations[lang] || this.translations[this.fallbackLang];
-        
-        document.querySelectorAll('[data-i18n]').forEach(el => {
-          const key = el.getAttribute('data-i18n');
-          const value = this.getValue(key, data);
-          if (value !== undefined) {
-            if (el.tagName === 'INPUT' && el.type === 'submit') {
-              el.value = value;
-            } else if (el.tagName === 'OPTION') {
-              el.textContent = value;
-            } else if (el.hasAttribute('placeholder')) {
-              el.placeholder = value;
-            } else {
-              el.innerHTML = value;
+      async applyLanguage(lang) {
+        try {
+          const data = await this.loadLanguage(lang);
+          
+          document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            const value = this.getValue(key, data);
+            if (value !== undefined) {
+              if (el.tagName === 'INPUT' && el.type === 'submit') {
+                el.value = value;
+              } else if (el.tagName === 'OPTION') {
+                el.textContent = value;
+              } else if (el.hasAttribute('placeholder')) {
+                el.placeholder = value;
+              } else {
+                el.innerHTML = value;
+              }
+            }
+          });
+
+          if (data.meta && data.meta.title) {
+            document.title = data.meta.title;
+          }
+          if (data.meta && data.meta.description) {
+            const metaDesc = document.querySelector('meta[name="description"]');
+            if (metaDesc) {
+              metaDesc.setAttribute('content', data.meta.description);
             }
           }
-        });
 
-        document.documentElement.lang = lang;
-        
-        try {
-          localStorage.setItem('smarteyes_preferred_lang', lang);
-        } catch (e) {
-          console.warn('Could not save language preference:', e);
+          document.documentElement.lang = lang;
+          
+          try {
+            localStorage.setItem('smarteyes_preferred_lang', lang);
+          } catch (e) {
+            console.warn('Could not save language preference:', e);
+          }
+
+          this.currentLang = lang;
+          this.updateDropdown();
+          
+          console.log(`Language switched to: ${lang}`);
+        } catch (error) {
+          console.error('Failed to apply language:', error);
+          
+          if (lang !== this.fallbackLang) {
+            console.log(`Falling back to ${this.fallbackLang}`);
+            return this.applyLanguage(this.fallbackLang);
+          }
         }
-
-        this.currentLang = lang;
-        this.updateDropdown();
-        
-        console.log(`Language switched to: ${lang}`);
       }
 
       updateDropdown() {
@@ -1570,7 +1355,7 @@ ${requirements.value || 'なし'}
       i18n.buildDropdown();
       
       const detectedLang = i18n.detectLanguage();
-      i18n.applyLanguage(detectedLang);
+      await i18n.applyLanguage(detectedLang);
       
       await rentalForm.init();
       
