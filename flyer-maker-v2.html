@@ -592,22 +592,70 @@
         <div class="form-row">
           <div class="form-group">
             <label>敷金</label>
-            <input type="text" id="deposit" placeholder="例: 1ヶ月 または -">
+            <select id="deposit">
+              <option value="-">なし</option>
+              <option value="0.5ヶ月">0.5ヶ月</option>
+              <option value="1ヶ月">1ヶ月</option>
+              <option value="1.5ヶ月">1.5ヶ月</option>
+              <option value="2ヶ月">2ヶ月</option>
+              <option value="3ヶ月">3ヶ月</option>
+              <option value="4ヶ月">4ヶ月</option>
+              <option value="5ヶ月">5ヶ月</option>
+              <option value="6ヶ月">6ヶ月</option>
+              <option value="カスタム">カスタム入力</option>
+            </select>
+            <input type="text" id="depositCustom" placeholder="カスタム金額を入力" style="margin-top: 8px; display: none;">
           </div>
           <div class="form-group">
             <label>礼金</label>
-            <input type="text" id="keyMoney" placeholder="例: 1ヶ月 または -">
+            <select id="keyMoney">
+              <option value="-">なし</option>
+              <option value="0.5ヶ月">0.5ヶ月</option>
+              <option value="1ヶ月">1ヶ月</option>
+              <option value="1.5ヶ月">1.5ヶ月</option>
+              <option value="2ヶ月">2ヶ月</option>
+              <option value="3ヶ月">3ヶ月</option>
+              <option value="4ヶ月">4ヶ月</option>
+              <option value="5ヶ月">5ヶ月</option>
+              <option value="6ヶ月">6ヶ月</option>
+              <option value="カスタム">カスタム入力</option>
+            </select>
+            <input type="text" id="keyMoneyCustom" placeholder="カスタム金額を入力" style="margin-top: 8px; display: none;">
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-group">
             <label>権利金</label>
-            <input type="text" id="rightsPayment" placeholder="例: - または金額">
+            <select id="rightsPayment">
+              <option value="-">なし</option>
+              <option value="0.5ヶ月">0.5ヶ月</option>
+              <option value="1ヶ月">1ヶ月</option>
+              <option value="1.5ヶ月">1.5ヶ月</option>
+              <option value="2ヶ月">2ヶ月</option>
+              <option value="3ヶ月">3ヶ月</option>
+              <option value="4ヶ月">4ヶ月</option>
+              <option value="5ヶ月">5ヶ月</option>
+              <option value="6ヶ月">6ヶ月</option>
+              <option value="カスタム">カスタム入力</option>
+            </select>
+            <input type="text" id="rightsPaymentCustom" placeholder="カスタム金額を入力" style="margin-top: 8px; display: none;">
           </div>
           <div class="form-group">
             <label>保証金</label>
-            <input type="text" id="securityDeposit" placeholder="例: - または金額">
+            <select id="securityDeposit">
+              <option value="-">なし</option>
+              <option value="0.5ヶ月">0.5ヶ月</option>
+              <option value="1ヶ月">1ヶ月</option>
+              <option value="1.5ヶ月">1.5ヶ月</option>
+              <option value="2ヶ月">2ヶ月</option>
+              <option value="3ヶ月">3ヶ月</option>
+              <option value="4ヶ月">4ヶ月</option>
+              <option value="5ヶ月">5ヶ月</option>
+              <option value="6ヶ月">6ヶ月</option>
+              <option value="カスタム">カスタム入力</option>
+            </select>
+            <input type="text" id="securityDepositCustom" placeholder="カスタム金額を入力" style="margin-top: 8px; display: none;">
           </div>
         </div>
 
@@ -1210,91 +1258,113 @@
 
     // ===== 画像レイアウト計算 =====
     function calculateImageLayout(images) {
-      const count = images.filter(img => img !== null).length;
-      const types = images.filter(img => img !== null).map(img => img.type);
-      
-      if (count === 2) {
-        // 2枚の場合
-        if (types[0] === 'landscape' && types[1] === 'landscape') {
-          return { heights: ['50%', '50%'], grid: 'rows' };
-        } else if (types[0] === 'portrait' && types[1] === 'square') {
-          return { heights: ['100%', '100%'], grid: 'columns' };
-        } else {
-          return { heights: ['55%', '45%'], grid: 'rows' };
+      try {
+        const validImages = [
+          images.exterior,
+          images.floorplan,
+          images.interior1,
+          images.interior2,
+          images.interior3
+        ].filter(img => img !== null && img !== undefined);
+        
+        const count = validImages.length;
+        if (count === 0) {
+          return { heights: [], grid: 'rows' };
         }
-      } else if (count === 3) {
-        // 3枚の場合
-        if (types.filter(t => t === 'landscape').length >= 2) {
-          return { heights: ['40%', '35%', '25%'], grid: 'rows' };
-        } else {
-          return { heights: ['45%', '35%', '20%'], grid: 'rows' };
+        
+        const types = validImages.map(img => img.type);
+        
+        if (count === 2) {
+          // 2枚の場合
+          if (types[0] === 'landscape' && types[1] === 'landscape') {
+            return { heights: ['50%', '50%'], grid: 'rows' };
+          } else if (types[0] === 'portrait' && types[1] === 'square') {
+            return { heights: ['100%', '100%'], grid: 'columns' };
+          } else {
+            return { heights: ['55%', '45%'], grid: 'rows' };
+          }
+        } else if (count === 3) {
+          // 3枚の場合
+          if (types.filter(t => t === 'landscape').length >= 2) {
+            return { heights: ['40%', '35%', '25%'], grid: 'rows' };
+          } else {
+            return { heights: ['45%', '35%', '20%'], grid: 'rows' };
+          }
+        } else if (count >= 4) {
+          // 4-5枚の場合
+          return { heights: ['35%', '30%', '17.5%', '17.5%'], grid: 'mixed' };
         }
-      } else if (count >= 4) {
-        // 4-5枚の場合
-        return { heights: ['35%', '30%', '17.5%', '17.5%'], grid: 'mixed' };
+        
+        return { heights: ['100%'], grid: 'rows' };
+      } catch (error) {
+        console.error('画像レイアウト計算エラー:', error);
+        return { heights: ['100%'], grid: 'rows' };
       }
-      
-      return { heights: ['100%'], grid: 'rows' };
     }
 
     // ===== 画像HTML生成 =====
     function generateImagesHTML(images, layout) {
-      const validImages = [
-        images.exterior,
-        images.floorplan,
-        images.interior1,
-        images.interior2,
-        images.interior3
-      ].filter(img => img !== null);
-      
-      if (validImages.length === 0) {
-        return '<div>画像がアップロードされていません</div>';
-      }
-      
-      let html = '';
-      
-      if (layout.grid === 'mixed' && validImages.length >= 4) {
-        // 混合レイアウト（4-5枚）
-        html += `<div class="image-box" style="height: ${layout.heights[0]};">
-          <img src="${validImages[0].base64}" alt="外観">
-        </div>`;
-        html += `<div class="image-box" style="height: ${layout.heights[1]};">
-          <img src="${validImages[1].base64}" alt="間取図">
-        </div>`;
+      try {
+        const validImages = [
+          images.exterior,
+          images.floorplan,
+          images.interior1,
+          images.interior2,
+          images.interior3
+        ].filter(img => img !== null && img !== undefined);
         
-        // 残りをグリッド配置
-        html += '<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; height: ' + layout.heights[2] + ';">';
-        if (validImages[2]) {
-          html += `<div class="image-box"><img src="${validImages[2].base64}" alt="室内1"></div>`;
+        if (validImages.length === 0) {
+          return '<div style="color: #94a3b8; text-align: center; padding: 40px;">画像がアップロードされていません</div>';
         }
-        if (validImages[3]) {
-          html += `<div class="image-box"><img src="${validImages[3].base64}" alt="室内2"></div>`;
-        }
-        html += '</div>';
         
-        if (validImages[4]) {
-          html += `<div class="image-box" style="height: ${layout.heights[3]};">
-            <img src="${validImages[4].base64}" alt="室内3">
+        let html = '';
+        
+        if (layout.grid === 'mixed' && validImages.length >= 4) {
+          // 混合レイアウト（4-5枚）
+          html += `<div class="image-box" style="height: ${layout.heights[0]};">
+            <img src="${validImages[0].base64}" alt="外観">
           </div>`;
+          html += `<div class="image-box" style="height: ${layout.heights[1]};">
+            <img src="${validImages[1].base64}" alt="間取図">
+          </div>`;
+          
+          // 残りをグリッド配置
+          html += '<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; height: ' + layout.heights[2] + ';">';
+          if (validImages[2]) {
+            html += `<div class="image-box"><img src="${validImages[2].base64}" alt="室内1"></div>`;
+          }
+          if (validImages[3]) {
+            html += `<div class="image-box"><img src="${validImages[3].base64}" alt="室内2"></div>`;
+          }
+          html += '</div>';
+          
+          if (validImages[4]) {
+            html += `<div class="image-box" style="height: ${layout.heights[3]};">
+              <img src="${validImages[4].base64}" alt="室内3">
+            </div>`;
+          }
+        } else if (layout.grid === 'columns') {
+          // 横並び
+          html += '<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; height: 100%;">';
+          validImages.forEach((img, index) => {
+            html += `<div class="image-box"><img src="${img.base64}" alt="画像${index + 1}"></div>`;
+          });
+          html += '</div>';
+        } else {
+          // 縦並び
+          validImages.forEach((img, index) => {
+            const height = layout.heights[index] || 'auto';
+            html += `<div class="image-box" style="height: ${height};">
+              <img src="${img.base64}" alt="画像${index + 1}">
+            </div>`;
+          });
         }
-      } else if (layout.grid === 'columns') {
-        // 横並び
-        html += '<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; height: 100%;">';
-        validImages.forEach((img, index) => {
-          html += `<div class="image-box"><img src="${img.base64}" alt="画像${index + 1}"></div>`;
-        });
-        html += '</div>';
-      } else {
-        // 縦並び
-        validImages.forEach((img, index) => {
-          const height = layout.heights[index] || 'auto';
-          html += `<div class="image-box" style="height: ${height};">
-            <img src="${img.base64}" alt="画像${index + 1}">
-          </div>`;
-        });
+        
+        return html;
+      } catch (error) {
+        console.error('画像HTML生成エラー:', error);
+        return '<div style="color: #ef4444;">画像の読み込みに失敗しました</div>';
       }
-      
-      return html;
     }
 
     // ===== 入居可能日の取得 =====
@@ -1315,6 +1385,33 @@
         customInput.style.display = 'none';
       }
     });
+
+    // ===== 敷金/礼金/権利金/保証金のカスタム入力表示切替 =====
+    ['deposit', 'keyMoney', 'rightsPayment', 'securityDeposit'].forEach(fieldId => {
+      const select = document.getElementById(fieldId);
+      const customInput = document.getElementById(fieldId + 'Custom');
+      
+      if (select && customInput) {
+        select.addEventListener('change', function() {
+          if (this.value === 'カスタム') {
+            customInput.style.display = 'block';
+          } else {
+            customInput.style.display = 'none';
+          }
+        });
+      }
+    });
+
+    // ===== 敷金/礼金等の値を取得 =====
+    function getDepositValue(fieldId) {
+      const select = document.getElementById(fieldId);
+      const customInput = document.getElementById(fieldId + 'Custom');
+      
+      if (select.value === 'カスタム') {
+        return customInput.value.trim() || '-';
+      }
+      return select.value;
+    }
 
     // ===== 設備リストの取得 =====
     function getEquipmentList() {
@@ -1412,16 +1509,28 @@
     function getTransitInfo() {
       let transit = [];
       
-      for (let i = 1; i <= 3; i++) {
-        const lineSelect = document.getElementById(`transit${i}Line`);
-        const stationSelect = document.getElementById(`transit${i}Station`);
-        const walk = document.getElementById(`transit${i}Walk`).value.trim();
-        
-        if (lineSelect.value && stationSelect.value && walk) {
-          const lineName = lineSelect.options[lineSelect.selectedIndex].text;
-          const stationName = stationSelect.value;
-          transit.push(`${lineName} ${stationName} 徒歩${walk}分`);
+      try {
+        for (let i = 1; i <= 3; i++) {
+          const lineSelect = document.getElementById(`transit${i}Line`);
+          const stationSelect = document.getElementById(`transit${i}Station`);
+          const walkInput = document.getElementById(`transit${i}Walk`);
+          
+          if (!lineSelect || !stationSelect || !walkInput) {
+            console.warn(`Transit${i} elements not found`);
+            continue;
+          }
+          
+          const walk = walkInput.value.trim();
+          
+          if (lineSelect.value && stationSelect.value && walk) {
+            const selectedOption = lineSelect.options[lineSelect.selectedIndex];
+            const lineName = selectedOption ? selectedOption.text : lineSelect.value;
+            const stationName = stationSelect.value;
+            transit.push(`${lineName} ${stationName} 徒歩${walk}分`);
+          }
         }
+      } catch (error) {
+        console.error('交通情報取得エラー:', error);
       }
       
       return transit.length > 0 ? transit.join('<br>') : '-';
@@ -1448,64 +1557,86 @@
 
     // ===== 宣伝ページ生成 =====
     async function generateFlyer() {
-      const form = document.getElementById('propertyForm');
-      if (!form.checkValidity()) {
-        alert('必須項目を入力してください');
-        form.reportValidity();
-        return;
-      }
-
-      if (!uploadedImages.exterior || !uploadedImages.floorplan) {
-        alert('外観写真と間取図は必須です');
-        return;
-      }
-
-      // データ収集
-      const data = {
-        propertyName: document.getElementById('propertyName').value,
-        roomNumber: document.getElementById('roomNumber').value,
-        propertyType: document.getElementById('propertyType').value,
-        layout: document.getElementById('layout').value,
-        rent: parseInt(document.getElementById('rent').value).toLocaleString(),
-        managementFee: parseInt(document.getElementById('managementFee').value).toLocaleString(),
-        layoutDetail: document.getElementById('layoutDetail').value || '-',
-        deposit: document.getElementById('deposit').value || '-',
-        keyMoney: document.getElementById('keyMoney').value || '-',
-        rightsPayment: document.getElementById('rightsPayment').value || '-',
-        securityDeposit: document.getElementById('securityDeposit').value || '-',
-        otherFees: document.getElementById('otherFees').value || '-',
-        address: document.getElementById('address').value,
-        transit: getTransitInfo(),
-        structure: document.getElementById('structure').value,
-        scale: document.getElementById('scale').value,
-        area: document.getElementById('area').value,
-        buildDate: document.getElementById('buildDate').value || '-',
-        contractPeriod: document.getElementById('contractPeriod').value,
-        vacancyDate: document.getElementById('vacancyDate').value || '-',
-        moveInDate: getMoveInDate(),
-        equipment: getEquipmentList(),
-        conditions: getConditions(),
-        insurance: document.getElementById('insurance').value || '-',
-        guarantor: document.getElementById('guarantor').value || '-',
-        catchCopy: document.getElementById('catchCopy').value,
-        remarks: document.getElementById('remarks').value || '-'
-      };
-
-      // 画像レイアウト計算
-      const layout = calculateImageLayout(uploadedImages);
-      const imagesHTML = generateImagesHTML(uploadedImages, layout);
-
-      // HTML生成
-      const previewArea = document.getElementById('previewArea');
-      previewArea.innerHTML = generateFlyerHTML(data, imagesHTML);
-      previewArea.style.display = 'block';
-
-      // 印刷プレビュー
-      setTimeout(() => {
-        if (confirm('宣伝ページを生成しました。印刷プレビューを開きますか？\n（印刷ダイアログで「PDFに保存」を選択できます）')) {
-          window.print();
+      try {
+        console.log('生成開始...');
+        
+        const form = document.getElementById('propertyForm');
+        
+        // 必須項目チェック
+        if (!form.checkValidity()) {
+          alert('必須項目を入力してください');
+          form.reportValidity();
+          return;
         }
-      }, 100);
+
+        // 画像チェック
+        if (!uploadedImages.exterior || !uploadedImages.floorplan) {
+          alert('外観写真と間取図は必須です');
+          return;
+        }
+
+        console.log('データ収集中...');
+
+        // データ収集
+        const data = {
+          propertyName: document.getElementById('propertyName').value,
+          roomNumber: document.getElementById('roomNumber').value,
+          propertyType: document.getElementById('propertyType').value,
+          layout: document.getElementById('layout').value,
+          rent: parseInt(document.getElementById('rent').value).toLocaleString(),
+          managementFee: parseInt(document.getElementById('managementFee').value).toLocaleString(),
+          layoutDetail: document.getElementById('layoutDetail').value || '-',
+          deposit: getDepositValue('deposit'),
+          keyMoney: getDepositValue('keyMoney'),
+          rightsPayment: getDepositValue('rightsPayment'),
+          securityDeposit: getDepositValue('securityDeposit'),
+          otherFees: document.getElementById('otherFees').value || '-',
+          address: document.getElementById('address').value,
+          transit: getTransitInfo(),
+          structure: document.getElementById('structure').value,
+          scale: document.getElementById('scale').value,
+          area: document.getElementById('area').value,
+          buildDate: document.getElementById('buildDate').value || '-',
+          contractPeriod: document.getElementById('contractPeriod').value,
+          vacancyDate: document.getElementById('vacancyDate').value || '-',
+          moveInDate: getMoveInDate(),
+          equipment: getEquipmentList(),
+          conditions: getConditions(),
+          insurance: document.getElementById('insurance').value || '-',
+          guarantor: document.getElementById('guarantor').value || '-',
+          catchCopy: document.getElementById('catchCopy').value,
+          remarks: document.getElementById('remarks').value || '-'
+        };
+
+        console.log('画像レイアウト計算中...');
+
+        // 画像レイアウト計算
+        const layout = calculateImageLayout(uploadedImages);
+        const imagesHTML = generateImagesHTML(uploadedImages, layout);
+
+        console.log('HTML生成中...');
+
+        // HTML生成
+        const previewArea = document.getElementById('previewArea');
+        previewArea.innerHTML = generateFlyerHTML(data, imagesHTML);
+        previewArea.style.display = 'block';
+
+        console.log('生成完了！');
+
+        // ページをスクロールしてプレビューを表示
+        previewArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        // 印刷プレビュー
+        setTimeout(() => {
+          if (confirm('宣伝ページを生成しました。印刷プレビューを開きますか？\n（印刷ダイアログで「PDFに保存」を選択できます）')) {
+            window.print();
+          }
+        }, 500);
+
+      } catch (error) {
+        console.error('生成エラー:', error);
+        alert('エラーが発生しました: ' + error.message + '\n\nブラウザのコンソール(F12)を確認してください。');
+      }
     }
 
     // ===== 宣伝ページHTML生成 =====
@@ -1655,9 +1786,46 @@
 
     // ===== 初期化 =====
     window.addEventListener('DOMContentLoaded', async () => {
-      await loadTrainData();
-      initTrainSelects();
-      console.log('物件宣伝ページ作成ツール v2 準備完了');
+      console.log('=== 物件宣伝ページ作成ツール v2 初期化開始 ===');
+      
+      try {
+        // 電車データ読み込み
+        console.log('電車データ読み込み中...');
+        await loadTrainData();
+        
+        // 電車選択初期化
+        console.log('電車選択初期化中...');
+        initTrainSelects();
+        
+        // ボタンのイベントリスナー確認
+        const generateBtn = document.querySelector('button[onclick="generateFlyer()"]');
+        if (generateBtn) {
+          console.log('✓ 生成ボタン検出');
+        } else {
+          console.warn('⚠ 生成ボタンが見つかりません');
+        }
+        
+        // 必須フィールド確認
+        const requiredFields = [
+          'propertyName', 'roomNumber', 'propertyType', 'layout',
+          'rent', 'managementFee', 'address', 'transit1Line',
+          'transit1Station', 'transit1Walk', 'structure', 'scale', 'area'
+        ];
+        
+        requiredFields.forEach(fieldId => {
+          const field = document.getElementById(fieldId);
+          if (!field) {
+            console.warn(`⚠ 必須フィールドが見つかりません: ${fieldId}`);
+          }
+        });
+        
+        console.log('✓ 初期化完了');
+        console.log('===========================================');
+        
+      } catch (error) {
+        console.error('❌ 初期化エラー:', error);
+        alert('初期化エラーが発生しました。ブラウザのコンソール(F12)を確認してください。');
+      }
     });
   </script>
 </body>
