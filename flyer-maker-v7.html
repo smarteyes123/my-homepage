@@ -298,7 +298,7 @@
 
       @page {
         size: A4 landscape;
-        margin: 10mm;
+        margin: 5mm;
       }
     }
 
@@ -309,7 +309,7 @@
       height: 210mm;
       margin: 0 auto;
       background: white;
-      padding: 10mm;
+      padding: 5mm;
       box-sizing: border-box;
       font-size: 11px;
       line-height: 1.4;
@@ -381,20 +381,31 @@
       display: grid;
       grid-template-columns: 2fr 1fr;
       gap: 10px;
-      margin-bottom: 10px;
-      height: 140mm;
-      max-height: 140mm;
-      overflow: hidden;
+      margin-bottom: 6px;
+      height: 155mm;
+      max-height: 155mm;
+    }
+
+    /* 画像エリア全体（包含图片和注释） */
+    .images-area {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
     }
 
     /* 画像エリア */
     .images-column {
+      flex: 1;
       display: flex;
       flex-direction: column;
       gap: 8px;
+    }
+
+    /* 詳細情報カラム（Flexbox自動填充） */
+    .details-column {
+      display: flex;
+      flex-direction: column;
       height: 100%;
-      max-height: 100%;
-      overflow: hidden;
     }
 
     .image-box {
@@ -413,23 +424,44 @@
       object-fit: contain;
     }
 
-    /* 詳細情報テーブル（列幅最適化） */
+    /* 詳細情報テーブル（列幅最適化，Flex自動填充） */
     .details-table {
       width: 100%;
       border-collapse: collapse;
       font-size: 10px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .details-table tbody {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: space-evenly;
+    }
+
+    .details-table tr {
+      display: grid;
+      grid-template-columns: 70px 1fr 70px 1fr;
+      min-height: 20px;
     }
 
     .details-table td {
       border: 1px solid #94a3b8;
-      padding: 3px 6px;
+      padding: 4px 6px;
       line-height: 1.4;
+      display: flex;
+      align-items: center;
+    }
+
+    .details-table td[colspan="3"] {
+      grid-column: 2 / 5;
     }
 
     .details-table .label-cell {
       background: #e2e8f0;
       font-weight: 700;
-      width: 70px;
       white-space: nowrap;
     }
 
@@ -459,24 +491,34 @@
       font-style: italic;
     }
 
+    /* 画像注釈 */
+    .image-note {
+      font-size: 9px;
+      color: var(--ink-light);
+      text-align: left;
+      padding: 4px 8px;
+      margin-top: 2px;
+      border-top: 1px solid #e2e8f0;
+      background: #f8fafc;
+    }
+
     /* フッター（会社情報・圧縮版） */
     .flyer-footer {
       border-top: 3px solid var(--brand);
       padding-top: 6px;
-      margin-top: 10px;
+      margin-top: 6px;
     }
 
     .company-info {
       display: grid;
-      grid-template-columns: 50px 1fr;
+      grid-template-columns: 70px 1fr 25%;
       gap: 12px;
       align-items: start;
-      margin-bottom: 6px;
     }
 
     .company-logo {
-      width: 50px;
-      height: 50px;
+      width: 70px;
+      height: 70px;
     }
 
     .company-logo img {
@@ -491,17 +533,17 @@
     }
 
     .company-name {
-      font-size: 13px;
+      font-size: 16px;
       font-weight: 700;
       color: var(--brand);
-      margin-bottom: 2px;
+      margin-bottom: 3px;
     }
 
     .transaction-table {
       width: 100%;
       border-collapse: collapse;
       font-size: 9px;
-      margin-top: 4px;
+      justify-self: end;
     }
 
     .transaction-table td {
@@ -1945,9 +1987,12 @@
 
         <!-- メインレイアウト -->
         <div class="main-layout">
-          <!-- 画像カラム -->
-          <div class="images-column">
-            ${imagesHTML}
+          <!-- 画像エリア全体 -->
+          <div class="images-area">
+            <div class="images-column">
+              ${imagesHTML}
+            </div>
+            <div class="image-note">※図面と異なる場合は現況を優先となります。</div>
           </div>
 
           <!-- 詳細情報カラム -->
@@ -2029,7 +2074,7 @@
         <div class="flyer-footer">
           <div class="company-info">
             <div class="company-logo">
-              <img src="logo.png" alt="Smart Eyes" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\\'color:white;font-size:10px;text-align:center;line-height:1.2;padding:15px\\'>Smart<br>Eyes</div>'">
+              <img src="logo.png" alt="Smart Eyes" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\\'color:var(--brand);font-size:10px;text-align:center;line-height:1.2;padding:15px\\'>Smart<br>Eyes</div>'">
             </div>
             <div class="company-details">
               <div class="company-name">株式会社スマートアイズ</div>
@@ -2037,28 +2082,27 @@
               TEL: 03-XXXX-XXXX / Email: info@smarteyes.co.jp<br>
               宅地建物取引業免許番号：東京都知事(1)第112700号
             </div>
+            <table class="transaction-table">
+              <tr>
+                <td class="label-cell" rowspan="2">取引態様<br>${data.transactionType}</td>
+                <td class="label-cell" colspan="2">手数料負担割合</td>
+                <td class="label-cell" colspan="2">手数料負担割合</td>
+              </tr>
+              <tr>
+                <td class="label-cell">元付</td>
+                <td>${data.feeMotozuke}%</td>
+                <td class="label-cell">客付</td>
+                <td>${data.feeKyakuzuke}%</td>
+              </tr>
+              <tr>
+                <td class="label-cell">貸主</td>
+                <td class="label-cell">配分の割合</td>
+                <td>${data.burdenKashinushi}%</td>
+                <td class="label-cell">借主</td>
+                <td>${data.burdenKarinushi}%</td>
+              </tr>
+            </table>
           </div>
-          
-          <table class="transaction-table">
-            <tr>
-              <td class="label-cell" rowspan="2">取引態様<br>${data.transactionType}</td>
-              <td class="label-cell" colspan="2">手数料負担割合</td>
-              <td class="label-cell" colspan="2">手数料負担割合</td>
-            </tr>
-            <tr>
-              <td class="label-cell">元付</td>
-              <td>${data.feeMotozuke}%</td>
-              <td class="label-cell">客付</td>
-              <td>${data.feeKyakuzuke}%</td>
-            </tr>
-            <tr>
-              <td class="label-cell">貸主</td>
-              <td class="label-cell">配分の割合</td>
-              <td>${data.burdenKashinushi}%</td>
-              <td class="label-cell">借主</td>
-              <td>${data.burdenKarinushi}%</td>
-            </tr>
-          </table>
         </div>
       `;
     }
