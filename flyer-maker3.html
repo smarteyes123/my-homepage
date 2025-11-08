@@ -1,0 +1,2145 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ç‰©ä»¶å®£ä¼ãƒšãƒ¼ã‚¸ä½œæˆãƒ„ãƒ¼ãƒ« v2 | æ ªå¼ä¼šç¤¾ã‚¹ãƒžãƒ¼ãƒˆã‚¢ã‚¤ã‚º</title>
+  <style>
+    /* ===== ã‚«ãƒ©ãƒ¼ãƒ‘ãƒ¬ãƒƒãƒˆï¼ˆä¸»ã‚µã‚¤ãƒˆã¨çµ±ä¸€ï¼‰ ===== */
+    :root {
+      --brand: #1e40af;
+      --brand-light: #3b82f6;
+      --brand-ink: #0f172a;
+      --gold: #f59e0b;
+      --gold-light: #fbbf24;
+      --ink: #0f172a;
+      --ink-light: #334155;
+      --muted: #64748b;
+      --muted-light: #94a3b8;
+      --bg-solid: #f8fafc;
+      --card: #ffffff;
+      --accent: #06b6d4;
+      --success: #10b981;
+      --error: #ef4444;
+      --radius: 8px;
+      --shadow: 0 4px 20px rgba(30, 64, 175, 0.08);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 20px;
+      background: var(--bg-solid);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Noto Sans JP", "Microsoft YaHei", sans-serif;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* ===== ãƒ˜ãƒƒãƒ€ãƒ¼ ===== */
+    .header {
+      background: white;
+      padding: 20px 30px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 30px;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 24px;
+      color: var(--brand);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .header p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* ===== ç·¨é›†ã‚¨ãƒªã‚¢ ===== */
+    .editor-area {
+      background: white;
+      padding: 30px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--brand);
+      margin: 0 0 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--brand);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--ink-light);
+      font-size: 14px;
+    }
+
+    .label-required::after {
+      content: " *";
+      color: var(--error);
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 2px solid #e2e8f0;
+      border-radius: 6px;
+      font-size: 14px;
+      transition: var(--transition);
+      font-family: inherit;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--brand);
+      box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+    }
+
+    select:disabled {
+      background: #f1f5f9;
+      color: var(--muted);
+      cursor: not-allowed;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    /* ===== ãƒã‚§ãƒƒã‚¯ãƒœãƒƒã‚¯ã‚¹ã‚°ãƒªãƒƒãƒ‰ ===== */
+    .checkbox-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .checkbox-item input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+
+    .checkbox-item label {
+      margin: 0;
+      cursor: pointer;
+      font-weight: 400;
+    }
+
+    /* ===== ãƒ•ã‚¡ã‚¤ãƒ«ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ ===== */
+    .file-upload {
+      border: 2px dashed #e2e8f0;
+      border-radius: 6px;
+      padding: 20px;
+      text-align: center;
+      transition: var(--transition);
+      cursor: pointer;
+      background: #f8fafc;
+    }
+
+    .file-upload:hover {
+      border-color: var(--brand);
+      background: #f1f5f9;
+    }
+
+    .file-upload input[type="file"] {
+      display: none;
+    }
+
+    .file-preview-container {
+      margin-top: 10px;
+      display: flex;
+      gap: 10px;
+      align-items: start;
+    }
+
+    .file-preview {
+      max-width: 150px;
+      max-height: 150px;
+      border-radius: 4px;
+      border: 2px solid #e2e8f0;
+    }
+
+    .image-info {
+      font-size: 12px;
+      color: var(--muted);
+      padding: 8px;
+      background: #f8fafc;
+      border-radius: 4px;
+    }
+
+    .image-type-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    .badge-landscape {
+      background: #dbeafe;
+      color: var(--brand);
+    }
+
+    .badge-portrait {
+      background: #fce7f3;
+      color: #be185d;
+    }
+
+    .badge-square {
+      background: #d1fae5;
+      color: #065f46;
+    }
+
+    /* ===== ãƒœã‚¿ãƒ³ ===== */
+    .button-group {
+      display: flex;
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: inherit;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--brand), var(--brand-light));
+      color: white;
+      box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(30, 64, 175, 0.4);
+    }
+
+    .btn-secondary {
+      background: #e2e8f0;
+      color: var(--ink);
+    }
+
+    .btn-secondary:hover {
+      background: #cbd5e1;
+    }
+
+    .help-text {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* ===== A4æ¨ªç‰ˆå°åˆ·ã‚¹ã‚¿ã‚¤ãƒ« ===== */
+    @media print {
+      body {
+        background: white;
+        padding: 0;
+        margin: 0;
+      }
+
+      .editor-area,
+      .header,
+      .button-group {
+        display: none !important;
+      }
+
+      .preview-area {
+        display: block !important;
+      }
+
+      @page {
+        size: A4 landscape;
+        margin: 5mm;
+      }
+    }
+
+    /* ===== ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼ã‚¨ãƒªã‚¢ï¼ˆå°åˆ·ç”¨ãƒ»A4æ¨ªç‰ˆæœ€é©åŒ–ï¼‰ ===== */
+    .preview-area {
+      display: none;
+      width: 297mm;
+      height: 210mm;
+      margin: 0 auto;
+      background: white;
+      padding: 5mm;
+      box-sizing: border-box;
+      font-size: 11px;
+      line-height: 1.4;
+    }
+
+    /* ç‰©ä»¶ã‚¿ã‚¤ãƒˆãƒ«ï¼ˆ1è¡Œã«åœ§ç¸®ï¼‰ */
+    .flyer-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--brand-ink);
+      margin: 0 0 8px;
+      padding-bottom: 6px;
+      border-bottom: 3px solid var(--brand);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .flyer-number {
+      font-size: 18px;
+      color: var(--muted);
+      margin-left: 20px;
+    }
+
+    /* åŸºæœ¬æƒ…å ±ãƒ†ãƒ¼ãƒ–ãƒ« */
+    .basic-info-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 8px;
+    }
+
+    .basic-info-table td {
+      border: 2px solid #334155;
+      padding: 4px 8px;
+      font-size: 11px;
+    }
+
+    .basic-info-table .label-cell {
+      background: #f1f5f9;
+      font-weight: 700;
+      width: 90px;
+      text-align: center;
+    }
+
+    .basic-info-table .value-cell {
+      font-weight: 600;
+    }
+
+    .rent-highlight {
+      font-size: 18px;
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    /* ã‚­ãƒ£ãƒƒãƒã‚³ãƒ”ãƒ¼ */
+    .catch-copy {
+      background: linear-gradient(135deg, #fef3c7, #fde68a);
+      padding: 6px 10px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--brand-ink);
+      margin-bottom: 8px;
+      border-radius: 4px;
+    }
+
+    /* ãƒ¡ã‚¤ãƒ³ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆ */
+    .main-layout {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 10px;
+      margin-bottom: 6px;
+      height: 155mm;
+      max-height: 155mm;
+      overflow: hidden;
+    }
+
+    /* ç”»åƒã‚¨ãƒªã‚¢ */
+    .images-column {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      height: 100%;
+      max-height: 100%;
+    }
+
+    .image-box {
+      border: 2px solid #cbd5e1;
+      border-radius: 4px;
+      overflow: hidden;
+      background: #f8fafc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .image-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    /* è©³ç´°æƒ…å ±ãƒ†ãƒ¼ãƒ–ãƒ«ï¼ˆåˆ—å¹…æœ€é©åŒ–ï¼‰ */
+    .details-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 10px;
+    }
+
+    .details-table td {
+      border: 1px solid #94a3b8;
+      padding: 4px 8px;
+      line-height: 1.5;
+    }
+
+    .details-table .label-cell {
+      background: #e2e8f0;
+      font-weight: 700;
+      width: 70px;
+      white-space: nowrap;
+    }
+
+    .equipment-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 10px;
+    }
+
+    .equipment-item {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      white-space: nowrap;
+    }
+
+    .equipment-item::before {
+      content: "âœ“";
+      color: var(--success);
+      font-weight: 700;
+      font-size: 11px;
+    }
+
+    .equipment-etc {
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    /* ç”»åƒæ³¨é‡ˆ */
+    .image-note {
+      font-size: 9px;
+      color: var(--muted);
+      text-align: left;
+      margin-top: 4px;
+      padding-top: 4px;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    /* ãƒ•ãƒƒã‚¿ãƒ¼ï¼ˆä¼šç¤¾æƒ…å ±ãƒ»åœ§ç¸®ç‰ˆï¼‰ */
+    .flyer-footer {
+      border-top: 3px solid var(--brand);
+      padding-top: 6px;
+      margin-top: 6px;
+    }
+
+    .company-info {
+      display: grid;
+      grid-template-columns: 60px 3fr 1fr;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .company-logo {
+      width: 60px;
+      height: 60px;
+    }
+
+    .company-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .company-details {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 2px;
+    }
+
+    .company-line-1 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--brand);
+      line-height: 1.2;
+    }
+
+    .company-contact {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-left: 12px;
+    }
+
+    .company-line-2 {
+      font-size: 11px;
+      line-height: 1.3;
+      color: var(--ink-light);
+    }
+
+    .company-line-3 {
+      font-size: 10px;
+      line-height: 1.2;
+      color: var(--muted);
+    }
+
+    .transaction-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 9px;
+    }
+
+    .transaction-table td {
+      border: 1px solid #94a3b8;
+      padding: 2px 6px;
+      text-align: center;
+    }
+
+    .transaction-table .label-cell {
+      background: #e2e8f0;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- ãƒ˜ãƒƒãƒ€ãƒ¼ -->
+    <div class="header">
+      <h1>ðŸ¢ ç‰©ä»¶å®£ä¼ãƒšãƒ¼ã‚¸ä½œæˆãƒ„ãƒ¼ãƒ« v2</h1>
+      <p>è³ƒè²¸ç‰©ä»¶ã®æƒ…å ±ã‚’å…¥åŠ›ã—ã¦ã€A4æ¨ªç‰ˆã®å®£ä¼ãƒšãƒ¼ã‚¸ã‚’ç”Ÿæˆã—ã¾ã™ã€‚ç”»åƒã¯è‡ªå‹•ã§æœ€é©ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆã«é…ç½®ã•ã‚Œã¾ã™ã€‚</p>
+    </div>
+
+    <!-- ç·¨é›†ã‚¨ãƒªã‚¢ -->
+    <div class="editor-area">
+      <form id="propertyForm">
+        
+        <!-- åŸºæœ¬æƒ…å ± -->
+        <h2 class="section-title">åŸºæœ¬æƒ…å ±</h2>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="label-required">ç‰©ä»¶åç§°</label>
+            <input type="text" id="propertyName" required placeholder="ä¾‹: ã‚¹ãƒ‘ã‚·ã‚¨è’²ç”°ã‚°ãƒ©ãƒ³ãƒ‰ã‚¿ãƒ¯ãƒ¼">
+          </div>
+          <div class="form-group">
+            <label class="label-required">éƒ¨å±‹ç•ªå·</label>
+            <input type="text" id="roomNumber" required placeholder="ä¾‹: 0409 ã¾ãŸã¯ 302">
+          </div>
+          <div class="form-group">
+            <label class="label-required">å–å¼•æ…‹æ§˜</label>
+            <select id="transactionType" required>
+              <option value="ä¸­ä»‹">ä¸­ä»‹</option>
+              <option value="åª’ä»‹">åª’ä»‹</option>
+              <option value="è²¸ä¸»">è²¸ä¸»</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="label-required">ç‰©ä»¶ç¨®åˆ¥</label>
+            <select id="propertyType" required>
+              <option value="">é¸æŠžã—ã¦ãã ã•ã„</option>
+              <option value="ãƒžãƒ³ã‚·ãƒ§ãƒ³">ãƒžãƒ³ã‚·ãƒ§ãƒ³</option>
+              <option value="ã‚¢ãƒ‘ãƒ¼ãƒˆ">ã‚¢ãƒ‘ãƒ¼ãƒˆ</option>
+              <option value="ä¸€æˆ¸å»ºã¦">ä¸€æˆ¸å»ºã¦</option>
+              <option value="åº—èˆ—">åº—èˆ—</option>
+              <option value="äº‹å‹™æ‰€">äº‹å‹™æ‰€</option>
+              <option value="å€‰åº«">å€‰åº«</option>
+              <option value="ãã®ä»–">ãã®ä»–</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="label-required">é–“å–ã‚Š</label>
+            <select id="layout" required>
+              <option value="">é¸æŠžã—ã¦ãã ã•ã„</option>
+              <option value="ãƒ¯ãƒ³ãƒ«ãƒ¼ãƒ ">ãƒ¯ãƒ³ãƒ«ãƒ¼ãƒ </option>
+              <option value="1K">1K</option>
+              <option value="1DK">1DK</option>
+              <option value="1LDK">1LDK</option>
+              <option value="2K">2K</option>
+              <option value="2DK">2DK</option>
+              <option value="2LDK">2LDK</option>
+              <option value="3K">3K</option>
+              <option value="3DK">3DK</option>
+              <option value="3LDK">3LDK</option>
+              <option value="4K">4K</option>
+              <option value="4DK">4DK</option>
+              <option value="4LDK">4LDK</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="label-required">è³ƒæ–™ï¼ˆå††ï¼‰</label>
+            <input type="number" id="rent" required placeholder="115000">
+          </div>
+          <div class="form-group">
+            <label class="label-required">ç®¡ç†è²»ç­‰ï¼ˆå††ï¼‰</label>
+            <input type="number" id="managementFee" required placeholder="8000">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>é–“å–ã‚Šè©³ç´°</label>
+          <input type="text" id="layoutDetail" placeholder="ä¾‹: æ´‹å®¤ 4, æ´‹å®¤ 4.3">
+        </div>
+
+        <!-- åˆæœŸè²»ç”¨ -->
+        <h2 class="section-title">åˆæœŸè²»ç”¨</h2>
+        <div class="form-row">
+          <div class="form-group">
+            <label>æ•·é‡‘</label>
+            <select id="deposit">
+              <option value="-">ãªã—</option>
+              <option value="0.5ãƒ¶æœˆ">0.5ãƒ¶æœˆ</option>
+              <option value="1ãƒ¶æœˆ">1ãƒ¶æœˆ</option>
+              <option value="1.5ãƒ¶æœˆ">1.5ãƒ¶æœˆ</option>
+              <option value="2ãƒ¶æœˆ">2ãƒ¶æœˆ</option>
+              <option value="3ãƒ¶æœˆ">3ãƒ¶æœˆ</option>
+              <option value="4ãƒ¶æœˆ">4ãƒ¶æœˆ</option>
+              <option value="5ãƒ¶æœˆ">5ãƒ¶æœˆ</option>
+              <option value="6ãƒ¶æœˆ">6ãƒ¶æœˆ</option>
+              <option value="ã‚«ã‚¹ã‚¿ãƒ ">ã‚«ã‚¹ã‚¿ãƒ å…¥åŠ›</option>
+            </select>
+            <input type="text" id="depositCustom" placeholder="ã‚«ã‚¹ã‚¿ãƒ é‡‘é¡ã‚’å…¥åŠ›" style="margin-top: 8px; display: none;">
+          </div>
+          <div class="form-group">
+            <label>ç¤¼é‡‘</label>
+            <select id="keyMoney">
+              <option value="-">ãªã—</option>
+              <option value="0.5ãƒ¶æœˆ">0.5ãƒ¶æœˆ</option>
+              <option value="1ãƒ¶æœˆ">1ãƒ¶æœˆ</option>
+              <option value="1.5ãƒ¶æœˆ">1.5ãƒ¶æœˆ</option>
+              <option value="2ãƒ¶æœˆ">2ãƒ¶æœˆ</option>
+              <option value="3ãƒ¶æœˆ">3ãƒ¶æœˆ</option>
+              <option value="4ãƒ¶æœˆ">4ãƒ¶æœˆ</option>
+              <option value="5ãƒ¶æœˆ">5ãƒ¶æœˆ</option>
+              <option value="6ãƒ¶æœˆ">6ãƒ¶æœˆ</option>
+              <option value="ã‚«ã‚¹ã‚¿ãƒ ">ã‚«ã‚¹ã‚¿ãƒ å…¥åŠ›</option>
+            </select>
+            <input type="text" id="keyMoneyCustom" placeholder="ã‚«ã‚¹ã‚¿ãƒ é‡‘é¡ã‚’å…¥åŠ›" style="margin-top: 8px; display: none;">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>æ¨©åˆ©é‡‘</label>
+            <select id="rightsPayment">
+              <option value="-">ãªã—</option>
+              <option value="0.5ãƒ¶æœˆ">0.5ãƒ¶æœˆ</option>
+              <option value="1ãƒ¶æœˆ">1ãƒ¶æœˆ</option>
+              <option value="1.5ãƒ¶æœˆ">1.5ãƒ¶æœˆ</option>
+              <option value="2ãƒ¶æœˆ">2ãƒ¶æœˆ</option>
+              <option value="3ãƒ¶æœˆ">3ãƒ¶æœˆ</option>
+              <option value="4ãƒ¶æœˆ">4ãƒ¶æœˆ</option>
+              <option value="5ãƒ¶æœˆ">5ãƒ¶æœˆ</option>
+              <option value="6ãƒ¶æœˆ">6ãƒ¶æœˆ</option>
+              <option value="ã‚«ã‚¹ã‚¿ãƒ ">ã‚«ã‚¹ã‚¿ãƒ å…¥åŠ›</option>
+            </select>
+            <input type="text" id="rightsPaymentCustom" placeholder="ã‚«ã‚¹ã‚¿ãƒ é‡‘é¡ã‚’å…¥åŠ›" style="margin-top: 8px; display: none;">
+          </div>
+          <div class="form-group">
+            <label>ä¿è¨¼é‡‘</label>
+            <select id="securityDeposit">
+              <option value="-">ãªã—</option>
+              <option value="0.5ãƒ¶æœˆ">0.5ãƒ¶æœˆ</option>
+              <option value="1ãƒ¶æœˆ">1ãƒ¶æœˆ</option>
+              <option value="1.5ãƒ¶æœˆ">1.5ãƒ¶æœˆ</option>
+              <option value="2ãƒ¶æœˆ">2ãƒ¶æœˆ</option>
+              <option value="3ãƒ¶æœˆ">3ãƒ¶æœˆ</option>
+              <option value="4ãƒ¶æœˆ">4ãƒ¶æœˆ</option>
+              <option value="5ãƒ¶æœˆ">5ãƒ¶æœˆ</option>
+              <option value="6ãƒ¶æœˆ">6ãƒ¶æœˆ</option>
+              <option value="ã‚«ã‚¹ã‚¿ãƒ ">ã‚«ã‚¹ã‚¿ãƒ å…¥åŠ›</option>
+            </select>
+            <input type="text" id="securityDepositCustom" placeholder="ã‚«ã‚¹ã‚¿ãƒ é‡‘é¡ã‚’å…¥åŠ›" style="margin-top: 8px; display: none;">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>ãã®ä»–è²»ç”¨</label>
+          <input type="text" id="otherFees" placeholder="ä¾‹: ç”ºä¼šè²» 1,500å††/æœˆ">
+        </div>
+
+        <!-- ç‰©ä»¶æ‰€åœ¨åœ°ãƒ»äº¤é€š -->
+        <h2 class="section-title">ç‰©ä»¶æ‰€åœ¨åœ°ãƒ»äº¤é€š</h2>
+        <div class="form-group">
+          <label class="label-required">æ‰€åœ¨åœ°</label>
+          <input type="text" id="address" required placeholder="ä¾‹: æ±äº¬éƒ½å¤§ç”°åŒºè¥¿è’²ç”°7ä¸ç›®5ç•ª1">
+        </div>
+
+        <!-- äº¤é€š1 -->
+        <div style="border: 1px solid #e2e8f0; padding: 15px; border-radius: 6px; margin-bottom: 15px;">
+          <h3 style="margin: 0 0 10px; font-size: 14px; color: var(--brand);">äº¤é€š1 <span style="color: var(--error);">*</span></h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="label-required">è·¯ç·š</label>
+              <select id="transit1Line" required>
+                <option value="">è·¯ç·šã‚’é¸æŠžã—ã¦ãã ã•ã„</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="label-required">é§…å</label>
+              <select id="transit1Station" required disabled>
+                <option value="">ã¾ãšè·¯ç·šã‚’é¸æŠžã—ã¦ãã ã•ã„</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="label-required">å¾’æ­©ï¼ˆåˆ†ï¼‰</label>
+              <input type="number" id="transit1Walk" required placeholder="5" min="1" max="99">
+            </div>
+          </div>
+        </div>
+
+        <!-- äº¤é€š2 -->
+        <div style="border: 1px solid #e2e8f0; padding: 15px; border-radius: 6px; margin-bottom: 15px;">
+          <h3 style="margin: 0 0 10px; font-size: 14px; color: var(--muted);">äº¤é€š2ï¼ˆä»»æ„ï¼‰</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label>è·¯ç·š</label>
+              <select id="transit2Line">
+                <option value="">è·¯ç·šã‚’é¸æŠžã—ã¦ãã ã•ã„</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>é§…å</label>
+              <select id="transit2Station" disabled>
+                <option value="">ã¾ãšè·¯ç·šã‚’é¸æŠžã—ã¦ãã ã•ã„</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>å¾’æ­©ï¼ˆåˆ†ï¼‰</label>
+              <input type="number" id="transit2Walk" placeholder="10" min="1" max="99">
+            </div>
+          </div>
+        </div>
+
+        <!-- äº¤é€š3 -->
+        <div style="border: 1px solid #e2e8f0; padding: 15px; border-radius: 6px; margin-bottom: 15px;">
+          <h3 style="margin: 0 0 10px; font-size: 14px; color: var(--muted);">äº¤é€š3ï¼ˆä»»æ„ï¼‰</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label>è·¯ç·š</label>
+              <select id="transit3Line">
+                <option value="">è·¯ç·šã‚’é¸æŠžã—ã¦ãã ã•ã„</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>é§…å</label>
+              <select id="transit3Station" disabled>
+                <option value="">ã¾ãšè·¯ç·šã‚’é¸æŠžã—ã¦ãã ã•ã„</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>å¾’æ­©ï¼ˆåˆ†ï¼‰</label>
+              <input type="number" id="transit3Walk" placeholder="12" min="1" max="99">
+            </div>
+          </div>
+        </div>
+
+        <!-- ç‰©ä»¶è©³ç´° -->
+        <h2 class="section-title">ç‰©ä»¶è©³ç´°</h2>
+        
+        <div class="form-group">
+          <label class="label-required">æ§‹é€ </label>
+          <select id="structure" required>
+            <option value="">é¸æŠžã—ã¦ãã ã•ã„</option>
+            <option value="æœ¨é€ ">æœ¨é€ </option>
+            <option value="é‰„éª¨é€ ">é‰„éª¨é€ </option>
+            <option value="é‰„ç­‹ã‚³ãƒ³ã‚¯ãƒªãƒ¼ãƒˆé€ ">é‰„ç­‹ã‚³ãƒ³ã‚¯ãƒªãƒ¼ãƒˆé€ ï¼ˆRCé€ ï¼‰</option>
+            <option value="é‰„éª¨é‰„ç­‹ã‚³ãƒ³ã‚¯ãƒªãƒ¼ãƒˆé€ ">é‰„éª¨é‰„ç­‹ã‚³ãƒ³ã‚¯ãƒªãƒ¼ãƒˆé€ ï¼ˆSRCé€ ï¼‰</option>
+            <option value="è»½é‡é‰„éª¨é€ ">è»½é‡é‰„éª¨é€ </option>
+            <option value="ALCé€ ">ALCé€ </option>
+            <option value="ãƒ—ãƒ¬ãƒãƒ–">ãƒ—ãƒ¬ãƒãƒ–</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="label-required">è¦æ¨¡</label>
+          <input type="text" id="scale" required placeholder="ä¾‹: 4éšŽå»ºã®3éšŽ ã¾ãŸã¯ åœ°ä¸Š15éšŽ ç·æˆ¸æ•°:132æˆ¸">
+          <p class="help-text">ä¾‹: 4éšŽå»ºã®3éšŽ / 10éšŽå»ºã®5éšŽ / åœ°ä¸Š15éšŽ ç·æˆ¸æ•°:132æˆ¸</p>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="label-required">é¢ç©ï¼ˆãŽ¡ï¼‰</label>
+            <input type="text" id="area" required placeholder="25.46">
+          </div>
+          <div class="form-group">
+            <label>ç¯‰å¹´æœˆ</label>
+            <input type="text" id="buildDate" placeholder="ä¾‹: 2019å¹´3æœˆ ã¾ãŸã¯ 2015">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>å¥‘ç´„æœŸé–“</label>
+            <select id="contractPeriod">
+              <option value="2å¹´">2å¹´</option>
+              <option value="å®šæœŸå€Ÿå®¶2å¹´">å®šæœŸå€Ÿå®¶2å¹´</option>
+              <option value="1å¹´">1å¹´</option>
+              <option value="ç›¸è«‡">ç›¸è«‡</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>é€€åŽ»æ—¥</label>
+            <input type="text" id="vacancyDate" placeholder="ä¾‹: - ã¾ãŸã¯ 2025/09/24">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>å…¥å±…å¯èƒ½æ—¥</label>
+          <select id="moveInDate">
+            <option value="å³å…¥å±…å¯">å³å…¥å±…å¯</option>
+            <option value="ç›¸è«‡">ç›¸è«‡</option>
+            <option value="ã‚«ã‚¹ã‚¿ãƒ ">ã‚«ã‚¹ã‚¿ãƒ å…¥åŠ›</option>
+          </select>
+          <input type="text" id="moveInDateCustom" placeholder="ä¾‹: 2025å¹´11æœˆä¸Šæ—¬äºˆå®š" style="margin-top: 8px; display: none;">
+        </div>
+
+        <!-- è¨­å‚™ -->
+        <h2 class="section-title">è¨­å‚™ï¼ˆæœ€å¤§12é …ç›®ã‚’è¡¨ç¤ºã€è¶…éŽåˆ†ã¯ etc. ã§è¡¨ç¤ºï¼‰</h2>
+        <div class="checkbox-grid">
+          <div class="checkbox-item">
+            <input type="checkbox" id="eq1" value="ã‚¤ãƒ³ã‚¿ãƒ¼ãƒãƒƒãƒˆç„¡æ–™">
+            <label for="eq1">ã‚¤ãƒ³ã‚¿ãƒ¼ãƒãƒƒãƒˆç„¡æ–™</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="eq2" value="Wi-Fiç„¡æ–™">
+            <label for="eq2">Wi-Fiç„¡æ–™</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="eq3" value="ã‚ªãƒ¼ãƒˆãƒ­ãƒƒã‚¯">
+            <label for="eq3">ã‚ªãƒ¼ãƒˆãƒ­ãƒƒã‚¯</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="eq4" value="ç‹¬ç«‹æ´—é¢å°">
+            <label for="eq4">ç‹¬ç«‹æ´—é¢å°</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="eq5" value="ã‚¨ã‚¢ã‚³ãƒ³">
+            <label for="eq5">ã‚¨ã‚¢ã‚³ãƒ³</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="eq6" value="å®…é…ãƒœãƒƒã‚¯ã‚¹">
+            <label for="eq6">å®…é…ãƒœãƒƒã‚¯ã‚¹</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="eq7" value="æµ´å®¤ä¹¾ç‡¥æ©Ÿ">
+            <label for="eq7">æµ´å®¤ä¹¾ç‡¥æ©Ÿ</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="eq8" value="è¿½ç„šãçµ¦æ¹¯">
+            <label for="eq8">è¿½ç„šãçµ¦æ¹¯</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="eq9" value="TVã‚¤ãƒ³ã‚¿ãƒ¼ãƒ›ãƒ³">
+            <label for="eq9">TVã‚¤ãƒ³ã‚¿ãƒ¼ãƒ›ãƒ³</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="eq10" value="ãƒã‚¹ãƒˆã‚¤ãƒ¬åˆ¥">
+            <label for="eq10">ãƒã‚¹ãƒˆã‚¤ãƒ¬åˆ¥</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="eq11" value="ãƒ•ãƒ­ãƒ¼ãƒªãƒ³ã‚°">
+            <label for="eq11">ãƒ•ãƒ­ãƒ¼ãƒªãƒ³ã‚°</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="eq12" value="ã‚¨ãƒ¬ãƒ™ãƒ¼ã‚¿ãƒ¼">
+            <label for="eq12">ã‚¨ãƒ¬ãƒ™ãƒ¼ã‚¿ãƒ¼</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="eq13" value="24æ™‚é–“æ›æ°—ã‚·ã‚¹ãƒ†ãƒ ">
+            <label for="eq13">24æ™‚é–“æ›æ°—ã‚·ã‚¹ãƒ†ãƒ </label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="eq14" value="2å£ã‚³ãƒ³ãƒ­">
+            <label for="eq14">2å£ã‚³ãƒ³ãƒ­</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="eq15" value="BS">
+            <label for="eq15">BS</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="eq16" value="CS">
+            <label for="eq16">CS</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="eq17" value="CATV">
+            <label for="eq17">CATV</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="eq18" value="ã‚¬ã‚¹ã‚³ãƒ³ãƒ­è¨­ç½®å¯">
+            <label for="eq18">ã‚¬ã‚¹ã‚³ãƒ³ãƒ­è¨­ç½®å¯</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="eq19" value="ã‚·ãƒ£ãƒ¯ãƒ¼">
+            <label for="eq19">ã‚·ãƒ£ãƒ¯ãƒ¼</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="eq20" value="ãƒãƒ«ã‚³ãƒ‹ãƒ¼">
+            <label for="eq20">ãƒãƒ«ã‚³ãƒ‹ãƒ¼</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="eq21" value="ãƒ™ãƒ©ãƒ³ãƒ€">
+            <label for="eq21">ãƒ™ãƒ©ãƒ³ãƒ€</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="eq22" value="ãƒšã‚¢ã‚¬ãƒ©ã‚¹">
+            <label for="eq22">ãƒšã‚¢ã‚¬ãƒ©ã‚¹</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="eq23" value="ãƒ¢ãƒ‹ã‚¿ãƒ¼ä»˜ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ›ãƒ³">
+            <label for="eq23">ãƒ¢ãƒ‹ã‚¿ãƒ¼ä»˜ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ›ãƒ³</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="eq24" value="æ´—æ¿¯æ©Ÿç½®å ´">
+            <label for="eq24">æ´—æ¿¯æ©Ÿç½®å ´</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="eq25" value="å®¤å†…æ´—æ¿¯æ©Ÿç½®å ´">
+            <label for="eq25">å®¤å†…æ´—æ¿¯æ©Ÿç½®å ´</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="eq26" value="æ¸©æ°´æ´—æµ„ä¾¿åº§">
+            <label for="eq26">æ¸©æ°´æ´—æµ„ä¾¿åº§</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="eq27" value="çµ¦æ¹¯">
+            <label for="eq27">çµ¦æ¹¯</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="eq28" value="éƒ½å¸‚ã‚¬ã‚¹">
+            <label for="eq28">éƒ½å¸‚ã‚¬ã‚¹</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="eq29" value="é§è¼ªå ´">
+            <label for="eq29">é§è¼ªå ´</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="eq30" value="é˜²çŠ¯ã‚«ãƒ¡ãƒ©">
+            <label for="eq30">é˜²çŠ¯ã‚«ãƒ¡ãƒ©</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="eq31" value="åŽç´">
+            <label for="eq31">åŽç´</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="eq32" value="ã‚¯ãƒ­ãƒ¼ã‚¼ãƒƒãƒˆ">
+            <label for="eq32">ã‚¯ãƒ­ãƒ¼ã‚¼ãƒƒãƒˆ</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="eq33" value="ã‚·ã‚¹ãƒ†ãƒ ã‚­ãƒƒãƒãƒ³">
+            <label for="eq33">ã‚·ã‚¹ãƒ†ãƒ ã‚­ãƒƒãƒãƒ³</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="eq34" value="çŽ„é–¢ãƒ›ãƒ¼ãƒ«">
+            <label for="eq34">çŽ„é–¢ãƒ›ãƒ¼ãƒ«</label>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-top: 15px;">
+          <label>ãã®ä»–è¨­å‚™ï¼ˆã‚«ã‚¹ã‚¿ãƒ ï¼‰</label>
+          <input type="text" id="equipmentOther" placeholder="ä¾‹: IHã€åºŠæš–æˆ¿ã€ã‚¦ã‚©ãƒ¼ã‚¯ã‚¤ãƒ³ã‚¯ãƒ­ãƒ¼ã‚¼ãƒƒãƒˆ">
+          <p class="help-text">è¤‡æ•°ã‚ã‚‹å ´åˆã¯ã€ã‚«ãƒ³ãƒžã§åŒºåˆ‡ã£ã¦ãã ã•ã„</p>
+        </div>
+
+        <!-- å…¥å±…è«¸æ¡ä»¶ -->
+        <h2 class="section-title">å…¥å±…è«¸æ¡ä»¶</h2>
+        <div class="checkbox-grid">
+          <div class="checkbox-item">
+            <input type="checkbox" id="cond1" value="ãƒšãƒƒãƒˆç›¸è«‡">
+            <label for="cond1">ãƒšãƒƒãƒˆç›¸è«‡</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="cond2" value="ãƒšãƒƒãƒˆä¸å¯">
+            <label for="cond2">ãƒšãƒƒãƒˆä¸å¯</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="cond3" value="æ¥½å™¨ç›¸è«‡">
+            <label for="cond3">æ¥½å™¨ç›¸è«‡</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="cond4" value="æ¥½å™¨ä¸å¯">
+            <label for="cond4">æ¥½å™¨ä¸å¯</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="cond5" value="äºŒäººå…¥å±…å¯">
+            <label for="cond5">äºŒäººå…¥å±…å¯</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="cond6" value="äº‹å‹™æ‰€åˆ©ç”¨å¯">
+            <label for="cond6">äº‹å‹™æ‰€åˆ©ç”¨å¯</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="cond7" value="æ³•äººå¯">
+            <label for="cond7">æ³•äººå¯</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="cond8" value="ä¿è¨¼äººä¸è¦">
+            <label for="cond8">ä¿è¨¼äººä¸è¦</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="cond9" value="é«˜é½¢è€…ç›¸è«‡">
+            <label for="cond9">é«˜é½¢è€…ç›¸è«‡</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="cond10" value="å¤–å›½äººç›¸è«‡">
+            <label for="cond10">å¤–å›½äººç›¸è«‡</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="cond11" value="ç”Ÿæ´»ä¿è­·ç›¸è«‡">
+            <label for="cond11">ç”Ÿæ´»ä¿è­·ç›¸è«‡</label>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-top: 15px;">
+          <label>ãã®ä»–æ¡ä»¶ï¼ˆã‚«ã‚¹ã‚¿ãƒ ï¼‰</label>
+          <input type="text" id="conditionOther" placeholder="ä¾‹: çŸ­æœŸå¥‘ç´„å¯">
+        </div>
+
+        <!-- ä¿é™ºãƒ»ä¿è¨¼ -->
+        <h2 class="section-title">ä¿é™ºãƒ»ä¿è¨¼</h2>
+        <div class="form-group">
+          <label>æå®³ä¿é™º</label>
+          <input type="text" id="insurance" placeholder="ä¾‹: æœ‰ã‚Š 24ãƒ¶æœˆ 18,000å††">
+        </div>
+
+        <div class="form-group">
+          <label>ä¿è¨¼ä¼šç¤¾</label>
+          <input type="text" id="guarantor" placeholder="ä¾‹: å¿…é ˆ åˆå›žä¿è¨¼æ–™(è³ƒæ–™+ç®¡ç†è²»)Ã—50%">
+        </div>
+
+        <!-- ç”»åƒã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ -->
+        <h2 class="section-title">ç”»åƒã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ï¼ˆè‡ªå‹•ã§æœ€é©ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆã«é…ç½®ï¼‰</h2>
+        <p class="help-text" style="margin: -10px 0 15px; color: var(--muted);">
+          âœ¨ ç”»åƒã®å½¢çŠ¶ï¼ˆæ¨ªé•·ãƒ»æ–¹å½¢ãƒ»ç¸¦é•·ï¼‰ã‚’è‡ªå‹•åˆ¤å®šã—ã€2185Ã—1654pxã®ãƒ•ãƒ¬ãƒ¼ãƒ å†…ã§æœ€é©ãªé…ç½®ã‚’è¡Œã„ã¾ã™
+        </p>
+        
+        <div class="form-group">
+          <label class="label-required">å¤–è¦³å†™çœŸ</label>
+          <div class="file-upload" onclick="document.getElementById('imgExterior').click()">
+            <input type="file" id="imgExterior" accept="image/*" onchange="previewImage(this, 'exterior')">
+            ðŸ“¤ ã‚¯ãƒªãƒƒã‚¯ã—ã¦ç”»åƒã‚’é¸æŠž
+          </div>
+          <div id="previewExterior" class="file-preview-container"></div>
+        </div>
+
+        <div class="form-group">
+          <label class="label-required">é–“å–å›³</label>
+          <div class="file-upload" onclick="document.getElementById('imgFloorPlan').click()">
+            <input type="file" id="imgFloorPlan" accept="image/*" onchange="previewImage(this, 'floorplan')">
+            ðŸ“¤ ã‚¯ãƒªãƒƒã‚¯ã—ã¦ç”»åƒã‚’é¸æŠž
+          </div>
+          <div id="previewFloorplan" class="file-preview-container"></div>
+        </div>
+
+        <div class="form-group">
+          <label>å®¤å†…å†™çœŸ1</label>
+          <div class="file-upload" onclick="document.getElementById('imgInterior1').click()">
+            <input type="file" id="imgInterior1" accept="image/*" onchange="previewImage(this, 'interior1')">
+            ðŸ“¤ ã‚¯ãƒªãƒƒã‚¯ã—ã¦ç”»åƒã‚’é¸æŠž
+          </div>
+          <div id="previewInterior1" class="file-preview-container"></div>
+        </div>
+
+        <div class="form-group">
+          <label>å®¤å†…å†™çœŸ2</label>
+          <div class="file-upload" onclick="document.getElementById('imgInterior2').click()">
+            <input type="file" id="imgInterior2" accept="image/*" onchange="previewImage(this, 'interior2')">
+            ðŸ“¤ ã‚¯ãƒªãƒƒã‚¯ã—ã¦ç”»åƒã‚’é¸æŠž
+          </div>
+          <div id="previewInterior2" class="file-preview-container"></div>
+        </div>
+
+        <div class="form-group">
+          <label>å®¤å†…å†™çœŸ3</label>
+          <div class="file-upload" onclick="document.getElementById('imgInterior3').click()">
+            <input type="file" id="imgInterior3" accept="image/*" onchange="previewImage(this, 'interior3')">
+            ðŸ“¤ ã‚¯ãƒªãƒƒã‚¯ã—ã¦ç”»åƒã‚’é¸æŠž
+          </div>
+          <div id="previewInterior3" class="file-preview-container"></div>
+        </div>
+
+        <!-- å–å¼•æ…‹æ§˜ãƒ»æ‰‹æ•°æ–™ -->
+        <h2 class="section-title">æ‰‹æ•°æ–™è² æ‹…å‰²åˆï¼ˆADè²»ï¼‰</h2>
+        <p class="help-text" style="margin: -10px 0 15px; color: var(--muted);">
+          åºƒå‘Šè²»ã¨ã—ã¦æ”¯æ‰•ã‚ã‚Œã‚‹æ‰‹æ•°æ–™ã®å‰²åˆã€‚100% = è³ƒæ–™1ãƒ¶æœˆåˆ†ã€200% = è³ƒæ–™2ãƒ¶æœˆåˆ†
+        </p>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label>å…ƒä»˜è² æ‹…</label>
+            <select id="feeMotozuke">
+              <option value="0">0%</option>
+              <option value="50">50%</option>
+              <option value="100">100%</option>
+              <option value="150">150%</option>
+              <option value="200">200%</option>
+              <option value="300">300%</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>å®¢ä»˜è² æ‹…</label>
+            <select id="feeKyakuzuke">
+              <option value="0">0%</option>
+              <option value="50">50%</option>
+              <option value="100" selected>100%</option>
+              <option value="150">150%</option>
+              <option value="200">200%</option>
+              <option value="300">300%</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>è²¸ä¸»è² æ‹…</label>
+            <select id="burdenKashinushi">
+              <option value="0" selected>0%</option>
+              <option value="50">50%</option>
+              <option value="100">100%</option>
+              <option value="150">150%</option>
+              <option value="200">200%</option>
+              <option value="300">300%</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>å€Ÿä¸»è² æ‹…</label>
+            <select id="burdenKarinushi">
+              <option value="0">0%</option>
+              <option value="50">50%</option>
+              <option value="100" selected>100%</option>
+              <option value="150">150%</option>
+              <option value="200">200%</option>
+              <option value="300">300%</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- å‚™è€ƒãƒ»ã‚¢ãƒ”ãƒ¼ãƒ«ãƒã‚¤ãƒ³ãƒˆ -->
+        <h2 class="section-title">å‚™è€ƒãƒ»ã‚¢ãƒ”ãƒ¼ãƒ«ãƒã‚¤ãƒ³ãƒˆ</h2>
+        <div class="form-group">
+          <label>ã‚­ãƒ£ãƒƒãƒã‚³ãƒ”ãƒ¼</label>
+          <input type="text" id="catchCopy" placeholder="ä¾‹: ã‚¤ãƒ³ã‚¿ãƒ¼ãƒãƒƒãƒˆ Wi-Fi ç„¡æ–™!!">
+          <p class="help-text">åŸºæœ¬æƒ…å ±ãƒ†ãƒ¼ãƒ–ãƒ«ã®ä¸‹ã«é»„è‰²èƒŒæ™¯ã§å¤§ããè¡¨ç¤ºã•ã‚Œã¾ã™</p>
+        </div>
+
+        <div class="form-group">
+          <label>å‚™è€ƒ</label>
+          <textarea id="remarks" rows="4" placeholder="ä¾‹: æ± è¢‹é§…ã¾ã§3åˆ†ã§ã‚¢ã‚¯ã‚»ã‚¹ãŒã§ãã‚‹å¥½ç«‹åœ°â™ªå‘¨è¾ºã¯é–‘é™ãªä½å®…è¡—ãªãŒã‚‰ã‚¹ãƒ¼ãƒ‘ãƒ¼ã‚„ã‚³ãƒ³ãƒ“ãƒ‹ãªã©ã®æ–½è¨­ãŒå……å®Ÿã—ã¦ã„ã¾ã™ï¼"></textarea>
+        </div>
+
+        <!-- ãƒœã‚¿ãƒ³ -->
+        <div class="button-group">
+          <button type="button" class="btn btn-primary" onclick="generateFlyer()">ðŸŽ¨ ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼ç”Ÿæˆ</button>
+          <button type="button" class="btn btn-secondary" onclick="resetForm()">ðŸ”„ ãƒªã‚»ãƒƒãƒˆ</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼ãƒ»å°åˆ·ã‚¨ãƒªã‚¢ -->
+    <div class="preview-area" id="previewArea">
+      <!-- JavaScriptã§å‹•çš„ã«ç”Ÿæˆ -->
+    </div>
+  </div>
+
+  <script>
+    // ===== ã‚°ãƒ­ãƒ¼ãƒãƒ«å¤‰æ•° =====
+    let TRAIN_DATA = null;
+    let uploadedImages = {
+      exterior: null,
+      floorplan: null,
+      interior1: null,
+      interior2: null,
+      interior3: null
+    };
+
+    // ===== é›»è»Šãƒ‡ãƒ¼ã‚¿èª­ã¿è¾¼ã¿ =====
+    async function loadTrainData() {
+      try {
+        const response = await fetch('train-stations.json');
+        if (!response.ok) throw new Error('Failed to load train data');
+        TRAIN_DATA = await response.json();
+        console.log('Train data loaded successfully');
+        return true;
+      } catch (error) {
+        console.warn('Train data not found, using fallback data');
+        // ãƒ•ã‚©ãƒ¼ãƒ«ãƒãƒƒã‚¯ãƒ‡ãƒ¼ã‚¿
+        TRAIN_DATA = {
+          tokyo_jr: {
+            yamanote: {
+              name: "JRå±±æ‰‹ç·š",
+              stations: ["æ±äº¬", "æœ‰æ¥½ç”º", "æ–°æ©‹", "æµœæ¾ç”º", "ç”°ç”º", "å“å·", "å¤§å´Ž", "äº”åç”°", "ç›®é»’", "æµæ¯”å¯¿", "æ¸‹è°·", "åŽŸå®¿", "ä»£ã€…æœ¨", "æ–°å®¿", "æ–°å¤§ä¹…ä¿", "é«˜ç”°é¦¬å ´", "ç›®ç™½", "æ± è¢‹", "å¤§å¡š", "å·£é´¨", "é§’è¾¼", "ç”°ç«¯", "è¥¿æ—¥æš®é‡Œ", "æ—¥æš®é‡Œ", "é¶¯è°·", "ä¸Šé‡Ž", "å¾¡å¾’ç”º", "ç§‹è‘‰åŽŸ", "ç¥žç”°"]
+            },
+            chuo: {
+              name: "JRä¸­å¤®ç·š",
+              stations: ["æ±äº¬", "ç¥žç”°", "å¾¡èŒ¶ãƒŽæ°´", "å››ãƒ„è°·", "æ–°å®¿", "ä¸­é‡Ž", "é«˜å††å¯º", "é˜¿ä½ãƒ¶è°·", "è»çªª", "è¥¿è»çªª", "å‰ç¥¥å¯º", "ä¸‰é·¹"]
+            }
+          },
+          tokyo_metro: {
+            ginza: {
+              name: "æ±äº¬ãƒ¡ãƒˆãƒ­éŠ€åº§ç·š",
+              stations: ["æ¸‹è°·", "è¡¨å‚é“", "å¤–è‹‘å‰", "é’å±±ä¸€ä¸ç›®", "èµ¤å‚è¦‹é™„", "æºœæ± å±±çŽ‹", "è™ŽãƒŽé–€", "æ–°æ©‹", "éŠ€åº§", "äº¬æ©‹", "æ—¥æœ¬æ©‹", "ä¸‰è¶Šå‰", "ç¥žç”°", "æœ«åºƒç”º", "ä¸Šé‡Žåºƒå°è·¯", "ä¸Šé‡Ž", "ç¨²è·ç”º", "ç”°åŽŸç”º", "æµ…è‰"]
+            }
+          }
+        };
+        return false;
+      }
+    }
+
+    // ===== é›»è»Šç·šè·¯é¸æŠžã®åˆæœŸåŒ– =====
+    function initTrainSelects() {
+      if (!TRAIN_DATA) return;
+
+      const categories = {
+        'tokyo_jr': 'JRç·š',
+        'tokyo_metro': 'æ±äº¬ãƒ¡ãƒˆãƒ­',
+        'tokyo_private': 'ç§é‰„',
+        'kanagawa': 'ç¥žå¥ˆå·çœŒ',
+        'saitama': 'åŸ¼çŽ‰çœŒ',
+        'chiba': 'åƒè‘‰çœŒ'
+      };
+
+      // 3ã¤ã®äº¤é€šã‚»ãƒ¬ã‚¯ãƒˆã«åŒã˜ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‚’è¿½åŠ 
+      ['transit1', 'transit2', 'transit3'].forEach(prefix => {
+        const lineSelect = document.getElementById(`${prefix}Line`);
+        
+        Object.entries(categories).forEach(([categoryKey, categoryName]) => {
+          if (TRAIN_DATA[categoryKey]) {
+            const optgroup = document.createElement('optgroup');
+            optgroup.label = categoryName;
+            
+            Object.entries(TRAIN_DATA[categoryKey]).forEach(([lineKey, lineInfo]) => {
+              const option = document.createElement('option');
+              option.value = `${categoryKey}.${lineKey}`;
+              option.textContent = lineInfo.name;
+              option.dataset.categoryKey = categoryKey;
+              option.dataset.lineKey = lineKey;
+              optgroup.appendChild(option);
+            });
+            
+            lineSelect.appendChild(optgroup);
+          }
+        });
+
+        // è·¯ç·šé¸æŠžæ™‚ã®ã‚¤ãƒ™ãƒ³ãƒˆãƒªã‚¹ãƒŠãƒ¼
+        lineSelect.addEventListener('change', function() {
+          handleLineChange(prefix);
+        });
+      });
+    }
+
+    // ===== è·¯ç·šé¸æŠžæ™‚ã®å‡¦ç† =====
+    function handleLineChange(prefix) {
+      const lineSelect = document.getElementById(`${prefix}Line`);
+      const stationSelect = document.getElementById(`${prefix}Station`);
+      const selectedOption = lineSelect.options[lineSelect.selectedIndex];
+      
+      // é§…é¸æŠžã‚’ãƒªã‚»ãƒƒãƒˆ
+      stationSelect.innerHTML = '<option value="">é§…ã‚’é¸æŠžã—ã¦ãã ã•ã„</option>';
+      
+      if (lineSelect.value) {
+        const categoryKey = selectedOption.dataset.categoryKey;
+        const lineKey = selectedOption.dataset.lineKey;
+        
+        if (TRAIN_DATA[categoryKey] && TRAIN_DATA[categoryKey][lineKey]) {
+          const stations = TRAIN_DATA[categoryKey][lineKey].stations;
+          
+          stations.forEach(station => {
+            const option = document.createElement('option');
+            option.value = station;
+            option.textContent = station;
+            stationSelect.appendChild(option);
+          });
+          
+          stationSelect.disabled = false;
+        }
+      } else {
+        stationSelect.disabled = true;
+      }
+    }
+
+    // ===== ç”»åƒãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼ï¼ˆåˆ†æžä»˜ãï¼‰ =====
+    async function previewImage(input, imageKey) {
+      const previewContainer = document.getElementById(`preview${imageKey.charAt(0).toUpperCase() + imageKey.slice(1)}`);
+      
+      if (input.files && input.files[0]) {
+        const file = input.files[0];
+        const imageData = await analyzeImage(file);
+        uploadedImages[imageKey] = imageData;
+        
+        // ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼è¡¨ç¤º
+        previewContainer.innerHTML = `
+          <img src="${imageData.base64}" class="file-preview" alt="ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼">
+          <div class="image-info">
+            <div>ã‚µã‚¤ã‚º: ${imageData.width} Ã— ${imageData.height}px</div>
+            <div>æ¯”çŽ‡: ${imageData.ratio.toFixed(2)}</div>
+            <div class="image-type-badge badge-${imageData.type}">
+              ${imageData.type === 'landscape' ? 'æ¨ªé•·å›³' : imageData.type === 'portrait' ? 'ç¸¦é•·å›³' : 'æ–¹å½¢å›³'}
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    // ===== ç”»åƒåˆ†æž =====
+    function analyzeImage(file) {
+      return new Promise((resolve) => {
+        const img = new Image();
+        const reader = new FileReader();
+        
+        reader.onload = (e) => {
+          img.src = e.target.result;
+          img.onload = () => {
+            const ratio = img.width / img.height;
+            let type = 'square';
+            
+            if (ratio > 1.5) type = 'landscape';
+            else if (ratio < 0.7) type = 'portrait';
+            
+            resolve({
+              base64: e.target.result,
+              width: img.width,
+              height: img.height,
+              ratio: ratio,
+              type: type
+            });
+          };
+        };
+        
+        reader.readAsDataURL(file);
+      });
+    }
+
+    // ===== ç”»åƒãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆè¨ˆç®—ï¼ˆãƒ†ã‚¹ãƒˆæ¸ˆã¿æ™ºèƒ½ç®—æ³•ï¼‰ =====
+    function calculateImageLayout(images) {
+      try {
+        // æ”¶é›†æœ‰æ•ˆå›¾ç‰‡å¹¶è½¬æ¢ä¸ºç»Ÿä¸€æ ¼å¼
+        const validImages = [];
+        const imageTypes = ['exterior', 'floorplan', 'interior1', 'interior2', 'interior3'];
+        
+        imageTypes.forEach(type => {
+          if (images[type]) {
+            validImages.push({
+              type: type,
+              data: images[type],
+              isFloorPlan: type === 'floorplan',
+              isExterior: type === 'exterior'
+            });
+          }
+        });
+        
+        const count = validImages.length;
+        if (count === 0) {
+          return { layout: 'empty', name: 'ã‚¨ãƒ©ãƒ¼', gridTemplate: '', items: [] };
+        }
+
+        console.log('ç”»åƒæ•°:', count);
+        console.log('ç”»åƒã‚¿ã‚¤ãƒ—:', validImages.map(v => `${v.type}(${v.data.type})`));
+
+        // ä½¿ç”¨æµ‹è¯•å·¥å…·éªŒè¯è¿‡çš„å¸ƒå±€ç®—æ³•
+        return calculateSmartLayout(validImages);
+        
+      } catch (error) {
+        console.error('ç”»åƒãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆè¨ˆç®—ã‚¨ãƒ©ãƒ¼:', error);
+        return { layout: 'error', name: 'ã‚¨ãƒ©ãƒ¼', gridTemplate: '1fr', items: [] };
+      }
+    }
+
+    // ===== ã‚¹ãƒžãƒ¼ãƒˆãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆè¨ˆç®—ï¼ˆãƒ†ã‚¹ã‚¿ãƒ¼æ¤œè¨¼æ¸ˆã¿ï¼‰ =====
+    function calculateSmartLayout(images) {
+      const count = images.length;
+      const types = {
+        wide: images.filter(img => img.data.type === 'landscape').length,
+        square: images.filter(img => img.data.type === 'square').length,
+        tall: images.filter(img => img.data.type === 'portrait').length
+      };
+
+      console.log('ã‚¿ã‚¤ãƒ—çµ±è¨ˆ:', types);
+
+      // 2æžšã®å ´åˆ
+      if (count === 2) {
+        if (types.tall === 2) {
+          return {
+            name: '2ç¸¦é•·ä¸¦æŽ’',
+            layout: 'two-tall-side',
+            gridTemplate: '1fr',
+            gridColumns: '1fr 1fr',
+            items: [
+              { gridArea: '1/1/2/2', image: images[0] },
+              { gridArea: '1/2/2/3', image: images[1] }
+            ]
+          };
+        } else if (types.wide === 2) {
+          return {
+            name: '2æ¨ªé•·å †å ',
+            layout: 'two-wide-stacked',
+            gridTemplate: '1fr 1fr',
+            gridColumns: '1fr',
+            items: [
+              { gridArea: '1/1/2/2', image: images[0] },
+              { gridArea: '2/1/3/2', image: images[1] }
+            ]
+          };
+        } else if (types.square === 2) {
+          return {
+            name: '2æ–¹å½¢ä¸Šä¸‹',
+            layout: 'two-square-stacked',
+            gridTemplate: '1fr 1fr',
+            gridColumns: '1fr',
+            items: [
+              { gridArea: '1/1/2/2', image: images[0] },
+              { gridArea: '2/1/3/2', image: images[1] }
+            ]
+          };
+        } else if (types.square === 1 && types.tall === 1) {
+          return {
+            name: 'æ–¹å½¢+ç¸¦é•·ä¸¦æŽ’',
+            layout: 'square-tall-side',
+            gridTemplate: '1fr',
+            gridColumns: '1fr 1fr',
+            items: [
+              { gridArea: '1/1/2/2', image: images[0] },
+              { gridArea: '1/2/2/3', image: images[1] }
+            ]
+          };
+        } else {
+          return {
+            name: '2æžšä¸Šä¸‹é…ç½®',
+            layout: 'two-stacked',
+            gridTemplate: '55fr 45fr',
+            gridColumns: '1fr',
+            items: [
+              { gridArea: '1/1/2/2', image: images[0] },
+              { gridArea: '2/1/3/2', image: images[1] }
+            ]
+          };
+        }
+      }
+
+      // 3æžšã®å ´åˆ
+      if (count === 3) {
+        if (types.square === 3) {
+          return {
+            name: '3æ–¹å½¢ï¼ˆ2Ã—2ç©º1æ ¼ï¼‰',
+            layout: 'three-square-grid',
+            gridTemplate: '1fr 1fr',
+            gridColumns: '1fr 1fr',
+            items: [
+              { gridArea: '1/1/2/2', image: images[0] },
+              { gridArea: '1/2/2/3', image: images[1] },
+              { gridArea: '2/1/3/2', image: images[2] }
+            ]
+          };
+        } else if (types.square === 2 && types.tall === 1) {
+          // æ‰¾åˆ°ç¸¦é•·å›³çš„ä½ç½®
+          const tallIndex = images.findIndex(img => img.data.type === 'portrait');
+          const squareImages = images.filter(img => img.data.type === 'square');
+          
+          return {
+            name: '2æ–¹å½¢+ç¸¦é•·',
+            layout: 'two-square-one-tall',
+            gridTemplate: '1fr 1fr',
+            gridColumns: '1fr 1fr',
+            items: [
+              { gridArea: '1/1/2/2', image: squareImages[0] },
+              { gridArea: '2/1/3/2', image: squareImages[1] },
+              { gridArea: '1/2/3/3', image: images[tallIndex] }  // ç¸¦é•·å å³åˆ—
+            ]
+          };
+        } else if (types.wide === 1 && types.square === 2) {
+          const wideIndex = images.findIndex(img => img.data.type === 'landscape');
+          const squareImages = images.filter(img => img.data.type === 'square');
+          
+          return {
+            name: 'æ¨ªé•·+2æ–¹å½¢',
+            layout: 'one-wide-two-square',
+            gridTemplate: '1fr 1fr',
+            gridColumns: '1fr 1fr',
+            items: [
+              { gridArea: '1/1/2/3', image: images[wideIndex] },  // æ¨ªé•·å ä¸Šéƒ¨
+              { gridArea: '2/1/3/2', image: squareImages[0] },
+              { gridArea: '2/2/3/3', image: squareImages[1] }
+            ]
+          };
+        } else if (types.wide === 3) {
+          return {
+            name: '3æ¨ªé•·å †å ',
+            layout: 'three-wide-stacked',
+            gridTemplate: '1fr 1fr 1fr',
+            gridColumns: '1fr',
+            items: [
+              { gridArea: '1/1/2/2', image: images[0] },
+              { gridArea: '2/1/3/2', image: images[1] },
+              { gridArea: '3/1/4/2', image: images[2] }
+            ]
+          };
+        } else {
+          return {
+            name: '3æžšç¸¦å †å ',
+            layout: 'three-stacked',
+            gridTemplate: '1fr 1fr 1fr',
+            gridColumns: '1fr',
+            items: [
+              { gridArea: '1/1/2/2', image: images[0] },
+              { gridArea: '2/1/3/2', image: images[1] },
+              { gridArea: '3/1/4/2', image: images[2] }
+            ]
+          };
+        }
+      }
+
+      // 4æžšã®å ´åˆ
+      if (count === 4) {
+        if (types.square === 4) {
+          return {
+            name: '4æ–¹å½¢ï¼ˆ2Ã—2æº€æ ¼ï¼‰',
+            layout: 'four-square-grid',
+            gridTemplate: '1fr 1fr',
+            gridColumns: '1fr 1fr',
+            items: [
+              { gridArea: '1/1/2/2', image: images[0] },
+              { gridArea: '1/2/2/3', image: images[1] },
+              { gridArea: '2/1/3/2', image: images[2] },
+              { gridArea: '2/2/3/3', image: images[3] }
+            ]
+          };
+        } else {
+          return {
+            name: '4æžšæ··åˆé…ç½®',
+            layout: 'four-mixed',
+            gridTemplate: '1fr 1fr',
+            gridColumns: '1fr 1fr',
+            items: [
+              { gridArea: '1/1/2/2', image: images[0] },
+              { gridArea: '1/2/2/3', image: images[1] },
+              { gridArea: '2/1/3/2', image: images[2] },
+              { gridArea: '2/2/3/3', image: images[3] }
+            ]
+          };
+        }
+      }
+
+      // 5æžšã®å ´åˆ
+      if (count === 5) {
+        return {
+          name: '5æžšè¤‡é›‘é…ç½®',
+          layout: 'five-complex',
+          gridTemplate: '1fr 1fr 1fr',
+          gridColumns: '1fr 1fr',
+          items: [
+            { gridArea: '1/1/2/3', image: images[0] },  // 1æžšç›®æ¨ªè·¨
+            { gridArea: '2/1/3/2', image: images[1] },
+            { gridArea: '2/2/3/3', image: images[2] },
+            { gridArea: '3/1/4/2', image: images[3] },
+            { gridArea: '3/2/4/3', image: images[4] }
+          ]
+        };
+      }
+
+      // ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆ
+      return {
+        name: 'ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆé…ç½®',
+        layout: 'default',
+        gridTemplate: 'repeat(' + count + ', 1fr)',
+        gridColumns: '1fr',
+        items: images.map((img, i) => ({ gridArea: `${i+1}/1/${i+2}/2`, image: img }))
+      };
+    }
+
+    // ===== ç”»åƒHTMLç”Ÿæˆï¼ˆã‚¹ãƒžãƒ¼ãƒˆãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆå¯¾å¿œï¼‰ =====
+    function generateImagesHTML(images, layoutInfo) {
+      try {
+        if (!layoutInfo || !layoutInfo.items || layoutInfo.items.length === 0) {
+          return '<div style="color: #94a3b8; text-align: center; padding: 40px;">ç”»åƒãŒã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ã•ã‚Œã¦ã„ã¾ã›ã‚“</div>';
+        }
+        
+        console.log('ä½¿ç”¨ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆ:', layoutInfo.name);
+        
+        // æž„å»ºCSS Gridå®¹å™¨
+        const gridRows = layoutInfo.gridTemplate;
+        const gridColumns = layoutInfo.gridColumns || '1fr';
+        
+        let html = `<div style="
+          display: grid;
+          grid-template-rows: ${gridRows};
+          grid-template-columns: ${gridColumns};
+          gap: 8px;
+          height: 100%;
+          width: 100%;
+        ">`;
+        
+        // æ·»åŠ æ¯å¼ å›¾ç‰‡
+        layoutInfo.items.forEach((item, index) => {
+          if (!item.image || !item.image.data) {
+            console.warn('ç”»åƒãƒ‡ãƒ¼ã‚¿ãªã—:', index);
+            return;
+          }
+          
+          const imageData = item.image.data;
+          const imageType = item.image.type;
+          
+          const imageLabel = item.image.isFloorPlan ? 'é–“å–å›³' : 
+                            item.image.isExterior ? 'å¤–è¦³' : 
+                            `å®¤å†…${index}`;
+          
+          html += `
+            <div class="image-box" style="grid-area: ${item.gridArea};">
+              <img src="${imageData.base64}" alt="${imageLabel}" style="
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+              ">
+            </div>
+          `;
+        });
+        
+        html += '</div>';
+        
+        return html;
+        
+      } catch (error) {
+        console.error('ç”»åƒHTMLç”Ÿæˆã‚¨ãƒ©ãƒ¼:', error);
+        return '<div style="color: #ef4444;">ç”»åƒã®èª­ã¿è¾¼ã¿ã«å¤±æ•—ã—ã¾ã—ãŸ</div>';
+      }
+    }
+
+    // ===== å…¥å±…å¯èƒ½æ—¥ã®å–å¾— =====
+    function getMoveInDate() {
+      const select = document.getElementById('moveInDate').value;
+      if (select === 'ã‚«ã‚¹ã‚¿ãƒ ') {
+        return document.getElementById('moveInDateCustom').value.trim() || 'ç›¸è«‡';
+      }
+      return select;
+    }
+
+    // ===== å…¥å±…å¯èƒ½æ—¥ã®ã‚«ã‚¹ã‚¿ãƒ å…¥åŠ›è¡¨ç¤ºåˆ‡æ›¿ =====
+    document.getElementById('moveInDate').addEventListener('change', function() {
+      const customInput = document.getElementById('moveInDateCustom');
+      if (this.value === 'ã‚«ã‚¹ã‚¿ãƒ ') {
+        customInput.style.display = 'block';
+      } else {
+        customInput.style.display = 'none';
+      }
+    });
+
+    // ===== æ•·é‡‘/ç¤¼é‡‘/æ¨©åˆ©é‡‘/ä¿è¨¼é‡‘ã®ã‚«ã‚¹ã‚¿ãƒ å…¥åŠ›è¡¨ç¤ºåˆ‡æ›¿ =====
+    ['deposit', 'keyMoney', 'rightsPayment', 'securityDeposit'].forEach(fieldId => {
+      const select = document.getElementById(fieldId);
+      const customInput = document.getElementById(fieldId + 'Custom');
+      
+      if (select && customInput) {
+        select.addEventListener('change', function() {
+          if (this.value === 'ã‚«ã‚¹ã‚¿ãƒ ') {
+            customInput.style.display = 'block';
+          } else {
+            customInput.style.display = 'none';
+          }
+        });
+      }
+    });
+
+    // ===== æ•·é‡‘/ç¤¼é‡‘ç­‰ã®å€¤ã‚’å–å¾— =====
+    function getDepositValue(fieldId) {
+      const select = document.getElementById(fieldId);
+      const customInput = document.getElementById(fieldId + 'Custom');
+      
+      if (select.value === 'ã‚«ã‚¹ã‚¿ãƒ ') {
+        return customInput.value.trim() || '-';
+      }
+      return select.value;
+    }
+
+    // ===== å–å¼•æ…‹æ§˜ã®å€¤ã‚’å–å¾— =====
+    function getTransactionTerms() {
+      return {
+        transactionType: document.getElementById('transactionType').value,
+        feeMotozuke: document.getElementById('feeMotozuke').value,
+        feeKyakuzuke: document.getElementById('feeKyakuzuke').value,
+        burdenKashinushi: document.getElementById('burdenKashinushi').value,
+        burdenKarinushi: document.getElementById('burdenKarinushi').value
+      };
+    }
+
+    // ===== è¨­å‚™ãƒªã‚¹ãƒˆã®å–å¾— =====
+    function getEquipmentList() {
+      const equipment = [];
+      
+      document.querySelectorAll('.checkbox-grid input[type="checkbox"]:checked').forEach(cb => {
+        if (cb.id.startsWith('eq')) {
+          equipment.push(cb.value);
+        }
+      });
+
+      const customEquipment = document.getElementById('equipmentOther').value.trim();
+      if (customEquipment) {
+        const customItems = customEquipment.split(',').map(item => item.trim()).filter(item => item);
+        equipment.push(...customItems);
+      }
+
+      return equipment;
+    }
+
+    // ===== è¨­å‚™ãƒªã‚¹ãƒˆHTMLç”Ÿæˆï¼ˆæœ€å¤§12é …ç›® + etc.ï¼‰ =====
+    function formatEquipmentHTML(equipment) {
+      if (equipment.length === 0) return '<div>-</div>';
+
+      const maxDisplay = 12;
+      const displayItems = equipment.slice(0, maxDisplay);
+      const remainingItems = equipment.slice(maxDisplay);
+
+      let html = '<div class="equipment-list">';
+      
+      displayItems.forEach(item => {
+        html += `<div class="equipment-item">${item}</div>`;
+      });
+
+      if (remainingItems.length > 0) {
+        const etcText = formatEtcText(remainingItems);
+        html += `<div class="equipment-etc">...etc. ${etcText}</div>`;
+      }
+
+      html += '</div>';
+      return html;
+    }
+
+    // ===== etc.ãƒ†ã‚­ã‚¹ãƒˆã®ãƒ•ã‚©ãƒ¼ãƒžãƒƒãƒˆ =====
+    function formatEtcText(items) {
+      const maxChars = 40;
+      const maxShow = 6;
+      
+      if (items.length <= maxShow) {
+        const joined = items.join('ã€');
+        if (joined.length <= maxChars) {
+          return `(${joined})`;
+        }
+      }
+
+      let shown = [];
+      let totalChars = 0;
+      
+      for (let i = 0; i < items.length && i < maxShow; i++) {
+        if (totalChars + items[i].length + 1 <= maxChars) {
+          shown.push(items[i]);
+          totalChars += items[i].length + 1;
+        } else {
+          break;
+        }
+      }
+
+      const remaining = items.length - shown.length;
+      if (remaining > 0) {
+        return `(${shown.join('ã€')} ä»–${remaining}ä»¶)`;
+      } else {
+        return `(${shown.join('ã€')})`;
+      }
+    }
+
+    // ===== å…¥å±…è«¸æ¡ä»¶ã®å–å¾— =====
+    function getConditions() {
+      const conditions = [];
+      
+      document.querySelectorAll('.checkbox-grid input[type="checkbox"]:checked').forEach(cb => {
+        if (cb.id.startsWith('cond')) {
+          conditions.push(cb.value);
+        }
+      });
+
+      const customCondition = document.getElementById('conditionOther').value.trim();
+      if (customCondition) {
+        conditions.push(customCondition);
+      }
+
+      return conditions.length > 0 ? conditions.join('ã€') : '-';
+    }
+
+    // ===== äº¤é€šæƒ…å ±ã®å–å¾— =====
+    function getTransitInfo() {
+      let transit = [];
+      
+      try {
+        for (let i = 1; i <= 3; i++) {
+          const lineSelect = document.getElementById(`transit${i}Line`);
+          const stationSelect = document.getElementById(`transit${i}Station`);
+          const walkInput = document.getElementById(`transit${i}Walk`);
+          
+          if (!lineSelect || !stationSelect || !walkInput) {
+            console.warn(`Transit${i} elements not found`);
+            continue;
+          }
+          
+          const walk = walkInput.value.trim();
+          
+          if (lineSelect.value && stationSelect.value && walk) {
+            const selectedOption = lineSelect.options[lineSelect.selectedIndex];
+            const lineName = selectedOption ? selectedOption.text : lineSelect.value;
+            const stationName = stationSelect.value;
+            transit.push(`${lineName} ${stationName} å¾’æ­©${walk}åˆ†`);
+          }
+        }
+      } catch (error) {
+        console.error('äº¤é€šæƒ…å ±å–å¾—ã‚¨ãƒ©ãƒ¼:', error);
+      }
+      
+      return transit.length > 0 ? transit.join('<br>') : '-';
+    }
+
+    // ===== ãƒ•ã‚©ãƒ¼ãƒ ãƒªã‚»ãƒƒãƒˆ =====
+    function resetForm() {
+      if (confirm('å…¥åŠ›å†…å®¹ã‚’ã™ã¹ã¦ã‚¯ãƒªã‚¢ã—ã¾ã™ã‹ï¼Ÿ')) {
+        document.getElementById('propertyForm').reset();
+        document.querySelectorAll('.file-preview-container').forEach(container => {
+          container.innerHTML = '';
+        });
+        uploadedImages = {
+          exterior: null,
+          floorplan: null,
+          interior1: null,
+          interior2: null,
+          interior3: null
+        };
+        document.getElementById('previewArea').innerHTML = '';
+        document.getElementById('previewArea').style.display = 'none';
+      }
+    }
+
+    // ===== å®£ä¼ãƒšãƒ¼ã‚¸ç”Ÿæˆ =====
+    async function generateFlyer() {
+      try {
+        console.log('ç”Ÿæˆé–‹å§‹...');
+        
+        const form = document.getElementById('propertyForm');
+        
+        // å¿…é ˆé …ç›®ãƒã‚§ãƒƒã‚¯
+        if (!form.checkValidity()) {
+          alert('å¿…é ˆé …ç›®ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„');
+          form.reportValidity();
+          return;
+        }
+
+        // ç”»åƒãƒã‚§ãƒƒã‚¯
+        if (!uploadedImages.exterior || !uploadedImages.floorplan) {
+          alert('å¤–è¦³å†™çœŸã¨é–“å–å›³ã¯å¿…é ˆã§ã™');
+          return;
+        }
+
+        console.log('ãƒ‡ãƒ¼ã‚¿åŽé›†ä¸­...');
+
+        // å–å¼•æ…‹æ§˜å–å¾—
+        const transactionTerms = getTransactionTerms();
+
+        // ãƒ‡ãƒ¼ã‚¿åŽé›†
+        const data = {
+          propertyName: document.getElementById('propertyName').value,
+          roomNumber: document.getElementById('roomNumber').value,
+          transactionType: transactionTerms.transactionType,
+          propertyType: document.getElementById('propertyType').value,
+          layout: document.getElementById('layout').value,
+          rent: parseInt(document.getElementById('rent').value).toLocaleString(),
+          managementFee: parseInt(document.getElementById('managementFee').value).toLocaleString(),
+          layoutDetail: document.getElementById('layoutDetail').value || '-',
+          deposit: getDepositValue('deposit'),
+          keyMoney: getDepositValue('keyMoney'),
+          rightsPayment: getDepositValue('rightsPayment'),
+          securityDeposit: getDepositValue('securityDeposit'),
+          otherFees: document.getElementById('otherFees').value || '-',
+          address: document.getElementById('address').value,
+          transit: getTransitInfo(),
+          structure: document.getElementById('structure').value,
+          scale: document.getElementById('scale').value,
+          area: document.getElementById('area').value,
+          buildDate: document.getElementById('buildDate').value || '-',
+          contractPeriod: document.getElementById('contractPeriod').value,
+          vacancyDate: document.getElementById('vacancyDate').value || '-',
+          moveInDate: getMoveInDate(),
+          equipment: getEquipmentList(),
+          conditions: getConditions(),
+          insurance: document.getElementById('insurance').value || '-',
+          guarantor: document.getElementById('guarantor').value || '-',
+          catchCopy: document.getElementById('catchCopy').value,
+          remarks: document.getElementById('remarks').value || '-',
+          // å–å¼•æ…‹æ§˜
+          feeMotozuke: transactionTerms.feeMotozuke,
+          feeKyakuzuke: transactionTerms.feeKyakuzuke,
+          burdenKashinushi: transactionTerms.burdenKashinushi,
+          burdenKarinushi: transactionTerms.burdenKarinushi
+        };
+
+        console.log('ç”»åƒãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆè¨ˆç®—ä¸­...');
+
+        // ç”»åƒãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆè¨ˆç®—
+        const layout = calculateImageLayout(uploadedImages);
+        
+        console.log('é¸æŠžã•ã‚ŒãŸãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆ:', layout.name || layout.layout);
+        
+        const imagesHTML = generateImagesHTML(uploadedImages, layout);
+
+        console.log('HTMLç”Ÿæˆä¸­...');
+
+        // HTMLç”Ÿæˆ
+        const previewArea = document.getElementById('previewArea');
+        previewArea.innerHTML = generateFlyerHTML(data, imagesHTML);
+        previewArea.style.display = 'block';
+
+        console.log('ç”Ÿæˆå®Œäº†ï¼');
+
+        // ãƒšãƒ¼ã‚¸ã‚’ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã—ã¦ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼ã‚’è¡¨ç¤º
+        previewArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        // å°åˆ·ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼
+        setTimeout(() => {
+          const layoutName = layout.name || 'ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆ';
+          if (confirm(`å®£ä¼ãƒšãƒ¼ã‚¸ã‚’ç”Ÿæˆã—ã¾ã—ãŸã€‚\n\nä½¿ç”¨ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆ: ${layoutName}\n\nå°åˆ·ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼ã‚’é–‹ãã¾ã™ã‹ï¼Ÿ\nï¼ˆå°åˆ·ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã§ã€ŒPDFã«ä¿å­˜ã€ã‚’é¸æŠžã§ãã¾ã™ï¼‰`)) {
+            window.print();
+          }
+        }, 500);
+
+      } catch (error) {
+        console.error('ç”Ÿæˆã‚¨ãƒ©ãƒ¼:', error);
+        alert('ã‚¨ãƒ©ãƒ¼ãŒç™ºç”Ÿã—ã¾ã—ãŸ: ' + error.message + '\n\nãƒ–ãƒ©ã‚¦ã‚¶ã®ã‚³ãƒ³ã‚½ãƒ¼ãƒ«(F12)ã‚’ç¢ºèªã—ã¦ãã ã•ã„ã€‚');
+      }
+    }
+
+    // ===== å®£ä¼ãƒšãƒ¼ã‚¸HTMLç”Ÿæˆ =====
+    function generateFlyerHTML(data, imagesHTML) {
+      return `
+        <!-- ã‚¿ã‚¤ãƒˆãƒ«ï¼ˆ1è¡Œï¼‰ -->
+        <div class="flyer-title">
+          <span>${data.propertyName} <span class="flyer-number">${data.roomNumber}</span></span>
+          <span style="font-size: 14px; color: var(--ink-light); font-weight: 600;">å–å¼•æ…‹æ§˜: ${data.transactionType}</span>
+        </div>
+
+        <!-- åŸºæœ¬æƒ…å ±ãƒ†ãƒ¼ãƒ–ãƒ« -->
+        <table class="basic-info-table">
+          <tr>
+            <td class="label-cell">ç‰©ä»¶ç¨®åˆ¥</td>
+            <td class="value-cell">${data.propertyType}</td>
+            <td class="label-cell">é–“å–ã‚Š</td>
+            <td class="value-cell">${data.layout}</td>
+            <td class="label-cell">è³ƒæ–™</td>
+            <td class="value-cell rent-highlight">${data.rent}å††</td>
+            <td class="label-cell">ç®¡ç†è²»ç­‰</td>
+            <td class="value-cell">${data.managementFee}å††</td>
+          </tr>
+        </table>
+
+        <!-- ã‚­ãƒ£ãƒƒãƒã‚³ãƒ”ãƒ¼ -->
+        ${data.catchCopy ? `<div class="catch-copy">${data.catchCopy}</div>` : ''}
+
+        <!-- ãƒ¡ã‚¤ãƒ³ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆ -->
+        <div class="main-layout">
+          <!-- ç”»åƒã‚«ãƒ©ãƒ  -->
+          <div class="images-column">
+            ${imagesHTML}
+            <div class="image-note">※図面と異なる場合は現況を優先となります。</div>
+          </div>
+
+          <!-- è©³ç´°æƒ…å ±ã‚«ãƒ©ãƒ  -->
+          <div class="details-column">
+            <table class="details-table">
+              <tr>
+                <td class="label-cell">æ•·é‡‘</td>
+                <td colspan="3">${data.deposit}</td>
+              </tr>
+              <tr>
+                <td class="label-cell">ç¤¼é‡‘</td>
+                <td>${data.keyMoney}</td>
+                <td class="label-cell">æ¨©åˆ©é‡‘</td>
+                <td>${data.rightsPayment}</td>
+              </tr>
+              <tr>
+                <td class="label-cell">ä¿è¨¼é‡‘</td>
+                <td>${data.securityDeposit}</td>
+                <td class="label-cell">ãã®ä»–è²»ç”¨</td>
+                <td>${data.otherFees}</td>
+              </tr>
+              <tr>
+                <td class="label-cell">ç‰©ä»¶æ‰€åœ¨åœ°</td>
+                <td colspan="3">${data.address}</td>
+              </tr>
+              <tr>
+                <td class="label-cell">äº¤é€š</td>
+                <td colspan="3">${data.transit}</td>
+              </tr>
+              <tr>
+                <td class="label-cell">é–“å–ã‚Šè©³ç´°</td>
+                <td colspan="3">${data.layoutDetail}</td>
+              </tr>
+              <tr>
+                <td class="label-cell">æ§‹é€ /è¦æ¨¡</td>
+                <td colspan="3">${data.structure}ãƒ»${data.scale}</td>
+              </tr>
+              <tr>
+                <td class="label-cell">é¢ç©</td>
+                <td>${data.area}ãŽ¡</td>
+                <td class="label-cell">ç¯‰å¹´æœˆ</td>
+                <td>${data.buildDate}</td>
+              </tr>
+              <tr>
+                <td class="label-cell">å¥‘ç´„æœŸé–“</td>
+                <td>${data.contractPeriod}</td>
+                <td class="label-cell">é€€åŽ»æ—¥</td>
+                <td>${data.vacancyDate}</td>
+              </tr>
+              <tr>
+                <td class="label-cell">å…¥å±…å¯èƒ½æ—¥</td>
+                <td colspan="3">${data.moveInDate}</td>
+              </tr>
+              <tr>
+                <td class="label-cell">è¨­å‚™</td>
+                <td colspan="3">${formatEquipmentHTML(data.equipment)}</td>
+              </tr>
+              <tr>
+                <td class="label-cell">å…¥å±…è«¸æ¡ä»¶</td>
+                <td colspan="3">${data.conditions}</td>
+              </tr>
+              <tr>
+                <td class="label-cell">æå®³ä¿é™º</td>
+                <td colspan="3">${data.insurance}</td>
+              </tr>
+              <tr>
+                <td class="label-cell">ä¿è¨¼ä¼šç¤¾</td>
+                <td colspan="3">${data.guarantor}</td>
+              </tr>
+              <tr>
+                <td class="label-cell">å‚™è€ƒ</td>
+                <td colspan="3">${data.remarks}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <!-- ãƒ•ãƒƒã‚¿ãƒ¼ï¼ˆä¼šç¤¾æƒ…å ±ï¼‰ -->
+        <div class="flyer-footer">
+          <div class="company-info">
+            <div class="company-logo">
+              <img src="logo.png" alt="Smart Eyes" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\\'color:var(--brand);font-size:10px;text-align:center;line-height:1.2;padding:15px\\'>Smart<br>Eyes</div>'">
+            </div>
+            <div class="company-details">
+              <div class="company-line-1">
+                株式会社スマートアイズ
+                <span class="company-contact">TEL: 03-5358-9289　FAX: 03-5358-9296</span>
+              </div>
+              <div class="company-line-2">
+                〒160-0023 東京都新宿区西新宿7-3-10 山京ビル401　Email: info@smarteyes.co.jp
+              </div>
+              <div class="company-line-3">
+                宅地建物取引業免許番号：東京都知事(1)第112700号
+              </div>
+            </div>
+            <table class="transaction-table">
+              <tr>
+                <td class="label-cell" rowspan="2">å–å¼•æ…‹æ§˜<br>${data.transactionType}</td>
+                <td class="label-cell" colspan="2">æ‰‹æ•°æ–™è² æ‹…å‰²åˆ</td>
+                <td class="label-cell" colspan="2">æ‰‹æ•°æ–™è² æ‹…å‰²åˆ</td>
+              </tr>
+              <tr>
+                <td class="label-cell">å…ƒä»˜</td>
+                <td>${data.feeMotozuke}%</td>
+                <td class="label-cell">å®¢ä»˜</td>
+                <td>${data.feeKyakuzuke}%</td>
+              </tr>
+              <tr>
+                <td class="label-cell">è²¸ä¸»</td>
+                <td class="label-cell">é…åˆ†ã®å‰²åˆ</td>
+                <td>${data.burdenKashinushi}%</td>
+                <td class="label-cell">å€Ÿä¸»</td>
+                <td>${data.burdenKarinushi}%</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      `;
+    }
+
+    // ===== åˆæœŸåŒ– =====
+    window.addEventListener('DOMContentLoaded', async () => {
+      console.log('=== ç‰©ä»¶å®£ä¼ãƒšãƒ¼ã‚¸ä½œæˆãƒ„ãƒ¼ãƒ« v2 åˆæœŸåŒ–é–‹å§‹ ===');
+      
+      try {
+        // é›»è»Šãƒ‡ãƒ¼ã‚¿èª­ã¿è¾¼ã¿
+        console.log('é›»è»Šãƒ‡ãƒ¼ã‚¿èª­ã¿è¾¼ã¿ä¸­...');
+        await loadTrainData();
+        
+        // é›»è»Šé¸æŠžåˆæœŸåŒ–
+        console.log('é›»è»Šé¸æŠžåˆæœŸåŒ–ä¸­...');
+        initTrainSelects();
+        
+        // ãƒœã‚¿ãƒ³ã®ã‚¤ãƒ™ãƒ³ãƒˆãƒªã‚¹ãƒŠãƒ¼ç¢ºèª
+        const generateBtn = document.querySelector('button[onclick="generateFlyer()"]');
+        if (generateBtn) {
+          console.log('âœ“ ç”Ÿæˆãƒœã‚¿ãƒ³æ¤œå‡º');
+        } else {
+          console.warn('âš  ç”Ÿæˆãƒœã‚¿ãƒ³ãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“');
+        }
+        
+        // å¿…é ˆãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ç¢ºèª
+        const requiredFields = [
+          'propertyName', 'roomNumber', 'propertyType', 'layout',
+          'rent', 'managementFee', 'address', 'transit1Line',
+          'transit1Station', 'transit1Walk', 'structure', 'scale', 'area'
+        ];
+        
+        requiredFields.forEach(fieldId => {
+          const field = document.getElementById(fieldId);
+          if (!field) {
+            console.warn(`âš  å¿…é ˆãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“: ${fieldId}`);
+          }
+        });
+        
+        console.log('âœ“ åˆæœŸåŒ–å®Œäº†');
+        console.log('===========================================');
+        
+      } catch (error) {
+        console.error('âŒ åˆæœŸåŒ–ã‚¨ãƒ©ãƒ¼:', error);
+        alert('åˆæœŸåŒ–ã‚¨ãƒ©ãƒ¼ãŒç™ºç”Ÿã—ã¾ã—ãŸã€‚ãƒ–ãƒ©ã‚¦ã‚¶ã®ã‚³ãƒ³ã‚½ãƒ¼ãƒ«(F12)ã‚’ç¢ºèªã—ã¦ãã ã•ã„ã€‚');
+      }
+    });
+  </script>
+</body>
+</html>
