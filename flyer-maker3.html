@@ -388,13 +388,13 @@
     }
 
     /* 画像エリア */
-.images-column {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  height: 100%;
-  overflow: visible; 
-}
+    .images-column {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      height: calc(100% - 20px);
+      max-height: calc(100% - 20px);
+    }
 
     .image-box {
       border: 2px solid #cbd5e1;
