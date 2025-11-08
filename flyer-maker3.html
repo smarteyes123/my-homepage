@@ -413,11 +413,19 @@
       object-fit: contain;
     }
 
+    /* 詳細情報カラム */
+    .details-column {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
     /* 詳細情報テーブル（列幅最適化） */
     .details-table {
       width: 100%;
       border-collapse: collapse;
       font-size: 10px;
+      height: 100%;
     }
 
     .details-table td {
@@ -478,17 +486,20 @@
       margin-top: 6px;
     }
 
-.company-info {
-  display: grid;
-  grid-template-columns: 60px auto 1fr;
-  grid-template-rows: 2fr 1fr 1fr;
-  gap: 2px 15px;
-  align-items: center;
-}
+    .company-info {
+      display: grid;
+      grid-template-columns: 60px 280px 1fr 180px;
+      gap: 10px;
+      align-items: stretch;
+      height: 60px;
+    }
 
     .company-logo {
       width: 60px;
       height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .company-logo img {
@@ -497,35 +508,58 @@
       object-fit: contain;
     }
 
+    .company-name {
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--brand);
+      border-left: 2px solid #e2e8f0;
+      border-right: 2px solid #e2e8f0;
+      padding: 0 15px;
+    }
+
     .company-details {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 60px;
+      padding: 4px 0;
+    }
+
+    .company-contact-row {
+      height: 28px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       gap: 2px;
+      border-bottom: 1px solid #e2e8f0;
     }
 
-    .company-line-1 {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--brand);
+    .contact-line {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ink);
       line-height: 1.2;
     }
 
-    .company-contact {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--ink);
-      margin-left: 12px;
-    }
-
-    .company-line-2 {
-      font-size: 11px;
-      line-height: 1.3;
+    .company-address-row {
+      height: 15px;
+      display: flex;
+      align-items: center;
+      font-size: 9px;
+      line-height: 1.2;
       color: var(--ink-light);
+      border-bottom: 1px solid #e2e8f0;
     }
 
-    .company-line-3 {
-      font-size: 10px;
+    .company-license-row {
+      height: 15px;
+      display: flex;
+      align-items: center;
+      font-size: 8px;
       line-height: 1.2;
       color: var(--muted);
     }
@@ -546,33 +580,6 @@
       background: #e2e8f0;
       font-weight: 700;
     }
-/* 新的公司信息布局样式 */
-.company-name {
-  grid-area: 1 / 2 / 4 / 3;
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--brand);
-  display: flex;
-  align-items: center;
-}
-
-.company-contact {
-  grid-area: 1 / 3 / 2 / 4;
-  font-size: 14px;
-  font-weight: 700;
-}
-
-.company-address {
-  grid-area: 2 / 3 / 3 / 4;
-  font-size: 11px;
-  line-height: 1.3;
-}
-
-.company-license {
-  grid-area: 3 / 3 / 4 / 4;
-  font-size: 10px;
-  line-height: 1.2;
-}
   </style>
 </head>
 <body>
@@ -853,7 +860,7 @@
             <select id="contractPeriod">
               <option value="2年">2年</option>
               <option value="定期借家2年">定期借家2年</option>
-              <option value="1年">1年</option>
+              <option value="3年">3年</option>
               <option value="相談">相談</option>
             </select>
           </div>
@@ -1210,7 +1217,13 @@
         <div class="button-group">
           <button type="button" class="btn btn-primary" onclick="generateFlyer()">🎨 プレビュー生成</button>
           <button type="button" class="btn btn-secondary" onclick="resetForm()">🔄 リセット</button>
+          <button type="button" class="btn btn-secondary" onclick="exportFormData()">💾 データ保存</button>
+          <button type="button" class="btn btn-secondary" onclick="importFormData()">📂 データ読込</button>
+          <button type="button" class="btn btn-secondary" onclick="clearAutoSavedData()" style="font-size: 14px;">🗑️ 自動保存削除</button>
         </div>
+        <p style="font-size: 12px; color: var(--muted); margin-top: 10px;">
+          💡 ヒント: 入力内容は自動的にブラウザに保存されます。「データ保存」でJSONファイルとしてバックアップできます。
+        </p>
       </form>
     </div>
 
@@ -2088,24 +2101,26 @@
 
         <!-- フッター（会社情報） -->
         <div class="flyer-footer">
-<div class="company-info">
-  <div class="company-logo">
-    <img src="logo.png" alt="Smart Eyes" onerror="...">
-  </div>
-  <div class="company-name">
-    株式会社スマートアイズ
-  </div>
-  <div class="company-contact">
-    TEL: 03-5358-9289　FAX: 03-5358-9296
-  </div>
-  <div class="company-address">
-    〒160-0023 東京都新宿区西新宿7-3-10 山京ビル401　Email: info@smarteyes.co.jp
-  </div>
-  <div class="company-license">
-    宅地建物取引業免許番号：東京都知事(1)第112700号
-  </div>
-  <table class="transaction-table">...</table>
-</div>
+          <div class="company-info">
+            <div class="company-logo">
+              <img src="logo.png" alt="Smart Eyes" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\\'color:var(--brand);font-size:10px;text-align:center;line-height:1.2;padding:15px\\'>Smart<br>Eyes</div>'">
+            </div>
+            <div class="company-name">
+              株式会社スマートアイズ
+            </div>
+            <div class="company-details">
+              <div class="company-contact-row">
+                <div class="contact-line">TEL: 03-5358-9289</div>
+                <div class="contact-line">FAX: 03-5358-9296</div>
+              </div>
+              <div class="company-address-row">
+                〒160-0023 東京都新宿区西新宿7-3-10 山京ビル401　Email: info@smarteyes.co.jp
+              </div>
+              <div class="company-license-row">
+                宅地建物取引業免許番号：東京都知事(1)第112700号
+              </div>
+            </div>
+            <table class="transaction-table">
               <tr>
                 <td class="label-cell" rowspan="2">取引態様<br></td>
                 <td class="label-cell" colspan="2">手数料負担割合</td>
@@ -2130,6 +2145,218 @@
       `;
     }
 
+    // ===== データ保存・読取機能 =====
+    
+    // 表单数据收集
+    function collectFormData() {
+      const formData = {
+        // 基本情報
+        propertyName: document.getElementById('propertyName').value,
+        roomNumber: document.getElementById('roomNumber').value,
+        transactionType: document.getElementById('transactionType').value,
+        propertyType: document.getElementById('propertyType').value,
+        layout: document.getElementById('layout').value,
+        rent: document.getElementById('rent').value,
+        managementFee: document.getElementById('managementFee').value,
+        layoutDetail: document.getElementById('layoutDetail').value,
+        
+        // 費用情報
+        depositType: document.getElementById('depositType').value,
+        depositValue: document.getElementById('depositValue').value,
+        keyMoneyType: document.getElementById('keyMoneyType').value,
+        keyMoneyValue: document.getElementById('keyMoneyValue').value,
+        rightsPaymentType: document.getElementById('rightsPaymentType').value,
+        rightsPaymentValue: document.getElementById('rightsPaymentValue').value,
+        securityDepositType: document.getElementById('securityDepositType').value,
+        securityDepositValue: document.getElementById('securityDepositValue').value,
+        otherFees: document.getElementById('otherFees').value,
+        
+        // 物件詳細
+        address: document.getElementById('address').value,
+        transit1Line: document.getElementById('transit1Line').value,
+        transit1Station: document.getElementById('transit1Station').value,
+        transit1Walk: document.getElementById('transit1Walk').value,
+        transit2Line: document.getElementById('transit2Line').value,
+        transit2Station: document.getElementById('transit2Station').value,
+        transit2Walk: document.getElementById('transit2Walk').value,
+        transit3Line: document.getElementById('transit3Line').value,
+        transit3Station: document.getElementById('transit3Station').value,
+        transit3Walk: document.getElementById('transit3Walk').value,
+        structure: document.getElementById('structure').value,
+        scale: document.getElementById('scale').value,
+        area: document.getElementById('area').value,
+        buildDate: document.getElementById('buildDate').value,
+        contractPeriod: document.getElementById('contractPeriod').value,
+        vacancyDate: document.getElementById('vacancyDate').value,
+        moveInDateType: document.getElementById('moveInDateType').value,
+        moveInDateCustom: document.getElementById('moveInDateCustom').value,
+        
+        // その他
+        catchCopy: document.getElementById('catchCopy').value,
+        remarks: document.getElementById('remarks').value,
+        insurance: document.getElementById('insurance').value,
+        guarantor: document.getElementById('guarantor').value,
+        
+        // 設備（チェックボックス）
+        equipment: Array.from(document.querySelectorAll('input[name="equipment"]:checked')).map(el => el.value),
+        
+        // 入居諸条件
+        conditions: Array.from(document.querySelectorAll('input[name="conditions"]:checked')).map(el => el.value),
+        
+        // 取引態様
+        transactionTermType: document.getElementById('transactionTermType').value
+      };
+      
+      return formData;
+    }
+    
+    // 表单数据填充
+    function fillFormData(formData) {
+      if (!formData) return;
+      
+      // 基本情報
+      if (formData.propertyName) document.getElementById('propertyName').value = formData.propertyName;
+      if (formData.roomNumber) document.getElementById('roomNumber').value = formData.roomNumber;
+      if (formData.transactionType) document.getElementById('transactionType').value = formData.transactionType;
+      if (formData.propertyType) document.getElementById('propertyType').value = formData.propertyType;
+      if (formData.layout) document.getElementById('layout').value = formData.layout;
+      if (formData.rent) document.getElementById('rent').value = formData.rent;
+      if (formData.managementFee) document.getElementById('managementFee').value = formData.managementFee;
+      if (formData.layoutDetail) document.getElementById('layoutDetail').value = formData.layoutDetail;
+      
+      // 費用情報
+      if (formData.depositType) document.getElementById('depositType').value = formData.depositType;
+      if (formData.depositValue) document.getElementById('depositValue').value = formData.depositValue;
+      if (formData.keyMoneyType) document.getElementById('keyMoneyType').value = formData.keyMoneyType;
+      if (formData.keyMoneyValue) document.getElementById('keyMoneyValue').value = formData.keyMoneyValue;
+      if (formData.rightsPaymentType) document.getElementById('rightsPaymentType').value = formData.rightsPaymentType;
+      if (formData.rightsPaymentValue) document.getElementById('rightsPaymentValue').value = formData.rightsPaymentValue;
+      if (formData.securityDepositType) document.getElementById('securityDepositType').value = formData.securityDepositType;
+      if (formData.securityDepositValue) document.getElementById('securityDepositValue').value = formData.securityDepositValue;
+      if (formData.otherFees) document.getElementById('otherFees').value = formData.otherFees;
+      
+      // 物件詳細
+      if (formData.address) document.getElementById('address').value = formData.address;
+      if (formData.transit1Line) document.getElementById('transit1Line').value = formData.transit1Line;
+      if (formData.transit1Station) document.getElementById('transit1Station').value = formData.transit1Station;
+      if (formData.transit1Walk) document.getElementById('transit1Walk').value = formData.transit1Walk;
+      if (formData.transit2Line) document.getElementById('transit2Line').value = formData.transit2Line;
+      if (formData.transit2Station) document.getElementById('transit2Station').value = formData.transit2Station;
+      if (formData.transit2Walk) document.getElementById('transit2Walk').value = formData.transit2Walk;
+      if (formData.transit3Line) document.getElementById('transit3Line').value = formData.transit3Line;
+      if (formData.transit3Station) document.getElementById('transit3Station').value = formData.transit3Station;
+      if (formData.transit3Walk) document.getElementById('transit3Walk').value = formData.transit3Walk;
+      if (formData.structure) document.getElementById('structure').value = formData.structure;
+      if (formData.scale) document.getElementById('scale').value = formData.scale;
+      if (formData.area) document.getElementById('area').value = formData.area;
+      if (formData.buildDate) document.getElementById('buildDate').value = formData.buildDate;
+      if (formData.contractPeriod) document.getElementById('contractPeriod').value = formData.contractPeriod;
+      if (formData.vacancyDate) document.getElementById('vacancyDate').value = formData.vacancyDate;
+      if (formData.moveInDateType) document.getElementById('moveInDateType').value = formData.moveInDateType;
+      if (formData.moveInDateCustom) document.getElementById('moveInDateCustom').value = formData.moveInDateCustom;
+      
+      // その他
+      if (formData.catchCopy) document.getElementById('catchCopy').value = formData.catchCopy;
+      if (formData.remarks) document.getElementById('remarks').value = formData.remarks;
+      if (formData.insurance) document.getElementById('insurance').value = formData.insurance;
+      if (formData.guarantor) document.getElementById('guarantor').value = formData.guarantor;
+      
+      // 設備（チェックボックス）
+      if (formData.equipment) {
+        document.querySelectorAll('input[name="equipment"]').forEach(el => {
+          el.checked = formData.equipment.includes(el.value);
+        });
+      }
+      
+      // 入居諸条件
+      if (formData.conditions) {
+        document.querySelectorAll('input[name="conditions"]').forEach(el => {
+          el.checked = formData.conditions.includes(el.value);
+        });
+      }
+      
+      // 取引態様
+      if (formData.transactionTermType) {
+        document.getElementById('transactionTermType').value = formData.transactionTermType;
+        updateTransactionTerms(); // 更新取引態様数据
+      }
+      
+      console.log('✓ データ読み込み完了');
+    }
+    
+    // 自动保存到localStorage
+    function autoSaveFormData() {
+      const formData = collectFormData();
+      localStorage.setItem('propertyFormData', JSON.stringify(formData));
+      console.log('✓ 自動保存完了');
+    }
+    
+    // 从localStorage加载
+    function loadAutoSavedData() {
+      const savedData = localStorage.getItem('propertyFormData');
+      if (savedData) {
+        try {
+          const formData = JSON.parse(savedData);
+          fillFormData(formData);
+          console.log('✓ 自動保存データ読み込み完了');
+          return true;
+        } catch (error) {
+          console.error('自動保存データ読み込みエラー:', error);
+          return false;
+        }
+      }
+      return false;
+    }
+    
+    // 导出为JSON文件
+    function exportFormData() {
+      const formData = collectFormData();
+      const dataStr = JSON.stringify(formData, null, 2);
+      const dataBlob = new Blob([dataStr], { type: 'application/json' });
+      const url = URL.createObjectURL(dataBlob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `物件データ_${formData.propertyName || 'データ'}_${new Date().toISOString().split('T')[0]}.json`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+      alert('データをエクスポートしました！');
+    }
+    
+    // 从JSON文件导入
+    function importFormData() {
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = '.json';
+      input.onchange = (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          try {
+            const formData = JSON.parse(event.target.result);
+            fillFormData(formData);
+            alert('データをインポートしました！');
+          } catch (error) {
+            console.error('インポートエラー:', error);
+            alert('データの読み込みに失敗しました。正しいJSONファイルを選択してください。');
+          }
+        };
+        reader.readAsText(file);
+      };
+      input.click();
+    }
+    
+    // 清除自动保存的数据
+    function clearAutoSavedData() {
+      if (confirm('自動保存されたデータを削除しますか？')) {
+        localStorage.removeItem('propertyFormData');
+        alert('自動保存データを削除しました。');
+      }
+    }
+
     // ===== 初期化 =====
     window.addEventListener('DOMContentLoaded', async () => {
       console.log('=== 物件宣伝ページ作成ツール v2 初期化開始 ===');
@@ -2142,6 +2369,24 @@
         // 電車選択初期化
         console.log('電車選択初期化中...');
         initTrainSelects();
+        
+        // 自動保存データ読み込み
+        console.log('自動保存データ確認中...');
+        const hasAutoSaved = loadAutoSavedData();
+        if (hasAutoSaved) {
+          console.log('✓ 前回のデータを読み込みました');
+        }
+        
+        // 自動保存設定（入力時に自動保存）
+        const form = document.getElementById('propertyForm');
+        if (form) {
+          let saveTimeout;
+          form.addEventListener('input', () => {
+            clearTimeout(saveTimeout);
+            saveTimeout = setTimeout(autoSaveFormData, 1000); // 1秒後に自動保存
+          });
+          console.log('✓ 自動保存機能有効化');
+        }
         
         // ボタンのイベントリスナー確認
         const generateBtn = document.querySelector('button[onclick="generateFlyer()"]');
