@@ -535,11 +535,10 @@
       flex-direction: column;
       justify-content: center;
       gap: 2px;
-      border-bottom: 1px solid #e2e8f0;
     }
 
     .contact-line {
-      font-size: 11px;
+      font-size: 14px;
       font-weight: 600;
       color: var(--ink);
       line-height: 1.2;
@@ -552,7 +551,6 @@
       font-size: 9px;
       line-height: 1.2;
       color: var(--ink-light);
-      border-bottom: 1px solid #e2e8f0;
     }
 
     .company-license-row {
@@ -2110,8 +2108,7 @@
             </div>
             <div class="company-details">
               <div class="company-contact-row">
-                <div class="contact-line">TEL: 03-5358-9289</div>
-                <div class="contact-line">FAX: 03-5358-9296</div>
+                <div class="contact-line">TEL: 03-5358-9289  FAX: 03-5358-9296</div>
               </div>
               <div class="company-address-row">
                 〒160-0023 東京都新宿区西新宿7-3-10 山京ビル401　Email: info@smarteyes.co.jp
@@ -2148,67 +2145,89 @@
     // ===== データ保存・読取機能 =====
     
     // 表单数据收集
-    function collectFormData() {
-      const formData = {
-        // 基本情報
-        propertyName: document.getElementById('propertyName').value,
-        roomNumber: document.getElementById('roomNumber').value,
-        transactionType: document.getElementById('transactionType').value,
-        propertyType: document.getElementById('propertyType').value,
-        layout: document.getElementById('layout').value,
-        rent: document.getElementById('rent').value,
-        managementFee: document.getElementById('managementFee').value,
-        layoutDetail: document.getElementById('layoutDetail').value,
-        
-        // 費用情報
-        depositType: document.getElementById('depositType').value,
-        depositValue: document.getElementById('depositValue').value,
-        keyMoneyType: document.getElementById('keyMoneyType').value,
-        keyMoneyValue: document.getElementById('keyMoneyValue').value,
-        rightsPaymentType: document.getElementById('rightsPaymentType').value,
-        rightsPaymentValue: document.getElementById('rightsPaymentValue').value,
-        securityDepositType: document.getElementById('securityDepositType').value,
-        securityDepositValue: document.getElementById('securityDepositValue').value,
-        otherFees: document.getElementById('otherFees').value,
-        
-        // 物件詳細
-        address: document.getElementById('address').value,
-        transit1Line: document.getElementById('transit1Line').value,
-        transit1Station: document.getElementById('transit1Station').value,
-        transit1Walk: document.getElementById('transit1Walk').value,
-        transit2Line: document.getElementById('transit2Line').value,
-        transit2Station: document.getElementById('transit2Station').value,
-        transit2Walk: document.getElementById('transit2Walk').value,
-        transit3Line: document.getElementById('transit3Line').value,
-        transit3Station: document.getElementById('transit3Station').value,
-        transit3Walk: document.getElementById('transit3Walk').value,
-        structure: document.getElementById('structure').value,
-        scale: document.getElementById('scale').value,
-        area: document.getElementById('area').value,
-        buildDate: document.getElementById('buildDate').value,
-        contractPeriod: document.getElementById('contractPeriod').value,
-        vacancyDate: document.getElementById('vacancyDate').value,
-        moveInDateType: document.getElementById('moveInDateType').value,
-        moveInDateCustom: document.getElementById('moveInDateCustom').value,
-        
-        // その他
-        catchCopy: document.getElementById('catchCopy').value,
-        remarks: document.getElementById('remarks').value,
-        insurance: document.getElementById('insurance').value,
-        guarantor: document.getElementById('guarantor').value,
-        
-        // 設備（チェックボックス）
-        equipment: Array.from(document.querySelectorAll('input[name="equipment"]:checked')).map(el => el.value),
-        
-        // 入居諸条件
-        conditions: Array.from(document.querySelectorAll('input[name="conditions"]:checked')).map(el => el.value),
-        
-        // 取引態様
-        transactionTermType: document.getElementById('transactionTermType').value
-      };
-      
-      return formData;
-    }
+// 表单数据收集（安全版本）
+function collectFormData() {
+  // 安全获取值的辅助函数
+  const getValue = (id) => {
+    const el = document.getElementById(id);
+    return el ? el.value : '';
+  };
+  
+  const getCheckedValues = (name) => {
+    const checked = document.querySelectorAll(`input[name="${name}"]:checked`);
+    return Array.from(checked).map(el => el.value);
+  };
+  
+  const formData = {
+    // 基本情報
+    propertyName: getValue('propertyName'),
+    roomNumber: getValue('roomNumber'),
+    transactionType: getValue('transactionType'),
+    propertyType: getValue('propertyType'),
+    layout: getValue('layout'),
+    rent: getValue('rent'),
+    managementFee: getValue('managementFee'),
+    layoutDetail: getValue('layoutDetail'),
+    
+    // 費用情報
+    depositType: getValue('depositType'),
+    depositValue: getValue('depositValue'),
+    depositCustom: getValue('depositCustom'),
+    keyMoneyType: getValue('keyMoneyType'),
+    keyMoneyValue: getValue('keyMoneyValue'),
+    keyMoneyCustom: getValue('keyMoneyCustom'),
+    rightsPaymentType: getValue('rightsPaymentType'),
+    rightsPaymentValue: getValue('rightsPaymentValue'),
+    rightsPaymentCustom: getValue('rightsPaymentCustom'),
+    securityDepositType: getValue('securityDepositType'),
+    securityDepositValue: getValue('securityDepositValue'),
+    securityDepositCustom: getValue('securityDepositCustom'),
+    otherFees: getValue('otherFees'),
+    
+    // 物件詳細
+    address: getValue('address'),
+    transit1Line: getValue('transit1Line'),
+    transit1Station: getValue('transit1Station'),
+    transit1Walk: getValue('transit1Walk'),
+    transit2Line: getValue('transit2Line'),
+    transit2Station: getValue('transit2Station'),
+    transit2Walk: getValue('transit2Walk'),
+    transit3Line: getValue('transit3Line'),
+    transit3Station: getValue('transit3Station'),
+    transit3Walk: getValue('transit3Walk'),
+    structure: getValue('structure'),
+    scale: getValue('scale'),
+    area: getValue('area'),
+    buildDate: getValue('buildDate'),
+    contractPeriod: getValue('contractPeriod'),
+    vacancyDate: getValue('vacancyDate'),
+    moveInDateType: getValue('moveInDateType'),
+    moveInDate: getValue('moveInDate'),
+    moveInDateCustom: getValue('moveInDateCustom'),
+    
+    // その他
+    catchCopy: getValue('catchCopy'),
+    remarks: getValue('remarks'),
+    insurance: getValue('insurance'),
+    guarantor: getValue('guarantor'),
+    
+    // 設備（チェックボックス）
+    equipment: getCheckedValues('equipment'),
+    
+    // 入居諸条件
+    conditions: getCheckedValues('conditions'),
+    
+    // 取引態様
+    transactionTermType: getValue('transactionTermType'),
+    feeMotozuke: getValue('feeMotozuke'),
+    feeKyakuzuke: getValue('feeKyakuzuke'),
+    burdenKashinushi: getValue('burdenKashinushi'),
+    burdenKarinushi: getValue('burdenKarinushi')
+  };
+  
+  console.log('✓ データ収集完了');
+  return formData;
+}
     
     // 表单数据填充
     function fillFormData(formData) {
