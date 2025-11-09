@@ -279,43 +279,28 @@
     }
 
     /* ===== A4横版印刷スタイル ===== */
-@media print {
-  body {
-    background: white;
-    padding: 0;
-    margin: 0;
-  }
+    @media print {
+      body {
+        background: white;
+        padding: 0;
+        margin: 0;
+      }
 
-  .editor-area,
-  .header,
-  .button-group {
-    display: none !important;
-  }
+      .editor-area,
+      .header,
+      .button-group {
+        display: none !important;
+      }
 
-  .preview-area {
-    display: block !important;
-  }
+      .preview-area {
+        display: block !important;
+      }
 
-  /* 水印样式 - 新增这段 */
-  .preview-area::before {
-    content: "株式会社スマートアイズ";
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(-45deg);
-    font-size: 80px;
-    color: rgba(0, 0, 0, 0.05);
-    font-weight: bold;
-    z-index: 9999;
-    pointer-events: none;
-    white-space: nowrap;
-  }
-
-  @page {
-    size: A4 landscape;
-    margin: 5mm;
-  }
-}
+      @page {
+        size: A4 landscape;
+        margin: 5mm;
+      }
+    }
 
     /* ===== プレビューエリア（印刷用・A4横版最適化） ===== */
     .preview-area {
