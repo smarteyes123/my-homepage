@@ -2363,39 +2363,14 @@ function collectFormData() {
       if (formData.layoutDetail) document.getElementById('layoutDetail').value = formData.layoutDetail;
       
       // 費用情報
-      if (formData.deposit) {
-        document.getElementById('deposit').value = formData.deposit;
-        // カスタム入力欄の表示制御
-        if (formData.deposit === 'カスタム') {
-          document.getElementById('depositCustom').style.display = 'block';
-        }
-      }
-      if (formData.depositCustom) document.getElementById('depositCustom').value = formData.depositCustom;
-      
-      if (formData.keyMoney) {
-        document.getElementById('keyMoney').value = formData.keyMoney;
-        if (formData.keyMoney === 'カスタム') {
-          document.getElementById('keyMoneyCustom').style.display = 'block';
-        }
-      }
-      if (formData.keyMoneyCustom) document.getElementById('keyMoneyCustom').value = formData.keyMoneyCustom;
-      
-      if (formData.rightsPayment) {
-        document.getElementById('rightsPayment').value = formData.rightsPayment;
-        if (formData.rightsPayment === 'カスタム') {
-          document.getElementById('rightsPaymentCustom').style.display = 'block';
-        }
-      }
-      if (formData.rightsPaymentCustom) document.getElementById('rightsPaymentCustom').value = formData.rightsPaymentCustom;
-      
-      if (formData.securityDeposit) {
-        document.getElementById('securityDeposit').value = formData.securityDeposit;
-        if (formData.securityDeposit === 'カスタム') {
-          document.getElementById('securityDepositCustom').style.display = 'block';
-        }
-      }
-      if (formData.securityDepositCustom) document.getElementById('securityDepositCustom').value = formData.securityDepositCustom;
-      
+      if (formData.depositType) document.getElementById('depositType').value = formData.depositType;
+      if (formData.depositValue) document.getElementById('depositValue').value = formData.depositValue;
+      if (formData.keyMoneyType) document.getElementById('keyMoneyType').value = formData.keyMoneyType;
+      if (formData.keyMoneyValue) document.getElementById('keyMoneyValue').value = formData.keyMoneyValue;
+      if (formData.rightsPaymentType) document.getElementById('rightsPaymentType').value = formData.rightsPaymentType;
+      if (formData.rightsPaymentValue) document.getElementById('rightsPaymentValue').value = formData.rightsPaymentValue;
+      if (formData.securityDepositType) document.getElementById('securityDepositType').value = formData.securityDepositType;
+      if (formData.securityDepositValue) document.getElementById('securityDepositValue').value = formData.securityDepositValue;
       if (formData.otherFees) document.getElementById('otherFees').value = formData.otherFees;
       
       // 物件詳細
@@ -2423,13 +2398,7 @@ function collectFormData() {
       if (formData.buildDate) document.getElementById('buildDate').value = formData.buildDate;
       if (formData.contractPeriod) document.getElementById('contractPeriod').value = formData.contractPeriod;
       if (formData.vacancyDate) document.getElementById('vacancyDate').value = formData.vacancyDate;
-      if (formData.moveInDate) {
-        document.getElementById('moveInDate').value = formData.moveInDate;
-        // カスタム入力欄の表示制御
-        if (formData.moveInDate === 'カスタム') {
-          document.getElementById('moveInDateCustom').style.display = 'block';
-        }
-      }
+      if (formData.moveInDateType) document.getElementById('moveInDateType').value = formData.moveInDateType;
       if (formData.moveInDateCustom) document.getElementById('moveInDateCustom').value = formData.moveInDateCustom;
       
       // その他
