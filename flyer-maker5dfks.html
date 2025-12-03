@@ -2374,14 +2374,22 @@ function collectFormData() {
       if (formData.otherFees) document.getElementById('otherFees').value = formData.otherFees;
       
       // 物件詳細
-      if (formData.address) document.getElementById('address').value = formData.address;
-      if (formData.transit1Line) document.getElementById('transit1Line').value = formData.transit1Line;
+      if (formData.address) document.getElementById('address').value = formData.address;if (formData.transit1Line) {
+        document.getElementById('transit1Line').value = formData.transit1Line;
+        handleLineChange('transit1');
+      }
       if (formData.transit1Station) document.getElementById('transit1Station').value = formData.transit1Station;
       if (formData.transit1Walk) document.getElementById('transit1Walk').value = formData.transit1Walk;
-      if (formData.transit2Line) document.getElementById('transit2Line').value = formData.transit2Line;
+      if (formData.transit2Line) {
+        document.getElementById('transit2Line').value = formData.transit2Line;
+        handleLineChange('transit2');
+      }
       if (formData.transit2Station) document.getElementById('transit2Station').value = formData.transit2Station;
       if (formData.transit2Walk) document.getElementById('transit2Walk').value = formData.transit2Walk;
-      if (formData.transit3Line) document.getElementById('transit3Line').value = formData.transit3Line;
+      if (formData.transit3Line) {
+        document.getElementById('transit3Line').value = formData.transit3Line;
+        handleLineChange('transit3');
+      }
       if (formData.transit3Station) document.getElementById('transit3Station').value = formData.transit3Station;
       if (formData.transit3Walk) document.getElementById('transit3Walk').value = formData.transit3Walk;
       if (formData.structure) document.getElementById('structure').value = formData.structure;
