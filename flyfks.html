@@ -2439,67 +2439,17 @@ function collectFormData() {
       if (formData.guarantor) document.getElementById('guarantor').value = formData.guarantor;
       
       // 設備（チェックボックス）
-      if (formData.equipment && Array.isArray(formData.equipment)) {
-        // まず全てのチェックを外す
-        document.querySelectorAll('input[type="checkbox"]').forEach(el => {
-          if (el.id.startsWith('eq')) {
-            el.checked = false;
-          }
+      if (formData.equipment) {
+        document.querySelectorAll('input[name="equipment"]').forEach(el => {
+          el.checked = formData.equipment.includes(el.value);
         });
-        
-        // 保存されたデータに基づいてチェックを入れる
-        document.querySelectorAll('input[type="checkbox"]').forEach(el => {
-          if (el.id.startsWith('eq') && formData.equipment.includes(el.value)) {
-            el.checked = true;
-          }
-        });
-        
-        // カスタム設備の復元
-        const otherEquipment = formData.equipment.filter(item => {
-          // 標準の設備リストに含まれていない項目を抽出
-          const standardItems = Array.from(document.querySelectorAll('input[id^="eq"]')).map(el => el.value);
-          return !standardItems.includes(item);
-        });
-        
-        if (otherEquipment.length > 0 && document.getElementById('equipmentOther')) {
-          document.getElementById('equipmentOther').value = otherEquipment.join(', ');
-        }
       }
       
       // 入居諸条件
       if (formData.conditions) {
-        // まず全てのチェックを外す
-        document.querySelectorAll('input[type="checkbox"]').forEach(el => {
-          if (el.id.startsWith('cond')) {
-            el.checked = false;
-          }
+        document.querySelectorAll('input[name="conditions"]').forEach(el => {
+          el.checked = formData.conditions.includes(el.value);
         });
-        
-        // conditions は文字列（「、」区切り）または配列の可能性がある
-        let conditionsArray = [];
-        if (typeof formData.conditions === 'string') {
-          // 「-」の場合は空配列
-          if (formData.conditions !== '-') {
-            conditionsArray = formData.conditions.split('、').map(c => c.trim());
-          }
-        } else if (Array.isArray(formData.conditions)) {
-          conditionsArray = formData.conditions;
-        }
-        
-        // 保存されたデータに基づいてチェックを入れる
-        document.querySelectorAll('input[type="checkbox"]').forEach(el => {
-          if (el.id.startsWith('cond') && conditionsArray.includes(el.value)) {
-            el.checked = true;
-          }
-        });
-        
-        // カスタム条件の復元
-        const standardItems = Array.from(document.querySelectorAll('input[id^="cond"]')).map(el => el.value);
-        const otherCondition = conditionsArray.find(item => !standardItems.includes(item));
-        
-        if (otherCondition && document.getElementById('conditionOther')) {
-          document.getElementById('conditionOther').value = otherCondition;
-        }
       }
       
       // 取引態様
