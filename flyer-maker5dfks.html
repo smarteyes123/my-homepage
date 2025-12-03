@@ -2295,17 +2295,13 @@ function collectFormData() {
     layoutDetail: getValue('layoutDetail'),
     
     // 費用情報
-    depositType: getValue('depositType'),
-    depositValue: getValue('depositValue'),
+    deposit: getValue('deposit'),
     depositCustom: getValue('depositCustom'),
-    keyMoneyType: getValue('keyMoneyType'),
-    keyMoneyValue: getValue('keyMoneyValue'),
+    keyMoney: getValue('keyMoney'),
     keyMoneyCustom: getValue('keyMoneyCustom'),
-    rightsPaymentType: getValue('rightsPaymentType'),
-    rightsPaymentValue: getValue('rightsPaymentValue'),
+    rightsPayment: getValue('rightsPayment'),
     rightsPaymentCustom: getValue('rightsPaymentCustom'),
-    securityDepositType: getValue('securityDepositType'),
-    securityDepositValue: getValue('securityDepositValue'),
+    securityDeposit: getValue('securityDeposit'),
     securityDepositCustom: getValue('securityDepositCustom'),
     otherFees: getValue('otherFees'),
     
@@ -2326,7 +2322,6 @@ function collectFormData() {
     buildDate: getValue('buildDate'),
     contractPeriod: getValue('contractPeriod'),
     vacancyDate: getValue('vacancyDate'),
-    moveInDateType: getValue('moveInDateType'),
     moveInDate: getValue('moveInDate'),
     moveInDateCustom: getValue('moveInDateCustom'),
     
@@ -2337,13 +2332,12 @@ function collectFormData() {
     guarantor: getValue('guarantor'),
     
     // 設備（チェックボックス）
-    equipment: getCheckedValues('equipment'),
+    equipment: getEquipmentList(),
     
     // 入居諸条件
-    conditions: getCheckedValues('conditions'),
+    conditions: getConditions(),
     
     // 取引態様
-    transactionTermType: getValue('transactionTermType'),
     feeMotozuke: getValue('feeMotozuke'),
     feeKyakuzuke: getValue('feeKyakuzuke'),
     burdenKashinushi: getValue('burdenKashinushi'),
