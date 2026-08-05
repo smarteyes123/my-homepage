@@ -1,0 +1,17 @@
+# OS が勝手に作るファイル（サイトとは無関係）
+# Windows
+desktop.ini
+Thumbs.db
+ehthumbs.db
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# エディタ
+.vscode/
+.idea/
+*.swp
+*~
