@@ -9,7 +9,8 @@
   <meta property="og:description" content="新宿区の不動産売買・賃貸・投資コンサルティング。多言語対応で海外投資家・在日外国人の皆さまをサポート。" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.smarteyes.co.jp/" />
-  <link rel="icon" href="logo.png" />
+  <link rel="canonical" href="https://www.smarteyes.co.jp/" />
+  <link rel="icon" href="logo-header.png" />
   <style>
     /* ===== Enhanced Color Palette ===== */
     :root{
@@ -119,7 +120,7 @@
     .lang-text{flex:1;text-align:left;font-size:12px;color:var(--ink-light)}
     .lang-arrow{transition:transform 0.2s ease;font-size:8px;color:var(--muted)}
     .lang-menu{
-      position:absolute;top:100%;left:0;right:0;
+      position:absolute;top:100%;left:auto;right:0;
       background:linear-gradient(135deg, #ffffff, #f8fafc);border:1px solid #e2e8f0;border-radius:8px;
       box-shadow:0 8px 32px rgba(30, 64, 175, 0.15);
       opacity:0;visibility:hidden;transform:translateY(-10px);
@@ -151,7 +152,7 @@
     .hero .tile:nth-child(5){animation-delay:0.5s}
     .hero .tile:nth-child(6){animation-delay:0.6s}
     @keyframes tileLoad{to{opacity:1}}
-    .hero .tile img{width:100%;height:100%;object-fit:cover;transform:scale(1.05);transition:transform .6s ease;loading:lazy}
+    .hero .tile img{width:100%;height:100%;object-fit:cover;transform:scale(1.05);transition:transform .6s ease}
     .hero .tile:hover img{transform:scale(1.12)}
     .hero .tile::before{content:"";position:absolute;inset:0;background:var(--bg-solid);display:flex;align-items:center;justify-content:center;opacity:1;transition:opacity 0.3s ease;z-index:1}
     .hero .tile.loaded::before{opacity:0}
@@ -296,7 +297,7 @@
   <header class="site-header">
     <div class="container row">
       <a href="index.html" class="brand">
-        <img src="logo.png" alt="Smart Eyes" />
+        <img src="logo-header.png" alt="Smart Eyes" width="48" height="48" />
         <div class="name">SMART EYES</div>
       </a>
       
@@ -430,7 +431,7 @@
 </section>
 
   <footer>
-    <div class="container">© 2025 Smart Eyes Co., Ltd. All rights reserved.</div>
+    <div class="container">© <span class="js-year">2026</span> Smart Eyes Co., Ltd. All rights reserved.</div>
   </footer>
 
   <script>
@@ -536,7 +537,10 @@
         const tile = document.createElement('div');
         tile.className = 'tile';
         const img = document.createElement('img');
-        img.loading = 'lazy';
+        // ヒーローは全てファーストビュー内。lazy にすると LCP が遅くなるだけなので eager。
+        img.loading = 'eager';
+        img.decoding = 'async';
+        if (index < 2) img.fetchPriority = 'high';
         img.src = src;
         img.alt = `Smart Eyes Hero Image ${index + 1}`;
         
@@ -665,6 +669,13 @@
         }
 
         return this.fallbackLang;
+      }
+
+      // 現在の言語から文言を取得。未定義なら fallback(既存の日本語)をそのまま返す。
+      t(key, fallback) {
+        const data = this.loadedLanguages[this.currentLang];
+        const value = data ? this.getValue(key, data) : undefined;
+        return value !== undefined ? value : fallback;
       }
 
       getValue(path, data) {
@@ -880,14 +891,9 @@
       
       window.addEventListener('scroll', handleScroll, { passive: true });
       
-      const preloadLinks = ['logo.png', 'wechat.png'];
-      preloadLinks.forEach(href => {
-        const link = document.createElement('link');
-        link.rel = 'preload';
-        link.as = 'image';
-        link.href = href;
-        document.head.appendChild(link);
-      });
+      // 以前はここで logo(1.5MB)と wechat の QR を preload していたが、
+      // どちらも既に HTML 内にあり、preload しても取得は早くならない。
+      // ヒーロー画像の帯域を奪うだけなので削除した。
     }
 
     // ===== Error Handling =====
@@ -897,7 +903,9 @@
       });
       
       document.addEventListener('error', function(e) {
-        if (e.target.tagName === 'IMG') {
+        // ヒーロー画像は自前の onerror で代替 SVG に差し替える。
+        // ここで display:none にすると、その代替が永久に見えなくなる。
+        if (e.target.tagName === 'IMG' && !e.target.closest('.tile')) {
           e.target.style.display = 'none';
           console.warn('Image failed to load:', e.target.src);
         }
@@ -936,6 +944,10 @@
     } else {
       init();
     }
+  </script>
+  <script>
+    // 页脚年份自动跟随当前年,避免每年手改 5 个文件
+    document.querySelectorAll('.js-year').forEach(el => { el.textContent = new Date().getFullYear(); });
   </script>
 </body>
 </html>

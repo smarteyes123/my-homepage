@@ -87,9 +87,17 @@
     "formSuccessMessage": "문의해 주셔서 감사합니다. 2영업일 이내에 답변드리겠습니다.",
     "formErrorMessage": "제출에 실패했습니다. 다시 시도해 주세요.",
     "fieldRequired": "이 항목은 필수입니다",
-    "invalidEmail": "유효한 이메일 주소를 입력해 주세요"
+    "invalidEmail": "유효한 이메일 주소를 입력해 주세요",
+    "msgSending": "전송 중...",
+    "msgSuccess": "문의해 주셔서 감사합니다. 2영업일 이내에 회신드리겠습니다.",
+    "msgUnconfirmed": "전송했으나 전송 결과를 확인하지 못했습니다. 2영업일 이내에 회신이 없으면 03-5358-9289 또는 contact@smarteyes.co.jp 로 연락해 주십시오.",
+    "msgError": "전송에 실패했습니다. 다시 시도하시거나 03-5358-9289 / contact@smarteyes.co.jp 로 연락해 주십시오.",
+    "msgValidation": "입력 내용에 오류가 있습니다. 빨간색으로 표시된 항목을 확인해 주세요.",
+    "errRequired": "필수 항목입니다",
+    "errEmail": "유효한 이메일 주소를 입력해 주세요",
+    "errPhone": "유효한 전화번호를 입력해 주세요"
   },
   "footer": {
-    "copyright": "© 2024 株式会社Smart Eyes All Rights Reserved."
+    "copyright": "© 2026 株式会社Smart Eyes All Rights Reserved."
   }
 }

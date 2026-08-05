@@ -87,9 +87,17 @@
     "formSuccessMessage": "感謝您的諮詢。我們將在2個工作天內回覆您。",
     "formErrorMessage": "提交失敗。請稍後重試。",
     "fieldRequired": "此欄位為必填",
-    "invalidEmail": "請輸入有效的電子郵件地址"
+    "invalidEmail": "請輸入有效的電子郵件地址",
+    "msgSending": "傳送中...",
+    "msgSuccess": "感謝您的諮詢。我們將在2個工作日內回覆。",
+    "msgUnconfirmed": "已送出，但無法確認送達結果。如2個工作日內未收到回覆，請致電 03-5358-9289 或寄信至 contact@smarteyes.co.jp。",
+    "msgError": "傳送失敗。請重試，或致電 03-5358-9289 / 寄信至 contact@smarteyes.co.jp 與我們聯絡。",
+    "msgValidation": "輸入內容有誤，請檢查標紅的項目。",
+    "errRequired": "此項為必填",
+    "errEmail": "請輸入有效的電子郵件",
+    "errPhone": "請輸入有效的電話號碼"
   },
   "footer": {
-    "copyright": "© 2024 株式会社Smart Eyes 版權所有"
+    "copyright": "© 2026 株式会社Smart Eyes 版權所有"
   }
 }

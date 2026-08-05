@@ -10,14 +10,23 @@ Allow: /properties.html
 Allow: /contact.html
 Allow: /rental-form.html
 
+# 语言包必须允许爬取:页面文案是 JS 从这些 JSON 填进去的。
+# 挡掉的话 Googlebot 渲染时拿不到译文,只会索引到 HTML 里的英文兜底文案。
+Allow: /lang/
+Allow: /train-stations.json
+
 # 禁止爬取内部工具
 Disallow: /flyer-maker3.html
 Disallow: /*flyer-maker*.html
+Disallow: /flyer5dfks.html
+Disallow: /flyfks.html
+Disallow: /fly/
+Disallow: /cf.html
+Disallow: /2.html
 Disallow: /*internal*.html
 Disallow: /*tool*.html
 
-# 禁止爬取配置文件
-Disallow: /*.json
+# 賃貸フォーム用の言語ファイルは単体で索引される必要がない
+Disallow: /rental-form-*.json
 
-# 网站地图(如果有的话)
-# Sitemap: https://www.smarteyes.co.jp/sitemap.xml
+Sitemap: https://www.smarteyes.co.jp/sitemap.xml

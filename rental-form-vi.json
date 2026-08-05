@@ -87,9 +87,17 @@
     "formSuccessMessage": "Cảm ơn bạn đã liên hệ. Chúng tôi sẽ trả lời trong vòng 2 ngày làm việc.",
     "formErrorMessage": "Gửi thất bại. Vui lòng thử lại.",
     "fieldRequired": "Trường này là bắt buộc",
-    "invalidEmail": "Vui lòng nhập địa chỉ email hợp lệ"
+    "invalidEmail": "Vui lòng nhập địa chỉ email hợp lệ",
+    "msgSending": "Đang gửi...",
+    "msgSuccess": "Cảm ơn bạn đã liên hệ. Chúng tôi sẽ phản hồi trong vòng 2 ngày làm việc.",
+    "msgUnconfirmed": "Đã gửi, nhưng chúng tôi không xác nhận được kết quả. Nếu không nhận được phản hồi trong 2 ngày làm việc, vui lòng gọi 03-5358-9289 hoặc gửi email tới contact@smarteyes.co.jp.",
+    "msgError": "Gửi không thành công. Vui lòng thử lại, hoặc liên hệ 03-5358-9289 / contact@smarteyes.co.jp.",
+    "msgValidation": "Nội dung nhập có lỗi. Vui lòng kiểm tra các mục được đánh dấu đỏ.",
+    "errRequired": "Mục bắt buộc",
+    "errEmail": "Vui lòng nhập địa chỉ email hợp lệ",
+    "errPhone": "Vui lòng nhập số điện thoại hợp lệ"
   },
   "footer": {
-    "copyright": "© 2024 株式会社Smart Eyes Bảo lưu mọi quyền"
+    "copyright": "© 2026 株式会社Smart Eyes Bảo lưu mọi quyền"
   }
 }

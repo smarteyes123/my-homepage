@@ -87,9 +87,17 @@
     "formSuccessMessage": "お問い合わせありがとうございます。2営業日以内にご返信いたします。",
     "formErrorMessage": "送信に失敗しました。お手数ですが、もう一度お試しください。",
     "fieldRequired": "この項目は必須です",
-    "invalidEmail": "有効なメールアドレスを入力してください"
+    "invalidEmail": "有効なメールアドレスを入力してください",
+    "msgSending": "送信中...",
+    "msgSuccess": "お問い合わせありがとうございます。2営業日以内にご返信いたします。",
+    "msgUnconfirmed": "送信しました。ただし送信結果の確認が取れませんでした。2営業日以内に返信がない場合は、お電話(03-5358-9289)またはメール(contact@smarteyes.co.jp)までご連絡ください。",
+    "msgError": "送信に失敗しました。お手数ですが、もう一度お試しいただくか、お電話(03-5358-9289)またはメール(contact@smarteyes.co.jp)までご連絡ください。",
+    "msgValidation": "入力内容に誤りがあります。赤字のエラーをご確認ください。",
+    "errRequired": "必須項目です",
+    "errEmail": "有効なメールアドレスを入力してください",
+    "errPhone": "有効な電話番号を入力してください"
   },
   "footer": {
-    "copyright": "© 2024 株式会社スマートアイズ All Rights Reserved."
+    "copyright": "© 2026 株式会社スマートアイズ All Rights Reserved."
   }
 }

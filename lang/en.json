@@ -167,7 +167,7 @@
     "emailLabel": "E-mail:",
     "email": "contact@smarteyes.co.jp",
     "license": "Real Estate License Number: Tokyo Governor (1) No. 112700",
-    "wechatHint": "Scan QR code on WeChat",
+    "wechatHint": "Scan QR code to add as friend",
     "pageTitle": "Contact Us",
     "pageSubtitle": "Please feel free to consult with us",
     "methodsTitle": "Contact Methods",
@@ -221,10 +221,9 @@
     "officeEmail": "Email",
     "officeLicense": "License Number",
     "wechatTitle": "Contact via WeChat",
-    "wechatHint": "Scan QR code to add as friend",
     "mapTitle": "Access Map",
     "mapDescription": "Prime location within walking distance from Shinjuku Station, accessible from multiple train lines",
-    "mapPlaceholder": "ðŸ—ºï¸ Map Area<br>ã€’160-0023 Tokyo, Shinjuku-ku, Nishi-Shinjuku 7-3-10 Sankyo Building 401",
+    "mapPlaceholder": "🗺️ Map Area<br>〒160-0023 Tokyo, Shinjuku-ku, Nishi-Shinjuku 7-3-10 Sankyo Building 401",
     "directionJr": "JR Shinjuku Station",
     "directionJrDetail": "8 minutes walk from West Exit",
     "directionMetro": "Toei Oedo Line",
@@ -239,6 +238,14 @@
     "hoursSunday": "Sunday & Holidays",
     "hoursClosed": "Closed",
     "hoursNote": "Note",
-    "hoursNoteDetail": "After-hours service available with advance reservation"
+    "hoursNoteDetail": "After-hours service available with advance reservation",
+    "msgSending": "Sending...",
+    "msgSuccess": "Thank you for your inquiry. We will reply within 2 business days.",
+    "msgUnconfirmed": "Your message was sent, but we could not confirm delivery. If you do not hear from us within 2 business days, please call +81-3-5358-9289 or email contact@smarteyes.co.jp.",
+    "msgError": "Sending failed. Please try again, or contact us at +81-3-5358-9289 / contact@smarteyes.co.jp.",
+    "msgValidation": "Some entries need attention. Please check the fields marked in red.",
+    "errRequired": "This field is required",
+    "errEmail": "Please enter a valid email address",
+    "errPhone": "Please enter a valid phone number"
   }
 }

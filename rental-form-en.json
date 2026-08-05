@@ -87,9 +87,17 @@
     "formSuccessMessage": "Thank you for your inquiry. We will reply within 2 business days.",
     "formErrorMessage": "Submission failed. Please try again.",
     "fieldRequired": "This field is required",
-    "invalidEmail": "Please enter a valid email address"
+    "invalidEmail": "Please enter a valid email address",
+    "msgSending": "Sending...",
+    "msgSuccess": "Thank you for your inquiry. We will reply within 2 business days.",
+    "msgUnconfirmed": "Your message was sent, but we could not confirm delivery. If you do not hear from us within 2 business days, please call +81-3-5358-9289 or email contact@smarteyes.co.jp.",
+    "msgError": "Sending failed. Please try again, or contact us at +81-3-5358-9289 / contact@smarteyes.co.jp.",
+    "msgValidation": "Some entries need attention. Please check the fields marked in red.",
+    "errRequired": "This field is required",
+    "errEmail": "Please enter a valid email address",
+    "errPhone": "Please enter a valid phone number"
   },
   "footer": {
-    "copyright": "© 2024 Smart Eyes Co., Ltd. All Rights Reserved."
+    "copyright": "© 2026 Smart Eyes Co., Ltd. All Rights Reserved."
   }
 }
