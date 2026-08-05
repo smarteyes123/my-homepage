@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>物件紹介 | 株式会社スマートアイズ</title>
+  <meta name="description" content="東京都心部の優良物件をご紹介。売買・賃貸・投資物件まで、多様なニーズにお応えします。" />
+  <meta property="og:title" content="物件紹介 | 株式会社スマートアイズ" />
+  <meta property="og:description" content="東京都心部の優良物件をご紹介。売買・賃貸・投資物件まで、多様なニーズにお応えします。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.smarteyes.co.jp/properties.html" />
+  <link rel="canonical" href="https://www.smarteyes.co.jp/properties.html" />
+  <link rel="icon" href="logo-header.png" />
+  <link rel="stylesheet" href="assets/site.css" />
+  <script src="assets/site.js" defer></script>
+  <style>
+    /* properties2 固有 */
+    .search{border:1px solid var(--line);background:var(--paper);padding:clamp(24px,3.5vw,36px);margin-top:-1px}
+    .search .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+    .search .grid>*{min-width:0}
+    .search .acts{display:flex;gap:12px;margin-top:24px;justify-content:flex-end}
+    .search .acts .btn{min-width:132px}
+
+    .cats article{padding:32px 28px;cursor:pointer;transition:background .3s var(--ease);min-width:0}
+    .cats article:hover,.cats article[aria-pressed="true"]{background:var(--paper-2)}
+    .cats article[aria-pressed="true"]{box-shadow:inset 3px 0 0 var(--gold)}
+    .cats .no{font-size:11px;font-weight:700;letter-spacing:.18em;color:var(--gold)}
+    .cats h3{margin:16px 0 0;font-size:18px;font-weight:700;line-height:1.6}
+    .cats p{margin:12px 0 0;font-size:14px;color:var(--ink-3);line-height:1.9;overflow-wrap:anywhere}
+
+    .hits{display:flex;align-items:baseline;justify-content:space-between;gap:16px;
+      padding-bottom:16px;border-bottom:1px solid var(--line);margin-bottom:0}
+    .hits .n{font-size:13px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+
+    .plist{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);
+      border:1px solid var(--line);border-top:0}
+    .plist>article{background:var(--paper);display:flex;flex-direction:column;min-width:0}
+    .pthumb{height:170px;display:flex;align-items:flex-end;padding:14px;position:relative;overflow:hidden}
+    .pthumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+    .pthumb .pbadge{position:relative;z-index:1}
+    .pthumb.sale{background:linear-gradient(135deg,#e8eefb,#f5f8ff)}
+    .pthumb.rent{background:linear-gradient(135deg,#e9f6f4,#f3fbfa)}
+    .pthumb.investment{background:linear-gradient(135deg,#faf3e4,#fdfaf2)}
+    .pbadge{font-size:11px;font-weight:700;letter-spacing:.08em;padding:4px 10px;border-radius:2px;
+      background:rgba(255,255,255,.9);color:var(--navy);border:1px solid rgba(22,48,92,.12)}
+    .pbody{padding:24px 24px 26px;display:flex;flex-direction:column;flex:1}
+    .pbody h3{font-size:16.5px;font-weight:700;line-height:1.6;overflow-wrap:anywhere}
+    .ploc{margin-top:7px;font-size:12.5px;color:var(--ink-3)}
+    .pprice{margin-top:16px;font-size:21px;font-weight:700;color:var(--navy);
+      font-variant-numeric:tabular-nums;letter-spacing:.01em}
+    .pprice small{font-size:12px;font-weight:600;color:var(--ink-3);margin-left:4px}
+    .pstats{display:flex;gap:0;margin-top:18px;border-top:1px solid var(--line-2);padding-top:14px}
+    .pstats div{flex:1;min-width:0}
+    .pstats dt{font-size:10.5px;letter-spacing:.1em;color:var(--ink-3);text-transform:uppercase}
+    .pstats dd{margin:4px 0 0;font-size:13px;font-weight:600;color:var(--ink-2);overflow-wrap:anywhere}
+    .pbody .tags{margin-top:18px}
+    .empty{padding:56px 24px;text-align:center;color:var(--ink-3);font-size:14.5px;
+      border:1px solid var(--line);border-top:0;background:var(--paper)}
+
+    .closing{background:var(--navy);color:#fff}
+    .closing h2{font-size:clamp(24px,3.2vw,34px);font-weight:700;line-height:1.4;max-width:20em}
+    .closing p{margin-top:18px;color:rgba(255,255,255,.75);font-size:15px;line-height:1.9;max-width:40em}
+    .closing .eyebrow{color:var(--gold-2)}
+    .closing .eyebrow::before{background:var(--gold-2)}
+
+    @media (max-width:1000px){ .search .grid{grid-template-columns:repeat(2,1fr)} .plist{grid-template-columns:repeat(2,1fr)} }
+    @media (max-width:600px){
+      .search .grid{grid-template-columns:1fr}
+      .search .acts{flex-direction:column}
+      .search .acts .btn{width:100%}
+      .plist{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body data-meta-title="meta.propertiesTitle" data-meta-desc="meta.propertiesDescription">
+
+<header class="hdr">
+  <div class="wrap row">
+    <a class="brand" href="index.html">
+      <img src="logo-header.png" alt="" width="34" height="34" />
+      <b>SMART EYES</b>
+    </a>
+    <nav class="nav" aria-label="メインナビゲーション">
+      <a href="index.html" data-i18n="nav.top">TOP</a>
+      <a href="company.html" data-i18n="nav.company">会社概要</a>
+      <a href="properties.html" aria-current="page" data-i18n="nav.properties">物件紹介</a>
+      <a href="contact.html" data-i18n="nav.contact">お問い合わせ</a>
+    </nav>
+    <div class="hdr-right">
+      <div class="lang">
+        <button class="lang-btn" id="langBtn" aria-haspopup="true" aria-expanded="false">
+          <span id="langLabel">日本語</span>
+          <span id="langShort" aria-hidden="true">JA</span>
+          <svg viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
+        </button>
+        <div class="lang-menu" id="langMenu" role="menu"></div>
+      </div>
+      <button class="burger" id="burger" aria-expanded="false" aria-label="メニュー"><i></i><i></i><i></i></button>
+    </div>
+  </div>
+  <nav class="drawer" id="drawer" aria-label="モバイルナビゲーション">
+    <div class="wrap">
+      <a href="index.html" data-i18n="nav.top">TOP</a>
+      <a href="company.html" data-i18n="nav.company">会社概要</a>
+      <a href="properties.html" data-i18n="nav.properties">物件紹介</a>
+      <a href="contact.html" data-i18n="nav.contact">お問い合わせ</a>
+    </div>
+  </nav>
+</header>
+
+<section class="page-hero">
+  <div class="page-hero-media"><img data-hero-img alt="" /></div>
+  <div class="wrap">
+    <div class="eyebrow">Properties</div>
+    <h1 data-i18n="properties.pageTitle">物件紹介</h1>
+    <p data-i18n="properties.pageSubtitle">東京都心部の優良物件をご紹介</p>
+  </div>
+</section>
+
+<div class="wrap">
+  <nav class="crumbs" aria-label="パンくず">
+    <a href="index.html" data-i18n="nav.top">TOP</a><span>/</span><span data-i18n="nav.properties">物件紹介</span>
+  </nav>
+</div>
+
+<!-- 検索 -->
+<section>
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="eyebrow">Search</div>
+      <h2 class="sec-title" data-i18n="properties.searchTitle">物件検索</h2>
+    </div>
+    <form class="search rv" id="searchForm">
+      <div class="grid">
+        <div class="field">
+          <label class="label" for="propertyType" data-i18n="properties.filterType">物件種別</label>
+          <select class="select" id="propertyType">
+            <option value="" data-i18n="properties.filterTypeAll">すべて</option>
+            <option value="sale" data-i18n="properties.filterTypeSale">売買</option>
+            <option value="rent" data-i18n="properties.filterTypeRent">賃貸</option>
+            <option value="investment" data-i18n="properties.filterTypeInvestment">投資</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="label" for="propertyArea" data-i18n="properties.filterArea">エリア</label>
+          <select class="select" id="propertyArea">
+            <option value="" data-i18n="properties.filterAreaAll">すべてのエリア</option>
+            <option value="shinjuku" data-i18n="properties.filterAreaShinjuku">新宿区</option>
+            <option value="shibuya" data-i18n="properties.filterAreaShibuya">渋谷区</option>
+            <option value="minato" data-i18n="properties.filterAreaMinato">港区</option>
+            <option value="chiyoda" data-i18n="properties.filterAreaChiyoda">千代田区</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="label" for="priceMin" data-i18n="properties.filterPriceMin">最低価格</label>
+          <input class="input" type="number" id="priceMin" min="0" step="10000" placeholder="0" />
+        </div>
+        <div class="field">
+          <label class="label" for="priceMax" data-i18n="properties.filterPriceMax">最高価格</label>
+          <input class="input" type="number" id="priceMax" min="0" step="10000" placeholder="1000000000" />
+        </div>
+      </div>
+      <div class="acts">
+        <button class="btn btn-line" type="reset"><span data-i18n="properties.resetButton">リセット</span></button>
+        <button class="btn btn-dark" type="submit"><span data-i18n="properties.searchButton">検索</span></button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- カテゴリー -->
+<section class="tint">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="eyebrow">Categories</div>
+      <h2 class="sec-title" data-i18n="properties.categoriesTitle">物件カテゴリー</h2>
+      <p class="sec-desc" data-i18n="properties.categoriesDescription">目的に応じた物件をお探しいただけます</p>
+    </div>
+    <div class="cats grid-lines g3 rv">
+      <article data-category="sale" role="button" tabindex="0" aria-pressed="false">
+        <div class="no">01</div>
+        <h3 data-i18n="properties.categorySaleTitle">売買物件</h3>
+        <p data-i18n="properties.categorySaleDesc">マンション、一戸建て、投資用物件など、購入をご検討のお客様向け</p>
+      </article>
+      <article data-category="rent" role="button" tabindex="0" aria-pressed="false">
+        <div class="no">02</div>
+        <h3 data-i18n="properties.categoryRentTitle">賃貸物件</h3>
+        <p data-i18n="properties.categoryRentDesc">1K〜ファミリータイプまで、住居用賃貸物件を豊富にご用意</p>
+      </article>
+      <article data-category="investment" role="button" tabindex="0" aria-pressed="false">
+        <div class="no">03</div>
+        <h3 data-i18n="properties.categoryInvestmentTitle">投資物件</h3>
+        <p data-i18n="properties.categoryInvestmentDesc">収益性の高い投資用物件と詳細な分析レポートをご提供</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 物件一覧(公開物件が 0 件なら JS が hidden にする) -->
+<section id="listingSection" hidden>
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="eyebrow">Listings</div>
+      <h2 class="sec-title" data-i18n="properties.featuredTitle">おすすめ物件</h2>
+      <p class="sec-desc" data-i18n="properties.featuredDescription">厳選された優良物件をご紹介</p>
+    </div>
+    <div class="rv">
+      <div class="hits">
+        <span class="n" id="hitCount"></span>
+      </div>
+      <div class="plist" id="plist"></div>
+    </div>
+  </div>
+</section>
+
+<!-- エリアガイド -->
+<section class="tint">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="eyebrow">Areas</div>
+      <h2 class="sec-title" data-i18n="properties.areaTitle">エリアガイド</h2>
+      <p class="sec-desc" data-i18n="properties.areaDescription">東京都心部の人気エリアをご紹介</p>
+    </div>
+    <div class="grid-lines g4 rv">
+      <article class="area" style="padding:34px 26px;display:flex;flex-direction:column">
+        <span style="font-size:11px;font-weight:700;letter-spacing:.2em;color:var(--ink-3)">SHINJUKU</span>
+        <h3 style="margin:12px 0 0;font-size:21px;font-weight:700;color:var(--navy)" data-i18n="properties.areaShinjukuName">新宿区</h3>
+        <p style="margin:16px 0 0;font-size:13.5px;color:var(--ink-3);line-height:1.9;flex:1;overflow-wrap:anywhere" data-i18n="properties.areaShinjukuDesc">東京の副都心として発展し、交通の利便性が抜群。</p>
+        <ul class="tags" style="margin-top:22px">
+          <li data-i18n="properties.areaShinjukuFeature1">交通便利</li>
+          <li data-i18n="properties.areaShinjukuFeature2">商業施設充実</li>
+          <li data-i18n="properties.areaShinjukuFeature3">多様な物件</li>
+        </ul>
+      </article>
+      <article class="area" style="padding:34px 26px;display:flex;flex-direction:column">
+        <span style="font-size:11px;font-weight:700;letter-spacing:.2em;color:var(--ink-3)">SHIBUYA</span>
+        <h3 style="margin:12px 0 0;font-size:21px;font-weight:700;color:var(--navy)" data-i18n="properties.areaShibuyaName">渋谷区</h3>
+        <p style="margin:16px 0 0;font-size:13.5px;color:var(--ink-3);line-height:1.9;flex:1;overflow-wrap:anywhere" data-i18n="properties.areaShibuyaDesc">若者文化の発信地として有名。</p>
+        <ul class="tags" style="margin-top:22px">
+          <li data-i18n="properties.areaShibuyaFeature1">トレンドの発信地</li>
+          <li data-i18n="properties.areaShibuyaFeature2">企業集積地</li>
+          <li data-i18n="properties.areaShibuyaFeature3">文化的魅力</li>
+        </ul>
+      </article>
+      <article class="area" style="padding:34px 26px;display:flex;flex-direction:column">
+        <span style="font-size:11px;font-weight:700;letter-spacing:.2em;color:var(--ink-3)">MINATO</span>
+        <h3 style="margin:12px 0 0;font-size:21px;font-weight:700;color:var(--navy)" data-i18n="properties.areaMinatoName">港区</h3>
+        <p style="margin:16px 0 0;font-size:13.5px;color:var(--ink-3);line-height:1.9;flex:1;overflow-wrap:anywhere" data-i18n="properties.areaMinatoDesc">高級住宅地として知られる。</p>
+        <ul class="tags" style="margin-top:22px">
+          <li data-i18n="properties.areaMinatoFeature1">高級住宅地</li>
+          <li data-i18n="properties.areaMinatoFeature2">国際的環境</li>
+          <li data-i18n="properties.areaMinatoFeature3">洗練された街並み</li>
+        </ul>
+      </article>
+      <article class="area" style="padding:34px 26px;display:flex;flex-direction:column">
+        <span style="font-size:11px;font-weight:700;letter-spacing:.2em;color:var(--ink-3)">CHIYODA</span>
+        <h3 style="margin:12px 0 0;font-size:21px;font-weight:700;color:var(--navy)" data-i18n="properties.areaChiyodaName">千代田区</h3>
+        <p style="margin:16px 0 0;font-size:13.5px;color:var(--ink-3);line-height:1.9;flex:1;overflow-wrap:anywhere" data-i18n="properties.areaChiyodaDesc">日本の政治・経済の中心地。</p>
+        <ul class="tags" style="margin-top:22px">
+          <li data-i18n="properties.areaChiyodaFeature1">政治経済の中心</li>
+          <li data-i18n="properties.areaChiyodaFeature2">歴史的価値</li>
+          <li data-i18n="properties.areaChiyodaFeature3">格調高い</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 締めの導線 -->
+<section class="closing">
+  <div class="wrap rv">
+    <div class="eyebrow">Contact</div>
+    <h2 style="margin-top:20px" data-i18n="properties.ctaTitle">お気に入りの物件が見つかりませんか？</h2>
+    <p data-i18n="properties.ctaDescription">ご希望に合う物件を専門スタッフが責任を持ってお探しします。</p>
+    <div class="cta">
+      <a class="btn btn-gold" href="contact.html"><span data-i18n="properties.ctaContact">お問い合わせ</span></a>
+      <a class="btn btn-ghost" href="mailto:contact@smarteyes.co.jp"><span data-i18n="properties.ctaEmail">メールで相談</span></a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <div class="brand">
+          <img src="logo-header.png" alt="" width="30" height="30" />
+          <b>SMART EYES</b>
+        </div>
+        <p class="fabout" data-i18n="meta.description">新宿区の不動産売買・賃貸・投資コンサルティング。</p>
+      </div>
+      <div class="fcol">
+        <h4>Menu</h4>
+        <ul>
+          <li><a href="index.html" data-i18n="nav.top">TOP</a></li>
+          <li><a href="company.html" data-i18n="nav.company">会社概要</a></li>
+          <li><a href="properties.html" data-i18n="nav.properties">物件紹介</a></li>
+          <li><a href="contact.html" data-i18n="nav.contact">お問い合わせ</a></li>
+        </ul>
+      </div>
+      <div class="fcol">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+81353589289">03-5358-9289</a></li>
+          <li><a href="mailto:contact@smarteyes.co.jp">contact@smarteyes.co.jp</a></li>
+          <li><span data-i18n="contact.address">〒160-0023 東京都新宿区西新宿7-3-10 山京ビル401</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="fbot">
+      <span>© <span class="js-year">2026</span> Smart Eyes Co., Ltd. All rights reserved.</span>
+      <span data-i18n="contact.license">免許番号:東京都知事(1)第112700号</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* defer 付きの site.js は解析完了後・DOMContentLoaded 前に実行される。
+   インラインスクリプトは解析中に走るため、そのままでは SmartEyes がまだ無い。 */
+document.addEventListener('DOMContentLoaded', function () {
+
+  /* ===== 物件データは data/properties.csv から読む =====
+     HTML を触らずに Excel 等で編集できるようにするため。
+     public 列が yes の行だけ表示する。0 件なら区画ごと隠す。
+     編集方法は data/README_物件データの編集方法.md を参照。 */
+
+  var CSV_URL = 'data/properties.csv';
+
+  // RFC4180 相当の最小パーサ。引用符付きフィールド、"" によるエスケープ、
+  // 改行コードの違い(CRLF/LF)、先頭 BOM に対応する。
+  function parseCSV(text){
+    if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1); // Excel の UTF-8 BOM
+    var rows = [], row = [], val = '', q = false, i = 0;
+    while (i < text.length){
+      var c = text[i];
+      if (q){
+        if (c === '"'){
+          if (text[i+1] === '"'){ val += '"'; i += 2; continue; }
+          q = false; i++; continue;
+        }
+        val += c; i++; continue;
+      }
+      if (c === '"'){ q = true; i++; continue; }
+      if (c === ','){ row.push(val); val = ''; i++; continue; }
+      if (c === '\r'){ i++; continue; }
+      if (c === '\n'){ row.push(val); rows.push(row); row = []; val = ''; i++; continue; }
+      val += c; i++;
+    }
+    if (val !== '' || row.length){ row.push(val); rows.push(row); }
+    if (!rows.length) return [];
+    var head = rows.shift().map(function (h){ return h.trim(); });
+    return rows.filter(function (r){
+      return r.some(function (v){ return v.trim() !== ''; }); // 空行を捨てる
+    }).map(function (r){
+      var o = {};
+      head.forEach(function (h, idx){ o[h] = (r[idx] === undefined ? '' : r[idx]).trim(); });
+      return o;
+    });
+  }
+
+  var PROPERTIES = [];
+  var shown = [];
+
+  var listEl    = document.getElementById('plist');
+  var hitEl     = document.getElementById('hitCount');
+  var sectionEl = document.getElementById('listingSection');
+  var formEl    = document.getElementById('searchForm');
+
+  var BADGE_KEY = { sale:'properties.filterTypeSale', rent:'properties.filterTypeRent', investment:'properties.filterTypeInvestment' };
+  var BADGE_FB  = { sale:'売買', rent:'賃貸', investment:'投資' };
+
+  function el(tag, cls, text){
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text !== undefined) n.textContent = text;
+    return n;
+  }
+
+  function yen(v){
+    var n = Number(String(v).replace(/[^\d.-]/g, ''));
+    return isFinite(n) && String(v).trim() !== '' ? n.toLocaleString('en-US') : String(v);
+  }
+
+  function card(p){
+    var art = el('article');
+
+    var thumb = el('div', 'pthumb ' + (p.type || ''));
+    var pics = (p.images || '').split('|').map(function (x){ return x.trim(); }).filter(Boolean);
+    if (pics.length){
+      var im = document.createElement('img');
+      im.loading = 'lazy';
+      im.alt = p.title || '';
+      // 画像が無い/名前違いでも、色地のサムネイルに戻るだけで崩れない
+      im.addEventListener('error', function (){ im.remove(); }, { once:true });
+      im.src = 'img/properties/' + pics[0];
+      thumb.appendChild(im);
+    }
+    thumb.appendChild(el('span', 'pbadge', SmartEyes.t(BADGE_KEY[p.type], BADGE_FB[p.type] || p.type)));
+    art.appendChild(thumb);
+
+    var body = el('div', 'pbody');
+    body.appendChild(el('h3', null, p.title));
+    if (p.location) body.appendChild(el('div', 'ploc', p.location));
+
+    var price = el('div', 'pprice', yen(p.price));
+    if (p.price_unit) price.appendChild(el('small', null, p.price_unit));
+    body.appendChild(price);
+
+    var stats = el('dl', 'pstats');
+    [['Rooms', p.rooms], ['Area', p.size], ['Floor', p.floor]].forEach(function (pair){
+      if (!pair[1]) return;
+      var d = el('div');
+      d.appendChild(el('dt', null, pair[0]));
+      d.appendChild(el('dd', null, pair[1]));
+      stats.appendChild(d);
+    });
+    if (stats.children.length) body.appendChild(stats);
+
+    var feats = (p.features || '').split('|').map(function (f){ return f.trim(); }).filter(Boolean);
+    if (feats.length){
+      var tags = el('ul', 'tags');
+      feats.forEach(function (f){ tags.appendChild(el('li', null, f)); });
+      body.appendChild(tags);
+    }
+
+    art.appendChild(body);
+    return art;
+  }
+
+  function render(){
+    // 公開物件が 1 件も無いときは区画ごと隠す。
+    // (以前の properties.html が .properties-section を display:none にしていたのと同じ見え方)
+    if (!PROPERTIES.length){
+      if (sectionEl) sectionEl.hidden = true;
+      return;
+    }
+    if (sectionEl) sectionEl.hidden = false;
+
+    listEl.textContent = '';
+    var old = document.querySelector('.empty');
+    if (old) old.remove();
+
+    if (!shown.length){
+      listEl.after(el('div', 'empty', SmartEyes.t('properties.ctaDescription', 'ご希望に合う物件を専門スタッフがお探しします。')));
+    } else {
+      shown.forEach(function (p){ listEl.appendChild(card(p)); });
+    }
+    hitEl.textContent = shown.length + ' / ' + PROPERTIES.length;
+  }
+
+  function search(){
+    var type = document.getElementById('propertyType').value;
+    var area = document.getElementById('propertyArea').value;
+    var minRaw = document.getElementById('priceMin').value;
+    var maxRaw = document.getElementById('priceMax').value;
+    var min = minRaw === '' ? 0 : Number(minRaw);
+    var max = maxRaw === '' ? Infinity : Number(maxRaw);
+
+    shown = PROPERTIES.filter(function (p){
+      if (type && p.type !== type) return false;
+      if (area && p.area !== area) return false;
+      var v = Number(String(p.price).replace(/[^\d.-]/g, ''));
+      if (!isFinite(v)) return true; // 価格が数字で無い物件は価格条件で落とさない
+      return v >= min && v <= max;
+    });
+    render();
+  }
+
+  formEl.addEventListener('submit', function (e){ e.preventDefault(); search(); });
+  formEl.addEventListener('reset', function (){
+    // reset は値が消える前に発火するので、次のフレームで読み直す
+    setTimeout(function (){
+      document.querySelectorAll('.cats article').forEach(function (c){ c.setAttribute('aria-pressed', 'false'); });
+      shown = PROPERTIES.slice();
+      render();
+    }, 0);
+  });
+
+  document.querySelectorAll('.cats article').forEach(function (c){
+    function pick(){
+      var cat = c.dataset.category;
+      var already = c.getAttribute('aria-pressed') === 'true';
+      document.querySelectorAll('.cats article').forEach(function (o){ o.setAttribute('aria-pressed', 'false'); });
+      document.getElementById('propertyType').value = already ? '' : cat;
+      if (!already) c.setAttribute('aria-pressed', 'true');
+      search();
+      if (sectionEl && !sectionEl.hidden) sectionEl.scrollIntoView({ behavior:'smooth', block:'start' });
+    }
+    c.addEventListener('click', pick);
+    c.addEventListener('keydown', function (e){
+      if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); pick(); }
+    });
+  });
+
+  SmartEyes.onLanguage(render);
+
+  fetch(CSV_URL)
+    .then(function (r){
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.text();
+    })
+    .then(function (text){
+      // UTF-8 以外(Excel の既定 Shift-JIS 等)で保存されると復元不能な文字になる。
+      // 文字化けしたまま公開するより、出さずに警告する。
+      if (text.indexOf('�') > -1){
+        throw new Error('CSV が UTF-8 で保存されていません。Excel なら「CSV UTF-8」を選んで保存し直してください。');
+      }
+      PROPERTIES = parseCSV(text).filter(function (p){
+        return String(p.public).toLowerCase() === 'yes';
+      });
+      shown = PROPERTIES.slice();
+      render();
+    })
+    .catch(function (err){
+      console.warn('物件データを読み込めませんでした:', err.message);
+      PROPERTIES = [];
+      render();
+    });
+
+});
+</script>
+</body>
+</html>

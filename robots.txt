@@ -17,6 +17,10 @@ Allow: /train-stations.json
 
 # 新デザインのプレビュー(index.html と内容が重複するため索引させない)
 Disallow: /index2.html
+Disallow: /company2.html
+Disallow: /properties2.html
+Disallow: /contact2.html
+Disallow: /rental-form2.html
 
 # 禁止爬取内部工具
 Disallow: /flyer-maker3.html

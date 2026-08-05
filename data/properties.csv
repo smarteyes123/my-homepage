@@ -1,0 +1,7 @@
+public,type,area,title,location,price,price_unit,rooms,size,floor,features,images
+no,sale,shinjuku,西新宿高級マンション,新宿区西新宿,85000000,円,3LDK,75㎡,15/20階,3LDK|築5年|南向き|ペット可,
+no,rent,shibuya,渋谷駅前デザイナーズマンション,渋谷区道玄坂,250000,円/月,1LDK,45㎡,8/12階,1LDK|築3年|デザイナーズ|駅徒歩3分,
+no,investment,minato,六本木投資用ワンルーム,港区六本木,45000000,円,1R,25㎡,10/15階,1R|築2年|高利回り|管理委託可,
+no,sale,chiyoda,皇居近くタワーマンション,千代田区大手町,120000000,円,2LDK,68㎡,35/45階,2LDK|築1年|タワマン|コンシェルジュ,
+no,rent,shinjuku,新宿御苑前ファミリーマンション,新宿区新宿,380000,円/月,3LDK,82㎡,5/10階,3LDK|築7年|ファミリー向け|スーパー近い,
+no,investment,shibuya,渋谷区商業ビル,渋谷区渋谷,350000000,円,事務所,500㎡,1-5階,事務所|築10年|高収益|1棟売り,
