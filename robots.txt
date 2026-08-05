@@ -15,12 +15,13 @@ Allow: /rental-form.html
 Allow: /lang/
 Allow: /train-stations.json
 
-# 新デザインのプレビュー(index.html と内容が重複するため索引させない)
-Disallow: /index2.html
-Disallow: /company2.html
-Disallow: /properties2.html
-Disallow: /contact2.html
-Disallow: /rental-form2.html
+# 旧デザインの控え(内容が重複するため索引させない)。
+# 切り替え前の状態をすぐ見比べられるよう残してあるだけで、導線は無い。
+Disallow: /index-old.html
+Disallow: /company-old.html
+Disallow: /properties-old.html
+Disallow: /contact-old.html
+Disallow: /rental-form-old.html
 
 # 禁止爬取内部工具
 Disallow: /flyer-maker3.html
