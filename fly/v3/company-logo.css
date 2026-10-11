@@ -1,0 +1,5 @@
+/* Preserve the website's original transparent logo; crop only its transparent padding in CSS. */
+.flyer .f-footer{justify-content:flex-start}
+.flyer .f-footer .company-logo{position:relative;flex:0 0 20mm;width:20mm;height:12.5mm;overflow:hidden;background:#fff;border-radius:1mm}
+.flyer .f-footer .company-logo img{position:absolute;left:1mm;top:-2.7mm;width:18mm;height:18mm;max-width:none;display:block}
+.flyer .f-footer .f-company{margin-right:auto}
