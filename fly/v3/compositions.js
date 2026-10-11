@@ -9,7 +9,7 @@ window.FlyerComposition = (() => {
     const transit = '<p class="c-transit">'+e(d.transit).replace(/\n/g,'<br>')+'</p>';
     const caption = d.catchCopy?'<p class="c-caption">'+e(d.catchCopy)+'</p>':'';
     const chips = '<div class="c-chips"><span><b>'+e(d.layout)+'</b>間取り</span><span><b>'+e(d.area)+'<small>㎡</small></b>専有面積</span><span><b>'+e(d.floor || d.room)+'</b>所在階</span></div>';
-    const footer = '<footer class="f-footer"><div class="f-brand company-logo"><img src="../logo-header.png" alt="SmartEyes"></div><div class="f-company">'+e(d.company)+'<small>'+e(d.companyAddress)+'<br>'+e(d.license)+'</small></div><div class="f-contact">'+e(d.phone)+'<small>'+e(d.contact)+'　'+e(d.email)+'</small></div><div class="f-reference"><b>取引態様：'+e(d.transaction)+'</b><br>物件番号 '+e(d.reference || '—')+'<br>情報更新日 '+e(d.updated || '要確認')+'</div></footer>';
+    const footer = window.FlyerCompany.render(d,e);
     const notes = '<p class="f-note">'+p.note+'</p>';
     const facts = '<section class="f-details c-facts">'+p.details+'</section>';
     const stories = '<div class="f-story">'+p.story+'</div>';

@@ -5,6 +5,7 @@ const path = require('node:path');
 const vm = require('node:vm');
 const ctx = {window:{}};
 vm.createContext(ctx);
+vm.runInContext(fs.readFileSync(path.join(__dirname,'../fly/v3/company-info.js'),'utf8'),ctx);
 vm.runInContext(fs.readFileSync(path.join(__dirname,'../fly/v3/compositions.js'),'utf8'),ctx);
 vm.runInContext(fs.readFileSync(path.join(__dirname,'../fly/v3/layout.js'),'utf8'),ctx);
 const F = ctx.window.Flyer;
