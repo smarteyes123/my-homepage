@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>物件资料生成器 v3 | Smart Eyes</title>
+<link rel="stylesheet" href="v3/studio.css"><link rel="stylesheet" href="v3/flyer.css"><link rel="stylesheet" href="v3/compositions.css">
+<script src="v3/compositions.js" defer></script><script src="v3/layout.js" defer></script><script src="v3/studio.js" defer></script>
+</head>
+<body>
+<header class="app-header"><a class="brand" href="../index.html">SMART EYES <span>PROPERTY STUDIO</span></a><span class="version">v3 · 买卖物件</span><a href="flyer-maker.html" class="muted-link">租赁旧版 ↗</a></header>
+<main class="studio">
+<section class="intro"><div><p class="eyebrow">ONE PROPERTY. MORE POSSIBILITIES.</p><h1>同一个物件，不止一种好看的呈现。</h1><p>填一次资料，选几张好照片。一键生成六种独立风格，再把最满意的一张带走。</p></div><div class="intro-actions"><button id="importButton" class="secondary">导入 JSON</button><button id="saveButton" class="secondary">保存 JSON</button><input id="draftInput" type="file" accept="application/json,.json" hidden></div></section>
+<p id="notice" role="status" aria-live="polite" hidden></p>
+<div class="workspace">
+<aside class="editor">
+<div class="editor-heading"><span class="step">01</span><div><h2>物件资料</h2><p>输出图面使用日文栏目</p></div></div>
+<form id="propertyForm"><div id="fields"></div></form>
+<label class="sample-switch"><input id="sampleFlag" type="checkbox"> 标为测试样张（价格 / 现况待确认）</label>
+<div class="editor-heading photo-heading"><span class="step">02</span><div><h2>照片与户型图</h2><p>不必全部使用，每个方案会挑选不同组合</p></div></div>
+<label class="upload-area">＋ 添加照片或户型图<input id="photoInput" type="file" accept="image/jpeg,image/png,image/webp" multiple><small>JPG / PNG / WebP · 可分批添加 · 单张不超过 20 MB</small></label>
+<div class="asset-hint">请将户型图标为「户型图」。照片可裁切，户型图始终完整显示。去白边前后均可预览。</div>
+<div id="photoList" class="photo-list"></div>
+<div class="generate-bar"><button id="generateButton" class="primary">一键生成 6 种风格 ↗</button><small>图片仅在当前浏览器中处理，不会自动上传。</small></div>
+</aside>
+<section class="results"><div class="results-heading"><div><p class="eyebrow">CHOOSE YOUR STYLE</p><h2>比较，选出最适合的一张。</h2></div><span id="resultCount" class="version">等待生成</span></div>
+<div id="emptyState" class="empty-state"><div class="empty-sheet"><span>SMART EYES</span><i></i><i></i><i></i></div><h3>一次输入，比较六种风格</h3><p>竖向照片、宽户型、少量素材，都有适合它们的组合。<br>先添加资料与图片，再开始比较。</p></div>
+<div id="gallery" class="gallery"></div>
+<section id="selection" class="selection" hidden><div class="selection-head"><div><p class="eyebrow">YOUR SELECTED FLYER</p><h2 id="selectedTitle">选中的方案</h2></div><button id="printButton" class="primary">打印 / 保存 PDF</button></div><p class="selection-hint">点击图中的照片调整裁切或替换。户型图保持完整比例。打印时选择 A4 横向、缩放 100%、关闭页眉页脚、开启背景图形。</p><div id="selectedPreview" class="selected-preview"></div></section>
+</section></div>
+</main>
+<dialog id="cropDialog"><form method="dialog"><button class="dialog-close" aria-label="关闭">×</button></form><p class="eyebrow">REFINE THE FRAME</p><h2>调整这张图片</h2><div id="cropPreview"></div><label>替换图片<select id="replacement"></select></label><label>显示方式<select id="fitMode"><option value="cover">填满画框（适度裁切）</option><option value="contain">完整显示（保留全部内容）</option></select></label><label>水平位置<input id="cropX" type="range" min="0" max="100" value="50"></label><label>垂直位置<input id="cropY" type="range" min="0" max="100" value="50"></label><label>放大<input id="cropZoom" type="range" min="1" max="2" step="0.05" value="1"></label><p class="asset-hint">调整只作用于当前方案。完整显示模式不放大或裁掉图片。</p><button id="applyCrop" class="primary">应用到当前方案</button></dialog>
+<div id="printMount"></div>
+</body></html>

@@ -1,0 +1,146 @@
+/* These four pages deliberately use different reading orders and content geometry. */
+.flyer.composition{padding:8mm;gap:2mm;--accent:#29342f;--ink:#29342f;--gold:#a88e65;--soft:#eae9e1;background:#fff;font-size:9px}
+.composition .f-title{max-width:none;font-size:26px;line-height:1.35;overflow-wrap:anywhere}
+.composition .f-title span{display:block;margin:1mm 0 0;font-size:11px}
+.composition .f-price{min-width:0;text-align:left;white-space:normal}
+.composition .f-price strong{font-size:29px}.composition .f-price small{font-size:8px}
+.composition .f-price em{display:block;margin:1mm 0 0;font-size:7px}
+.composition .c-label{font-size:7px;letter-spacing:1.5px;font-weight:700}
+.composition .c-caption{font-size:12px;line-height:1.6;overflow-wrap:anywhere}
+.composition .c-transit{font-size:8px;line-height:1.65;overflow-wrap:anywhere}
+.composition .c-chips{display:flex;gap:3mm}.composition .c-chips span{font-size:7px;flex:1}
+.composition .c-chips b{display:block;font-size:13px;line-height:1.5;overflow-wrap:anywhere}
+.composition .c-chips small{font-size:8px}
+.composition .c-plan{min-height:0;min-width:0;display:flex}
+.composition .c-plan>.plan-frame{width:100%;height:100%}
+.composition .photo-frame{min-width:0;min-height:0}
+.composition .f-details{padding:0;border:0;display:grid;gap:4mm;overflow:visible}
+.composition .c-facts{grid-template-columns:.95fr 1.35fr 1.1fr 1fr 1fr;flex:none}
+.composition .detail-section{min-width:0}
+.composition .detail-section h3{font-size:8px;letter-spacing:.5px;padding-bottom:1mm;margin-bottom:1mm;background:none}
+.composition .detail-row{grid-template-columns:19mm minmax(0,1fr);gap:1mm;font-size:8px;line-height:1.45;padding:.1mm 0;border:0}
+.composition .detail-row dt{font-size:7px;white-space:normal}
+.composition .detail-note{font-size:8px;line-height:1.5}
+.composition .f-story{padding:0;border:0;gap:4mm}
+.composition .f-story h3{font-size:8px;letter-spacing:1px}
+.composition .f-story li{font-size:8px;line-height:1.7}
+.composition .f-footer{border:0;border-top:1px solid #a7aca8;padding:2mm 0 0;background:none;color:inherit;gap:3mm}
+.composition .f-brand{font-size:12px;font-weight:600;white-space:nowrap;letter-spacing:1px;color:inherit}
+.composition .f-company{font-size:9px}.composition .f-company small{font-size:6px}
+.composition .f-contact{font-size:13px}.composition .f-contact small{font-size:7px}
+.composition .f-reference{font-size:6px;max-width:50mm}.composition .f-reference b{font-size:7px;color:inherit}
+.composition .f-note{font-size:6px;line-height:1.3}
+.composition .f-sample{left:8mm;bottom:1.5mm;font-size:6px}
+.composition .f-investment{padding:1mm 2mm;font-size:8px}.composition .f-investment strong{font-size:11px}.composition .f-investment small{font-size:6px}
+.composition .c-facts{min-height:49mm}
+.composition .c-facts .detail-section{border-top:1px solid #b7bcb7;padding-top:1.5mm}
+/* Poster: photo and typography are one dominant surface, with a separate plan panel. */
+.flyer.c-poster{padding:0 8mm 6mm;gap:2mm;--accent:#c2a16a;--ink:#ede9df;background:#1b2520}
+.c-poster .c-poster-stage{display:grid;grid-template-columns:1.8fr 1fr;height:122mm;flex:none;gap:0}
+.c-poster .c-poster-image{position:relative;min-height:0}
+.c-poster .c-poster-image>.photo-frame{height:100%;background:#273b2f}
+.c-poster .c-poster-image>.photo-frame::after{content:'';position:absolute;inset:45% 0 0;background:linear-gradient(transparent,#07140cef);pointer-events:none}
+.c-poster .c-poster-image figcaption{top:4mm;left:5mm;bottom:auto;right:auto;background:#17271e88;padding:1mm 2mm}
+.c-poster .c-poster-title{position:absolute;left:6mm;right:5mm;bottom:6mm;color:white;pointer-events:none}
+.c-poster .c-poster-title .f-title{font-family:"Hiragino Mincho ProN","Yu Mincho",serif;font-size:32px;font-weight:400;line-height:1.5}
+.c-poster .c-poster-title .f-title span{color:#ebe8da}
+.c-poster .c-poster-title .c-label{margin-bottom:3mm;color:#e2c58e}
+.c-poster .c-poster-title .c-caption{margin-top:3mm;font-family:"Hiragino Mincho ProN","Yu Mincho",serif}
+.c-poster .c-poster-panel{background:#eae6d9;color:#23392b;padding:5mm;display:flex;flex-direction:column;gap:3mm;min-height:0}
+.c-poster .c-poster-panel .f-price{border:0;padding:0;flex:none}
+.c-poster .c-poster-panel .f-price strong{font-family:Georgia,serif;font-size:38px;letter-spacing:-1px;color:#23392b}
+.c-poster .c-poster-panel .c-plan{flex:1;background:white;padding:2mm;min-height:0}
+.c-poster .c-poster-panel .c-transit{flex:none;font-size:7px}
+.c-poster .c-poster-story{display:flex;gap:4mm;min-height:13mm;align-items:center}
+.c-poster .c-poster-story>.f-story{flex:1}
+.c-poster .detail-row dt,.c-poster .f-note{color:#bac4bb}
+.c-poster .c-facts .detail-section{border-color:#68766b}
+.c-poster .f-footer{border-color:#68766b}.c-poster .f-sample{color:#d9bc86}
+/* Magazine: a central spine divides a photographic opening from a plan and editorial page. */
+.flyer.c-spread{background:#faf6ed;--accent:#74472d;--ink:#3b3029;gap:2mm}
+.c-spread .c-masthead{display:flex;justify-content:space-between;border-bottom:1px solid #b7a48f;padding-bottom:2mm;font-size:7px;letter-spacing:2px;flex:none}
+.c-spread .c-spread{display:grid;grid-template-columns:1fr 1fr;gap:6mm;height:124mm;flex:none}
+.c-spread .c-spread-left{display:flex;flex-direction:column;gap:3mm;min-height:0}
+.c-spread .c-spread-heading .f-title{font-family:"Hiragino Mincho ProN","Yu Mincho",serif;font-size:33px;line-height:1.35;font-weight:400;letter-spacing:1px}
+.c-spread .c-issue{display:block;font-family:"Hiragino Mincho ProN","Yu Mincho",serif;font-size:10px;margin-bottom:2mm}
+.c-spread .c-spread-heading .c-caption{font-size:10px;margin-top:2mm}
+.c-spread .c-spread-photo{flex:1;min-height:0;display:flex}
+.c-spread .c-spread-photo>.photo-frame{width:100%;height:100%;background:#e4d8c6}
+.c-spread .c-spread-summary{display:flex;gap:6mm;align-items:center}
+.c-spread .c-spread-summary .f-price{flex:none}.c-spread .c-spread-summary .f-price strong{font-family:Georgia,serif;font-size:26px}
+.c-spread .c-spread-summary .c-chips{flex:1;gap:2mm}.c-spread .c-spread-summary .c-chips b{font-size:10px}
+.c-spread .c-spread-right{border-left:1px solid #c9b9a5;padding-left:6mm;display:flex;flex-direction:column;gap:3mm;min-height:0}
+.c-spread .c-spread-plan{display:grid;grid-template-columns:1.1fr .9fr;gap:4mm;flex:1;min-height:0}
+.c-spread .c-spread-plan .c-plan{background:white}
+.c-spread .c-spread-story{display:flex;flex-direction:column;gap:2mm;min-height:0}
+.c-spread .c-number{font-family:Georgia,serif;font-size:40px;font-weight:400;line-height:1}
+.c-spread .c-spread-story .f-story{display:block}.c-spread .c-spread-story .f-story>section{margin-bottom:3mm}
+.c-spread .c-spread-story .c-transit{margin-top:auto;font-size:7px}
+.c-spread .c-spread-details{display:grid;grid-template-columns:1fr 1fr;gap:3mm;height:32mm;flex:none}
+.c-spread .c-spread-details:empty{display:none}
+.c-spread .c-facts .detail-section{border-color:#c9b9a5}
+.c-spread .f-footer{border-color:#b7a48f}.c-spread .f-brand{font-family:Georgia,serif;letter-spacing:2px}
+/* Drawing sheet: plan is the dominant artifact, with technical index and a narrow photo strip. */
+.flyer.c-blueprint{--accent:#234969;--ink:#234969;--gold:#234969;padding:6mm;gap:2mm;background:#f5f7f5;background-image:linear-gradient(#23496908 1px,transparent 1px),linear-gradient(90deg,#23496908 1px,transparent 1px);background-size:5mm 5mm;border:2mm solid #234969}
+.c-blueprint .c-drawing-header{display:flex;justify-content:space-between;border-bottom:1px solid #234969;padding:1mm 0 2mm;font-family:monospace;font-size:8px;letter-spacing:1px}
+.c-blueprint .c-blueprint{display:grid;grid-template-columns:71mm minmax(0,1fr) 40mm;gap:4mm;flex:1;min-height:0}
+.c-blueprint .c-drawing-data{display:flex;flex-direction:column;gap:2mm;min-height:0;border-right:1px solid #7891a5;padding-right:3mm}
+.c-blueprint .c-drawing-data .f-title{font-size:17px;font-weight:800;line-height:1.3}
+.c-blueprint .c-drawing-data .f-title span{font-size:9px;color:#234969}
+.c-blueprint .c-drawing-data .f-price strong{font-family:monospace;font-size:27px;font-weight:700}
+.c-blueprint .c-drawing-data .c-chips{border-top:1px solid #7891a5;border-bottom:1px solid #7891a5;padding:2mm 0;gap:1mm}
+.c-blueprint .c-drawing-data .c-chips b{font-size:10px}
+.c-blueprint .c-drawing-data .c-transit{font-size:7px}
+.c-blueprint .c-drawing-data .f-details{display:flex;flex-direction:column;gap:1mm;min-height:0}
+.c-blueprint .c-drawing-data .c-facts{min-height:0}
+.c-blueprint .c-drawing-data .detail-section{padding:0;border:0}
+.c-blueprint .c-drawing-data .detail-section h3{margin:0 0 .5mm;padding:0;border:0;letter-spacing:1px}
+.c-blueprint .c-drawing-data .detail-row{grid-template-columns:20mm minmax(0,1fr);font-size:7.5px;line-height:1.25;padding:.05mm 0}
+.c-blueprint .c-drawing-data .detail-note{font-size:7px;line-height:1.4}
+.c-blueprint .c-drawing-plan{display:flex;flex-direction:column;min-height:0;gap:3mm;padding:3mm 0}
+.c-blueprint .c-drawing-plan .c-plan{flex:1;background:white;border:1px solid #7891a5;padding:3mm}
+.c-blueprint .c-dimension{display:flex;align-items:center;gap:3mm;font-family:monospace;font-size:9px;letter-spacing:2px;justify-content:center}
+.c-blueprint .c-dimension::before,.c-blueprint .c-dimension::after{content:'';flex:1;height:2mm;border:1px solid #7891a5;border-bottom:0}
+.c-blueprint .c-drawing-photos{display:grid;grid-template-rows:1fr 1fr;gap:3mm;min-height:0;padding:3mm 0}
+.c-blueprint .c-drawing-photos>.photo-frame{border:1px solid #7891a5;background:#e3e9e7}
+.c-blueprint .c-drawing-story{display:grid;grid-template-columns:71mm minmax(0,1fr);gap:4mm;border-top:1px solid #7891a5;padding-top:2mm;flex:none}
+.c-blueprint .c-drawing-story .c-caption{font-size:11px;font-weight:700}.c-blueprint .c-drawing-story .f-story{gap:6mm}
+.c-blueprint .f-footer{border:1px solid #234969;padding:2mm;gap:3mm}
+.c-blueprint .f-brand{font-size:11px}.c-blueprint .f-contact{font-size:12px}
+.c-blueprint .f-sample{left:8mm}
+/* Campaign: the offer is a huge vertical block, while photos and floorplan form a billboard. */
+.flyer.c-campaign{--accent:#cf3e2b;--ink:#282d29;--gold:#cf3e2b;background:#fff9df;padding:7mm;gap:2mm}
+.c-campaign .c-campaign-heading{display:grid;grid-template-columns:minmax(0,1fr) 92mm;gap:5mm;background:#252f28;color:white;padding:3mm 4mm;align-items:center}
+.c-campaign .c-campaign-heading .f-title{font-size:27px;font-weight:800;line-height:1.2}
+.c-campaign .c-campaign-heading .f-title span{display:inline;margin-left:3mm;color:#dfe7dd}
+.c-campaign .c-campaign-heading .c-label{color:#efe5ab;font-size:7px}
+.c-campaign .c-campaign-heading .c-transit{font-size:7.5px;border-left:1px solid #7a877b;padding-left:4mm}
+.c-campaign .c-campaign{display:grid;grid-template-columns:65mm minmax(0,1fr) 72mm;gap:3mm;height:113mm;flex:none}
+.c-campaign .c-offer{background:#ef5b3f;color:#fff;padding:4mm;display:flex;flex-direction:column;gap:3mm;min-height:0}
+.c-campaign .c-offer .f-price strong{display:block;font-size:53px;font-weight:900;letter-spacing:-3px;font-style:italic;line-height:1.1}
+.c-campaign .c-offer .f-price b{display:block;text-align:right;font-size:18px;padding:0}
+.c-campaign .c-offer .f-price small,.c-campaign .c-offer .f-price em{color:#ffe8d8}
+.c-campaign .c-offer .c-chips{display:block;border-top:2px solid #ffcc9f;padding-top:2mm}
+.c-campaign .c-offer .c-chips span{display:flex;align-items:center;gap:3mm;margin-bottom:1mm}
+.c-campaign .c-offer .c-chips b{font-size:14px;min-width:35mm}
+.c-campaign .c-offer .c-caption{font-size:13px;font-weight:700;line-height:1.5}
+.c-campaign .c-offer .f-story{display:block}.c-campaign .c-offer .f-story h3,.c-campaign .c-offer .f-story li::before{color:#ffe8bd}
+.c-campaign .c-offer .f-story section+section{margin-top:2mm}
+.c-campaign .c-campaign-photos{display:flex;flex-direction:column;gap:3mm;min-height:0}
+.c-campaign .c-campaign-hero{flex:1;min-height:0;display:flex}
+.c-campaign .c-campaign-hero>.photo-frame{height:100%;width:100%;background:#ddd7bc}
+.c-campaign .c-campaign-small{display:grid;grid-template-columns:1fr 1fr;gap:3mm;height:36mm;flex:none}
+.c-campaign .c-campaign-small:empty{display:none}
+.c-campaign .c-campaign-plan{display:flex;flex-direction:column;gap:2mm;min-height:0;background:white;border:2px solid #252f28;padding:3mm}
+.c-campaign .c-campaign-plan .c-label{background:#252f28;color:white;padding:1mm 2mm;font-size:8px}
+.c-campaign .c-campaign-plan>.plan-frame{flex:1;min-height:0}
+.c-campaign .c-facts{background:#fff;padding:2mm 3mm;border:1px solid #b8b9a5;gap:3mm;min-height:49mm}
+.c-campaign .c-facts .detail-section{padding:0;border:0}
+.c-campaign .detail-section h3{border-bottom:2px solid #d64d36}
+.c-campaign .f-footer{border:0;background:#252f28;color:white;padding:2mm 3mm}
+.c-campaign .f-note{color:#66705d}
+.c-poster .c-poster-stage{height:120mm}
+.c-spread .c-spread{height:116mm}
+.c-campaign .c-campaign{height:110mm}.c-campaign .c-facts{min-height:42mm}
+.composition .detail-row{font-size:9px}.composition .detail-row dt{font-size:8px}
+.c-blueprint .c-drawing-data .detail-row{font-size:8.5px;line-height:1.35}
