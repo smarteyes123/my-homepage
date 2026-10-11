@@ -100,7 +100,7 @@ window.Flyer = (() => {
       ${(d.points || d.renovation)?`<div class="f-story">${story('PROPERTY HIGHLIGHTS',d.points)}${story('設備・リフォーム',d.renovation)}</div>`:''}
       ${investment?`<div class="f-investment"><strong>表面利回り ${yieldValue}%</strong>年間賃料 ${money(d.annualRent)}円　${escape(d.lease)}<small>表面利回りは年間賃料÷販売価格。税金・管理費等の控除前です。将来の賃料収入を保証するものではありません。</small></div>`:''}
       <p class="f-note">※図面と現況が異なる場合は現況を優先します。写真に写る家具・備品等の販売対象については別途ご確認ください。</p></div><aside class="f-details">${details(d)}</aside></div>
-      <footer class="f-footer"><div class="f-brand company-logo"><img src="../logo-header.png" alt="SmartEyes"></div><div class="f-company">${escape(d.company)}<small>${escape(d.companyAddress)}<br>${escape(d.license)}</small></div><div class="f-contact">${escape(d.phone)}<small>${escape(d.contact)}　${escape(d.email)}</small></div><div class="f-reference"><b>取引態様：${escape(d.transaction)}</b><br>物件番号 ${escape(d.reference || '—')}<br>情報更新日 ${escape(d.updated || '要確認')}</div></footer>
+      ${window.FlyerCompany.render(d,escape)}
       ${d.sample?'<div class="f-sample">TEST SAMPLE · 元資料に基づくレイアウト検証用。販売価格・現況等は未確認です。</div>':''}</article>`;
   }
   return {escape,definitions,create,render,frame};

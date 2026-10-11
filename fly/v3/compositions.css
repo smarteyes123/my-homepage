@@ -115,7 +115,7 @@
 .c-campaign .c-campaign-heading .f-title span{display:inline;margin-left:3mm;color:#dfe7dd}
 .c-campaign .c-campaign-heading .c-label{color:#efe5ab;font-size:7px}
 .c-campaign .c-campaign-heading .c-transit{font-size:7.5px;border-left:1px solid #7a877b;padding-left:4mm}
-.c-campaign .c-campaign{display:grid;grid-template-columns:65mm minmax(0,1fr) 72mm;gap:3mm;height:113mm;flex:none}
+.c-campaign .c-campaign{display:grid;grid-template-columns:65mm minmax(0,1fr) 72mm;gap:3mm;height:103mm;flex:none}
 .c-campaign .c-offer{background:#ef5b3f;color:#fff;padding:4mm;display:flex;flex-direction:column;gap:3mm;min-height:0}
 .c-campaign .c-offer .f-price strong{display:block;font-size:53px;font-weight:900;letter-spacing:-3px;font-style:italic;line-height:1.1}
 .c-campaign .c-offer .f-price b{display:block;text-align:right;font-size:18px;padding:0}
@@ -139,8 +139,8 @@
 .c-campaign .detail-section h3{border-bottom:2px solid #d64d36}
 .c-campaign .f-footer{border:0;background:#252f28;color:white;padding:2mm 3mm}
 .c-campaign .f-note{color:#66705d}
-.c-poster .c-poster-stage{height:117mm}
-.c-spread .c-spread{height:113mm}
-.c-campaign .c-campaign{height:107mm}.c-campaign .c-facts{min-height:42mm}
+.c-poster .c-poster-stage{height:107mm}
+.c-spread .c-spread{height:103mm}
+.c-campaign .c-campaign{height:97mm}.c-campaign .c-facts{min-height:42mm}
 .composition .detail-row{font-size:9px}.composition .detail-row dt{font-size:8px}
 .c-blueprint .c-drawing-data .detail-row{font-size:8.5px;line-height:1.35}

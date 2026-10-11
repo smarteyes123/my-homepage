@@ -17,10 +17,10 @@
       ['points','核心卖点（最多 4 行，每行 36 字）','textarea',true],['renovation','设备 / 装修（最多 4 行，每行 36 字）','textarea',true],['annualRent','年租金（円）','number'],['lease','租约期限 / 条件','text',true],
     ]],
     ['公司与资料日期',[
-      ['company','公司名称','text',true],['companyAddress','公司地址','text',true],['license','许可编号','text',true],['phone','电话'],['contact','担当者'],['email','邮箱','text',true],['reference','物件编号'],['updated','资料更新日期'],
+      ['company','公司名称','text',true],['companyAddress','公司地址','text',true],['license','许可编号','text',true],['phone','电话'],['fax','传真'],['contact','担当者'],['email','邮箱','text',true],['companyWebsite','公司网站','text',true],['reference','物件编号'],['updated','资料更新日期'],
     ]],
   ];
-  const defaults = {mode:'residence',areaType:'測定方法要確認',tax:'税区分要確認',rights:'所有権',transaction:'媒介',company:'株式会社スマートアイズ',companyAddress:'〒160-0023 東京都新宿区西新宿7-3-10 山京ビル401',license:'東京都知事(1)第112700号',phone:'03-5358-9289',email:'info@smarteyes.co.jp'};
+  const defaults = {mode:'residence',areaType:'測定方法要確認',tax:'税区分要確認',rights:'所有権',transaction:'媒介',company:'株式会社スマートアイズ',companyAddress:'〒160-0023 東京都新宿区西新宿7-3-10 山京ビル401',license:'東京都知事(1)第112700号',phone:'03-5358-9289',fax:'03-5358-9296',companyWebsite:'https://www.smarteyes.co.jp',email:'info@smarteyes.co.jp'};
   let assets = [], candidates = [], chosen = 0, sample = false, dirty = false, activeSlot = null, activeAdjustment = null;
   function notice(text) { $('notice').hidden = false; $('notice').textContent = text; }
   $('fields').innerHTML = schema.map(([title,fields]) => `<details class="field-group" ${title==='基本信息'?'open':''}><summary>${title}</summary><div class="field-grid">${fields.map(([key,label,type='text',options]) => {
@@ -126,7 +126,7 @@
   }
   ['replacement','fitMode','cropX','cropY','cropZoom'].forEach((id)=>$(id).addEventListener('input',updateCrop));
   $('applyCrop').addEventListener('click',()=>{candidates[chosen].adjustments[activeSlot]={...activeAdjustment};$('cropDialog').close();renderResults();});
-  function overflowed() {return [...$('printMount').querySelectorAll('.flyer,.f-details,.f-left,.f-title,.f-price,.f-footer,.detail-section,.f-story,.c-plan,.c-poster-panel,.c-spread-story,.c-drawing-data,.c-offer')].some((el)=>el.scrollHeight>el.clientHeight+2 || el.scrollWidth>el.clientWidth+2);}
+  function overflowed() {return [...$('printMount').querySelectorAll('.f-company,.f-contact,.f-reference,.company-number,.flyer,.f-details,.f-left,.f-title,.f-price,.f-footer,.detail-section,.f-story,.c-plan,.c-poster-panel,.c-spread-story,.c-drawing-data,.c-offer')].some((el)=>el.scrollHeight>el.clientHeight+2 || el.scrollWidth>el.clientWidth+2);}
   $('printButton').addEventListener('click',()=>{
     if(dirty){notice('资料或图片已经修改，请先重新生成方案，再导出。');return;}
     const mount=$('printMount');mount.style.display='block';const bad=overflowed();mount.style.display='';
