@@ -4,10 +4,10 @@ window.Flyer = (() => {
   const money = (value) => Number(value || 0).toLocaleString('ja-JP');
   const definitions = [
     {id:'classic',layout:'balanced',name:'日式销售图面',description:'蓝色标题、红色售价、带底色的规格表，适合信息完整的销售资料。',count:4},
-    {id:'noir',layout:'hero',name:'黑金私邸',description:'深色底、金色细线与明朝体标题，突出高级住宅气质。',count:3},
-    {id:'editorial',layout:'minimal',name:'奶油杂志',description:'暖白纸色、衬线大标题、宽留白与叙述式卖点。',count:1},
-    {id:'architecture',layout:'portrait',name:'现代建筑',description:'大号无衬线标题、竖向画廊、灰褐色分区与不对称构图。',count:2},
-    {id:'renovation',layout:'balanced',name:'清新翻新',description:'青绿标题横幅、珊瑚色价格卡、分区设备清单，明亮鲜活。',count:4},
+    {id:'noir',layout:'poster',name:'大照片海报',description:'大照片直接承载标题，售价与户型在独立侧栏，下方是横向资料索引。',count:1},
+    {id:'editorial',layout:'spread',name:'杂志跨页',description:'左右两页不同节奏：左页大标题与生活照片，右页户型、编号故事和细节。',count:3},
+    {id:'architecture',layout:'blueprint',name:'建筑图纸',description:'超大户型图居中，左侧工程资料栏，右侧竖向照片带，底部图纸签栏。',count:2},
+    {id:'renovation',layout:'campaign',name:'销售广告',description:'巨型售价、强烈色块、标题条和照片拼接，强调广告冲击力。',count:3},
     {id:'estate',layout:'hero',name:'白金经典',description:'明朝体、细金框、居中的正式标题与端正参数表。',count:3},
   ];
   const groups = [
@@ -23,7 +23,7 @@ window.Flyer = (() => {
     const o = {assetId:raw.assetId,fit:['cover','contain'].includes(raw.fit)?raw.fit:null,x:clamp(raw.x,0,100,50),y:clamp(raw.y,0,100,50),zoom:clamp(raw.zoom,1,2,1)};
     const actual = candidate.assets.find((a) => a.id === o.assetId) || asset;
     const isPlan = plan || actual.role === 'plan';
-    const targets = {balanced:[.9,.9,.9,.9],portrait:[.55,.55],hero:[1.6,.8,.8],minimal:[.95]};
+    const targets = {balanced:[.9,.9,.9,.9],portrait:[.55,.55],hero:[1.6,.8,.8],minimal:[.95],poster:[1.6],spread:[1.15,.65,.65],blueprint:[.55,.55],campaign:[1.45,.9,.9]};
     const target = targets[candidate.layout || candidate.id]?.[index] || 1;
     const retained = Math.min((actual.width/actual.height)/target,target/(actual.width/actual.height));
     const fit = isPlan ? 'contain' : (o.fit || (retained < .55 ? 'contain':'cover'));
@@ -31,7 +31,7 @@ window.Flyer = (() => {
   }
   function selectPhotos(assets, definition) {
     const remaining = assets.filter((a) => a.enabled && a.role !== 'plan');
-    const targets = {balanced:[.9,.9,.9,.9],portrait:[.55,.55],hero:[1.6,.8,.8],minimal:[.95]};
+    const targets = {balanced:[.9,.9,.9,.9],portrait:[.55,.55],hero:[1.6,.8,.8],minimal:[.95],poster:[1.6],spread:[1.15,.65,.65],blueprint:[.55,.55],campaign:[1.45,.9,.9]};
     const selected = [];
     for(const [i,target] of targets[definition.layout || definition.id].entries()) {
       if(!remaining.length) break;
@@ -82,6 +82,17 @@ window.Flyer = (() => {
     const photoRatio=c.photos[0]?Math.max(.6,Math.min(1.4,c.photos[0].width/c.photos[0].height)):1;
     const columns=(c.layout || c.id)==='portrait'?(c.photos.length>1?'.6fr .6fr ':'.7fr ')+planRatio+'fr':(c.layout || c.id)==='minimal'?photoRatio+'fr '+planRatio+'fr':((c.layout || c.id)==='hero'?'1.05fr ':'1fr ')+planRatio+'fr';
     const price=d.price?money(d.price):'要確認';
+    if (window.FlyerComposition && ['poster','spread','blueprint','campaign'].includes(c.layout)) {
+      const parts = {
+        escape, money, price, details:details(d), plan:frame(c.plan,99,c,true),
+        photos:c.photos.map((a,i)=>frame(a,i,c)),
+        story:story('この住まいの魅力',d.points || '') + story('設備・住空間',d.renovation || ''),
+        investment:investment?'<div class="f-investment"><strong>表面利回り '+yieldValue+'%</strong>年間賃料 '+money(d.annualRent)+'円　'+escape(d.lease)+'<small>税金・管理費等の控除前。将来の収入を保証しません。</small></div>':'',
+        note:'※図面と現況が異なる場合は現況を優先します。家具・備品等の販売対象は別途ご確認ください。',
+      };
+      return window.FlyerComposition.render(c,parts);
+    }
+
     return `<article class="flyer ${c.layout || c.id} style-${c.id} ${dense?'dense':''}" aria-label="${escape(c.name)} 物件图面"><header class="f-top"><div><p class="f-kicker">SMART EYES / ${investment?'INVESTMENT':'RESIDENCE'}</p><h1 class="f-title">${escape(d.name)}<span>${escape(d.room)}</span></h1></div><div class="f-price"><small>販売価格</small><strong>${price}</strong><b>${d.price?'万円':''}</b><em>${escape(d.tax)}</em></div></header>
       <div class="f-meta"><strong>${escape(d.layout)} · ${escape(d.area)}㎡</strong><span>${escape(d.transit).replace(/\n/g,'　 /　 ')}</span></div>
       ${d.catchCopy?`<p class="f-caption">${escape(d.catchCopy)}</p>`:''}

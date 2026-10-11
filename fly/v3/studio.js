@@ -126,7 +126,7 @@
   }
   ['replacement','fitMode','cropX','cropY','cropZoom'].forEach((id)=>$(id).addEventListener('input',updateCrop));
   $('applyCrop').addEventListener('click',()=>{candidates[chosen].adjustments[activeSlot]={...activeAdjustment};$('cropDialog').close();renderResults();});
-  function overflowed() {return [...$('printMount').querySelectorAll('.f-details,.f-left,.f-title,.f-footer')].some((el)=>el.scrollHeight>el.clientHeight+2 || el.scrollWidth>el.clientWidth+2);}
+  function overflowed() {return [...$('printMount').querySelectorAll('.flyer,.f-details,.f-left,.f-title,.f-price,.f-footer,.detail-section,.f-story,.c-plan,.c-poster-panel,.c-spread-story,.c-drawing-data,.c-offer')].some((el)=>el.scrollHeight>el.clientHeight+2 || el.scrollWidth>el.clientWidth+2);}
   $('printButton').addEventListener('click',()=>{
     if(dirty){notice('资料或图片已经修改，请先重新生成方案，再导出。');return;}
     const mount=$('printMount');mount.style.display='block';const bad=overflowed();mount.style.display='';

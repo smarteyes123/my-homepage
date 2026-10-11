@@ -5,6 +5,7 @@ const path = require('node:path');
 const vm = require('node:vm');
 const ctx = {window:{}};
 vm.createContext(ctx);
+vm.runInContext(fs.readFileSync(path.join(__dirname,'../fly/v3/compositions.js'),'utf8'),ctx);
 vm.runInContext(fs.readFileSync(path.join(__dirname,'../fly/v3/layout.js'),'utf8'),ctx);
 const F = ctx.window.Flyer;
 const data = {name:'テスト物件',price:'10000',area:'50',layout:'2LDK',mode:'residence',points:'',renovation:'',transit:'',managementFee:'10000',repairFee:'5000',otherFee:'0'};
@@ -65,4 +66,19 @@ test('all styles retain the same property facts and expose independent visual id
     assert.ok(html.includes('style-'+c.id));
     for(const value of ['テスト物件','10,000','東京都テスト','確認事項','15,000円']) assert.ok(html.includes(value));
   }
+});
+
+test('four new families use independent page structures rather than the shared media/details skeleton',()=>{
+  const result=F.create(data,assets);
+  const layouts=['poster','spread','blueprint','campaign'];
+  for(const layout of layouts){
+    const c=result.find(c=>c.layout===layout);const html=F.render(c);
+    assert.ok(html.includes('c-'+layout));
+    assert.ok(!html.includes('class="f-body"'));
+    assert.ok(!html.includes('class="f-media"'));
+  }
+  assert.match(F.render(result.find(c=>c.layout==='poster')),/c-poster-image[^]*c-poster-title/);
+  assert.match(F.render(result.find(c=>c.layout==='spread')),/c-spread-left[^]*c-spread-right/);
+  assert.match(F.render(result.find(c=>c.layout==='blueprint')),/c-drawing-data[^]*c-drawing-plan[^]*c-drawing-photos/);
+  assert.match(F.render(result.find(c=>c.layout==='campaign')),/c-offer[^]*c-campaign-photos[^]*c-campaign-plan/);
 });

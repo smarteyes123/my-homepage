@@ -14,46 +14,6 @@
 .style-classic .detail-row{border-bottom:1px solid #d9e2ef;padding:.4mm 1.5mm}.style-classic .detail-row dt{color:#184781}
 .style-classic .f-story{border:1px solid #9bb4d1;padding:2mm 3mm;background:#f5f8fc}
 .style-classic .f-footer{background:#184781;color:white;padding:2mm 3mm}.style-classic .f-brand,.style-classic .f-reference b{color:white}
-.flyer.style-noir{--accent:#dabd80;--gold:#dabd80;--ink:#f1ece4;--soft:#28251f;background:#171a1c;padding:11mm;gap:4mm}
-.style-noir .f-title,.style-noir .f-price strong{font-family:"Hiragino Mincho ProN","Yu Mincho",serif;font-weight:400}
-.style-noir .f-title{font-size:28px;letter-spacing:1px}.style-noir .f-top{border-top:0;border-bottom:1px solid #a58a56;padding:0 0 4mm}
-.style-noir .f-price strong,.style-noir .f-price small{color:#dabd80}.style-noir .f-title span{color:#c9bfae}
-.style-noir .f-meta{border-color:#5c5445}.style-noir .f-body{grid-template-columns:76mm minmax(0,1fr);gap:6mm}
-.style-noir .f-details{grid-column:1;grid-row:1;border:0;border-right:1px solid #5c5445;padding:0 4mm 0 0}
-.style-noir .f-left{grid-column:2;grid-row:1}.style-noir .detail-section h3{border-color:#5c5445}
-.style-noir .detail-row dt,.style-noir .f-note,.style-noir .f-investment small{color:#beb7aa}
-.style-noir .photo-frame{border:1px solid #a58a56;background:#302d27}.style-noir .f-story{border-color:#5c5445}
-.style-noir .f-footer{border-top:1px solid #a58a56}.style-noir .f-sample{color:#d9b78a}
-.flyer.style-editorial{--accent:#775342;--ink:#372e29;--gold:#a7765b;background:#f7f1e7;padding:12mm;gap:4mm}
-.style-editorial .f-top{border:0;padding:0;align-items:flex-end}.style-editorial .f-kicker{letter-spacing:3px;font-weight:400}
-.style-editorial .f-title{font-family:"Hiragino Mincho ProN","Yu Mincho",serif;font-size:30px;line-height:1.4;font-weight:400}
-.style-editorial .f-price{border-left:1px solid #bda995;padding-left:6mm}.style-editorial .f-price strong{font-family:Georgia,serif;font-size:32px}
-.style-editorial .f-caption{font-family:"Hiragino Mincho ProN","Yu Mincho",serif;font-size:14px;border:0;padding:0}
-.style-editorial .f-meta{border-color:#c8b8a7}.style-editorial .f-body{grid-template-columns:minmax(0,1fr) 71mm;gap:8mm}
-.style-editorial .f-details{border-color:#c8b8a7}.style-editorial .detail-section h3{font-weight:400;letter-spacing:2px;border-color:#c8b8a7}
-.style-editorial .photo-frame{background:#e7dfd2}.style-editorial .f-story{border:0;padding:0;gap:6mm}
-.style-editorial .f-story h3{font-family:Georgia,serif;letter-spacing:2px}.style-editorial .f-footer{border-top:1px solid #b99d86}
-.style-editorial .f-brand{font-family:Georgia,serif;font-weight:400;letter-spacing:3px}
-.flyer.style-architecture{--accent:#292d2c;--ink:#292d2c;--gold:#9d9284;background:#eeeae3;padding:9mm;gap:3mm}
-.style-architecture .f-top{border:0;padding:0;align-items:stretch}.style-architecture .f-title{font-size:32px;font-weight:800;letter-spacing:-1px}
-.style-architecture .f-kicker{letter-spacing:4px}.style-architecture .f-price{background:#353a38;color:white;padding:3mm 4mm}
-.style-architecture .f-price small{color:#d5d7d1}.style-architecture .f-price strong{font-size:30px;font-weight:700}
-.style-architecture .f-meta{border:0;padding:2mm 0}.style-architecture .f-caption{border:0;background:#d4cbbd;padding:2mm 3mm}
-.style-architecture .f-body{grid-template-columns:73mm minmax(0,1fr);gap:5mm}
-.style-architecture .f-left{grid-column:2;grid-row:1}.style-architecture .f-details{grid-column:1;grid-row:1;border:0;background:#ddd6ca;padding:3mm;gap:1.5mm}
-.style-architecture .detail-row{grid-template-columns:23mm minmax(0,1fr);font-size:9px}.style-architecture .detail-section h3{border-color:#b5ad9e;font-weight:800}
-.style-architecture .f-story{border:0;padding:0}.style-architecture .f-footer{border-top:3px solid #292d2c;padding-top:2mm}
-.flyer.style-renovation{--accent:#158b8b;--gold:#df6b54;--ink:#25484b;padding:8mm;gap:3mm}
-.style-renovation .f-top{border:0;padding:3mm 4mm;background:#158b8b;color:white;align-items:center}
-.style-renovation .f-title{font-size:27px;font-weight:700}.style-renovation .f-title span,.style-renovation .f-kicker{color:#d5f6ed}
-.style-renovation .f-price{background:#fff6ee;color:#d45643;padding:2mm 4mm;border-radius:3mm}
-.style-renovation .f-meta{border:0;background:#e4f5f0;padding:2mm 3mm}
-.style-renovation .f-caption{border:0;color:#d45643;font-size:15px}
-.style-renovation .f-details{border:0;padding:3mm;background:#f0f8f5}
-.style-renovation .detail-section h3{border:0;color:#158b8b}.style-renovation .detail-row{border-bottom:1px dotted #bcded5}
-.style-renovation .f-story{border:0;background:#fff3e9;padding:2mm 3mm}.style-renovation .f-story h3{color:#c65c45}
-.style-renovation .f-footer{border:0;background:#158b8b;color:white;padding:2mm 3mm}
-.style-renovation .f-brand,.style-renovation .f-reference b{color:white}
 .flyer.style-estate{--accent:#213a54;--gold:#b19965;--ink:#263444;padding:10mm;gap:3mm;border:3mm solid #f3f1eb}
 .style-estate .f-top{display:grid;grid-template-columns:1fr 64mm;align-items:center;border-top:1px solid #b19965;border-bottom:1px solid #b19965;padding:3mm 0}
 .style-estate .f-top>div:first-child{text-align:center}.style-estate .f-title{font-family:"Hiragino Mincho ProN","Yu Mincho",serif;font-size:28px;font-weight:500}
@@ -63,5 +23,4 @@
 .style-estate .f-details{border:1px solid #c9bc99;padding:3mm}.style-estate .detail-section h3{border-color:#c9bc99}
 .style-estate .photo-frame{border:1px solid #c9bc99}.style-estate .f-story{border-color:#c9bc99}
 .style-estate .f-footer{border-color:#b19965}.style-estate .f-brand{font-family:Georgia,serif;font-weight:400}
-.style-renovation .f-details{padding:2mm;gap:1mm}.style-renovation .detail-row{padding:.1mm 0;font-size:9px}
 .style-estate .f-details{padding:2mm;gap:1mm}.style-estate .detail-row{padding:.1mm 0;font-size:9px}
