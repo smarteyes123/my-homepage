@@ -69,7 +69,7 @@
       renderAssets();dirty=true;notice('图片已添加。请指定户型图和外观，取消勾选不想使用的照片。');
     } catch(error) {notice(error.message);} finally {$('generateButton').disabled=false;event.target.value='';}
   });
-  $('photoList').addEventListener('change',(event)=>{const row=event.target.closest('.asset');if(!row)return;const a=assets.find((a)=>a.id===row.dataset.id);if(event.target.dataset.action==='role')a.role=event.target.value;else if(event.target.dataset.action==='label')a.label=event.target.value;else a.enabled=event.target.checked;dirty=true;notice('素材选择已更新，重新生成可更新四个方案。');});
+  $('photoList').addEventListener('change',(event)=>{const row=event.target.closest('.asset');if(!row)return;const a=assets.find((a)=>a.id===row.dataset.id);if(event.target.dataset.action==='role')a.role=event.target.value;else if(event.target.dataset.action==='label')a.label=event.target.value;else a.enabled=event.target.checked;dirty=true;notice('素材选择已更新，重新生成可更新所有风格。');});
   $('photoList').addEventListener('click',async(event)=>{
     const action=event.target.dataset.action;if(!['trim','remove','primary'].includes(action))return;
     const a=assets.find((a)=>a.id===event.target.closest('.asset').dataset.id);
@@ -80,7 +80,7 @@
   function watchSheets() {observer.disconnect();document.querySelectorAll('.candidate-view,.selected-view').forEach((v)=>observer.observe(v));scaleSheets();}
   function card(c,i) {return `<article class="candidate ${i===chosen?'active':''}"><div class="candidate-top"><h3>${String(i+1).padStart(2,'0')} · ${c.name}</h3><small>${c.photos.length} 张照片 + ${c.plan?'户型图':'待补户型图'}</small></div><div class="candidate-view"><div class="scaled-sheet">${Flyer.render(c)}</div></div><div class="candidate-bottom"><p>${c.description}</p><button class="secondary" data-choose="${i}">${i===chosen?'已选中':'选择 / 放大'}</button></div></article>`;}
   function renderResults() {
-    $('gallery').innerHTML=candidates.map(card).join('');$('emptyState').hidden=true;$('selection').hidden=false;$('resultCount').textContent='4 个方案';
+    $('gallery').innerHTML=candidates.map(card).join('');$('emptyState').hidden=true;$('selection').hidden=false;$('resultCount').textContent=candidates.length+' 个风格';
     $('selectedTitle').textContent=candidates[chosen].name;
     $('selectedPreview').innerHTML=`<div class="selected-view"><div class="scaled-sheet">${Flyer.render(candidates[chosen])}</div></div>`;
     $('printMount').innerHTML=Flyer.render(candidates[chosen]);watchSheets();
@@ -98,7 +98,7 @@
     if(!assets.some((a)=>a.enabled && a.role!=='plan')){notice('请至少选择一张照片参与排版。');return;}
     candidates=Flyer.create(data,assets);dirty=false;chosen=0;renderResults();
     const plan=assets.filter((a)=>a.enabled && a.role==='plan');
-    notice(`已生成 4 个方案。${plan.length>1?'使用第一张已启用户型图；可在选中方案中点击户型图替换。':''}点击「选择 / 放大」比较，再点击照片微调。${sample?' 当前是未核实的测试资料。':''}`);
+    notice(`已生成 ${candidates.length} 个独立风格。${plan.length>1?'使用第一张已启用户型图；可在选中方案中点击户型图替换。':''}点击「选择 / 放大」比较，再点击照片微调。${sample?' 当前是未核实的测试资料。':''}`);
     return true;
   }
   $('generateButton').addEventListener('click',generate);
@@ -134,7 +134,7 @@
     document.title=`${candidates[chosen].data.name}_${candidates[chosen].name}_v3`;window.print();
   });
   function downloadJSON(value,name) {const url=URL.createObjectURL(new Blob([JSON.stringify(value)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
-  $('saveButton').addEventListener('click',()=>{downloadJSON({version:3,data:readData(),assets,candidateAdjustments:dirty?[]:candidates.map((c)=>c.adjustments),chosen},`${readData().name || '物件'}_v3草稿.json`);notice('草稿包含资料、图片和裁切调整，已保存到下载文件夹。');});
+  $('saveButton').addEventListener('click',()=>{downloadJSON({version:3,data:readData(),assets,candidateAdjustments:dirty?[]:candidates.map((c)=>c.adjustments),styles:dirty?{}:Object.fromEntries(candidates.map((c)=>[c.id,c.adjustments])),selectedStyle:candidates[chosen]?.id,chosen},`${readData().name || '物件'}_v3草稿.json`);notice('草稿包含资料、图片和裁切调整，已保存到下载文件夹。');});
   $('importButton').addEventListener('click',()=>$('draftInput').click());
   async function restore(draft) {
     if(draft.version!==3 || !draft.data || !Array.isArray(draft.assets) || draft.assets.length>100)throw new Error('请选择 v3 保存的草稿。');
@@ -147,7 +147,7 @@
     sample=Boolean(draft.data.sample);$('sampleFlag').checked=sample;setData(draft.data);assets=loaded;renderAssets();
     candidates=[];$('gallery').innerHTML='';$('selection').hidden=true;$('emptyState').hidden=false;$('printMount').innerHTML='';
     if(!generate())throw new Error('草稿资料已载入，请补齐或精简资料后重新生成。');
-    if(candidates.length){candidates.forEach((c,i)=>{c.adjustments=draft.candidateAdjustments?.[i] || {};});chosen=Math.max(0,Math.min(3,Number(draft.chosen)||0));renderResults();}
+    if(candidates.length){candidates.forEach((c,i)=>{c.adjustments=draft.styles?.[c.id] || (!draft.styles?draft.candidateAdjustments?.[['balanced','portrait','hero','minimal'].indexOf(c.layout)]:{}) || {};});chosen=Math.max(0,candidates.findIndex((c)=>c.id===draft.selectedStyle));renderResults();}
   }
   $('draftInput').addEventListener('change',async(event)=>{try{const file=event.target.files[0];if(!file)return;if(file.size>100*1024*1024)throw new Error('草稿超过 100 MB，无法打开。');await restore(JSON.parse(await file.text()));notice('草稿已恢复，包括图片和方案调整。');}catch(error){notice(error.message);}finally{event.target.value='';}});
   async function loadDemo() {

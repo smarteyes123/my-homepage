@@ -9,7 +9,7 @@
 <body>
 <header class="app-header"><a class="brand" href="../index.html">SMART EYES <span>PROPERTY STUDIO</span></a><span class="version">v3 · 买卖物件</span><a href="flyer-maker.html" class="muted-link">租赁旧版 ↗</a></header>
 <main class="studio">
-<section class="intro"><div><p class="eyebrow">ONE PROPERTY. MORE POSSIBILITIES.</p><h1>同一个物件，不止一种好看的呈现。</h1><p>填一次资料，选几张好照片。比较四种版式，再把最满意的一张带走。</p></div><div class="intro-actions"><button id="importButton" class="secondary">打开草稿</button><button id="saveButton" class="secondary">保存草稿</button><input id="draftInput" type="file" accept="application/json,.json" hidden></div></section>
+<section class="intro"><div><p class="eyebrow">ONE PROPERTY. MORE POSSIBILITIES.</p><h1>同一个物件，不止一种好看的呈现。</h1><p>填一次资料，选几张好照片。一键生成六种独立风格，再把最满意的一张带走。</p></div><div class="intro-actions"><button id="importButton" class="secondary">导入 JSON</button><button id="saveButton" class="secondary">保存 JSON</button><input id="draftInput" type="file" accept="application/json,.json" hidden></div></section>
 <p id="notice" role="status" aria-live="polite" hidden></p>
 <div class="workspace">
 <aside class="editor">
@@ -20,10 +20,10 @@
 <label class="upload-area">＋ 添加照片或户型图<input id="photoInput" type="file" accept="image/jpeg,image/png,image/webp" multiple><small>JPG / PNG / WebP · 可分批添加 · 单张不超过 20 MB</small></label>
 <div class="asset-hint">请将户型图标为「户型图」。照片可裁切，户型图始终完整显示。去白边前后均可预览。</div>
 <div id="photoList" class="photo-list"></div>
-<div class="generate-bar"><button id="generateButton" class="primary">生成 4 个排版方案 ↗</button><small>图片仅在当前浏览器中处理，不会自动上传。</small></div>
+<div class="generate-bar"><button id="generateButton" class="primary">一键生成 6 种风格 ↗</button><small>图片仅在当前浏览器中处理，不会自动上传。</small></div>
 </aside>
-<section class="results"><div class="results-heading"><div><p class="eyebrow">CHOOSE YOUR COMPOSITION</p><h2>比较，选出最适合的一张。</h2></div><span id="resultCount" class="version">等待生成</span></div>
-<div id="emptyState" class="empty-state"><div class="empty-sheet"><span>SMART EYES</span><i></i><i></i><i></i></div><h3>让图片决定合适的版式</h3><p>竖向照片、宽户型、少量素材，都有适合它们的组合。<br>先添加资料与图片，再开始比较。</p></div>
+<section class="results"><div class="results-heading"><div><p class="eyebrow">CHOOSE YOUR STYLE</p><h2>比较，选出最适合的一张。</h2></div><span id="resultCount" class="version">等待生成</span></div>
+<div id="emptyState" class="empty-state"><div class="empty-sheet"><span>SMART EYES</span><i></i><i></i><i></i></div><h3>一次输入，比较六种风格</h3><p>竖向照片、宽户型、少量素材，都有适合它们的组合。<br>先添加资料与图片，再开始比较。</p></div>
 <div id="gallery" class="gallery"></div>
 <section id="selection" class="selection" hidden><div class="selection-head"><div><p class="eyebrow">YOUR SELECTED FLYER</p><h2 id="selectedTitle">选中的方案</h2></div><button id="printButton" class="primary">打印 / 保存 PDF</button></div><p class="selection-hint">点击图中的照片调整裁切或替换。户型图保持完整比例。打印时选择 A4 横向、缩放 100%、关闭页眉页脚、开启背景图形。</p><div id="selectedPreview" class="selected-preview"></div></section>
 </section></div>

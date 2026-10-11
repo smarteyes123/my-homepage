@@ -22,3 +22,11 @@ Run `node --test tests/flyer-v3.test.cjs` and `node --check fly/v3/studio.js`.
 Browser QA covers generation, selection, crop isolation, floorplan controls, draft download/reimport, and stale-data export prevention. Local property fixture `fly/v3-demo/` is ignored; `?demo=1` loads it only where that private fixture exists. Actual property images and generated PDFs are not part of the repository.
 
 A local QA run with a real property confirmed four single-page A4 landscape PDFs and a four-page comparison PDF, then rasterized and inspected every composition. Source floorplan resolution limits output detail; use the original high-resolution plan when available.
+
+## 独立风格与 JSON 复用
+
+一键生成日式销售、黑金私邸、奶油杂志、现代建筑、清新翻新、白金经典六种风格。字体、标题、价格、资料表、背景、页脚和信息位置分别设计。照片布局作为独立属性，按比例选图，户型图保持完整。
+
+保存 JSON 包含所有表单资料、内嵌图片、原图副本、素材开关、主图、说明、按风格 ID 保存的裁切调整和选中风格。重新导入即可修改并再生成，图片不依赖原始文件路径。旧 v3 四方案草稿可导入，照片调整按原布局迁移。修改资料后保存保留新资料和照片，重新生成前不保存已过期的方案调整。
+
+验证：9 项 Node 测试；南池袋六种 A4 横向 PDF 渲染和溢出检查；浏览器生成六风格、JSON 实际下载与重新导入，恢复九张素材、选中黑金风格及完整显示照片设置。

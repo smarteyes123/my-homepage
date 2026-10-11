@@ -12,10 +12,10 @@ const assets = [
   {id:'p',role:'plan',enabled:true,width:400,height:900,src:'data:image/png;base64,AA==',name:'間取図'},
   ...[.75,1.6,.8,1.2,2.8].map((ratio,i)=>({id:String(i),role:i===0?'exterior':'interior',enabled:true,width:ratio*1000,height:1000,src:'data:image/jpeg;base64,AA==',name:'photo'+i})),
 ];
-test('four distinct compositions use subsets, preserve full floorplan and omit disabled images',()=>{
+test('six distinct styles use subsets, preserve full floorplan and omit disabled images',()=>{
   const source=[...assets,{...assets[1],id:'disabled',enabled:false}];
   const result=F.create(data,source);
-  assert.equal(result.length,4);assert.equal(new Set(result.map(c=>c.id)).size,4);
+  assert.equal(result.length,6);assert.equal(new Set(result.map(c=>c.id)).size,6);
   for(const c of result) {
     assert.ok(c.photos.length<source.length-1);
     assert.equal(new Set(c.photos.map(a=>a.id)).size,c.photos.length);
@@ -25,8 +25,8 @@ test('four distinct compositions use subsets, preserve full floorplan and omit d
 });
 test('portrait frames favor portrait photos; wide hero frames favor landscape photos',()=>{
   const result=F.create(data,assets);
-  assert.ok(result[1].photos[0].width/result[1].photos[0].height<1);
-  assert.ok(result[2].photos[0].width/result[2].photos[0].height>1);
+  assert.ok(result.find(c=>c.id==='architecture').photos[0].width/result.find(c=>c.id==='architecture').photos[0].height<1);
+  assert.ok(result.find(c=>c.id==='noir').photos[0].width/result.find(c=>c.id==='noir').photos[0].height>1);
 });
 test('main photo can be pinned and adjustments remain candidate-specific',()=>{
   const source=assets.map(a=>({...a,primary:a.id==='3'}));const result=F.create(data,source);
@@ -56,4 +56,13 @@ test('floorplan proportions change the available columns without cropping the pl
 test('one enabled photograph creates usable candidates without duplicate images',()=>{
   const result=F.create(data,assets.slice(0,2));
   for(const c of result){assert.equal(c.photos.length,1);assert.ok(!F.render(c).includes('写真を追加できます'));}
+});
+
+test('all styles retain the same property facts and expose independent visual identities',()=>{
+  const result=F.create({...data,address:'東京都テスト',remarks:'確認事項'},assets);
+  for(const c of result) {
+    const html=F.render(c);
+    assert.ok(html.includes('style-'+c.id));
+    for(const value of ['テスト物件','10,000','東京都テスト','確認事項','15,000円']) assert.ok(html.includes(value));
+  }
 });

@@ -3,10 +3,12 @@ window.Flyer = (() => {
   const escape = (value) => String(value ?? '').replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const money = (value) => Number(value || 0).toLocaleString('ja-JP');
   const definitions = [
-    {id:'balanced',name:'均衡版',description:'照片与户型各占一侧，信息完整、方便比较。',count:4},
-    {id:'portrait',name:'竖图画廊',description:'给竖向照片足够高度，减少横向裁切。',count:2},
-    {id:'hero',name:'照片展示版',description:'主照片搭配精选细节，突出物件质感。',count:3},
-    {id:'minimal',name:'简洁留白版',description:'只选最有代表性的照片，突出户型与核心信息。',count:1},
+    {id:'classic',layout:'balanced',name:'日式销售图面',description:'蓝色标题、红色售价、带底色的规格表，适合信息完整的销售资料。',count:4},
+    {id:'noir',layout:'hero',name:'黑金私邸',description:'深色底、金色细线与明朝体标题，突出高级住宅气质。',count:3},
+    {id:'editorial',layout:'minimal',name:'奶油杂志',description:'暖白纸色、衬线大标题、宽留白与叙述式卖点。',count:1},
+    {id:'architecture',layout:'portrait',name:'现代建筑',description:'大号无衬线标题、竖向画廊、灰褐色分区与不对称构图。',count:2},
+    {id:'renovation',layout:'balanced',name:'清新翻新',description:'青绿标题横幅、珊瑚色价格卡、分区设备清单，明亮鲜活。',count:4},
+    {id:'estate',layout:'hero',name:'白金经典',description:'明朝体、细金框、居中的正式标题与端正参数表。',count:3},
   ];
   const groups = [
     ['所在地・土地',[['address','所在地'],['rights','権利'],['landArea','敷地面積','㎡'],['share','共有持分'],['zoning','用途地域']]],
@@ -22,7 +24,7 @@ window.Flyer = (() => {
     const actual = candidate.assets.find((a) => a.id === o.assetId) || asset;
     const isPlan = plan || actual.role === 'plan';
     const targets = {balanced:[.9,.9,.9,.9],portrait:[.55,.55],hero:[1.6,.8,.8],minimal:[.95]};
-    const target = targets[candidate.id]?.[index] || 1;
+    const target = targets[candidate.layout || candidate.id]?.[index] || 1;
     const retained = Math.min((actual.width/actual.height)/target,target/(actual.width/actual.height));
     const fit = isPlan ? 'contain' : (o.fit || (retained < .55 ? 'contain':'cover'));
     return `<figure class="photo-frame ${isPlan?'plan-frame':''}" data-slot="${index}" data-plan="${isPlan}" data-asset="${escape(actual.id)}"><img src="${escape(actual.src)}" alt="${escape(actual.label || actual.name)}" style="object-fit:${fit};object-position:${o.x ?? 50}% ${o.y ?? 50}%;transform:scale(${fit==='contain'?1:o.zoom || 1});transform-origin:${o.x}% ${o.y}%"><figcaption>${escape(actual.label || ({exterior:'外観',interior:'室内',common:'共用部分',plan:'間取図'}[actual.role]))}</figcaption></figure>`;
@@ -31,9 +33,9 @@ window.Flyer = (() => {
     const remaining = assets.filter((a) => a.enabled && a.role !== 'plan');
     const targets = {balanced:[.9,.9,.9,.9],portrait:[.55,.55],hero:[1.6,.8,.8],minimal:[.95]};
     const selected = [];
-    for(const [i,target] of targets[definition.id].entries()) {
+    for(const [i,target] of targets[definition.layout || definition.id].entries()) {
       if(!remaining.length) break;
-      const role = definition.id==='balanced' && i===0 ? 'exterior' : i===0 || (definition.id==='balanced' && i<3) ? 'interior' : null;
+      const role = (definition.layout || definition.id)==='balanced' && i===0 ? 'exterior' : i===0 || ((definition.layout || definition.id)==='balanced' && i<3) ? 'interior' : null;
       const score = (a) => {
         const retained = Math.min((a.width/a.height)/target,target/(a.width/a.height));
         const roleBonus = role ? (a.role===role?1.1:0) : selected.some((p)=>p.role===a.role)?0:.3;
@@ -52,9 +54,9 @@ window.Flyer = (() => {
   function media(c) {
     const photo = (i)=>frame(c.photos[i],i,c);
     const plan = frame(c.plan,99,c,true);
-    if(c.id==='balanced') return `<div class="photo-grid">${c.photos.length?c.photos.map((_,i)=>photo(i)).join(''):photo(0)}</div>${plan}`;
-    if(c.id==='portrait') return `${photo(0)}${c.photos.length>1?photo(1):''}${plan}`;
-    if(c.id==='hero') return `<div class="hero-photos">${photo(0)}${c.photos.length>1?'<div class="photo-grid">'+c.photos.slice(1).map((_,i)=>photo(i+1)).join('')+'</div>':''}</div>${plan}`;
+    if((c.layout || c.id)==='balanced') return `<div class="photo-grid">${c.photos.length?c.photos.map((_,i)=>photo(i)).join(''):photo(0)}</div>${plan}`;
+    if((c.layout || c.id)==='portrait') return `${photo(0)}${c.photos.length>1?photo(1):''}${plan}`;
+    if((c.layout || c.id)==='hero') return `<div class="hero-photos">${photo(0)}${c.photos.length>1?'<div class="photo-grid">'+c.photos.slice(1).map((_,i)=>photo(i+1)).join('')+'</div>':''}</div>${plan}`;
     return `${photo(0)}${plan}`;
   }
   function details(data) {
@@ -78,9 +80,9 @@ window.Flyer = (() => {
     const dense=groups.flatMap(([,fields])=>fields).filter(([key])=>d[key]!=='' && d[key]!=null).length>=25;
     const planRatio=c.plan?Math.max(.45,Math.min(1.65,c.plan.width/c.plan.height)):1;
     const photoRatio=c.photos[0]?Math.max(.6,Math.min(1.4,c.photos[0].width/c.photos[0].height)):1;
-    const columns=c.id==='portrait'?(c.photos.length>1?'.6fr .6fr ':'.7fr ')+planRatio+'fr':c.id==='minimal'?photoRatio+'fr '+planRatio+'fr':(c.id==='hero'?'1.05fr ':'1fr ')+planRatio+'fr';
+    const columns=(c.layout || c.id)==='portrait'?(c.photos.length>1?'.6fr .6fr ':'.7fr ')+planRatio+'fr':(c.layout || c.id)==='minimal'?photoRatio+'fr '+planRatio+'fr':((c.layout || c.id)==='hero'?'1.05fr ':'1fr ')+planRatio+'fr';
     const price=d.price?money(d.price):'要確認';
-    return `<article class="flyer ${c.id} ${dense?'dense':''}" aria-label="${escape(c.name)} 物件图面"><header class="f-top"><div><p class="f-kicker">SMART EYES / ${investment?'INVESTMENT':'RESIDENCE'}</p><h1 class="f-title">${escape(d.name)}<span>${escape(d.room)}</span></h1></div><div class="f-price"><small>販売価格</small><strong>${price}</strong><b>${d.price?'万円':''}</b><em>${escape(d.tax)}</em></div></header>
+    return `<article class="flyer ${c.layout || c.id} style-${c.id} ${dense?'dense':''}" aria-label="${escape(c.name)} 物件图面"><header class="f-top"><div><p class="f-kicker">SMART EYES / ${investment?'INVESTMENT':'RESIDENCE'}</p><h1 class="f-title">${escape(d.name)}<span>${escape(d.room)}</span></h1></div><div class="f-price"><small>販売価格</small><strong>${price}</strong><b>${d.price?'万円':''}</b><em>${escape(d.tax)}</em></div></header>
       <div class="f-meta"><strong>${escape(d.layout)} · ${escape(d.area)}㎡</strong><span>${escape(d.transit).replace(/\n/g,'　 /　 ')}</span></div>
       ${d.catchCopy?`<p class="f-caption">${escape(d.catchCopy)}</p>`:''}
       <div class="f-body"><div class="f-left"><div class="f-media" style="grid-template-columns:${columns}">${media(c)}</div>
