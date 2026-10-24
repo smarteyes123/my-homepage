@@ -18,3 +18,6 @@
 
 ## 2026-10-19
 - Close the public contact inquiry form and remove its submission script; retain phone, email, WeChat, and business hours.
+
+## 2026-10-24
+- Disable the remaining rental inquiry form and legacy inquiry pages, redirect them to contact details, and remove the homepage rental-form link. Backend Apps Script deployment must also be deactivated to reject direct submissions.
