@@ -83,7 +83,7 @@
     $('gallery').innerHTML=candidates.map(card).join('');$('emptyState').hidden=true;$('selection').hidden=false;$('resultCount').textContent=candidates.length+' 个风格';
     $('selectedTitle').textContent=candidates[chosen].name;
     $('selectedPreview').innerHTML=`<div class="selected-view"><div class="scaled-sheet">${Flyer.render(candidates[chosen])}</div></div>`;
-    $('printMount').innerHTML=Flyer.render(candidates[chosen]);watchSheets();
+    $('printMount').innerHTML=Flyer.render(candidates[chosen]);watchSheets();applyQuality();
   }
   function generate() {
     if(!$('propertyForm').reportValidity())return;
@@ -126,11 +126,30 @@
   }
   ['replacement','fitMode','cropX','cropY','cropZoom'].forEach((id)=>$(id).addEventListener('input',updateCrop));
   $('applyCrop').addEventListener('click',()=>{candidates[chosen].adjustments[activeSlot]={...activeAdjustment};$('cropDialog').close();renderResults();});
+  /* PDF quality: only the print copy (#printMount) gets downscaled images, so the preview and drafts keep the originals. Ctrl+P uses the same copy. */
+  const QUALITY={high:null,medium:{photo:1400,plan:1800,q:.82},low:{photo:900,plan:1300,q:.7}};
+  const scaledCache=new Map();let qualityRun=0,qualityReady=Promise.resolve();
+  async function downscale(src,max,q){
+    const key=max+'|'+q+'|'+src.length+'|'+src.slice(-48);if(scaledCache.has(key))return scaledCache.get(key);
+    const img=await imageLoad(src);const ratio=Math.min(1,max/Math.max(img.width,img.height));let out=src;
+    if(ratio<1 || !src.startsWith('data:image/jpeg')){const canvas=document.createElement('canvas');canvas.width=Math.round(img.width*ratio);canvas.height=Math.round(img.height*ratio);const ctx=canvas.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.drawImage(img,0,0,canvas.width,canvas.height);out=canvas.toDataURL('image/jpeg',q);}
+    scaledCache.set(key,out);return out;
+  }
+  function applyQuality(){
+    const run=++qualityRun,cfg=QUALITY[$('pdfQuality').value];
+    qualityReady=(async()=>{for(const img of $('printMount').querySelectorAll('img')){
+      if(!img.dataset.full)img.dataset.full=img.getAttribute('src');const full=img.dataset.full;if(!full.startsWith('data:image/'))continue;
+      let next=full;if(cfg){try{next=await downscale(full,img.closest('.plan-frame')?cfg.plan:cfg.photo,cfg.q);}catch{next=full;}}
+      if(run!==qualityRun)return;img.setAttribute('src',next);}})();
+    return qualityReady;
+  }
+  $('pdfQuality').addEventListener('change',applyQuality);
   function overflowed() {return [...$('printMount').querySelectorAll('.f-company,.f-contact,.f-reference,.company-number,.flyer,.f-details,.f-left,.f-title,.f-price,.f-footer,.detail-section,.f-story,.c-plan,.c-poster-panel,.c-spread-story,.c-drawing-data,.c-offer')].some((el)=>el.scrollHeight>el.clientHeight+2 || el.scrollWidth>el.clientWidth+2);}
-  $('printButton').addEventListener('click',()=>{
+  $('printButton').addEventListener('click',async()=>{
     if(dirty){notice('资料或图片已经修改，请先按「一键生成」重新生成方案，再导出。',true);return;}
     const mount=$('printMount');mount.style.display='block';const bad=overflowed();mount.style.display='';
     if(bad && !window.confirm('当前资料可能超出版面，超出的文字会被裁掉。\n仍然打印 / 保存 PDF 吗？')){notice('已取消导出：当前资料超出版面，请精简备注、交通或公司信息后重新生成。',true);return;}
+    $('printButton').disabled=true;try{await qualityReady;}finally{$('printButton').disabled=false;}
     document.title=`${candidates[chosen].data.name}_${candidates[chosen].name}_v3`;window.print();
   });
   function downloadJSON(value,name) {const url=URL.createObjectURL(new Blob([JSON.stringify(value)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
