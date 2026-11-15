@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-15
+
+- 2026-11-15｜Claude Opus 5.5｜v3 新增第七种风格「都心レジデンス」（residence）：左侧竖长主照片叠明朝体标题＋物件概要，售价横栏（所在地、最多两条交通）、核心卖点前 4 行配图标、照片格用照片说明当藏青标签、户型图与備考。公司栏内容不变，只换配色字体。12 项测试通过；オリオ渋谷实资料渲染无溢出。
+
 ## 2026-10-11
 
 - Add independent Property Studio v3 for sales and investment flyers with four candidate compositions.

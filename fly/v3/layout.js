@@ -9,6 +9,7 @@ window.Flyer = (() => {
     {id:'architecture',layout:'blueprint',name:'建筑图纸',description:'超大户型图居中，左侧工程资料栏，右侧竖向照片带，底部图纸签栏。',count:2},
     {id:'renovation',layout:'campaign',name:'销售广告',description:'巨型售价、强烈色块、标题条和照片拼接，强调广告冲击力。',count:3},
     {id:'estate',layout:'hero',name:'白金经典',description:'明朝体、细金框、居中的正式标题与端正参数表。',count:3},
+    {id:'residence',layout:'residence',name:'都心レジデンス',description:'左侧竖长主照片叠明朝体标题与物件概要表；售价横栏、卖点图标、带标签的照片格与户型图、備考。',count:7},
   ];
   const groups = [
     ['所在地・土地',[['address','所在地'],['rights','権利'],['landArea','敷地面積','㎡'],['share','共有持分'],['zoning','用途地域']]],
@@ -23,7 +24,7 @@ window.Flyer = (() => {
     const o = {assetId:raw.assetId,fit:['cover','contain'].includes(raw.fit)?raw.fit:null,x:clamp(raw.x,0,100,50),y:clamp(raw.y,0,100,50),zoom:clamp(raw.zoom,1,2,1)};
     const actual = candidate.assets.find((a) => a.id === o.assetId) || asset;
     const isPlan = plan || actual.role === 'plan';
-    const targets = {balanced:[.9,.9,.9,.9],portrait:[.55,.55],hero:[1.6,.8,.8],minimal:[.95],poster:[1.6],spread:[1.15,.65,.65],blueprint:[.55,.55],campaign:[1.45,.9,.9]};
+    const targets = {balanced:[.9,.9,.9,.9],portrait:[.55,.55],hero:[1.6,.8,.8],minimal:[.95],poster:[1.6],spread:[1.15,.65,.65],blueprint:[.55,.55],campaign:[1.45,.9,.9],residence:[.75,1.2,1.2,1.2,1.2,1.2,1.2]};
     const target = targets[candidate.layout || candidate.id]?.[index] || 1;
     const retained = Math.min((actual.width/actual.height)/target,target/(actual.width/actual.height));
     const fit = isPlan ? 'contain' : (o.fit || (retained < .55 ? 'contain':'cover'));
@@ -31,11 +32,11 @@ window.Flyer = (() => {
   }
   function selectPhotos(assets, definition) {
     const remaining = assets.filter((a) => a.enabled && a.role !== 'plan');
-    const targets = {balanced:[.9,.9,.9,.9],portrait:[.55,.55],hero:[1.6,.8,.8],minimal:[.95],poster:[1.6],spread:[1.15,.65,.65],blueprint:[.55,.55],campaign:[1.45,.9,.9]};
+    const targets = {balanced:[.9,.9,.9,.9],portrait:[.55,.55],hero:[1.6,.8,.8],minimal:[.95],poster:[1.6],spread:[1.15,.65,.65],blueprint:[.55,.55],campaign:[1.45,.9,.9],residence:[.75,1.2,1.2,1.2,1.2,1.2,1.2]};
     const selected = [];
     for(const [i,target] of targets[definition.layout || definition.id].entries()) {
       if(!remaining.length) break;
-      const role = (definition.layout || definition.id)==='balanced' && i===0 ? 'exterior' : i===0 || ((definition.layout || definition.id)==='balanced' && i<3) ? 'interior' : null;
+      const role = ['balanced','residence'].includes(definition.layout || definition.id) && i===0 ? 'exterior' : i===0 || ((definition.layout || definition.id)==='balanced' && i<3) ? 'interior' : null;
       const score = (a) => {
         const retained = Math.min((a.width/a.height)/target,target/(a.width/a.height));
         const roleBonus = role ? (a.role===role?1.1:0) : selected.some((p)=>p.role===a.role)?0:.3;
@@ -82,9 +83,9 @@ window.Flyer = (() => {
     const photoRatio=c.photos[0]?Math.max(.6,Math.min(1.4,c.photos[0].width/c.photos[0].height)):1;
     const columns=(c.layout || c.id)==='portrait'?(c.photos.length>1?'.6fr .6fr ':'.7fr ')+planRatio+'fr':(c.layout || c.id)==='minimal'?photoRatio+'fr '+planRatio+'fr':((c.layout || c.id)==='hero'?'1.05fr ':'1fr ')+planRatio+'fr';
     const price=d.price?money(d.price):'要確認';
-    if (window.FlyerComposition && ['poster','spread','blueprint','campaign'].includes(c.layout)) {
+    if (window.FlyerComposition && ['poster','spread','blueprint','campaign','residence'].includes(c.layout)) {
       const parts = {
-        escape, money, price, details:details(d), plan:frame(c.plan,99,c,true),
+        escape, money, price, details:details(d), detailsCore:details({...d,remarks:''}), plan:frame(c.plan,99,c,true),
         photos:c.photos.map((a,i)=>frame(a,i,c)),
         story:story('この住まいの魅力',d.points || '') + story('設備・住空間',d.renovation || ''),
         investment:investment?'<div class="f-investment"><strong>表面利回り '+yieldValue+'%</strong>年間賃料 '+money(d.annualRent)+'円　'+escape(d.lease)+'<small>税金・管理費等の控除前。将来の収入を保証しません。</small></div>':'',

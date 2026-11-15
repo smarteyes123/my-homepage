@@ -14,10 +14,10 @@ const assets = [
   {id:'p',role:'plan',enabled:true,width:400,height:900,src:'data:image/png;base64,AA==',name:'間取図'},
   ...[.75,1.6,.8,1.2,2.8].map((ratio,i)=>({id:String(i),role:i===0?'exterior':'interior',enabled:true,width:ratio*1000,height:1000,src:'data:image/jpeg;base64,AA==',name:'photo'+i})),
 ];
-test('six distinct styles use subsets, preserve full floorplan and omit disabled images',()=>{
+test('seven distinct styles use subsets, preserve full floorplan and omit disabled images',()=>{
   const source=[...assets,{...assets[1],id:'disabled',enabled:false}];
   const result=F.create(data,source);
-  assert.equal(result.length,6);assert.equal(new Set(result.map(c=>c.id)).size,6);
+  assert.equal(result.length,7);assert.equal(new Set(result.map(c=>c.id)).size,7);
   for(const c of result) {
     assert.ok(c.photos.length<source.length-1);
     assert.equal(new Set(c.photos.map(a=>a.id)).size,c.photos.length);
@@ -82,4 +82,23 @@ test('four new families use independent page structures rather than the shared m
   assert.match(F.render(result.find(c=>c.layout==='spread')),/c-spread-left[^]*c-spread-right/);
   assert.match(F.render(result.find(c=>c.layout==='blueprint')),/c-drawing-data[^]*c-drawing-plan[^]*c-drawing-photos/);
   assert.match(F.render(result.find(c=>c.layout==='campaign')),/c-offer[^]*c-campaign-photos[^]*c-campaign-plan/);
+});
+
+test('residence style: exterior hero, captioned grid, four point icons, two stations and no duplicated remarks',()=>{
+  const d={...data,mode:'investment',annualRent:'1188000',address:'東京都渋谷区宇田川町41-24',transit:'A線「a」駅 徒歩1分\nB線「b」駅 徒歩2分\nC線「c」駅 徒歩3分',points:'一\n二\n三\n四\n五',renovation:'エアコン',remarks:'帖数不明'};
+  const c=F.create(d,assets).find(x=>x.id==='residence');
+  assert.ok(c);assert.equal(c.photos[0].role,'exterior');
+  const html=F.render(c);
+  assert.match(html,/class="flyer composition c-residence style-residence"/);
+  assert.equal((html.match(/class="c-res-station"/g)||[]).length,2);
+  assert.equal((html.match(/<div><svg/g)||[]).length,4);
+  assert.ok(!html.includes('五'));
+  assert.equal((html.match(/帖数不明/g)||[]).length,1);
+  assert.match(html,/data-count="\d"/);
+  assert.match(html,/表面利回り/);
+  assert.match(html,/data-plan="true"[^]*?object-fit:contain/);
+});
+test('residence style with a single photo hides the empty grid',()=>{
+  const c=F.create(data,assets.slice(0,2)).find(x=>x.id==='residence');
+  assert.match(F.render(c),/data-count="0"/);
 });
