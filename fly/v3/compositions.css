@@ -144,3 +144,61 @@
 .c-campaign .c-campaign{height:97mm}.c-campaign .c-facts{min-height:42mm}
 .composition .detail-row{font-size:9px}.composition .detail-row dt{font-size:8px}
 .c-blueprint .c-drawing-data .detail-row{font-size:8.5px;line-height:1.35}
+/* Residence (都心レジデンス): tall hero with serif title over the photo and facts below on the left; price bar, points with icons, captioned photo grid, plan and remarks on the right. */
+.flyer.c-residence{--accent:#1f3556;--ink:#1b2533;--gold:#1f3556;--soft:#eef2f7;padding:5mm 5mm 3mm;gap:1.5mm;background:#fff;color:var(--ink)}
+.c-residence .c-res{flex:1;min-height:0;display:grid;grid-template-columns:86mm minmax(0,1fr);gap:4mm}
+.c-residence .c-res-left{display:flex;flex-direction:column;gap:1.5mm;min-height:0;min-width:0}
+.c-residence .c-res-hero{position:relative;flex:1;min-height:45mm;display:flex}
+.c-residence .c-res-hero>.photo-frame{width:100%;height:100%}
+.c-residence .c-res-hero figcaption{display:none}
+.c-residence .c-res-title{position:absolute;left:0;right:0;top:0;padding:3mm 3mm 9mm;color:#fff;background:linear-gradient(#0d1a2bd0,#0d1a2b55 65%,transparent);font-family:"Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif;z-index:2;pointer-events:none}
+.c-residence .c-res-title .c-label{font-weight:500;letter-spacing:1px;font-size:7.5px}
+.c-residence .c-res-title .f-title{font-size:25px;font-weight:500;line-height:1.2;margin-top:1mm;color:#fff}
+.c-residence .c-res-title .f-title span{display:inline;font-size:12px;margin-left:1.5mm;color:#fff}
+.c-residence .c-res-facts{flex:none;display:block;padding:0;border:0;overflow:hidden}
+.c-residence .c-res-facts .detail-section{border-top:1px solid #c9ced6;padding-top:.5mm;margin-top:.5mm}
+.c-residence .c-res-facts .detail-section:first-child{margin-top:0}
+.c-residence .c-res-facts .detail-section h3{font-size:7.5px;color:var(--accent);margin:0 0 .3mm;padding:0;border:0}
+.c-residence .c-res-facts .detail-row{grid-template-columns:17mm minmax(0,1fr);font-size:7px;line-height:1.32;padding:0}
+.c-residence .c-res-facts .detail-row dt{font-size:6.5px;color:#5a6577}
+.c-residence .c-res-right{display:flex;flex-direction:column;gap:2mm;min-height:0;min-width:0}
+.c-residence .c-res-bar{display:flex;align-items:center;flex:none;border-top:1px solid #c9ced6;border-bottom:1.5px solid var(--ink);padding:1.5mm 0;font-family:"Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif}
+.c-residence .c-res-bar>*{padding:0 3.5mm;border-left:1px solid #c9ced6;min-width:0}
+.c-residence .c-res-bar>*:first-child{border-left:0;padding-left:1mm}
+.c-residence .c-res-bar .f-price{display:flex;align-items:baseline;gap:1.5mm;flex:none}
+.c-residence .c-res-bar .f-price small{display:none}
+.c-residence .c-res-bar .f-price strong{font-size:38px;font-weight:700;line-height:1;letter-spacing:0}
+.c-residence .c-res-bar .f-price b{font-size:12px;padding:0}
+.c-residence .c-res-bar .f-price em{display:inline;font-size:8px;margin:0}
+.c-residence .c-res-address{flex:1;font-size:9px;line-height:1.6;overflow-wrap:anywhere}
+.c-residence .c-res-address small{display:block;font-size:8px}
+.c-residence .c-res-station{display:flex;align-items:center;gap:2mm;font-size:8.5px;line-height:1.5;max-width:60mm;overflow-wrap:anywhere}
+.c-residence .c-res-station svg{width:7mm;height:7mm;flex:none}
+.c-residence .c-res-main{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 64mm;gap:4mm}
+.c-residence .c-res-mid{display:flex;flex-direction:column;gap:2mm;min-height:0;min-width:0}
+.c-residence .c-caption{font-family:"Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif;font-size:14px;font-weight:500;line-height:1.5;padding-bottom:1.5mm;border-bottom:1px solid #c9ced6;flex:none}
+.c-residence .c-res-feats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2mm;flex:none;font-family:"Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif;font-size:7.5px;line-height:1.45}
+.c-residence .c-res-feats div{display:flex;align-items:center;gap:1.5mm;min-width:0;overflow-wrap:anywhere}
+.c-residence .c-res-feats svg{width:6.5mm;height:6.5mm;flex:none;color:var(--accent)}
+.c-residence .f-investment{flex:none;background:var(--soft);border-left:2px solid var(--accent)}
+.c-residence .f-investment strong{color:var(--accent)}
+.c-residence .c-res-grid{flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:minmax(0,1fr);gap:1.5mm}
+.c-residence .c-res-grid[data-count="0"]{display:none}
+.c-residence .c-res-grid[data-count="1"]{grid-template-columns:1fr}
+.c-residence .c-res-grid[data-count="3"]{grid-template-columns:repeat(3,1fr)}
+.c-residence .c-res-grid figcaption{left:0;right:auto;bottom:1.2mm;padding:.4mm 6mm;background:var(--accent);color:#fff;font-size:6.5px;letter-spacing:.5px}
+.c-residence .c-res-mid .f-note{flex:none}
+.c-residence .c-res-plancol{display:flex;flex-direction:column;gap:2mm;min-height:0;min-width:0;border-left:1px solid #e3e6eb;padding-left:3mm}
+.c-residence .c-res-tab{align-self:flex-start;background:var(--accent);color:#fff;font-family:"Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif;font-size:9px;padding:1.2mm 5mm}
+.c-residence .c-res-plancol .c-plan{flex:1}
+.c-residence .c-res-plancol .plan-frame{border:0}
+.c-residence .c-res-plancol .plan-frame figcaption{display:none}
+.c-residence .c-res-remarks{flex:none;font-size:7.5px;line-height:1.55;overflow-wrap:anywhere}
+.c-residence .c-res-remarks h3{display:flex;align-items:center;gap:2mm;font-family:"Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif;font-size:9px;font-weight:500;margin:0 0 1mm}
+.c-residence .c-res-remarks h3::after{content:"";flex:1;border-top:1px solid #c9ced6}
+.c-residence .c-res-remarks ul{margin:0 0 .8mm;padding-left:3mm}
+.c-residence .c-res-remarks p{margin:0}
+.flyer.c-residence .f-footer{border-top:0;position:relative;margin-top:1mm}
+.flyer.c-residence .f-footer::before{content:"";position:absolute;left:0;right:0;top:-1mm;height:1mm;background:linear-gradient(90deg,#1f3556,#3d6a9e 70%,#c9d6e6)}
+.flyer.c-residence .f-footer .f-company>strong{font-family:"Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif;color:var(--accent)}
+.flyer.c-residence .f-footer .company-number:first-child strong{color:var(--accent)}
