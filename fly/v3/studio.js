@@ -22,7 +22,7 @@
   ];
   const defaults = {mode:'residence',areaType:'測定方法要確認',tax:'税区分要確認',rights:'所有権',transaction:'媒介',company:'株式会社スマートアイズ',companyAddress:'〒160-0023 東京都新宿区西新宿7-3-10 山京ビル401',license:'東京都知事(1)第112700号',phone:'03-5358-9289',fax:'03-5358-9296',companyWebsite:'https://www.smarteyes.co.jp',email:'info@smarteyes.co.jp'};
   let assets = [], candidates = [], chosen = 0, sample = false, dirty = false, activeSlot = null, activeAdjustment = null;
-  function notice(text) { $('notice').hidden = false; $('notice').textContent = text; }
+  function notice(text, reveal=false) { $('notice').hidden = false; $('notice').textContent = text; if(reveal) $('notice').scrollIntoView({behavior:'smooth',block:'center'}); }
   $('fields').innerHTML = schema.map(([title,fields]) => `<details class="field-group" ${title==='基本信息'?'open':''}><summary>${title}</summary><div class="field-grid">${fields.map(([key,label,type='text',options]) => {
     const attrs = `id="field-${key}" name="${key}"`;
     let input;
@@ -128,9 +128,9 @@
   $('applyCrop').addEventListener('click',()=>{candidates[chosen].adjustments[activeSlot]={...activeAdjustment};$('cropDialog').close();renderResults();});
   function overflowed() {return [...$('printMount').querySelectorAll('.f-company,.f-contact,.f-reference,.company-number,.flyer,.f-details,.f-left,.f-title,.f-price,.f-footer,.detail-section,.f-story,.c-plan,.c-poster-panel,.c-spread-story,.c-drawing-data,.c-offer')].some((el)=>el.scrollHeight>el.clientHeight+2 || el.scrollWidth>el.clientWidth+2);}
   $('printButton').addEventListener('click',()=>{
-    if(dirty){notice('资料或图片已经修改，请先重新生成方案，再导出。');return;}
+    if(dirty){notice('资料或图片已经修改，请先按「一键生成」重新生成方案，再导出。',true);return;}
     const mount=$('printMount');mount.style.display='block';const bad=overflowed();mount.style.display='';
-    if(bad){notice('当前资料超出版面，请精简备注、交通或公司信息后重新生成，再导出。');return;}
+    if(bad && !window.confirm('当前资料可能超出版面，超出的文字会被裁掉。\n仍然打印 / 保存 PDF 吗？')){notice('已取消导出：当前资料超出版面，请精简备注、交通或公司信息后重新生成。',true);return;}
     document.title=`${candidates[chosen].data.name}_${candidates[chosen].name}_v3`;window.print();
   });
   function downloadJSON(value,name) {const url=URL.createObjectURL(new Blob([JSON.stringify(value)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
