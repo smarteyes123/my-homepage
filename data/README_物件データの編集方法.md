@@ -26,7 +26,7 @@ Excel の「CSV（コンマ区切り）」で保存すると Shift-JIS になり
 |---|---|---|
 | `public` | **公開するか** | `yes` で公開。それ以外(`no` など)は非公開で表示されません |
 | `type` | 種別 | `sale`(売買) / `rent`(賃貸) / `investment`(投資) のいずれか |
-| `area` | エリア | `shinjuku` / `shibuya` / `minato` / `chiyoda` のいずれか |
+| `area` | エリア | `shinjuku` / `shibuya` / `minato` / `chiyoda` / `kita`(北区) / `ibaraki`(茨城県) のいずれか |
 | `title` | 物件名 | 自由 |
 | `location` | 所在地 | 自由（例: 新宿区西新宿） |
 | `price` | 価格 | **数字だけ**。カンマや「円」は入れない（例: `85000000`）。表示時に自動でカンマが付きます |
@@ -36,6 +36,7 @@ Excel の「CSV（コンマ区切り）」で保存すると Shift-JIS になり
 | `floor` | 階数 | 例: `15/20階` |
 | `features` | 特徴タグ | **縦棒 `|` で区切る**（例: `3LDK|築5年|南向き`） |
 | `images` | 写真のファイル名 | `img/properties/` に置いた写真の**ファイル名だけ**を書く。複数は縦棒区切り（例: `bukken-1.jpg|bukken-2.jpg`）。空欄なら色地のサムネイルになります |
+| `pdf` | 物件資料PDF | `pdf/properties/` に置いた PDF の**ファイル名だけ**（半角英数・`-`・`_`・`.` のみ。例: `olio-shibuya.pdf`）。入っていればカードに「物件資料（PDF）」ボタンが出ます。**成約・掲載終了時は `public` を `no` にし、PDF も削除してください** |
 
 ### 補足
 

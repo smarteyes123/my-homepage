@@ -54,6 +54,7 @@
     .pstats dt{font-size:10.5px;letter-spacing:.1em;color:var(--ink-3);text-transform:uppercase}
     .pstats dd{margin:4px 0 0;font-size:13px;font-weight:600;color:var(--ink-2);overflow-wrap:anywhere}
     .pbody .tags{margin-top:18px}
+    .pbody .ppdf{margin-top:20px;align-self:flex-start}
     .empty{padding:56px 24px;text-align:center;color:var(--ink-3);font-size:14.5px;
       border:1px solid var(--line);border-top:0;background:var(--paper)}
 
@@ -149,6 +150,8 @@
             <option value="shibuya" data-i18n="properties.filterAreaShibuya">渋谷区</option>
             <option value="minato" data-i18n="properties.filterAreaMinato">港区</option>
             <option value="chiyoda" data-i18n="properties.filterAreaChiyoda">千代田区</option>
+            <option value="kita">北区</option>
+            <option value="ibaraki">茨城県</option>
           </select>
         </div>
         <div class="field">
@@ -421,6 +424,14 @@ document.addEventListener('DOMContentLoaded', function () {
       var tags = el('ul', 'tags');
       feats.forEach(function (f){ tags.appendChild(el('li', null, f)); });
       body.appendChild(tags);
+    }
+
+    if (p.pdf && /^[\w.-]+\.pdf$/i.test(p.pdf)){
+      var dl = el('a', 'btn ppdf', SmartEyes.t('properties.pdf', '物件資料（PDF）'));
+      dl.href = 'pdf/properties/' + p.pdf;
+      dl.target = '_blank';
+      dl.rel = 'noopener';
+      body.appendChild(dl);
     }
 
     art.appendChild(body);
