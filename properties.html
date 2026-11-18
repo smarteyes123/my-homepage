@@ -28,6 +28,21 @@
     .cats h3{margin:16px 0 0;font-size:18px;font-weight:700;line-height:1.6}
     .cats p{margin:12px 0 0;font-size:14px;color:var(--ink-3);line-height:1.9;overflow-wrap:anywhere}
 
+    /* 物件をすぐ見せる：ページ見出しを低く、検索は1行・スマホは折りたたみ */
+    section.page-hero{padding:0}
+    .page-hero .wrap{padding-top:clamp(28px,4vw,44px);padding-bottom:clamp(24px,3.5vw,40px)}
+    .listing-top{padding-top:clamp(20px,3vw,32px)}
+    .filter{margin:0 0 16px}
+    .filter>summary{display:none;cursor:pointer;font-size:14px;font-weight:700;padding:12px 16px;border:1px solid var(--line);background:var(--paper);list-style:none}
+    .filter>summary::-webkit-details-marker{display:none}
+    .filter>summary::after{content:'＋';float:right}
+    .filter[open]>summary::after{content:'－'}
+    .search-compact{padding:14px 16px;margin:0;display:flex;gap:14px;align-items:flex-end}
+    .search-compact .grid{gap:12px;flex:1}
+    .search-compact .acts{margin-top:0}
+    .search-compact .acts .btn{min-width:96px}
+    @media (max-width:1000px){ .search-compact{display:block} .search-compact .acts{margin-top:12px} }
+    @media (max-width:600px){ .filter>summary{display:block} .filter[open]>summary{border-bottom:0} }
     .hits{display:flex;align-items:baseline;justify-content:space-between;gap:16px;
       padding-bottom:16px;border-bottom:1px solid var(--line);margin-bottom:0}
     .hits .n{font-size:13px;color:var(--ink-3);font-variant-numeric:tabular-nums}
@@ -124,14 +139,15 @@
   </nav>
 </div>
 
-<!-- 検索 -->
-<section>
+
+
+
+<!-- 物件一覧(公開物件が 0 件なら JS が hidden にする) -->
+<section id="listingSection" class="listing-top" hidden>
   <div class="wrap">
-    <div class="sec-head rv">
-      <div class="eyebrow">Search</div>
-      <h2 class="sec-title" data-i18n="properties.searchTitle">物件検索</h2>
-    </div>
-    <form class="search rv" id="searchForm">
+    <details class="filter" id="filterBox" open>
+      <summary data-i18n="properties.searchTitle">物件検索</summary>
+    <form class="search search-compact" id="searchForm">
       <div class="grid">
         <div class="field">
           <label class="label" for="propertyType" data-i18n="properties.filterType">物件種別</label>
@@ -168,11 +184,18 @@
         <button class="btn btn-dark" type="submit"><span data-i18n="properties.searchButton">検索</span></button>
       </div>
     </form>
+    </details>
+    <div class="rv">
+      <div class="hits">
+        <span class="n" id="hitCount"></span>
+      </div>
+      <div class="plist" id="plist"></div>
+    </div>
   </div>
 </section>
 
 <!-- カテゴリー -->
-<section class="tint">
+<section>
   <div class="wrap">
     <div class="sec-head rv">
       <div class="eyebrow">Categories</div>
@@ -195,23 +218,6 @@
         <h3 data-i18n="properties.categoryInvestmentTitle">投資物件</h3>
         <p data-i18n="properties.categoryInvestmentDesc">収益性の高い投資用物件と詳細な分析レポートをご提供</p>
       </article>
-    </div>
-  </div>
-</section>
-
-<!-- 物件一覧(公開物件が 0 件なら JS が hidden にする) -->
-<section id="listingSection" hidden>
-  <div class="wrap">
-    <div class="sec-head rv">
-      <div class="eyebrow">Listings</div>
-      <h2 class="sec-title" data-i18n="properties.featuredTitle">おすすめ物件</h2>
-      <p class="sec-desc" data-i18n="properties.featuredDescription">厳選された優良物件をご紹介</p>
-    </div>
-    <div class="rv">
-      <div class="hits">
-        <span class="n" id="hitCount"></span>
-      </div>
-      <div class="plist" id="plist"></div>
     </div>
   </div>
 </section>
@@ -502,6 +508,9 @@ document.addEventListener('DOMContentLoaded', function () {
       if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); pick(); }
     });
   });
+
+  var filterBox = document.getElementById('filterBox');
+  if (filterBox && window.matchMedia('(max-width:600px)').matches) filterBox.removeAttribute('open');
 
   SmartEyes.onLanguage(render);
 
