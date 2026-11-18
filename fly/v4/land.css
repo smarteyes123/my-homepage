@@ -1,0 +1,234 @@
+/* 土地概要表（土地専用構図）。2026-11-18｜本地 Qwen3.8-27B 初稿，Claude Opus 5.5 审改：分区间距、照片撑满。 */
+.flyer.c-landsheet {
+  --accent: #1f3556;
+  --ink: #1b2533;
+  padding: 6mm 7mm 4mm;
+  gap: 2mm;
+  background: #fff;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.c-landsheet .ls-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 2mm;
+}
+
+.c-landsheet .ls-head-l {
+  min-width: 0;
+}
+
+.c-landsheet .c-label {
+  margin: 0;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.c-landsheet .f-title {
+  margin: 0.5mm 0 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1.1;
+}
+
+.c-landsheet .c-caption {
+  margin: 1mm 0 0;
+  font-size: 10px;
+  color: var(--ink);
+}
+
+.c-landsheet .ls-head-r {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.c-landsheet .f-price {
+  margin: 0;
+  display: inline-block;
+}
+
+.c-landsheet .f-price small {
+  display: block;
+  font-size: 9px;
+  color: var(--ink);
+}
+
+.c-landsheet .f-price strong {
+  font-size: 34px;
+  font-weight: 800;
+  color: #c8242b;
+  line-height: 1;
+}
+
+.c-landsheet .f-price b {
+  font-size: 12px;
+  color: var(--ink);
+  margin-left: 1mm;
+}
+
+.c-landsheet .f-price em {
+  display: block;
+  font-style: normal;
+  font-size: 8px;
+  color: #6b7688;
+}
+
+.c-landsheet .ls-unit {
+  margin: 1mm 0 0;
+  font-size: 9px;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.c-landsheet .ls-body {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 104mm;
+  gap: 4mm;
+}
+
+.c-landsheet .ls-media {
+  min-height: 0;
+  display: grid;
+  grid-template-rows: 1.25fr 1fr auto;
+  gap: 2mm;
+}
+
+.c-landsheet .ls-media-top,
+.c-landsheet .ls-media-bottom {
+  min-height: 0;
+}
+
+.c-landsheet .ls-media-bottom {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2mm;
+}
+
+.c-landsheet .ls-media-bottom .ls-plan:only-child {
+  grid-column: 1 / -1;
+}
+
+.c-landsheet .ls-plan {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.c-landsheet .ls-plan .plan-frame {
+  flex: 1;
+  min-height: 0;
+}
+
+.c-landsheet .ls-photo2 {
+  min-height: 0;
+}
+
+.c-landsheet .ls-tab {
+  margin: 0 0 1mm;
+  background: var(--accent);
+  color: #fff;
+  font-size: 8px;
+  font-weight: 700;
+  padding: 0.6mm 2mm;
+  align-self: flex-start;
+}
+
+.c-landsheet .ls-transit {
+  margin: 0;
+  font-size: 8.5px;
+  line-height: 1.4;
+  color: var(--ink);
+}
+
+.c-landsheet .ls-spec {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.c-landsheet .f-note {
+  margin: 1.5mm 0 0;
+  font-size: 7.5px;
+  line-height: 1.35;
+  color: #6b7688;
+}
+
+.land-sheet {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  font-size: 8.5px;
+  line-height: 1.35;
+  color: var(--ink, #1b2533);
+}
+
+.land-sheet .ls-c1 { width: 7mm; }
+.land-sheet .ls-c2 { width: 15mm; }
+.land-sheet .ls-c4 { width: 15mm; }
+
+.land-sheet th,
+.land-sheet td {
+  border: 1px solid #1f3556;
+  padding: 0.9mm 1mm;
+  text-align: center;
+  vertical-align: middle;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.land-sheet .ls-sec {
+  writing-mode: vertical-rl;
+  background: #1f3556;
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.land-sheet .ls-k {
+  background: #e6edf6;
+  color: #1f3556;
+  font-weight: 700;
+}
+
+.land-sheet .ls-k small {
+  display: block;
+  font-weight: 400;
+  font-size: 7px;
+}
+
+.land-sheet .ls-addr {
+  font-size: 11px;
+  font-weight: 700;
+  color: #1f3556;
+}
+
+.land-sheet .ls-remarks {
+  text-align: left;
+}
+
+.land-sheet .ls-gap td {
+  height: 1.2mm;
+  padding: 0;
+  border: 0;
+}
+
+.c-landsheet .ls-media-top > .photo-frame,
+.c-landsheet .ls-media-top > .plan-frame,
+.c-landsheet .ls-photo2 > .photo-frame {
+  width: 100%;
+  height: 100%;
+}
+
+/* 审改：表格纵向撑满右栏、标签列加宽、区画图不重复标题 */
+.c-landsheet .ls-spec .land-sheet { flex: 1 1 auto; height: 100%; font-size: 9.5px; }
+.c-landsheet .ls-spec .land-sheet .ls-addr { font-size: 12px; }
+.land-sheet .ls-c2, .land-sheet .ls-c4 { width: 18mm; }
+.c-landsheet .ls-plan .plan-frame figcaption { display: none; }
