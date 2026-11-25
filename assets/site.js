@@ -217,7 +217,7 @@
   }
 
   // 背景写真。人物の顔が写っているもの・白飛びして白文字が乗らないもの・
-  // ほぼ同一カットの重複を除いた 8 枚から選ぶ。
+  // ほぼ同一カットの重複を除いた 8 枚から選ぶ。img/hero/ は 1280px 幅 WebP 圧縮版(2026-11-25)。
   var HERO_POOL = [13, 18, 22, 23, 25, 26, 28, 35];
   function heroImage() {
     document.querySelectorAll('[data-hero-img]').forEach(function (img) {
@@ -225,7 +225,7 @@
       img.addEventListener('load', function () { img.classList.add('on'); }, { once: true });
       // 読めなくても紺の下地が残るので、崩れずに文字は読める
       img.addEventListener('error', function () { img.remove(); }, { once: true });
-      img.src = 'img/' + n + '.JPEG';
+      img.src = 'img/hero/' + n + '.webp';
     });
   }
 
