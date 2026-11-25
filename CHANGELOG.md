@@ -2,6 +2,7 @@
 
 ## 2026-11-25
 
+- 2026-11-25 21:21｜Claude Opus 5.5（assets/starfield.js 由 AI 池 Qwen3.8-27B 按规格编写，审查后退回返修 1 次）｜首页首屏背景改为 canvas 星空（藏青底、约一成金色星、鼠标视差、偶发流星；按面积 60–220 颗；光晕贴图预渲染；滚出视野/切走标签页即停）。系统开「减少动态效果」或不支持 canvas 时保留原照片。实测每帧 0.5ms（电脑）/0.08ms（手机 CPU 降 4 倍），60 帧；自动验收全绿，种错（滚走不停、照片照下）均报警。
 - 2026-11-25 21:13｜Claude Opus 5.5（替换片段由 AI 池 Qwen3.8-27B 两台并行生成后审核）｜四个公开页加分享配图 og:image（img/og-image.jpg 1200×630）、og:site_name/locale、twitter:card；首页与会社概要加 RealEstateAgent 结构化数据（地址・电话・执照与会社概要原文一致）；sitemap.xml 去掉已跳转的 rental-form.html、更新 lastmod；首屏背景 8 张改用 img/hero/ 1280px WebP（2.9MB→1.8MB）；物件页「物件資料(PDF)」按钮加边框（btn-line）。自动验收全绿（种错验证会报警）、手机 390px 无横向溢出、原有 27 项测试通过。
 
 ## 2026-11-18

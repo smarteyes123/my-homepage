@@ -221,6 +221,7 @@
   var HERO_POOL = [13, 18, 22, 23, 25, 26, 28, 35];
   function heroImage() {
     document.querySelectorAll('[data-hero-img]').forEach(function (img) {
+      if (img.closest('.has-stars')) return; // 星空背景が動いている時は写真を読まない(starfield.js)
       var n = HERO_POOL[Math.floor(Math.random() * HERO_POOL.length)];
       img.addEventListener('load', function () { img.classList.add('on'); }, { once: true });
       // 読めなくても紺の下地が残るので、崩れずに文字は読める
